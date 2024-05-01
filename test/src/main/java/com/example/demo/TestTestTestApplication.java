@@ -21,6 +21,9 @@ public class TestTestTestApplication {
 		System.out.println("hello c#");
 		System.out.println("hello c#");
 		System.out.println("hello c#");
+		System.out.println("hello ㅇ#");
+		System.out.println("hello ㄹ#");
+		System.out.println("hello ㅁ#");
 	}
 
 }
