@@ -15,6 +15,7 @@ public class TestTestApplication {
 		System.out.println("hello mysql");
 		System.out.println("hello linux");
 		System.out.println("hello eclipse");
+		System.out.println("hello c#");
 	}
 
 }
