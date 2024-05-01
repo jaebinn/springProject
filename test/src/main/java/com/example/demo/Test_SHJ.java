@@ -6,14 +6,7 @@ public class Test_SHJ {
 		System.out.println("gkdldkdld");
 		System.out.println("중리가쟈");
 		System.out.println("중리가쟈 안갈껴??");
-
 		System.out.println("심한주 simhaju");
-
-		System.out.println("한줄더 추가하기");
-		System.out.println("한줄더 더 추가하기");
-		System.out.println("한줄더 더 추가하기");
-		System.out.println("한줄더 더 추가하기");
-		System.out.println("한줄더 더 추가하기");
-		System.out.println("한줄더 더 추가하기");
+	
 	}
 }
