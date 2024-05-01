@@ -11,5 +11,17 @@ public class Test_SHJ {
 		System.out.println("한줄더 더 추가하기");
 		System.out.println("한줄더 더 추가하기");
 		System.out.println("한줄더 더 추가하기");
+		System.out.println("한줄더 더 추가하기");
+		System.out.println("한줄더 더 추가하기");
+		System.out.println("한줄더 더 추가하기");
+		System.out.println("한줄더 더 추가하기");
+		System.out.println("한줄더 더 추가하기");
+		System.out.println("한줄더 더 추가하기");
+		System.out.println("한줄더 더 추가하기");
+		System.out.println("한줄더 더 추가하기");
+		System.out.println("한줄더 더 추가하기");
+		System.out.println("한줄더 더 추가하기");
+		System.out.println("한줄더 더 추가하기");
+		System.out.println("한줄더 더 추가하기");
 	}
 }
