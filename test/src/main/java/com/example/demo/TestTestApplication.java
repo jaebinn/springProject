@@ -14,6 +14,7 @@ public class TestTestApplication {
 		System.out.println("hello python");
 		System.out.println("hello mysql");
 		System.out.println("hello linux");
+		System.out.println("hello eclipse");
 	}
 
 }
