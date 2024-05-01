@@ -4,5 +4,6 @@ public class TestMDM {
 	public void MDMTest() {
 		System.out.println("커밋 테스트!!!");
 		System.out.println("커밋 테스트2");
+		System.out.println("커밋 테스트3");
 	}
 }
