@@ -1,13 +1,13 @@
-package com.example.demo;
+package com.gl.givuluv;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class TestTestApplication {
+public class GivuluvApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TestApplication.class, args);
-		System.out.println("hello world");
+		SpringApplication.run(GivuluvApplication.class, args);
 	}
+
 }
