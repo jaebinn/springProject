@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class TestTestApplication {
+public class TestTestTestApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(TestApplication.class, args);
@@ -16,5 +16,14 @@ public class TestTestApplication {
 		System.out.println("hello linux");
 		System.out.println("hello eclipse");
 		System.out.println("hello c#");
+		System.out.println("hello c#");
+		System.out.println("hello c#");
+		System.out.println("hello c#");
+		System.out.println("hello c#");
+		System.out.println("hello c#");
+		System.out.println("hello ㅇ#");
+		System.out.println("hello ㄹ#");
+		System.out.println("hello ㅁ#");
 	}
+
 }
