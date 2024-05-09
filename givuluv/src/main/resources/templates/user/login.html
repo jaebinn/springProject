@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>로그인</title>
+<link rel="stylesheet" href="/css/login.css">
+</head>
+<body>
+	<!-- 헤더 -->
+	<th:block th:replace="~{layout/header::header()}"></th:block>
+	<!-- 컨텐츠 -->
+	<div class="container login">			
+		<div class="content">
+			<h1>GivuLuv 로그인</h1>
+			<div class="register_text">
+				<span>신규 사용자이신가요?</span>
+				<a href="/user/register" id="register">계정 만들기</a>
+			</div>
+			<div class="login-input">
+				<form action="" method="post">
+					<div class="login-input-wrap">
+						<input type="text" name="userid" id="userid" placeholder="아이디"><br>
+						<input tpye="password" name="userpw" id="userpw" placeholder="비밀번호"><br>
+						<button type="submit" id="loginBtn">로그인</button>						
+					</div>
+				</form>
+			</div>
+			<div class="find">
+				<a href="#">아이디 찾기</a>
+				<span> / </span>
+				<a href="#">비밀번호 찾기</a>				
+			</div>
+			<div class="kakao">
+				<span th:if="${userId==null}">
+					<a href="https://kauth.kakao.com/oauth/authorize?client_id=9ab3fade4a59b62141d875116fa51d64&redirect_uri=http://localhost:8080/login&response_type=code">
+						<img src = "/images/kakao_login_medium_narrow.png">
+					</a>
+				</span>
+				<span th:if="${userId!=null}">
+					<form name="logout" action="http://localhost:8080/logout">
+						<input type="submit" value="로그아웃">
+					</form>
+				</span>
+			</div>
+		</div>
+	</div>
+	<!-- 푸터 -->
+	<th:block th:replace="~{layout/footer::footer()}"></th:block>
+</body>
+</html>
