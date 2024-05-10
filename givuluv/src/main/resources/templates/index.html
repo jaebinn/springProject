@@ -2,136 +2,145 @@
 <html>
 
 <head>
-	<meta charset="UTF-8">
-	<title>GivuLuv</title>
-	<link rel="stylesheet" href="/css/index.css">
-	<link rel="stylesheet" href="/css/header_footer.css">	
-	<script src="https://kit.fontawesome.com/516da99189.js" crossorigin="anonymous"></script>
+   <link rel="stylesheet" href="/css/index.css">
+   <link rel="stylesheet" href="/css/header_footer.css">
+   <script src="https://kit.fontawesome.com/516da99189.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="/css/login.css">
+<link rel="stylesheet" href="/css/header_footer.css">
 </head>
-
 <body>
-	<!-- header -->
-	<th:block th:replace="~{layout/header::header()}"></th:block>
-	<!-- 컨텐츠 -->
-	<div class="wrap indexwrap">
-		<aside id="intro" class="intro">
-			<!-- 소개 -->
-			<h1>" 사랑을 기부하세요 "</h1>
-			<h1>" GivuLuv "</h1>
-		</aside>
-		<aside id="banner_box" class="banner_box">
-			<!-- 배너 -->
-			<div class="prev"><i class="fa-solid fa-arrow-left fa-2xl"></i></div>
-			<div class="banner_slide_box">
-				<div id="slide_banner" class="slide_banner">
-					<div id="banner0" class="banner">
-						<a href="#"><img
-								src="https://image.cherry.charity/static/publish/givecherry/banner/banner-chest.png"
-								alt="banner1"></a>
-					</div>
-					<div id="banner1" class="banner">
-						<a href="#"><img
-								src="https://image.cherry.charity/static/publish/givecherry/banner/banner-salvationarmy.png"
-								alt="banner2"></a>
-					</div>
-					<div id="banner2" class="banner">
-						<a href="#"><img
-								src="https://image.cherry.charity/static/publish/givecherry/banner/banner-cherrycard.png"
-								alt="banner3"></a>
-					</div>
-					<!--	javascript
-					str = '';
-					for(i=0;i<divbanner.length;i++){
-						str += "<div id="banner${i}" class="banner">";
-						str += "<a href=""><img src=`/img/${사진}`></a>"
-						str += "</div>"
-					}
-					$(.slide_banner).html(str);
-			}-->
-				</div>
-			</div>
-			<div class="next"><i class="fa-solid fa-arrow-right fa-2xl"></i></div>
-		</aside>
-		<section class="live_luv_box row mt">
-			<!-- 실시간 누적 기부금 -->
-			<div>
-				<h2>오늘까지</h2>
-				<h2>기부된 사랑</h2>
-			</div>
-			<div>
-				<p>기부</p>
-				<div class="column">
-					<p class="column_center right"><span id="donation_people" class="count">0</span>명</p>
-					<p class="column_center right"><span id="donation_save_money" class="count">0</span>원</p>
-				</div>
-			</div>
-			<div>
-				<p>펀딩</p>
-				<div class="column">
-					<p class="column_center right"><span id="funding_people" class="count">0</span>명</p>
-					<p class="column_center right"><span id="funding_save_money" class="count">0</span>원</p>
-				</div>
-			</div>
-		</section>
-		<section class="donation_box column mt">
-			<!-- 기부 -->
-			<a href="a"><h2># 기부</h2></a>
-			<div class="donations">
-				<div id="donation0" class="donation">
-					<a href="#">
-						<div>	<!-- hover에서 내려가면서 없어지기 overflow / background img-->
-							<p id="donation_title">제목</p>
-							<div class="row_graph_box">
-								<div class="row_graph">
-									<div style="width:42%"> <!--총금액*실제금액*1/100-->
-										<p id="donation_save_money">기부금</p>
-									</div> <!-- 실제 수치 안에 기부금 넣고 absolute right 0 bottom -20px 정도? -->
-								</div>
-								<div>
-									<p id="donation_target_amount">목표액</p>
-								</div>						
-							</div>
-						</div>
-					</a>
-				</div>
-				<div id="donation1" class="donation">
-					
-				</div>
-				<div id="donation2" class="donation">
-					
-				</div>
-				<div id="donation3" class="donation">
-					
-				</div>
-				<div id="donation4" class="donation">
-					
-				</div>
-			</div>
-		</section>
-		<section class="funding_box column mt">
-			<!-- 펀딩 -->
-			<a href="#"><h2># 펀딩</h2></a>
-			
-		</section>
-		<section class="store_box column mt">
-			<!-- 가게 -->
-			<a href="#"><h2># 가게</h2></a>
-			
-		</section>
-		<section class="org_box column mt mb">
-			<!-- 단체 자동 롤링 -->
-			<a href="#"><h2># 단체</h2></a>
-			<div>
+   <!-- header -->
+   <th:block th:replace="~{layout/header::header()}"></th:block>
+   <!-- 컨텐츠 -->
+   <div class="wrap indexwrap">
+      <aside id="intro" class="intro">
+         <!-- 소개 -->
+         <h1>" 사랑을 기부하세요 "</h1>
+         <h1>" GivuLuv "</h1>
+      </aside>
+      <aside id="banner_box" class="banner_box">
+         <!-- 배너 -->
+         <div class="prev"><i class="fa-solid fa-arrow-left fa-2xl"></i></div>
+         <div class="banner_slide_box">
+            <div id="slide_banner" class="slide_banner">
+               <div id="banner0" class="banner">
+                  <a href="#"><img
+                        src="https://image.cherry.charity/static/publish/givecherry/banner/banner-chest.png"
+                        alt="banner1"></a>
+               </div>
+               <div id="banner1" class="banner">
+                  <a href="#"><img
+                        src="https://image.cherry.charity/static/publish/givecherry/banner/banner-salvationarmy.png"
+                        alt="banner2"></a>
+               </div>
+               <div id="banner2" class="banner">
+                  <a href="#"><img
+                        src="https://image.cherry.charity/static/publish/givecherry/banner/banner-cherrycard.png"
+                        alt="banner3"></a>
+               </div>
+               <!--   javascript
+               str = '';
+               for(i=0;i<divbanner.length;i++){
+                  str += "<div id="banner${i}" class="banner">";
+                  str += "<a href=""><img src=`/img/${사진}`></a>"
+                  str += "</div>"
+               }
+               $(.slide_banner).html(str);
+         }-->
+            </div>
+         </div>
+         <div class="next"><i class="fa-solid fa-arrow-right fa-2xl"></i></div>
+      </aside>
+      <section class="live_luv_box row mt">
+         <!-- 실시간 누적 기부금 -->
+         <div>
+            <h2>오늘까지</h2>
+            <h2>기부된 사랑</h2>
+         </div>
+         <div>
+            <p>기부</p>
+            <div class="column">
+               <p class="column_center right"><span id="donation_people" class="count">0</span>명</p>
+               <p class="column_center right"><span id="donation_save_money" class="count">0</span>원</p>
+            </div>
+         </div>
+         <div>
+            <p>펀딩</p>
+            <div class="column">
+               <p class="column_center right"><span id="funding_people" class="count">0</span>명</p>
+               <p class="column_center right"><span id="funding_save_money" class="count">0</span>원</p>
+            </div>
+         </div>
+      </section>
+      <section class="donation_box column mt">
+         <!-- 기부 -->
+         <a href="a"><h2># 기부</h2></a>
+         <div class="donations">
+            <div id="donation0" class="donation">
+               <a href="#">
+                  <div>   <!-- hover에서 내려가면서 없어지기 overflow / background img-->
+                     <p id="donation_title">제목</p>
+                     <div class="row_graph_box">
+                        <div class="row_graph">
+                           <div style="width:42%"> <!--총금액*실제금액*1/100-->
+                              <p id="donation_save_money">기부금</p>
+                           </div> <!-- 실제 수치 안에 기부금 넣고 absolute right 0 bottom -20px 정도? -->
+                        </div>
+                        <div>
+                           <p id="donation_target_amount">목표액</p>
+                        </div>                  
+                     </div>
+                  </div>
+               </a>
+            </div>
+            <div id="donation1" class="donation">
+               
+            </div>
+            <div id="donation2" class="donation">
+               
+            </div>
+            <div id="donation3" class="donation">
+               
+            </div>
+            <div id="donation4" class="donation">
+               
+            </div>
+         </div>
+      </section>
+      <section class="funding_box column mt">
+         <!-- 펀딩 -->
+         <a href="#"><h2># 펀딩</h2></a>
+         
+      </section>
+      <section class="store_box column mt">
+         <!-- 가게 -->
+         <a href="#"><h2># 가게</h2></a>
+         
+      </section>
+      <section class="org_box column mt mb">
+         <!-- 단체 자동 롤링 -->
+         <a href="#"><h2># 단체</h2></a>
+         <div>
 
-			</div>
-		</section>
-	</div>
-	<!-- footer -->
-	<th:block th:replace="~{layout/footer::footer()}"></th:block>
+         </div>
+      </section>
+   </div>
+   <!-- footer -->
+   <th:block th:replace="~{layout/footer::footer()}"></th:block>
 </body>
 <script src="/js/jquery-3.7.1.min.js"></script>
 <script src="/js/index.js"></script>
 <script>
+
+
+
+
+
+
+
+
+
+
 
 </script>
 
