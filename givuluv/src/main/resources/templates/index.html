@@ -4,11 +4,13 @@
 <meta charset="UTF-8">
 <title>GivuLuv</title>
 <link rel="stylesheet" href="/css/login.css">
+<link rel="stylesheet" href="/css/header_footer.css">
 </head>
 <body>
 	<!-- 헤더 -->
 	<th:block th:replace="~{layout/header::header()}"></th:block>
 	<!-- 컨텐츠 -->
+	[[${session.loginUser}]] 환영합니다.
 	<div class="container login">	
 		<a href="/user/login">로그인</a>
 		<a href="/user/kakao">카카오톡</a>

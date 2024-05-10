@@ -1,329 +1,6 @@
-@font-face {
-    font-family: 'TTLaundryGothicB';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/TTLaundryGothicB.woff2') format('woff2');
-    font-weight: 700;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'KCC-Hanbit';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/KCC-Hanbit.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-}
-
-/* header css 시작 */
-* {
-    padding: 0;
-    margin: 0;
-}
-*, *:after, *:before {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-  }
 a{
-    text-decoration: none;
-    color: black;
+	text-decoration: none;	
 }
-ul{
-    list-style: none;
-}
-.header_wrap{
-    width: 100%;
-    height: 80px;
-    margin-top: 15px;
-}
-.h_gnb{
-    width: 1340px;
-    height: 80px;
-    margin: 0 auto;
-    display: flex;
-}
-.h_logobox{
-    width: 365px;
-    height: 80px;
-    display: flex;
-}
-.h_logobox .h_logo{
-    width: 90px;
-    height: 80px;
-    border-radius: 50%;
-}
-.h_logobox .h_logo img{
-    width: 90px;
-    height: 80px;
-}
-.h_logobox .h_tit{
-    width: 140px;
-    height: 40px;
-    margin: 20px 0;
-}
-.h_logobox .h_tit p{
-    font-family: 'TTLaundryGothicB';
-    line-height: 40px;
-    font-size: 40px;
-    text-align: center;
-    color: rgb(231, 112, 151);
-}
-
-.h_gnb_menu{
-    width: 640px;
-    height: 80px;
-}
-.gnb_menu ul{
-    display: flex;
-}
-.gnb_menu ul li {
-    width: 160px;
-    text-align: center;
-    line-height: 80px;
-    padding: 0 30px;
-}
-.h_menu{
-    color: rgb(90, 90, 90);
-    font-size: 25px;
-    font-family: 'TTLaundryGothicB';
-    position: relative;
-    display: block;
-    text-decoration: none;
-    text-transform: uppercase;
-}
-
-.h_menu:after {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    height: 4px;
-    content: '';
-    background: rgb(231, 112, 151);
-    opacity: 0;
-    transition: opacity 0.5s, transform 0.5s;
-    transform: translateY(10px);
-}
-
-.h_menu:hover:after, .h_menu:focus:after {
-    opacity: 1;
-    transform: translateY(0px);
-}
-
-.h_menu:hover, .h_menu:focus{
-      color: rgb(231, 112, 151);
-  }
-
-.h_user_box{
-    width: 335px;
-    height: 80px;
-    padding-left: 85px;    
-}
-.h_user{
-    width: 250px;
-    height: 80px;
-}
-.h_user .h_login{
-    width: 80px;
-    height: 30px;
-    margin: 25px 10px;
-    border-radius: 40px;
-    background-color: rgb(220, 220, 220);
-    text-align: center;
-    line-height: 30px;
-    font-family: 'KCC-Hanbit';
-    color: rgb(70, 70, 70);
-    font-weight: 100;
-    font-size: 14px;
-    float: right;
-    position: relative;
-}
-
-
-.h_user .h_login:before {
-    content: '';
-    position: absolute;
-    z-index: -1;
-    opacity: 1;
-    transform: scale3d(0.8, 0.5, 1);
-}
-  
-.h_user .h_login:hover {
-    background-color: rgb(79, 148, 111);
-    color: white;
-    font-weight: bold;
-}
-  
-.h_user .h_login:hover {
-    transition: background-color 0.1s 0.3s, color 0.1s 0.3s;
-    background-color: rgb(79, 148, 111);
-    color: white;
-    font-weight: bold;
-    animation: anim-moema-1 0.3s forwards;
-}
-  
-  @keyframes anim-moema-1 {
-    50% {
-      transform: scale3d(0.8, 0.8, 1);
-    }
-    100% {
-      transform: scale3d(1, 1, 1);
-    }
-  }
-  
-/* header css 마무리 */
-
-
-/* footer css 시작 */
-
-
-.footer{
-    margin-top: 30px;
-    width: 100%;
-    position: relative;
-}
-.f_sub_line{
-    width: 100%;
-    height: 50px;
-    border-bottom: 1px solid rgb(218, 218, 218);
-    background-color: rgb(245, 245, 245);
-    position: absolute;
-    top: 0; left: 0;
-    z-index: -1;
-}
-.footer_wrap{
-    width: 1340px;
-    height: 250px;
-    margin: 0 auto;
-
-}
-.f_sub_box{
-    width: 1340px;
-    height: 50px;
-    display: inline-flex;
-}
-.f_notice_box{
-    width: 1140px;
-    height: 50px;
-}
-.f_notice_box ul{
-    width: 900px;
-}
-.f_notice_box ul li:first-child{
-    line-height: 50px;
-    width: 100px;
-    float: left;
-    font-size: 15px;
-    font-weight: bold;
-}
-.f_notice_box ul li:nth-child(2){
-    line-height: 50px;
-    font-size: 14px;
-    width: 600px;
-}
-
-.f_sns_box{
-    width: 200px;
-    height: 50px;
-    padding-top: 12.5px;
-}
-.f_sns_box a{
-    margin: 10px;
-}
-.f_sns_box a img{
-    width: 25px;
-    height: 25px;
-    opacity: 0.4;
-    transition: 0.5s;
-}
-
-.f_sns_box a:hover img{
-    animation: pink_filter 0.5s ease-in-out;
-    filter: invert(70%) sepia(17%) saturate(7476%) hue-rotate(300deg) brightness(98%) contrast(85%);
-    opacity: 1;
-}
-@keyframes pink_filter{
-    0%{
-        opacity: 0.3;
-    }
-    50%{
-        filter: invert(70%) sepia(17%) saturate(7476%) hue-rotate(300deg) brightness(98%) contrast(85%);
-        opacity: 0.5;
-    }
-    100%{
-        filter: invert(70%) sepia(17%) saturate(7476%) hue-rotate(300deg) brightness(98%) contrast(85%);
-        opacity: 1;
-    }
-}
-
-.f_info_box{
-    width: 1340px;
-    overflow: hidden;
-    font-size: 14px;
-    color: gray;
-}
-.f_info_law{
-    width: 100%;
-    margin: 20px 0;
-}
-.f_info_law ul li{
-    font-weight: 700;
-    color: rgb(90, 90, 90);
-    display: inline;
-}
-.f_info_law ul li::before{
-    display: inline-block;
-    width: 1px;
-    height: 12px;
-    margin: 0 10px;
-    background-color: #acacac;
-    vertical-align: -1px;
-    content: "";
-}
-.f_info_law ul li:first-child:before {
-    display: none;
-}
-.f_info_law ul li a{
-    color: rgb(90, 90, 90);
-}
-
-.f_info{
-    width: 60%;
-}
-.f_info ul li{
-    color: rgb(90, 90, 90);
-    display: inline;
-    white-space: nowrap;
-    line-height: 23px;
-}
-.f_info ul li::before{
-    display: inline-block;
-    width: 1px;
-    height: 12px;
-    margin: 0 10px;
-    background-color: #acacac;
-    vertical-align: -1px;
-    content: "";
-}
-.f_info ul li:first-child:before, .f_info ul li:nth-child(5):before  {
-    display: none;
-}
-
-.f_copyright{
-    width: 100%;
-    margin-top: 10px;
-    font-size: 14px;
-    color: rgb(90, 90, 90);
-}
-
-.f_copyright a{
-    color: #e77097;
-    font-size: 20px;
-    margin-right: 10px;
-    font-family: 'TTLaundryGothicB';
-}
-
-/* footer css 마무리 */
-
-
-
 body{
 	background-color: #f1f1f1;
 }
@@ -360,6 +37,9 @@ body{
 	border-right: none;
 	font-size: 18px;
 }
+input[type] {
+    text-indent: 5px; 
+}
 .login-input-wrap #userpw{
 	margin-top: 20px;
 }
@@ -382,6 +62,10 @@ body{
 	text-decoration: none;
 	color: rgba(0,0,0,0.8);
 }
+.socialLogin{
+	display: flex;
+	justify-content: center;
+}
 .kakao{
 	text-align: center;
 }
@@ -389,4 +73,24 @@ body{
 	width: 60px;
 	height: 60px;
 	margin-top:20px;
+}
+.naver img{
+	width: 60px;
+	height: 60px;
+	margin-top: 20px;
+	margin-left: 20px;
+}
+#homeIcon{
+	cursor: pointer;
+	color: rgb(79,148,111);
+}
+#homeIcon:hover {
+  transform: scale(1.2); 
+}
+.otherJoin{
+	text-align: center;
+	margin-top: 30px;
+}
+.otherJoin a{
+	color: rgba(0,0,0,0.8);
 }
