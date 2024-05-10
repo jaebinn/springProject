@@ -1,3 +1,6 @@
+a{
+	text-decoration: none;	
+}
 body{
 	background-color: #f1f1f1;
 }
@@ -34,6 +37,9 @@ body{
 	border-right: none;
 	font-size: 18px;
 }
+input[type] {
+    text-indent: 5px; 
+}
 .login-input-wrap #userpw{
 	margin-top: 20px;
 }
@@ -56,6 +62,10 @@ body{
 	text-decoration: none;
 	color: rgba(0,0,0,0.8);
 }
+.socialLogin{
+	display: flex;
+	justify-content: center;
+}
 .kakao{
 	text-align: center;
 }
@@ -63,4 +73,24 @@ body{
 	width: 60px;
 	height: 60px;
 	margin-top:20px;
+}
+.naver img{
+	width: 60px;
+	height: 60px;
+	margin-top: 20px;
+	margin-left: 20px;
+}
+#homeIcon{
+	cursor: pointer;
+	color: rgb(79,148,111);
+}
+#homeIcon:hover {
+  transform: scale(1.2); 
+}
+.otherJoin{
+	text-align: center;
+	margin-top: 30px;
+}
+.otherJoin a{
+	color: rgba(0,0,0,0.8);
 }

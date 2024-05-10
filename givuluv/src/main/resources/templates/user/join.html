@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>회원가입</title>
+<script src="https://kit.fontawesome.com/1924b51539.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="/css/join.css">
+</head>
+<body>
+    <!-- 헤더 -->
+    <th:block th:replace="~{layout/header::header()}"></th:block>
+    <!-- 컨텐츠 -->
+    <div class="container join">           
+        <div class="content">
+			<a href="/user/login"><i class="fa-solid fa-right-to-bracket backPage"></i></a>
+            <h1>회원정보를 입력해주세요.</h1>
+            <div class="join_text">
+				<span id="necessary"><i class="fa-solid fa-star star"></i></span>
+                <span>필수정보입력</span>
+            </div>
+            <div class="join-input">
+                <form action="/user/join" method="post" name="joinForm">
+                    <div class="join-input-wrap">
+						<table class="join_tbl">
+							<tbody>
+								<tr class="id_checkBox">
+									<td>
+										<p id="id_check"></p>
+									</td>
+								</tr>
+								<th>아이디<span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
+								<tr>
+									<td>
+										<input type="text" name="userid" id="userid" placeholder="아이디">									
+									</td>							
+									<td id="btns">
+										<input type="button" value="중복검사" onclick="checkId()" id="checkid">									
+									</td>
+								</tr>							
+								<th>비밀번호<span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
+								<tr>
+									<td>
+										<input type="password" name="userpw" id="userpw">										
+									</td>							
+								</tr>						
+								<th>비밀번호 확인<span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
+								<tr>
+									<td>
+										<input type="password" id="userpw_re" onkeyup="pwcheck()">										
+									</td>							
+								</tr>		
+								<tr class="pw_check">
+									<td>
+										<span id="pw_checkText">🤗</span>
+									</td>
+								</tr>					
+								<th>이름<span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
+								<tr>
+									<td>
+										<input type="text" name="username" id="username">										
+									</td>							
+								</tr>							
+								<th>성별<span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
+								<tr>
+									<td>
+										<ul class="genderBox">
+										    <li class="radio_item">
+												<label for="gender">남</label>
+										        <input type="radio" id="gender" name="gender" value="M">
+										    </li>
+										    <li class="radio_item">
+												<label for="gender">여</label>
+										        <input type="radio" id="gender" name="gender" value="W">
+										    </li>
+										</ul>									
+									</td>							
+								</tr>							
+								<th>생년월일<span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
+								<tr>
+									<td>
+										<input type="date" name="birth" id="birth">										
+									</td>							
+								</tr>							
+								<th>이메일<span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
+								<tr>
+									<td>
+										<input type="email" name="email" id="email">										
+									</td>							
+								</tr>							
+								<th>전화번호<span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
+								<tr>
+									<td>
+										<input type="tel" name="userphone" id="userphone">										
+									</td>							
+								</tr>							
+								<th>닉네임<span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
+								<tr>
+									<td>
+										<input type="text" name="nickname" id="nickname">										
+									</td>							
+								</tr>							
+								<th>우편번호<span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
+								<tr>
+									<td>
+										<input type="text" name="zipcode" id="zipcode">										
+									</td>							
+									<td id="btns">
+										<input type="button" id="findzipcode" value="우편번호 찾기" onclick="findAddr()">
+									</td>
+								</tr>							
+								<th>주소<span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
+								<tr>
+									<td>
+										<input type="text" name="addr" id="addr" readonly>										
+									</td>							
+								</tr>							
+								<th>상세주소</th>
+								<tr>
+									<td>
+										<input type="text" name="addrdetail" id="addrdetail">										
+									</td>							
+								</tr>																			
+								<th>참고항목</th>
+								<tr>
+									<td>
+										<input type="text" name="addretc" id="addretc" readonly>										
+									</td>							
+								</tr>																			
+							</tbody>
+						</table>
+                        <button type="submit" id="joinBtn" onclick="sendit()">가입완료</button>                        
+                    </div>
+                </form>
+            </div>            
+        </div>
+    </div>
+    <!-- 푸터 -->
+    <th:block th:replace="~{layout/footer::footer()}"></th:block>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="/js/user.js"></script>
+<script>
+	
+
+</script>
+</body>
+</html>

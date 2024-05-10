@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <title>로그인</title>
+<script src="https://kit.fontawesome.com/1924b51539.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="/css/login.css">
+<link rel="stylesheet" href="/css/header_footer.css">
 </head>
 <body>
 	<!-- 헤더 -->
@@ -35,16 +37,52 @@
 					<a href="https://kauth.kakao.com/oauth/authorize?client_id=9ab3fade4a59b62141d875116fa51d64&redirect_uri=http://localhost:8080/login&response_type=code">
 						<img src = "/images/kakotalk.png">
 					</a>
-				</span>
-				<span th:if="${userId!=null}">
-					<form name="logout" action="http://localhost:8080/logout">
-						<input type="submit" value="로그아웃">
-					</form>
-				</span>
+				</div>
 			</div>
-		</div>
-	</div>
-	<!-- 푸터 -->
-	<th:block th:replace="~{layout/footer::footer()}"></th:block>
+			<div class="otherJoin">
+				<a href="#">판매자 계정 만들기</a>
+				<span> / </span>
+				<a href="#">사회단체 계정 만들기</a>
+			</div>
+        </div>
+    </div>
+    <!-- 푸터 -->
+    <th:block th:replace="~{layout/footer::footer()}"></th:block>
+	
+	<th:block th:if="${joinid != null}">
+		<script th:inline="javascript">
+			window.onload = function() {
+				let joinid = /*[[${joinid}]]*/'';
+				alert(joinid + '님 가입을 환영합니다~');
+				setTimeout(function(){
+					document.loginForm.userid.value = joinid;
+					document.loginForm.userpw.focus();
+				}, 1300);
+			};
+		</script>
+	</th:block>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+	$(document).ready(function() {
+	    $("#loginBtn").on("click", function() {
+	        let userid = $("#userid").val();
+	        let userpw = $("#userpw").val();
+	        
+	        if (userid === "" && userpw === "") {
+	            alert("아이디와 비밀번호를 입력하세요.");
+	            return false; 
+	        } else if (userid === "") {
+	            alert("아이디를 입력하세요.");
+	            return false; 
+	        } else if (userpw === "") {
+	            alert("비밀번호를 입력하세요.");
+	            return false; 
+	        } else {
+	            return true; 
+	        }
+	    });
+	});
+
+</script>
 </body>
 </html>
