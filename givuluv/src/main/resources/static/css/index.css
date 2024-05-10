@@ -1,0 +1,210 @@
+/* 공통 */
+@font-face {
+    font-family: 'TTLaundryGothicB';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/TTLaundryGothicB.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+*{
+	margin: 0;padding: 0;
+	font-family: 'TTLaundryGothicB';
+}
+input{
+    cursor:pointer;
+}
+ul, ol, li{ list-style: none; }
+table, tr, th, td{
+    border-collapse: collapse;
+    vertical-align: middle;
+}
+a{
+	text-decoration: none;
+	background-color: transparent;
+	color: #424242;
+}
+img{
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+	-webkit-user-drag:none;
+	-khtml-user-drag:none;
+	-moz-user-drag:none;
+	-o-user-drag:none;
+	user-drag:none;
+}
+.hdd{ display: none !important; visibility: hidden !important; }
+.wrap{
+	width: 1340px;
+	margin: 0 auto
+}
+
+
+/* index */
+section > a> h2{
+	font-size: 40px;
+	color: #333;
+}
+.row{
+	display: flex;
+	justify-content: center;
+}
+.column{
+	display: flex;
+	flex-direction: column;
+}
+.right{
+	display: flex;
+	justify-content: right;
+}
+.column_center{
+	display: flex;
+	align-items: center;
+}
+.mt{
+	margin-top: 100px;
+}
+.mb{
+	margin-bottom: 100px;
+}
+
+
+
+/* 소개 */
+.intro{
+	padding: 40px;
+}
+.intro h1{
+	font-size: 40px;
+	text-align: center;
+	color: #333;
+}
+.intro h1:first-child{
+	margin-bottom: 15px;
+}
+
+
+
+/* 배너 */
+.banner_box{
+	display: flex;
+	justify-content: center;
+	align-items:center;
+}
+.banner_slide_box{
+	overflow: hidden;
+	width: 1000px;
+	height: 430px;
+	margin: 40px;
+	border-radius: 30px;
+}
+.slide_banner{
+	width: 100000000000px;
+	transition: 0.5s;
+}
+.banner{
+	float: left;
+	margin: 0 200px;
+}
+.banner:first-child{
+	margin-left:0;
+}
+.banner:last-child{
+	margin-right:0;
+}
+	/* 배너 버튼 */
+.prev, .next{
+	width: 20px;height: 20px;
+	padding: 20px;
+	border-radius:50%;
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.prev:hover, .next:hover{
+	background-color: rgb(231, 112, 151);
+	color: white;
+}
+
+
+
+/* 실시간 누적 기부금 */
+.live_luv_box{
+	background: linear-gradient(to right, rgb(231, 112, 151) 0%, rgb(237, 150, 179) 100%);
+	justify-content: space-evenly;
+	align-items: end;
+	padding: 40px 180px;
+}
+.live_luv_box > div{
+	width: 25%;
+}
+.live_luv_box > div:first-child{
+	width: 200px;
+}
+.live_luv_box > div:first-child > h2{
+	font-size: 40px;
+}
+.live_luv_box h2, .live_luv_box p, .live_luv_box span{
+	color: white;
+}
+.live_luv_box > div p{
+	font-size: 25px;
+}
+.live_luv_box > div > div > p > span{
+	font-size: 40px;
+	margin-right:10px;
+}
+
+
+
+/* 기부 */
+.donations{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+.donation{
+	width: 19%;
+	height: 300px;
+	background-color: rgb(231, 112, 151);
+	margin: 10px 0;
+}
+.no-donation{
+	width: 19%;
+	height: 300px;
+	margin: 10px 0;
+}
+
+.row_graph_box{
+	height: 50%;
+	background: linear-gradient(to top, #424242 0%, rgba(0, 0, 0) 100%);
+}
+.row_graph{
+	width: 96%;
+	height: 5px;
+	background-color: #999;
+}
+.row_graph > div{
+	height: 5px;
+	background-color: rgb(231, 112, 151);
+	position: relative;
+}
+.row_graph > div > p{
+	position: absolute;
+	top: 10px;
+	right: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+	

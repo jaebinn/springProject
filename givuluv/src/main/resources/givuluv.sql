@@ -1,3 +1,6 @@
+create database givuluv;
+use givuluv;
+
 CREATE TABLE `user` (
   `userid` varchar(100) PRIMARY KEY,
   `userpw` varchar(100) NOT NULL,
