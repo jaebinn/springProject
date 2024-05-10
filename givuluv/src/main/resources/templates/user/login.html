@@ -7,8 +7,6 @@
 <link rel="stylesheet" href="/css/login.css">
 </head>
 <body>
-    <!-- 헤더 -->
-    <th:block th:replace="~{layout/header::header()}"></th:block>
     <!-- 컨텐츠 -->
     <div class="container login">           
         <div class="content">
@@ -58,9 +56,6 @@
 			</div>
         </div>
     </div>
-    <!-- 푸터 -->
-    <th:block th:replace="~{layout/footer::footer()}"></th:block>
-	
 	<th:block th:if="${joinid != null}">
 		<script th:inline="javascript">
 			window.onload = function() {

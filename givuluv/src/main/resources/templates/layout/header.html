@@ -1,5 +1,48 @@
 <th:block th:fragment="header()">
-	<nav class="navigation">
-		
-	</nav>
+   <body>
+       <nav class="navigation">
+           <div class="header_wrap">
+               <div class="h_gnb">
+                   <div class="h_logobox">
+                       <a href="/" class="h_logo">
+                           <img src="/images/GivuLuv_logo.png" alt="">
+                       </a>
+                       <a href="/" class="h_tit">
+                           <p>기부러브</p>
+                       </a>
+                   </div>
+                   <div class="h_gnb_menu">
+                       <nav class="gnb_menu">
+                           <ul>
+                               <li>
+                                   <a href="#" data-hover="게시글" class="h_menu">게시글</a>
+                               </li>
+                               <li>
+                                   <a href="#" data-hover="기부" class="h_menu">기부</a>
+                               </li>
+                               <li>
+                                   <a href="#" data-hover="펀딩" class="h_menu">펀딩</a>
+                               </li>
+                               <li>
+                                   <a href="#" data-hover="가게" class="h_menu">가게</a>
+                               </li>
+                           </ul>
+                       </nav>
+                   </div>
+                   <div class="h_user_box">
+                  <th:block th:if="${loginUser == null}">
+                          <div class="h_user">
+                              <a href="/user/login" class="h_login">로그인</a>
+                          </div>
+                  </th:block>
+                  <th:block th:unless="${loginUser == null}">
+                          <div class="h_user">
+                              <a href="/user/login" class="h_login">[[${loginUser}]]</a>
+                              <a href="/user/loout" class="h_login">로그아웃</a>
+                          </div>
+                  </th:block>
+                   </div>
+               </div>
+           </div>
+       </nav>
 <th:block>
