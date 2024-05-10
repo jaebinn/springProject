@@ -56,8 +56,11 @@ body{
 	text-decoration: none;
 	color: rgba(0,0,0,0.8);
 }
+.kakao{
+	text-align: center;
+}
 .kakao img{
-	width: 50%;
-	height: 40px;
+	width: 60px;
+	height: 60px;
 	margin-top:20px;
 }
