@@ -41,6 +41,15 @@ public class UserController {
 		return "redirect:/";
 	}
 	
+	@GetMapping("idFind")
+	public String idFind() {
+		return "user/idFind";
+	}
+	@GetMapping("pwFind")
+	public String pwFind() {
+		return "user/pwFind";
+	}
+	
 	@GetMapping("join")
 	public void replace() {}
 

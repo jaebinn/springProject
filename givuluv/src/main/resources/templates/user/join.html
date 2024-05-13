@@ -37,8 +37,9 @@
 								</tr>							
 								<th>비밀번호<span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
 								<tr>
-									<td>
-										<input type="password" name="userpw" id="userpw">										
+									<td id="eyesBox">
+										<input type="password" name="userpw" id="userpw" onkeyup="pwcheck()">	
+										<i class="fa-solid fa-eye-slash eyes"></i>									
 									</td>							
 								</tr>						
 								<th>비밀번호 확인<span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
@@ -88,7 +89,7 @@
 								<th>전화번호<span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
 								<tr>
 									<td>
-										<input type="tel" name="userphone" id="userphone">										
+										<input type="tel" name="userphone" id="userphone" placeholder="010-1234-5678">										
 									</td>							
 								</tr>							
 								<th>닉네임<span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
@@ -126,7 +127,7 @@
 								</tr>																			
 							</tbody>
 						</table>
-                        <button type="submit" id="joinBtn" onclick="sendit()">가입완료</button>                        
+                        <button type="button" id="joinBtn" onclick="sendit()">가입완료</button>                        
                     </div>
                 </form>
             </div>            
@@ -136,8 +137,19 @@
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="/js/user.js"></script>
 <script>
+	$(document).ready(function() {
+	    $(".eyes").click(function() {
+	        let currentType = $("#userpw").attr("type");
 	
-
+	        if (currentType === "password") {
+	            $("#userpw").attr("type", "text");
+	            $(this).removeClass("fa-eye-slash").addClass("fa-eye");
+	        } else { 
+	            $("#userpw").attr("type", "password");
+	            $(this).removeClass("fa-eye").addClass("fa-eye-slash");
+	        }
+	    });
+	});
 </script>
 </body>
 </html>

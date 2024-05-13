@@ -1,16 +1,11 @@
 let result = document.querySelector("#id_check");
-
+let pwTest = [false, false, false];
 function sendit(){
     const joinForm = document.joinForm;
 
     const userid = joinForm.userid;
     if(userid.value == ""){
     	alert("아이디를 입력하세요!");
-    	userid.focus();
-    	return;
-    }
-    if(userid.value.length<5 || userid.value.length>12){
-    	alert("아이디는 5자 이상 12자 이하로 입력하세요!");
     	userid.focus();
     	return;
     }
@@ -25,10 +20,13 @@ function sendit(){
     	userid.focus();
     	return;
     }
-    
+    if(userpw.value=""){
+		alert("비밀번를 입력하세요!");
+    	userpw.focus();
+	}
     //아래쪽의 pwcheck() 함수를 통해 유효성 검사를 통과했다면 pwTest 배열에는 true값만 존재한다.
     //무언가 실패했다면 false가 포함되어 있으므로, 반복문을 통해 해당 배열을 보며 false값이 있는지 검사
-    for(let i=0;i<5;i++){
+    for(let i=0;i<3;i++){
     	if(!pwTest[i]){
     		alert("비밀번호 확인을 다시하세요!");
     		userpw.value="";
@@ -41,7 +39,7 @@ function sendit(){
     if(!exp_name.test(username.value)){
     	alert("이름에는 한글만 입력하세요!");
     	username.focus();
-    	return false;
+    	return;
     }
     
     const gender = joinForm.gender;
@@ -49,7 +47,34 @@ function sendit(){
     	alert("성별을 선택하세요!");
     	return;
     }
-    
+    const birth = document.getElementById('birth');
+    if(birth.value==""){
+		alert("생년월일을 입력하세요!");
+		return;
+	}
+	const email = document.getElementById('email');
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(email.value)) {
+        alert("이메일을 올바른 형식으로 입력하세요!");
+        email.value="";
+        email.focus();
+        return;
+    }
+	const userphone = document.getElementById('userphone');
+    const phoneRegex = /^\d{3}-\d{4}-\d{4}$/;
+
+    if (!phoneRegex.test(userphone.value)) {
+        alert("전화번호를 010-1234-5678 형식으로 입력하세요!");
+        userphone.value="";
+        userphone.focus();
+        return;
+    }
+	const nickname = joinForm.nickname;
+	if(nickname.value=""){
+		alert("닉네임을 입력하세요!");
+		return;
+	}
     const zipcode = joinForm.zipcode;
     if(zipcode.value == ""){
         alert("주소찾기를 진행해 주세요!");
@@ -73,6 +98,11 @@ function checkId(){
 		userid.focus();
 		return;
 	}
+	if(userid.value.length<5 || userid.value.length>12){
+    	alert("아이디는 5자 이상 12자 이하로 입력하세요!");
+    	userid.focus();
+    	return;
+    }
 	
 	xhr.onreadystatechange = function(){
 		if(xhr.readyState == 4){
@@ -98,54 +128,51 @@ function checkId(){
 	xhr.send();
 }
 
-function pwcheck(){
+function pwcheck() {
     const userpw = document.joinForm.userpw;
     const userpw_re = document.joinForm.userpw_re;
-    //영어 대문자, 영어 소문자, 숫자, 특수문자를 한 글자씩 포함하는지 확인하는 정규식
+    // 영어 대문자, 영어 소문자, 숫자, 특수문자를 한 글자씩 포함하는지 확인하는 정규식
     const reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[~?!@-]).{4,}$/;
-    let pwFlag = false;
-    if (userpw.value == "") {
-        alert("비밀번호를 먼저 입력해주세요");
-        userpw_re.value = ""; 
-        userpw.focus(); 
-    } else {
-        userpw_re.focus(); 
-    }
-    userpw_re.addEventListener("blur", function() {
-	    if(userpw.value !== userpw_re.value) {
+	
+	userpw_re.addEventListener("blur", function() {
+	    if (!reg.test(userpw.value)) {
+	        alert("숫자, 영어 대문자, 특수문자(~,?,!,@,-)를 모두 하나 이상, 8자 이상의 비밀번호를 입력하세요.");
+	        userpw.value = "";
+	        userpw_re.value = "";
+	        userpw.focus();
+	        pwTest[0] = false;	
+	        return;
+	    } else {
+	        pwTest[0] = true;
+	    }
+	
+	    if (/(\w)\1\1\1/.test(userpw.value)) {
+	        alert("같은 문자가 네번 연속됩니다. 다시 입력해주세요.");
+	        userpw.value = "";
+	        userpw_re.value = "";
+	        userpw.focus();
+	        pwTest[1] = false;
+	    } else {
+	        pwTest[1] = true;
+	    }
+	
+	    if ((userpw.value !== "" && userpw_re.value !== "") && (userpw.value !== userpw_re.value)) {
 	        alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
 	        userpw.value = "";
 	        userpw_re.value = "";
 	        userpw.focus();
-	        return;
-    	}
-    	if(!reg.test(userpw.value)) {
-            alert("숫자, 영어 대문자, 특수문자(~,?,!,@,-)를 모두 하나 이상, 8자 이상의 비밀번호를 입력하세요.");
-            userpw.value = "";
-            userpw_re.value = "";
-            userpw.focus();
-            return;
-        }
-        if(/(\w)\1\1\1/.test(userpw.value)){
-			alert("같은 문자가 네번 연속됩니다. 다시 입력해주세요.");
-			userpw.value = "";
-            userpw_re.value = "";
-            userpw.focus();
-            return;
-		}
-        if(userpw.value === userpw_re.value){
-			let pw_checkText = document.querySelector("#pw_checkText");
-			pw_checkText.innerHTML = "비밀번호가 확인되었습니다.";
-			pw_checkText.style.display = "block";
-			pw_checkText.style.color = "green";
-			return;
-		}
-	});
-
+	        pwTest[2] = false;
+	    } else if ((userpw.value !== "" && userpw_re.value !== "") && (userpw.value === userpw_re.value)) {
+	        let pw_checkText = document.querySelector("#pw_checkText");
+	        pw_checkText.innerHTML = "비밀번호가 확인되었습니다.";
+	        pw_checkText.style.display = "block";
+	        pw_checkText.style.color = "green";
+	        pwTest[2] = true;
+	    }
+	 });
 }
 
 
-let isHintAdded = false; 
 
 document.getElementById("userpw").addEventListener("focus", function() {
     const pwHint = document.createElement("p");

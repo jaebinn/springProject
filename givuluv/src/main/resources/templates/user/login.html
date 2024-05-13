@@ -8,8 +8,8 @@
 <link rel="stylesheet" href="/css/header_footer.css">
 </head>
 <body>
-    <!-- 컨텐츠 -->
-    <div class="container login">           
+    <!-- 컨텐츠 -->	 
+    <div class="container login">    		     
         <div class="content">
          <a href="/"><i class="fa-solid fa-house" id="homeIcon"></i></a>
             <h1>GivuLuv 로그인</h1>
@@ -27,9 +27,9 @@
                 </form>
             </div>
             <div class="find">
-                <a href="#">아이디 찾기</a>
+                <a href="/user/idFind">아이디 찾기</a>
                 <span> / </span>
-                <a href="#">비밀번호 찾기</a>                
+                <a href="/user/pwFind">비밀번호 찾기</a>                
             </div>
          <div class="socialLogin">
                <div class="kakao">
@@ -54,10 +54,12 @@
             <a href="#">판매자 계정 만들기</a>
             <span> / </span>
             <a href="#">사회단체 계정 만들기</a>
-         </div>
-        </div>
-    </div>
-   
+         </div>		
+    </div>	
+</div>
+<div class="h_logo">
+	<img src="/images/GivuLuv_logo.png" alt="">
+</div> 
    <th:block th:if="${joinid != null}">
       <script th:inline="javascript">
          window.onload = function() {

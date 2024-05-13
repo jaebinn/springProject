@@ -9,7 +9,7 @@ body{
     max-width: 600px;
     min-height: 650px; 
     background-color: #fff;
-    margin: 100px auto;
+    margin: 80px auto;
     border: 1px solid lightgrey;
 }
 .content{
@@ -70,15 +70,18 @@ input[type] {
 	text-align: center;
 }
 .kakao img{
-	width: 60px;
-	height: 60px;
+	width: 50px;
+	height: 50px;
 	margin-top:20px;
 }
 .naver img{
-	width: 60px;
-	height: 60px;
+	width: 50px;
+	height: 50px;
 	margin-top: 20px;
 	margin-left: 20px;
+}
+.kakao img:hover, .naver img:hover{
+	transform: scale(1.2); 
 }
 #homeIcon{
 	cursor: pointer;
@@ -93,4 +96,11 @@ input[type] {
 }
 .otherJoin a{
 	color: rgba(0,0,0,0.8);
+}
+.h_logo{
+	text-align: center;
+}
+.h_logo img{
+	width: 100px;
+	height: 100px;
 }

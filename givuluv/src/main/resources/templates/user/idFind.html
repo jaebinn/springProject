@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>아이디 찾기</title>
+<script src="https://kit.fontawesome.com/1924b51539.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="/css/find.css">
+</head>
+<body>
+    <!-- 컨텐츠 -->
+    <div class="container find">           
+        <div class="content">
+			<a href="/user/login"><i class="fa-solid fa-right-to-bracket backPage"></i></a>
+            <h1>아이디 찾기</h1>       
+        </div>
+		<form action="/user/find" method="post" name="findForm" id="findForm">
+			<h2>이름</h2>
+			<input type="text" name="username" id="username">			
+			<h2>비밀번호</h2>
+			<input type="text" name="userid" id="userid">	
+			<input type="button" name="userBtn" id="userBtn" value="아이디찾기">		
+		</form>
+														
+		
+    </div>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="/js/user.js"></script>
+<script>
+	$(document).ready(function() {
+	    $(".eyes").click(function() {
+	        let currentType = $("#userpw").attr("type");
+	
+	        if (currentType === "password") {
+	            $("#userpw").attr("type", "text");
+	            $(this).removeClass("fa-eye-slash").addClass("fa-eye");
+	        } else { 
+	            $("#userpw").attr("type", "password");
+	            $(this).removeClass("fa-eye").addClass("fa-eye-slash");
+	        }
+	    });
+	});
+</script>
+</body>
+</html>

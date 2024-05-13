@@ -90,6 +90,16 @@ input#userpw_re{
 	margin-bottom: 10px;
 	font-size: 13px;
 }
+.eyesBox{
+	position: relative;
+}
+.eyes{
+	position: absolute;
+	left: 75%;
+	top: 24.5%;
+	transform: translateY(-10%);
+    cursor: pointer;
+}
 .genderBox{
 	display: flex;
 	justify-content: center;
