@@ -78,5 +78,15 @@ public class UserController {
 			return "X";
 		}
 	}	
+	@GetMapping("checkNickname")
+	@ResponseBody
+	public String checkNickname(String nickname) {
+		if(service.checkNickname(nickname)) {
+			return "O";
+		}
+		else {
+			return "X";
+		}
+	}	
 	
 }

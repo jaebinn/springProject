@@ -4,13 +4,14 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gl.givuluv.mapper.UserMapper">
 	<insert id="insertUser">
-		insert into user(userid, userpw, username, gender, birth, email, userphone, nickname, 
-		zipcode, addr, addrdetail, addretc) values(#{userid},#{userpw},#{username},
-		#{gender},#{birth}, #{email}, #{userphone}, #{nickname}, #{zipcode}, #{addr},#{addrdetail},#{addretc}
-		)
+		insert into user(userid, userpw, username, gender, birth, email, userphone, nickname, zipcode, addr, addrdetail, addretc) 
+		values(#{userid},#{userpw},#{username}, #{gender},#{birth}, #{email}, #{userphone}, #{nickname}, #{zipcode}, #{addr},#{addrdetail},#{addretc})
 	</insert>
 	<select id="getUserById">
 		select * from user where userid=#{userid}
+	</select>
+	<select id="getUserByNickname">
+		select * from user where nickname=#{nickname}
 	</select>
 	<update id="updateUser">
 		

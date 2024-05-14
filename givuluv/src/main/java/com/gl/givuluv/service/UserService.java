@@ -7,4 +7,5 @@ public interface UserService {
 	boolean join(UserDTO user);
 	boolean login(String userid, String userpw);
 	boolean checkId(String userid);
+	boolean checkNickname(String nickname);
 }

@@ -58,20 +58,21 @@
     </div>	
 </div>
 <div class="h_logo">
-	<img src="/images/GivuLuv_logo.png" alt="">
+	<img src="/images/GivuLuv_logo.png" alt="GivuLuv">
 </div> 
-   <th:block th:if="${joinid != null}">
-      <script th:inline="javascript">
-         window.onload = function() {
-            let joinid = /*[[${joinid}]]*/'';
-            alert(joinid + '님 가입을 환영합니다~');
-            setTimeout(function(){
-               document.loginForm.userid.value = joinid;
-               document.loginForm.userpw.focus();
-            }, 1300);
-         };
-      </script>
-   </th:block>
+[[${joinid}]]
+<th:block th:if="${joinid != null}">
+	<script th:inline="javascript">
+		window.onload = function() {
+			let joinid = /*[[${joinid}]]*/'';
+			alert(joinid + '님 가입을 환영합니다~');
+			setTimeout(function(){
+				document.loginForm.userid.value = joinid;
+				document.loginForm.userpw.focus();
+			}, 1300);
+		};
+	</script>
+</th:block>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script>
    $(document).ready(function() {

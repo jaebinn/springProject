@@ -15,4 +15,6 @@ public interface UserMapper {
 	int updateUser(UserDTO user);
 	//D
 	int deleteUser(String userid);
+	//닉네임 유무
+	UserDTO getUserByNickname(String nickname);
 }

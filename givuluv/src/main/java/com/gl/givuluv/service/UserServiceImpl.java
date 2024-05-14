@@ -32,4 +32,9 @@ public class UserServiceImpl implements UserService{
 		return umapper.getUserById(userid) == null;
 	}
 
+	@Override
+	public boolean checkNickname(String nickname) {
+		return umapper.getUserByNickname(nickname) == null;
+	}
+
 }
