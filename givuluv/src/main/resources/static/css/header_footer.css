@@ -120,7 +120,8 @@ ul{
     width: 250px;
     height: 80px;
 }
-.h_user .h_login{
+.h_user .h_login,
+.h_user .h_logout{
     width: 80px;
     height: 30px;
     margin: 25px 10px;
@@ -137,7 +138,8 @@ ul{
 }
 
 
-.h_user .h_login:before {
+.h_user .h_login:before,
+.h_user .h_logout:before {
     content: '';
     position: absolute;
     z-index: -1;
@@ -145,13 +147,15 @@ ul{
     transform: scale3d(0.8, 0.5, 1);
 }
   
-.h_user .h_login:hover {
+.h_user .h_login:hover,
+.h_user .h_logout:hover {
     background-color: rgb(79, 148, 111);
     color: white;
     font-weight: bold;
 }
   
-.h_user .h_login:hover {
+.h_user .h_login:hover, 
+.h_user .h_logout:hover {
     transition: background-color 0.1s 0.3s, color 0.1s 0.3s;
     background-color: rgb(79, 148, 111);
     color: white;

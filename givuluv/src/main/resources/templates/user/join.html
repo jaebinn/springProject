@@ -60,18 +60,18 @@
 									</td>							
 								</tr>							
 								<th>성별<span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
-								<tr>
+								<tr class="gender_area">
 									<td>
-										<ul class="genderBox">
-										    <li class="radio_item">
-												<label for="gender1">남</label>
-										        <input type="radio" id="gender1" name="gender" value="M">
-										    </li>
-										    <li class="radio_item">
-												<label for="gender2">여</label>
-										        <input type="radio" id="gender2" name="gender" value="W">
-										    </li>
-										</ul>									
+										<div>
+											<ul>
+												<li class="radio_item">
+													<input type="radio" id="gender1" name="gender" value="M"><label for="gender1">남자</label>
+												</li>
+												<li class="radio_item">
+													<input type="radio" id="gender2" name="gender" value="W"><label for="gender2">여자</label>
+												</li>
+											</ul>
+										</div>
 									</td>							
 								</tr>							
 								<th><label for="birth">생년월일</label><span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
@@ -109,7 +109,7 @@
 								<th><label for="zipcode">우편번호</label><span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
 								<tr>
 									<td>
-										<input type="text" name="zipcode" id="zipcode">										
+										<input type="text" name="zipcode" id="zipcode" onclick="findAddr()" placeholder="우편번호" readonly>										
 									</td>							
 									<td id="btns">
 										<input type="button" id="findzipcode" value="우편번호 찾기" onclick="findAddr()">
@@ -118,19 +118,19 @@
 								<th><label for="addr">주소</label><span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
 								<tr>
 									<td>
-										<input type="text" name="addr" id="addr" readonly>										
+										<input type="text" name="addr" id="addr" placeholder="주소" readonly>										
 									</td>							
 								</tr>							
 								<th><label for="addrdetail">상세주소</label></th>
 								<tr>
 									<td>
-										<input type="text" name="addrdetail" id="addrdetail">										
+										<input type="text" name="addrdetail" id="addrdetail" placeholder="상세주소">										
 									</td>							
 								</tr>																			
 								<th><label for="addretc">참고항목</label></th>
 								<tr>
 									<td>
-										<input type="text" name="addretc" id="addretc" readonly>										
+										<input type="text" name="addretc" id="addretc" placeholder="참고항목">										
 									</td>							
 								</tr>																			
 							</tbody>

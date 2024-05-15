@@ -60,7 +60,6 @@
 <div class="h_logo">
 	<img src="/images/GivuLuv_logo.png" alt="GivuLuv">
 </div> 
-[[${joinid}]]
 <th:block th:if="${joinid != null}">
 	<script th:inline="javascript">
 		window.onload = function() {
@@ -94,7 +93,13 @@
            }
        });
    });
-
+   $(document).ready(function() {
+	        const loginFailed = /*[[${loginFailed}]]*/''; 
+	        
+	        if (loginFailed) {
+	            alert("로그인에 실패했습니다. 아이디와 비밀번호를 확인해주세요.");
+	        }
+	    });
 </script>
 </body>
 </html>

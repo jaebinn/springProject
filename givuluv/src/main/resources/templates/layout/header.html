@@ -1,4 +1,10 @@
-<th:block th:fragment="header()">
+<th:block th:fragment="header(loginUser)">
+	<th:block th:if="${loginUser == null}">
+		<script>
+			alert("로그인 후 이용하세요!");
+			location.replace("/");
+		</script>
+	</th:block>
    <body>
        <nav class="navigation">
            <div class="header_wrap">
@@ -30,19 +36,19 @@
                        </nav>
                    </div>
                    <div class="h_user_box">
-                  <th:block th:if="${loginUser == null}">
+                  <th:block th:if="${session.loginUser == null}">
                           <div class="h_user">
                               <a href="/user/login" class="h_login">로그인</a>
                           </div>
                   </th:block>
-                  <th:block th:unless="${loginUser == null}">
+                  <th:block th:unless="${session.loginUser == null}">
                           <div class="h_user">
-                              <a href="/user/login" class="h_login">[[${loginUser}]]</a>
-                              <a href="/user/loout" class="h_login">로그아웃</a>
+                              <a href="/user/login" class="h_login">[[${session.loginUser}]]</a>
+                              <a href="/user/logout" class="h_logout">로그아웃</a>
                           </div>
                   </th:block>
                    </div>
                </div>
            </div>
        </nav>
-<th:block>
+</th:block>

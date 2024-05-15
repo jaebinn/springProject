@@ -8,4 +8,6 @@ public interface UserService {
 	boolean login(String userid, String userpw);
 	boolean checkId(String userid);
 	boolean checkNickname(String nickname);
+	boolean checkNickAndEmail(String nickname, String email);
+	UserDTO getUseridByEmail(String email);
 }

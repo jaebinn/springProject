@@ -16,15 +16,14 @@
 #findForm h2{
 	color: rgba(0,0,0,0.6);
 }
-#findForm input[type=text]{
+#findForm #nickname, #findForm #email, #findForm #userid, #findForm #username{
 	width: 100%;
-	margin-bottom: 25px;
 	border-top: none;
 	border-left: none;
 	border-right: none;
 	font-size: 18px;
 }
-#findForm input[type=button]{
+#findForm #userBtn{
 	margin-top: 30px;
 	width: 100%;
 	height: 50px;
@@ -36,6 +35,34 @@
 	font-size: 18px;
 	cursor: pointer;
 }
+#findForm #userBtn:hover{
+	background-color: rgba(231,112,151);
+}
 #findForm input[type=button]:hover{
 	background-color: rgb(231,112,151);
+}
+.nickBox{
+	display: flex;
+}
+.emailBox{
+	display: flex;
+}
+#checkNick, #verificationBtn{
+	border: none;
+	border-radius: 5px;
+	background-color: rgb(231,112,151);
+	color: #f1f1f1;
+	font-weight: bold;
+	padding: 5px 0;
+	font-size: 16px;
+	cursor: pointer;	
+}
+#verificationNum{
+	display: none;
+}
+.verificationBox{
+	display: flex;
+}
+#nickname_check{
+	visibility: hidden;
 }

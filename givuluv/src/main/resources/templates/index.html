@@ -3,14 +3,13 @@
 
 <head>
    <link rel="stylesheet" href="/css/index.css">
-   <link rel="stylesheet" href="/css/header_footer.css">
    <script src="https://kit.fontawesome.com/516da99189.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="/css/login.css">
 <link rel="stylesheet" href="/css/header_footer.css">
 </head>
 <body>
    <!-- header -->
-   <th:block th:replace="~{layout/header::header()}"></th:block>
+   <th:block th:replace="~{layout/header::header(loginUser)}"></th:block>
    <!-- 컨텐츠 -->
    <div class="wrap indexwrap">
       <aside id="intro" class="intro">
@@ -131,17 +130,9 @@
 <script src="/js/jquery-3.7.1.min.js"></script>
 <script src="/js/index.js"></script>
 <script>
-
-
-
-
-
-
-
-
-
-
-
+	$('.h_logout').on('click', function(){
+		alert("로그아웃되었습니다.")
+	})
 </script>
 
 </html>

@@ -13,15 +13,26 @@
 			<a href="/user/login"><i class="fa-solid fa-right-to-bracket backPage"></i></a>
             <h1>아이디 찾기</h1>       
         </div>
-		<form action="/user/find" method="post" name="findForm" id="findForm">
-			<h2>이름</h2>
-			<input type="text" name="username" id="username">			
-			<h2>비밀번호</h2>
-			<input type="text" name="userid" id="userid">	
-			<input type="button" name="userBtn" id="userBtn" value="아이디찾기">		
+		<form action="/user/findId" method="post" name="findForm" id="findForm">
+			<h2>닉네임</h2>
+			<div class="nickBox">
+				<input type="text" name="nickname" id="nickname">	
+				<input type="button" value="닉네임확인" onclick="checkNickname()" id="checkNick">							
+			</div>
+			
+			<h2>이메일</h2>
+			<div class="emailBox">
+				<input type="email" name="email" id="email">
+				<div class="verificationBox">
+					<input type="text" id="verificationNum" placeholder="인증번호 6자리" maxlength="6">
+					<input type="button" id="verificationBtn" value="본인인증">	
+				</div>
+			</div>
+			<p id="verificationTxt"></p>			
+			<input type="button" name="userBtn" id="userBtn" value="아이디찾기" onclick="sendit()">						
 		</form>
 														
-		
+		<p id="nickname_check"></p>
     </div>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -40,6 +51,155 @@
 	        }
 	    });
 	});
+	const findForm = document.findForm;
+	function sendit(){
+		const checkNick = $('#nickname_check');
+		const verificationTxt = $('#verificationTxt');
+		const nickname = findForm.nickname;
+		if(nickname.value == ""){
+			alert("닉네임을 입력하세요");
+			username.focus();
+			return false;
+		}
+		if(checkNick.html() === ""){
+			alert("닉네임 중복검사를 진행해주세요!");
+			nickname.focus();
+			return;
+		}
+		if(checkNick.html() === "중복된 닉네임이 있습니다!"){
+			alert("중복체크 통과 후 가입이 가능합니다!");
+			nickname.focus();
+			return;
+		}
+		const email = document.getElementById('email');
+		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		if(email.value == ""){
+			alert("이메일을 입력하세요");
+			email.focus();
+			return false;
+		}
+		if(!emailRegex.test(email.value)) {
+		    alert("이메일을 올바른 형식으로 입력하세요!");
+		    email.value="";
+		    email.focus();
+		    return false;
+		}		
+		if(verificationTxt.html() === ""){
+			alert("이메일 인증을 해주세요!");
+			return false;
+		}
+		if(verificationTxt.html() === "인증번호가 불일치 합니다. 다시 확인해주세요!"){
+			alert("인증번호가 불일치 합니다. 다시 확인해주세요!");
+			return false;
+		}
+		findForm.submit();
+	}
+	
+	$('#verificationBtn').click(function() {
+		const nicknametxt = $('#nickname_check');
+		const nickname = $('#nickname').val();
+	    const email = $('#email').val(); // 이메일 주소값 얻어오기!
+	    console.log('완성된 이메일 : ' + email); // 이메일 오는지 확인
+	    const checkInput = $('#verificationNum'); // 인증번호 입력하는곳 
+		
+		if(nicknametxt.html() === ""){
+		    alert("닉네임 확인를 진행해주세요!");
+		    return;
+		}
+		if(nicknametxt.html() === "없는 닉네임입니다."){
+		    alert("넥네임 확인 통과 후 아이디 찾기가 가능합니다!");
+		    nickname.focus();
+		    return;
+		}
+		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		if(email == ""){
+			alert("이메일을 입력하세요");
+			return false;
+		}
+		if(!emailRegex.test(email)) {
+			alert("이메일을 올바른 형식으로 입력하세요!");
+			return false;
+		}			
+		
+	    $.ajax({
+	        type: 'get',
+	        url: '/user/mailCheck',
+	        data: {nickname:nickname, email: email,}, // 데이터를 객체로 전달
+	        success: function(data) {
+	            console.log("data : " +  data);
+	            checkInput.attr('disabled', false);
+	            code = data;
+	            alert('인증번호가 전송되었습니다.');
+				$('.emailBox #email').hide();
+				$('#verificationNum').show().css({
+					'width': '100%',
+					'border-top': 'none',
+					'border-left': 'none',
+					'border-right': 'none',
+					'font-size': '18px',
+				});
+						
+				$('#verificationBtn').val("인증 재전송")
+	        },
+	        error: function(xhr, status, error) {
+				if (xhr.status === 404) { // 예를 들어 404 에러인 경우
+				     alert('일치하는 회원이 없습니다.');
+				 } else {
+				      console.error('AJAX 오류 발생: ', error);
+				 }
+	        }
+	    }); 
+	});
+	
+	$("#verificationNum").blur(function(){
+		const inputCode = $(this).val();
+		const resultMsg = $('#verificationTxt');
+				
+		if(inputCode === code){
+			resultMsg.html('인증번호가 일치합니다.');
+			resultMsg.css('color','green');
+			$('#mail-Check-Btn').attr('disabled',true);
+			$('#email').attr('readonly',true);
+			$('#email').attr('onFocus', 'this.initialSelect = this.selectedIndex');
+			$('#email').attr('onChange', 'this.selectedIndex = this.initialSelect');
+		}else{
+			resultMsg.html('인증번호가 불일치 합니다. 다시 확인해주세요!');		
+			resultMsg.css('color','red');
+			$('#verificationNum').val('');
+			$('#verificationNum').focus();
+		}
+	})
+	function checkNickname(){
+		const xhr = new XMLHttpRequest();
+		const nicknametxt = $('#nickname_check');
+		const nickname = document.findForm.nickname;
+		if(nickname.value == ""){
+			alert("닉네임을 입력하세요!");
+			nickname.focus();
+			return;
+		}
+		
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4){
+				if(xhr.status == 200){
+					let txt = xhr.responseText.trim();
+					console.log(resultNick);
+					if(txt == "O"){ 
+						nicknametxt.html("없는 닉네임입니다.");
+						alert("없는 닉네임입니다.");
+						nickname.value = "";
+						nickname.focus();
+					}else{
+						nicknametxt.html("회원 확인되었습니다!");
+						alert("회원 확인되었습니다!");
+					}
+				}
+			}
+		}
+		
+		xhr.open("GET","/user/checkNickname?nickname="+nickname.value);
+		xhr.send();
+	}
 </script>
 </body>
 </html>

@@ -102,17 +102,11 @@ input#userpw_re{
 .eyes{
 	position: absolute;
 	left: 75%;
-	top: 25%;
+	top: 24.5%;
 	transform: translateY(-10%);
     cursor: pointer;
 }
 
-.genderBox{
-	display: flex;
-	justify-content: center;
-	list-style: none;
-	margin: 0;
-}
 .radio_item{
 	display: flex;
 }
@@ -133,4 +127,60 @@ input#userpw_re{
 }
 #checkNick{
 	margin: 0;
+}
+
+.gender_area > td{
+    font-size: 16px;
+    padding: 25px 40px 25px 20px;
+}
+.gender_area > td > div{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+	width:340px;
+}
+.gender_area ul{
+	list-style: none;
+	width: 50%;
+	font-size: 0;
+	margin:0; padding:0;
+}
+.gender_area ul:last-of-type{
+	margin-left:10px;
+}
+.gender_area li{
+	display: inline-block;
+	width:50%;
+	margin: 0; padding:0;
+	border-radius: 5px 0 0 5px;
+}
+.gender_area ul li:last-of-type{
+	border-radius: 0 5px 5px 0;
+}
+.gender_area li > input[type=radio]{
+	width:1px; height:1px;
+	margin:-1px; overflow: hidden;
+	position: absolute;
+	-webkit-appearance:none;
+	-moz-appearance:none;
+	appearance:none;
+	border:none;
+}
+.gender_area li > label{
+	display: block;
+	position:relative;
+	width: 100%;
+	padding:6px 0;
+	border-radius: inherit;
+	border:1px solid #ccc;
+	font-size:13px;
+	line-height: 18px;
+	color:#757575;
+	text-align: center;
+	cursor:pointer;
+}
+.gender_area li > input[type=radio]:checked+label{
+	border:1px solid rgb(231,112,151);
+	color:rgb(231,112,151);
 }

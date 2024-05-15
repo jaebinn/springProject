@@ -178,7 +178,7 @@ function checkNickname(){
 				}else{
 					alert("중복된 닉네임이 있습니다!");
 					resultNick.style.color = "red";
-					resultNick.innerHTML = "중복된 아이디가 있습니다!";
+					resultNick.innerHTML = "중복된 닉네임이 있습니다!";
 					nickname.value = "";
 					nickname.focus();
 				}
@@ -236,18 +236,20 @@ function pwcheck() {
 	}
 }
 
-
-
-document.getElementById("userpw").addEventListener("focus", function() {
-    const pwHint = document.createElement("p");
-    pwHint.textContent = "숫자, 영어 대문자, 특수문자(~,?,!,@,-)를 모두 하나 이상, 8자 이상의 비밀번호를 입력하세요.";
-    pwHint.style.fontSize = "0.7em";
-    pwHint.style.color = "gray";
-    pwHint.style.marginTop = "0";
-    this.parentNode.insertBefore(pwHint, this.nextSibling);
-    
-    this.addEventListener("blur", function(){
-        pwHint.style.display = "none"; 
+$(document).ready(function() {
+    $("#userpw").focus(function() {
+        const pwHint = $("<p>").text("숫자, 영어 대문자, 특수문자(~,?,!,@,-)를 모두 하나 이상, 8자 이상의 비밀번호를 입력하세요.")
+             .css({
+                   "font-size": "0.7em",
+                    "color": "gray",
+                    "margin-top": "0",
+                    "margin-bottom": "10px"
+        		});
+        $(this).parent().append(pwHint);
+        
+        $(this).blur(function() {
+            pwHint.hide();
+        });
     });
 });
 
