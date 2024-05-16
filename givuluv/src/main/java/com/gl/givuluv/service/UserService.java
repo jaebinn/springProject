@@ -10,4 +10,6 @@ public interface UserService {
 	boolean checkNickname(String nickname);
 	boolean checkNickAndEmail(String nickname, String email);
 	UserDTO getUseridByEmail(String email);
+	boolean nickAndIdCheck(String nickname, String userid);
+	UserDTO getUserById(String userid);
 }

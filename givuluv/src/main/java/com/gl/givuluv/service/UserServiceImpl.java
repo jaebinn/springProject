@@ -53,4 +53,21 @@ public class UserServiceImpl implements UserService{
 		return umapper.getUseridByEmail(email);
 	}
 
+	@Override
+	public boolean nickAndIdCheck(String nickname, String userid) {
+		UserDTO user = umapper.getUserByNickname(nickname);
+		if(user != null) {
+			if(user.getUserid().equals(userid)) {
+				return true;
+			}			
+		}
+		return false;
+		
+	}
+
+	@Override
+	public UserDTO getUserById(String userid) {
+		return umapper.getUserById(userid);
+	}
+
 }

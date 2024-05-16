@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>사회단체 회원가입</title>
+<script src="https://kit.fontawesome.com/1924b51539.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="/css/join.css">
+</head>
+<body>
+    <!-- 컨텐츠 -->
+    <div class="container join">           
+        <div class="content">
+			<a href="/user/login"><i class="fa-solid fa-right-to-bracket backPage"></i></a>
+            <h1>단체정보를 입력해주세요.</h1>
+            <div class="join_text">
+				<span id="necessary"><i class="fa-solid fa-star star"></i></span>
+                <span>필수정보입력</span>
+            </div>
+            <div class="join-input">
+                <form action="/org/join" method="post" name="orgjoinForm">
+                    <div class="join-input-wrap">
+						<table class="join_tbl">
+							<tbody>
+								<tr class="id_checkBox">
+									<td>
+										<p id="id_check"></p>
+									</td>
+								</tr>
+								<th><label for="orgid">아이디</label><span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
+								<tr>
+									<td>
+										<input type="text" name="orgid" id="orgid" placeholder="아이디">									
+									</td>							
+									<td id="btns">
+										<input type="button" value="중복검사" onclick="checkId()" id="checkid">									
+									</td>
+								</tr>							
+								<th><label for="orgpw">비밀번호</label><span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
+								<tr>
+									<td id="eyesBox">
+										<input type="password" name="orgpw" id="orgpw">	
+										<i class="fa-solid fa-eye-slash eyes"></i>									
+									</td>							
+								</tr>						
+								<th><label for="orgpw_re">비밀번호 확인</label><span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
+								<tr>
+									<td>
+										<input type="password" id="orgpw_re" onblur="pwcheck()">										
+									</td>							
+								</tr>		
+								<tr class="pw_check">
+									<td>
+										<span id="pw_checkText"></span>
+									</td>
+								</tr>					
+								<th><label for="orgname">단체명</label><span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
+								<tr>
+									<td>
+										<input type="text" name="orgname" id="orgname">										
+									</td>							
+								</tr>
+								<th><label for="logo">로고명</label><span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
+								<tr>
+									<td>
+										<input type="text" name="logo" id="logo">										
+									</td>							
+								</tr>					
+								<th><label for="orgphone">단체 전화번호</label><span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
+								<tr>
+									<td>
+										<input type="tel" name="orgphone" id="orgphone" placeholder="ex) 010-1234-5678">										
+									</td>							
+								</tr>							
+								<th><label for="ceoname">대표자 명</label><span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
+								<tr>
+									<td>
+										<input type="text" name="ceoname" id="ceoname">										
+									</td>	
+								</tr>		
+								<th><label for="orgzipcode">우편번호</label><span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
+								<tr>
+									<td>
+										<input type="text" name="orgzipcode" id="orgzipcode" onclick="findAddr()" placeholder="우편번호" readonly>										
+									</td>							
+									<td id="btns">
+										<input type="button" id="findzipcode" value="우편번호 찾기" onclick="findAddr()">
+									</td>
+								</tr>							
+								<th><label for="orgaddr">주소</label><span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
+								<tr>
+									<td>
+										<input type="text" name="orgaddr" id="orgaddr" placeholder="주소" readonly>										
+									</td>							
+								</tr>							
+								<th><label for="orgaddrdetail">상세주소</label></th>
+								<tr>
+									<td>
+										<input type="text" name="orgaddrdetail" id="orgaddrdetail" placeholder="상세주소">										
+									</td>							
+								</tr>																			
+								<th><label for="orgaddretc">참고항목</label></th>
+								<tr>
+									<td>
+										<input type="text" name="orgaddretc" id="orgaddretc" placeholder="참고항목">										
+									</td>							
+								</tr>																			
+							</tbody>
+						</table>
+                        <button type="button" id="joinBtn" onclick="sendit()">가입완료</button>                        
+                    </div>
+                </form>
+            </div>            
+        </div>
+    </div>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="/js/org.js"></script>
+<script>
+	$(document).ready(function() {
+	    $(".eyes").click(function() {
+	        let currentType = $("#orgpw").attr("type");
+	
+	        if (currentType === "password") {
+	            $("#orgpw").attr("type", "text");
+	            $(this).removeClass("fa-eye-slash").addClass("fa-eye");
+	        } else { 
+	            $("#orgpw").attr("type", "password");
+	            $(this).removeClass("fa-eye").addClass("fa-eye-slash");
+	        }
+	    });
+	});
+</script>
+</body>
+</html>

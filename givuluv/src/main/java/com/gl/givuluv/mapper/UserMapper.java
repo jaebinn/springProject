@@ -17,6 +17,8 @@ public interface UserMapper {
 	int deleteUser(String userid);
 	//닉네임 유무
 	UserDTO getUserByNickname(String nickname);
-	//
+	//아이디 찾기
 	UserDTO getUseridByEmail(String email);
+	//비밀번호 찾기
+	boolean nickAndIdCheck(String nickname, String userid);
 }

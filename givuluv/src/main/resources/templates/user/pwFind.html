@@ -13,33 +13,139 @@
 			<a href="/user/login"><i class="fa-solid fa-right-to-bracket backPage"></i></a>
             <h1>비밀번호 찾기</h1>       
         </div>
-		<form action="/user/find" method="post" name="findForm" id="findForm">
-			<h2>이름</h2>
-			<input type="text" name="username" id="username">			
+		<form action="/user/findPw" method="post" name="findForm" id="findForm">
+			<h2>닉네임</h2>
+			<div class="nickBox">
+				<input type="text" name="nickname" id="nickname">			
+				<input type="button" value="닉네임확인" onclick="checkNickname()" id="checkNick">					
+			</div>
 			<h2>아이디</h2>
-			<input type="text" name="userid" id="userid">	
-			<input type="button" name="userBtn" id="userBtn" value="비밀번호찾기">		
-		</form>
-														
+			<div class="idBox">
+				<input type="text" name="userid" id="userid">	
+				<input type="button" value="아이디확인" id="checkId" onclick="checkid()">				
+			</div>
+			<input type="button" name="userBtn" id="userBtn" value="비밀번호찾기" onclick="sendit()">		
+		</form>		
+		<p id="nickname_check" style="color: white;"></p>												
+		<p id="id_check" style="color: white;"></p>												
 		
     </div>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="/js/user.js"></script>
 <script>
-	$(document).ready(function() {
-	    $(".eyes").click(function() {
-	        let currentType = $("#userpw").attr("type");
+	const findForm = document.findForm;
+	const checkNick = $('#nickname_check');
+	const resultid = $('#id_check');
+		function sendit(){
+			const userid = $('#userid');
+			const verificationTxt = $('#verificationTxt');
+			const nickname = findForm.nickname;
+			if(nickname.value == ""){
+				alert("닉네임을 입력하세요");
+				nickname.focus();
+				return false;
+			}
+			if(checkNick.html() === ""){
+				alert("닉네임 중복검사를 진행해주세요!");
+				nickname.focus();
+				return;
+			}
+			if(checkNick.html() === "중복된 닉네임이 있습니다!"){
+				alert("중복체크 통과 후 비밀번호찾기가 가능합니다!");
+				nickname.focus();
+				return;
+			}
+			
+			if(userid.value == ""){
+			    alert("아이디를 입력하세요!");
+			    userid.focus();
+			    return;
+			}
+			    
+			if(resultid.html() === ""){
+			     alert("아이디 확인을 진행해주세요!");
+			     userid.focus();
+			     return;
+			}
+			if(resultid.html() === "일치하는 아이디가 없습니다."){
+			     alert("일치하는 아이디가 없습니다.");
+			     userid.focus();
+			     return;
+			}
+			findForm.submit();
+		}
+		function checkid() {
+		    const nicknametxt = document.getElementById('nickname_check').innerHTML;
+		    const nickname = document.getElementById('nickname').value;
+		    const userid = document.getElementById('userid').value;
+		
+		    if (nicknametxt === "") {
+		        alert("닉네임 확인을 진행해주세요!");
+		        return;
+		    }
+		    if (nicknametxt === "없는 닉네임입니다.") {
+		        alert("닉네임 확인 통과 후 비밀번호 찾기가 가능합니다!");
+		        document.getElementById('nickname').focus();
+		        return;
+		    }
+		
+		    const xhr = new XMLHttpRequest();
+		
+		    xhr.open('GET', `/user/nickAndIdCheck?nickname=${nickname}&userid=${userid}`, true);
+		    xhr.onreadystatechange = function() {
+		        if (xhr.readyState === XMLHttpRequest.DONE) {
+		            if (xhr.status === 200) {
+		                const txt = xhr.responseText.trim();
+		                console.log(txt);
+		                if (txt === 'O') {
+		                    resultid.html('회원 확인되었습니다!');
+		                    alert('회원 확인되었습니다!');
+		                } else {
+		                    resultid.html('일치하는 아이디가 없습니다.');
+		                    alert('일치하는 아이디가 없습니다.');
+		                    document.getElementById('userid').value = '';
+		                    document.getElementById('userid').focus();
+		                }
+		            } else {
+		                alert('서버 요청 중 오류가 발생했습니다.');
+		                console.error(xhr.responseText);
+		            }
+		        }
+		    };
+		    xhr.send();
+		}
 	
-	        if (currentType === "password") {
-	            $("#userpw").attr("type", "text");
-	            $(this).removeClass("fa-eye-slash").addClass("fa-eye");
-	        } else { 
-	            $("#userpw").attr("type", "password");
-	            $(this).removeClass("fa-eye").addClass("fa-eye-slash");
-	        }
-	    });
-	});
+	
+	function checkNickname(){
+			const xhr = new XMLHttpRequest();
+			const nickname = document.findForm.nickname;
+			if(nickname.value == ""){
+				alert("닉네임을 입력하세요!");
+				nickname.focus();
+				return;
+			}
+			
+			xhr.onreadystatechange = function(){
+				if(xhr.readyState == 4){
+					if(xhr.status == 200){
+						let txt = xhr.responseText.trim();
+						if(txt == "O"){ 
+							checkNick.html("일치하는 닉네임이 없습니다.");
+							alert("일치하는 닉네임이 없습니다.");
+							nickname.value = "";
+							nickname.focus();
+						}else{
+							checkNick.html("회원 확인되었습니다!");
+							alert("회원 확인되었습니다!");
+						}
+					}
+				}
+			}
+			
+			xhr.open("GET","/user/checkNickname?nickname="+nickname.value);
+			xhr.send();
+		}
+		
 </script>
 </body>
 </html>

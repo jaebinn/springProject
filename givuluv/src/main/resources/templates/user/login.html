@@ -1,105 +1,150 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<title>로그인</title>
-<script src="https://kit.fontawesome.com/1924b51539.js" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="/css/login.css">
-<link rel="stylesheet" href="/css/header_footer.css">
+	<meta charset="UTF-8">
+	<title>로그인</title>
+	<script src="https://kit.fontawesome.com/1924b51539.js" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="/css/login.css">
+	<link rel="stylesheet" href="/css/header_footer.css">
 </head>
+
 <body>
-    <!-- 컨텐츠 -->	 
-    <div class="container login">    		     
-        <div class="content">
-         <a href="/"><i class="fa-solid fa-house" id="homeIcon"></i></a>
-            <h1>GivuLuv 로그인</h1>
-            <div class="register_text">
-                <span>신규 사용자이신가요?</span>
-                <a href="/user/join" id="join">계정 만들기</a>
-            </div>
-            <div class="login-input">
-                <form action="/user/login" method="post" name="loginForm">
-                    <div class="login-input-wrap">
-                        <input type="text" name="userid" id="userid" placeholder="아이디" th:value="${joinid}"><br>
-                        <input type="password" name="userpw" id="userpw" placeholder="비밀번호"><br>
-                        <button type="submit" id="loginBtn">로그인</button>                        
-                    </div>
-                </form>
-            </div>
-            <div class="find">
-                <a href="/user/idFind">아이디 찾기</a>
-                <span> / </span>
-                <a href="/user/pwFind">비밀번호 찾기</a>                
-            </div>
-         <div class="socialLogin">
-               <div class="kakao">
-                   <span th:if="${userId==null}">
-                       <a href="https://kauth.kakao.com/oauth/authorize?client_id=9ab3fade4a59b62141d875116fa51d64&redirect_uri=http://localhost:8080/login&response_type=code">
-                           <img src = "/images/kakotalk.png">
-                       </a>
-                   </span>
-                   <span th:if="${userId!=null}">
-                       <form name="logout" action="http://localhost:8080/logout">
-                           <input type="submit" value="로그아웃">
-                       </form>
-                   </span>
-               </div>
-            <div class="naver">
-               <a href="#">
-                  <img src="/images/naver.png">
-               </a>
-            </div>
-         </div>
-         <div class="otherJoin">
-            <a href="#">판매자 계정 만들기</a>
-            <span> / </span>
-            <a href="#">사회단체 계정 만들기</a>
-         </div>		
-    </div>	
-</div>
-<div class="h_logo">
-	<img src="/images/GivuLuv_logo.png" alt="GivuLuv">
-</div> 
-<th:block th:if="${joinid != null}">
-	<script th:inline="javascript">
-		window.onload = function() {
-			let joinid = /*[[${joinid}]]*/'';
-			alert(joinid + '님 가입을 환영합니다~');
-			setTimeout(function(){
-				document.loginForm.userid.value = joinid;
-				document.loginForm.userpw.focus();
-			}, 1300);
-		};
+	<!-- 컨텐츠 -->
+	<div class="container login">
+		<div class="login_menu">
+			<input type="button" value="일반유저 로그인" class="user-login" style="border: 1px solid black; border-bottom: none; background-color: #fff;"></input>
+			<input type="button" value="판매자 로그인" class="seller-login" style="border-bottom: 1px solid black;"></input>
+			<input type="button" value="사회단체 로그인" class="org-login" style="border-bottom: 1px solid black;"></a>
+		</div>
+		<div class="content">
+			<a href="/"><i class="fa-solid fa-house" id="homeIcon"></i></a>
+			<h1>GivuLuv 로그인</h1>
+			<div class="register_text">
+				<span>신규 사용자이신가요?</span>
+				<a href="/user/join" id="join">계정 만들기</a>
+			</div>
+			<div class="login-input">
+				<form action="/user/login" method="post" name="loginForm">
+					<div class="login-input-wrap">
+						<input type="text" name="userid" id="userid" placeholder="아이디" th:value="${joinid}"><br>
+						<input type="password" name="userpw" id="userpw" placeholder="비밀번호"><br>
+						<button type="submit" id="loginBtn">로그인</button>
+					</div>
+				</form>
+			</div>
+			<div class="find">
+				<a href="/user/idFind">아이디 찾기</a>
+				<span> / </span>
+				<a href="/user/pwFind">비밀번호 찾기</a>
+			</div>
+			<div class="socialLogin">
+				<div class="kakao">
+					<span th:if="${userId==null}">
+						<a
+							href="https://kauth.kakao.com/oauth/authorize?client_id=9ab3fade4a59b62141d875116fa51d64&redirect_uri=http://localhost:8080/login&response_type=code">
+							<img src="/images/kakotalk.png">
+						</a>
+					</span>
+					<span th:if="${userId!=null}">
+						<form name="logout" action="http://localhost:8080/logout">
+							<input type="submit" value="로그아웃">
+						</form>
+					</span>
+				</div>
+				<div class="naver">
+					<a href="#">
+						<img src="/images/naver.png">
+					</a>
+				</div>
+			</div>
+			<div class="otherJoin">
+				<a href="#">판매자 계정 만들기</a>
+				<span> / </span>
+				<a href="/org/join">사회단체 계정 만들기</a>
+			</div>
+		</div>
+	</div>
+	<div class="h_logo">
+		<img src="/images/GivuLuv_logo.png" alt="GivuLuv">
+	</div>
+	<th:block th:if="${joinid != null}">
+		<script th:inline="javascript">
+			window.onload = function () {
+				let joinid = /*[[${joinid}]]*/'';
+				alert(joinid + '님 가입을 환영합니다~');
+				setTimeout(function () {
+					document.loginForm.userid.value = joinid;
+					document.loginForm.userpw.focus();
+				}, 1300);
+			};
+		</script>
+	</th:block>
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<script>
+		$(document).ready(function () {
+			$("#loginBtn").on("click", function () {
+				let userid = $("#userid").val();
+				let userpw = $("#userpw").val();
+
+				if (userid === "" && userpw === "") {
+					alert("아이디와 비밀번호를 입력하세요.");
+					return false;
+				} else if (userid === "") {
+					alert("아이디를 입력하세요.");
+					return false;
+				} else if (userpw === "") {
+					alert("비밀번호를 입력하세요.");
+					return false;
+				} else {
+					return true;
+				}
+			});
+			
+			// login_menu 버튼을 눌렀을때 
+            $(".login_menu input").on("click", function () {
+                $(".login_menu input").css({
+                    "border": "none",
+                    "border-bottom": "1px solid black",
+                    "background-color": ""
+                });
+                $(this).css({
+                    "border": "1px solid black",
+                    "border-bottom": "none",
+                    "background-color": "#fff"
+                });
+            });
+			
+	
+        });
+		
+		// 로그인 방법에 따른 form으로 제출할 action 및 파라미터 변경
+        $(".user-login").on("click", function () {
+            $("form[name='loginForm']").attr("action", "/user/login");
+            $("#userid, #sellerid, #orgid").attr("name", "userid").attr("id", "userid");
+            $("#userpw, #sellerpw, #orgpw").attr("name", "userpw").attr("id", "userpw");
+        });
+
+        $(".seller-login").on("click", function () {
+            $("form[name='loginForm']").attr("action", "/seller/login");
+            $("#userid, #orgid").attr("name", "sellerid").attr("id", "sellerid");
+            $("#userpw, #orgpw").attr("name", "sellerpw").attr("id", "sellerpw");
+        });
+
+        $(".org-login").on("click", function () {
+            $("form[name='loginForm']").attr("action", "/org/login");
+            $("#userid, #sellerid").attr("name", "orgid").attr("id", "orgid");
+            $("#userpw, #sellerpw").attr("name", "orgpw").attr("id", "orgpw");
+        });
+		
+		$(document).ready(function () {
+			const loginFailed = /*[[${loginFailed}]]*/'';
+
+			if (loginFailed) {
+				alert("로그인에 실패했습니다. 아이디와 비밀번호를 확인해주세요.");
+			}
+		});
 	</script>
-</th:block>
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script>
-   $(document).ready(function() {
-       $("#loginBtn").on("click", function() {
-           let userid = $("#userid").val();
-           let userpw = $("#userpw").val();
-           
-           if (userid === "" && userpw === "") {
-               alert("아이디와 비밀번호를 입력하세요.");
-               return false; 
-           } else if (userid === "") {
-               alert("아이디를 입력하세요.");
-               return false; 
-           } else if (userpw === "") {
-               alert("비밀번호를 입력하세요.");
-               return false; 
-           } else {
-               return true; 
-           }
-       });
-   });
-   $(document).ready(function() {
-	        const loginFailed = /*[[${loginFailed}]]*/''; 
-	        
-	        if (loginFailed) {
-	            alert("로그인에 실패했습니다. 아이디와 비밀번호를 확인해주세요.");
-	        }
-	    });
-</script>
 </body>
+
 </html>

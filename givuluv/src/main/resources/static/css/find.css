@@ -47,7 +47,7 @@
 .emailBox{
 	display: flex;
 }
-#checkNick, #verificationBtn{
+#checkNick, #checkId, #verificationBtn{
 	border: none;
 	border-radius: 5px;
 	background-color: rgb(231,112,151);
@@ -65,4 +65,8 @@
 }
 #nickname_check{
 	visibility: hidden;
+}
+.nickBox,
+.idBox{
+	display: flex;
 }

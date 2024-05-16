@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <script src="https://kit.fontawesome.com/516da99189.js" crossorigin="anonymous"></script>   
+<link rel="stylesheet" href="/css/donation.css">
+<link rel="stylesheet" href="/css/header_footer.css">
+</head>
+<body>
+   <!-- header -->
+   <th:block th:replace="~{layout/header::header(loginUser)}"></th:block>
+   <!-- 컨텐츠 -->
+   <div class="wrap donation">
+		<div class="intro_donation">
+				<h2>GivuLuv 추천 모금함</h2>
+			<div class="category_wrap">
+				<ul class="category_list">
+					<li class="category_item_1" aria-current="true">
+						<button type="button" class="categoryBtn selected">
+							<span class="DonationTodayCategory_text__2oRHp">전체</span>
+						</button>
+					</li>
+					<li class="category_item_2" aria-current="true">
+						<button type="button" class="categoryBtn">
+							<span class="DonationTodayCategory_text__2oRHp">동물</span>
+						</button>
+					</li>
+					<li class="category_item_3" aria-current="true">
+						<button type="button" class="categoryBtn">
+							<span class="DonationTodayCategory_text__2oRHp">아동•청소년</span>
+						</button>
+					</li>
+					<li class="category_item_4" aria-current="true">
+						<button type="button" class="categoryBtn">
+							<span class="DonationTodayCategory_text__2oRHp">어르신</span>
+						</button>
+					</li>
+					<li class="category_item_5" aria-current="true">
+						<button type="button" class="categoryBtn">
+							<span class="DonationTodayCategory_text__2oRHp">장애인</span>
+						</button>
+					</li>
+					<li class="category_item_6" aria-current="true">
+						<button type="button" class="categoryBtn">
+							<span class="DonationTodayCategory_text__2oRHp">다문화</span>
+						</button>
+					</li>
+					<li class="category_item_7" aria-current="true">
+						<button type="button" class="categoryBtn">
+							<span class="DonationTodayCategory_text__2oRHp">지구촌</span>
+						</button>
+					</li>
+					<li class="category_item_8" aria-current="true">
+						<button type="button" class="categoryBtn">
+							<span class="DonationTodayCategory_text__2oRHp">시민사회</span>
+						</button>
+					</li>
+					<li class="category_item_9" aria-current="true">
+						<button type="button" class="categoryBtn">
+							<span class="DonationTodayCategory_text__2oRHp">환경</span>
+						</button>
+					</li>
+					<li class="category_item_10" aria-current="true">
+						<button type="button" class="categoryBtn">
+							<span class="DonationTodayCategory_text__2oRHp">기타</span>
+						</button>
+					</li>
+					<li class="category_item_11" aria-current="true">
+						<button type="button" class="categoryBtn">
+							<span class="DonationTodayCategory_text__2oRHp">가족•여성</span>
+						</button>
+					</li>
+				</ul>
+			<div class="card_list">
+				<div class="card_list2">
+					<div class="card_item">
+						<a href="#" id="donation_link">
+							<div class="card_thumbnail">
+								<img src="/src/main/resources/static/images/기부사진1.jpeg">
+							</div>
+							<strong class="card_title">아동센터 임대료를 지원해주세요</strong>
+							<strong class="card_orgname">길동지역아동센터</strong>
+						</a>
+					</div>
+					<div class="card_item">
+						<a href="#" id="donation_link">
+							<div class="card_thumbnail">
+								<img src="../../static/images/GivuLuv_logo.png">
+							</div>
+							<strong class="card_title">아동센터 임대료를 지원해주세요</strong>
+							<strong class="card_orgname">길동지역아동센터</strong>
+						</a>
+					</div>
+					<div class="card_item">
+						<a href="#" id="donation_link">
+							<div class="card_thumbnail">
+								<img src="../../static/images/GivuLuv_logo.png">
+							</div>
+							<strong class="card_title">아동센터 임대료를 지원해주세요</strong>
+							<strong class="card_orgname">길동지역아동센터</strong>
+						</a>
+					</div>
+					<div class="card_item">
+						<a href="#" id="donation_link">
+							<div class="card_thumbnail">
+								<img src="../../static/images/GivuLuv_logo.png">
+							</div>
+							<strong class="card_title">아동센터 임대료를 지원해주세요</strong>
+							<strong class="card_orgname">길동지역아동센터</strong>
+						</a>
+					</div>
+					<div class="card_item">
+						<a href="#" id="donation_link">
+							<div class="card_thumbnail">
+								<img src="../../static/images/GivuLuv_logo.png">
+							</div>
+							<strong class="card_title">아동센터 임대료를 지원해주세요</strong>
+							<strong class="card_orgname">길동지역아동센터</strong>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+   <!-- footer -->
+   <th:block th:replace="~{layout/footer::footer()}"></th:block>
+</body>
+<script src="/js/jquery-3.7.1.min.js"></script>
+<script>
+	$('.h_logout').on('click', function(){
+		alert("로그아웃되었습니다.")
+	})
+	$(document).ready(function() {
+		    $('.categoryBtn').click(function() {
+		        // 클릭된 카테고리 버튼에만 selected 클래스를 추가하고 나머지에서는 제거
+		        $('.categoryBtn').removeClass('selected');
+		        $(this).addClass('selected');
+		    });
+		});
+</script>
+
+</html>

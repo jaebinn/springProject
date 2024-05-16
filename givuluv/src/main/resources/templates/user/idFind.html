@@ -38,19 +38,6 @@
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="/js/user.js"></script>
 <script>
-	$(document).ready(function() {
-	    $(".eyes").click(function() {
-	        let currentType = $("#userpw").attr("type");
-	
-	        if (currentType === "password") {
-	            $("#userpw").attr("type", "text");
-	            $(this).removeClass("fa-eye-slash").addClass("fa-eye");
-	        } else { 
-	            $("#userpw").attr("type", "password");
-	            $(this).removeClass("fa-eye").addClass("fa-eye-slash");
-	        }
-	    });
-	});
 	const findForm = document.findForm;
 	function sendit(){
 		const checkNick = $('#nickname_check');
@@ -67,7 +54,7 @@
 			return;
 		}
 		if(checkNick.html() === "중복된 닉네임이 있습니다!"){
-			alert("중복체크 통과 후 가입이 가능합니다!");
+			alert("중복체크 통과 후 아이디 찾기가 가능합니다!");
 			nickname.focus();
 			return;
 		}
