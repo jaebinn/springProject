@@ -117,7 +117,7 @@ public class UserController {
     	return "user/findPage";                
     }
     
-  //이메일 인증
+    //이메일 인증
   	@GetMapping("mailCheck")
   	@ResponseBody
   	public ResponseEntity<String> mailCheck(@RequestParam String nickname, @RequestParam String email) {

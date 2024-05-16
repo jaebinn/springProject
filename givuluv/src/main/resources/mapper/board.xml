@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gl.givuluv.mapper.BoardMapper">
+   <!-- 기부 게시글 -->
+   <insert id="insertDonation">
+      insert into d_board(d_boardnum, d_title, d_content, target_amount, save_money, d_enddate, orgid)
+      values(#{d_boardnum},#{d_title},#{d_content}, #{target_amount},#{save_money}, #{d_enddate}, #{orgid})
+   </insert>
+
+   <select id="getDonationByBoardnum">
+      select * from d_board where d_boardnum=#{d_boardnum}
+   </select>
+   <select id="getDonationsByOrgid">
+      select * from d_board where orgid=#{orgid}
+   </select>
+
+   <update id="updateDonation">
+      
+   </update>
+
+   <delete id="deleteDonationByBoardnum">
+      delete from d_board where d_boardnum=#{d_boardnum} 
+   </delete>
+   <delete id="deleteDonationsByOrgid">
+      delete from d_board where orgid=#{orgid}
+   </delete>
+   
+   <!-- 펀딩 게시글 -->
+      <insert id="insertFunding">
+      insert into f_board(f_boardnum, f_title, f_content, target_amount, save_money, f_enddate, orgid)
+      values(#{f_boardnum},#{f_title},#{f_content}, #{target_amount},#{save_money}, #{f_enddate}, #{orgid})
+   </insert>
+
+   <select id="getFundingByBoardnum">
+      select * from f_board where f_boardnum=#{f_boardnum}
+   </select>
+   <select id="getFundingsByOrgid">
+      select * from f_board where orgid=#{orgid}
+   </select>
+
+   <update id="updateDonation">
+      
+   </update>
+
+   <delete id="deleteFundingByBoardnum">
+      delete from f_board where f_boardnum=#{f_boardnum} 
+   </delete>
+   <delete id="deleteFundingsByOrgid">
+      delete from f_board where orgid=#{orgid}
+   </delete>
+
+
+   
+   <!-- 가게 게시글 (수정중) -->
+   <insert id="insertStore">
+      insert into d_board(d_boardnum, d_title, d_content, target_amount, save_money, d_enddate, orgid)
+      values(#{d_boardnum},#{d_title},#{d_content}, #{target_amount},#{save_money}, #{d_enddate}, #{orgid})
+   </insert>
+
+   <select id="getDonationByBoardnum">
+      select * from d_board where d_boardnum=#{d_boardnum}
+   </select>
+   <select id="getDonationsByOrgid">
+      select * from d_board where orgid=#{orgid}
+   </select>
+
+   <update id="updateDonation">
+      
+   </update>
+
+   <delete id="deleteDonationByBoardnum">
+      delete from d_board where d_boardnum=#{d_boardnum} 
+   </delete>
+   <delete id="deleteDonationsByOrgid">
+      delete from d_board where orgid=#{orgid}
+   </delete>
+   
+   
+   <!-- 일반 게시글 (수정중) -->
+   <insert id="insertDonation">
+      insert into d_board(d_boardnum, d_title, d_content, target_amount, save_money, d_enddate, orgid)
+      values(#{d_boardnum},#{d_title},#{d_content}, #{target_amount},#{save_money}, #{d_enddate}, #{orgid})
+   </insert>
+
+   <select id="getDonationByBoardnum">
+      select * from d_board where d_boardnum=#{d_boardnum}
+   </select>
+   <select id="getDonationsByOrgid">
+      select * from d_board where orgid=#{orgid}
+   </select>
+
+   <update id="updateDonation">
+      
+   </update>
+
+   <delete id="deleteDonationByBoardnum">
+      delete from d_board where d_boardnum=#{d_boardnum} 
+   </delete>
+   <delete id="deleteDonationsByOrgid">
+      delete from d_board where orgid=#{orgid}
+   </delete>
+   
+</mapper>
