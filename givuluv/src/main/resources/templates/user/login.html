@@ -125,7 +125,27 @@
 				alert("로그인에 실패했습니다. 아이디와 비밀번호를 확인해주세요.");
 			}
 		});
+		// 로그인 방법에 따른 form으로 제출할 action 및 파라미터 변경
+		        $(".user-login").on("click", function () {
+		            $("form[name='loginForm']").attr("action", "/user/login");
+		            $("#userid, #sellerid, #orgid").attr("name", "userid").attr("id", "userid");
+		            $("#userpw, #sellerpw, #orgpw").attr("name", "userpw").attr("id", "userpw");
+		         $(".content > h1").text("GivuLuv 로그인");
+		        });
 		
+		        $(".seller-login").on("click", function () {
+		            $("form[name='loginForm']").attr("action", "/seller/login");
+		            $("#userid, #orgid").attr("name", "sellerid").attr("id", "sellerid");
+		            $("#userpw, #orgpw").attr("name", "sellerpw").attr("id", "sellerpw");
+		         $(".content > h1").text("GivuLuv [판매자] 로그인");
+		        });
+		
+		        $(".org-login").on("click", function () {
+		            $("form[name='loginForm']").attr("action", "/org/login");
+		            $("#userid, #sellerid").attr("name", "orgid").attr("id", "orgid");
+		            $("#userpw, #sellerpw").attr("name", "orgpw").attr("id", "orgpw");
+		         $(".content > h1").text("GivuLuv [사회단체] 로그인");
+		        });
 		
 	</script>
 </body>

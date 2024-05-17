@@ -1,0 +1,68 @@
+@font-face {
+     font-family: 'NIXGONM-Vb';
+     src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/NIXGONM-Vb.woff') format('woff');
+     font-weight: normal;
+     font-style: normal;
+}
+@font-face {
+    font-family: 'TTLaundryGothicB';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/TTLaundryGothicB.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+
+a, a:hover, a:focus, a:active, a:visited, a:target{
+	text-decoration: none;
+	/*background-color: transparent;*/
+	color: #424242;
+	user-select: none;
+}
+.btn{
+	width: 40px;
+	height: 20px;
+	padding: 10px;
+	border: 2px solid #424242;
+	border-radius: 20px;
+	background-color: rgb(231, 112, 151);
+	color: white;
+    font-family: 'NIXGONM-Vb';
+    font-size: 20px;
+    text-align: center;
+	cursor: pointer;
+	user-select: none;
+}
+.btn:hover{
+	color: white;
+}
+.btn_option{
+	
+}
+
+
+.logo{
+	width: 60px;
+	height: 60px;
+}
+
+.writeheader{
+	padding: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.writeheaderleft{
+	display: flex;
+	align-items: center;
+	font-family: 'TTLaundryGothicB';
+}
+.writeheaderleft > p{
+	margin: 0;
+	font-size: 30px;
+	margin-left: 10px;
+}
+
+
+
+
+
+

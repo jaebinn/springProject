@@ -109,7 +109,7 @@ public class SellerController {
 		    	System.out.println(sellerid);
 		    	System.out.println(sellerpw);
 		        System.out.println(sellerid + " 로그인됨");
-		        session.setAttribute("loginUser", sellerid);
+		        session.setAttribute("loginSeller", sellerid);
 		        return "redirect:/";
 		    } else {
 		    	System.out.println(sellerid);

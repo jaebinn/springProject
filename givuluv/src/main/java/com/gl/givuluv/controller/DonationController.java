@@ -16,4 +16,9 @@ public class DonationController {
 	public String donationView() {
 		return "donation/donationView";
 	}
+	@GetMapping("write")
+	   public String write() {
+	      return "donation/write";
+	   }
+
 }

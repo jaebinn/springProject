@@ -58,20 +58,14 @@ function sendit(){
     }      
    
     
-    const logo = orgjoinForm.logo;
+    /*const logo = orgjoinForm.logo;
     const exp_logo = /^[ㄱ-ㅎ가-힣a-zA-Z0-9\s]+$/;
     
     if(logo.value==""){
         alert("로고명을 입력하세요!");
         logo.focus();
         return;
-    }
-    if(!exp_logo.test(logo.value)){
-       alert("로고명에는 한글, 영어, 숫자만 입력하세요!");
-       logo.focus();
-       return false;
-    }
-    
+    }*/
 
     const orgphone = document.getElementById('orgphone');
     const phoneRegex = /^\d{3}-\d{4}-\d{4}$/;
