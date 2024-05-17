@@ -2,15 +2,24 @@
 <html>
 <head>
    <script src="https://kit.fontawesome.com/516da99189.js" crossorigin="anonymous"></script>   
-<link rel="stylesheet" href="/css/donation.css">
 <link rel="stylesheet" href="/css/header_footer.css">
+<link rel="stylesheet" href="/css/donationView.css">
 </head>
 <body>
    <!-- header -->
    <th:block th:replace="~{layout/header::header(loginUser)}"></th:block>
    <!-- 컨텐츠 -->
-   <div class="wrap d_view">
-		
+   <div class="container">
+		<div class="donation_wrap">
+			<div class="donation_content">
+				<h2 class="theme">
+				    <a href="#" class="theme" style="text-decoration:none">카테고리</a>
+				</h2>
+			</div>
+			<div class="donation_side">
+				
+			</div>
+		</div>
 	</div>
    <!-- footer -->
    <th:block th:replace="~{layout/footer::footer()}"></th:block>

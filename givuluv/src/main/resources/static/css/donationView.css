@@ -1,0 +1,32 @@
+@font-face {
+    font-family: 'TTLaundryGothicB';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/TTLaundryGothicB.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+*{
+   margin: 0;padding: 0;
+   font-family: 'TTLaundryGothicB';
+}
+.container{
+	width: 1340px;
+    margin: 0 auto 40px;
+    border-bottom: 1px solid #e5e5e5;
+}
+.donation_wrap{
+	width: 100%;
+    position: relative;
+    overflow: hidden;
+    margin: 0;	
+}
+.donation_content{
+	float: left;
+    width: 628px;
+    padding: 60px 94px 90px;
+    font-size: 16px;
+}
+.donation_side{
+	float: left;
+    width: 282px;
+    font-size: 15px;
+}

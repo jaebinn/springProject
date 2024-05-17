@@ -225,18 +225,22 @@ ul{
 .f_notice_box ul{
     width: 900px;
 }
-.f_notice_box ul li:first-child{
+.f_notice_box ul li p, .f_notice_box ul li a {
+	font-family: Arial, Helvetica, sans-serif;
+}
+.f_notice_box ul li p{
     line-height: 50px;
     width: 100px;
     float: left;
     font-size: 15px;
     font-weight: bold;
 }
-.f_notice_box ul li:nth-child(2){
+.f_notice_box ul li a{
     line-height: 50px;
     font-size: 14px;
     width: 600px;
 }
+
 .f_sns_box{
 	display: flex;
 }
@@ -258,19 +262,6 @@ ul{
 	transform: scale(1.2); 
     transition: transform 0.3s ease; 
 }
-@keyframes pink_filter{
-    0%{
-        opacity: 0.3;
-    }
-    50%{
-        filter: invert(70%) sepia(17%) saturate(7476%) hue-rotate(300deg) brightness(98%) contrast(85%);
-        opacity: 0.5;
-    }
-    100%{
-        filter: invert(70%) sepia(17%) saturate(7476%) hue-rotate(300deg) brightness(98%) contrast(85%);
-        opacity: 1;
-    }
-}
 
 .f_info_box{
     width: 1340px;
@@ -283,6 +274,7 @@ ul{
     margin: 20px 0;
 }
 .f_info_law ul li{
+	font-family: Arial, Helvetica, sans-serif;
     font-weight: 700;
     color: rgb(90, 90, 90);
     display: inline;
@@ -300,6 +292,7 @@ ul{
     display: none;
 }
 .f_info_law ul li a{
+	font-family: Arial, Helvetica, sans-serif;
     color: rgb(90, 90, 90);
 }
 
@@ -307,6 +300,7 @@ ul{
     width: 60%;
 }
 .f_info ul li{
+	font-family: Arial, Helvetica, sans-serif;
     color: rgb(90, 90, 90);
     display: inline;
     white-space: nowrap;
@@ -330,6 +324,7 @@ ul{
     margin-top: 10px;
     font-size: 14px;
     color: rgb(90, 90, 90);
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .f_copyright a{
@@ -338,5 +333,7 @@ ul{
     margin-right: 10px;
     font-family: 'TTLaundryGothicB';
 }
-
+.f_copyright p span{
+	font-family: Arial, Helvetica, sans-serif;
+}
 /* footer css 마무리 */
