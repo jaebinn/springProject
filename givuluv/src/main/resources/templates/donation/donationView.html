@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <script src="https://kit.fontawesome.com/516da99189.js" crossorigin="anonymous"></script>   
+<link rel="stylesheet" href="/css/donation.css">
+<link rel="stylesheet" href="/css/header_footer.css">
+</head>
+<body>
+   <!-- header -->
+   <th:block th:replace="~{layout/header::header(loginUser)}"></th:block>
+   <!-- 컨텐츠 -->
+   <div class="wrap d_view">
+		
+	</div>
+   <!-- footer -->
+   <th:block th:replace="~{layout/footer::footer()}"></th:block>
+</body>
+<script src="/js/jquery-3.7.1.min.js"></script>
+<script>
+	$('.h_logout').on('click', function(){
+		alert("로그아웃되었습니다.")
+	})
+	$(document).ready(function() {
+		    $('.categoryBtn').click(function() {
+		        // 클릭된 카테고리 버튼에만 selected 클래스를 추가하고 나머지에서는 제거
+		        $('.categoryBtn').removeClass('selected');
+		        $(this).addClass('selected');
+		    });
+		});
+</script>
+
+</html>

@@ -4,6 +4,9 @@
     font-weight: 700;
     font-style: normal;
 }
+::before{
+	box-sizing: border-box;
+}
 *{
 	margin: 0;padding: 0;
 	font-family: 'TTLaundryGothicB';
@@ -13,7 +16,7 @@
 	margin: 0 auto;
 }
 .intro_donation{
-	height: 1000px;
+	height: auto;
 	padding-top: 50px;
 }
 .category_wrap{
@@ -34,37 +37,37 @@
     cursor: pointer;
 }
 .category_item_1 .categoryBtn::before{
-	background-image: url("../images/animal.png");
+	background-image: url("../images/전체.png");
 }
 .category_item_2 .categoryBtn::before{
 	background-image: url("../images/animal.png");
 }
 .category_item_3 .categoryBtn::before{
-	background-image: url("../images/animal.png");
+	background-image: url("../images/아동청소년.png");
 }
 .category_item_4 .categoryBtn::before{
-	background-image: url("../images/어르신.jpg");
+	background-image: url("../images/어르신.png");
 }
 .category_item_5 .categoryBtn::before{
-	background-image: url("../images/장애인.jpg");
+	background-image: url("../images/장애인.png");
 }
 .category_item_6 .categoryBtn::before{
-	background-image: url("../images/다문화.jpg");
+	background-image: url("../images/다문화.png");
 }
 .category_item_7 .categoryBtn::before{
 	background-image: url("../images/지구촌.png");
 }
 .category_item_8 .categoryBtn::before{
-	background-image: url("../images/animal.png");
+	background-image: url("../images/시민사회.png");
 }
 .category_item_9 .categoryBtn::before{
 	background-image: url("../images/환경.png");
 }
 .category_item_10 .categoryBtn::before{
-	background-image: url("../images/animal.png");
+	background-image: url("../images/가족여성.png");
 }
 .category_item_11 .categoryBtn::before{
-	background-image: url("../images/animal.png");
+	background-image: url("../images/기타.png");
 }
 .selected {
 	background-color: rgb(79, 148, 111);
@@ -84,9 +87,12 @@
 	border: 1px solid rgba(0,0,0,0.3);
 }
 .card_list{
+	width: 100%;
+	height: auto;
 	margin-top: 40px;
 }
 .card_list2{
+	height: 200px;
 	margin-right: -24px;
     margin-bottom: -30px;
 }
@@ -99,15 +105,23 @@
     margin: 0 24px 30px 0;
 }
 .card_thumbnail{
-	/*position: absolute;
+	position: relative;
+	overflow: hidden;
+    border-radius: 6px;
+}
+.card_thumbnail::before{
+	position: absolute;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
     z-index: 1;
     border: 1px solid rgba(0, 0, 0, .08);
-    border-radius: inherit;
-    content: "";*/
+    content: "";
+}
+.card_thumbnail img{
+	border-radius: 6px;
+    vertical-align: top;
 }
 .card_title{
 	display: block;
@@ -128,4 +142,181 @@
     margin-top: 6px;
     font-size: 13px;
     color: #828282;
+}
+.moreBtn{
+	text-align: center;
+}
+#more{
+	padding: 10px 30px;
+	border-radius: 30px;
+	border: 1px solid rgba(0,0,0,0.1);
+	cursor: pointer;
+}
+#more:hover{
+	border: 1px solid rgba(0,0,0,0.7);
+}
+.today_donation{
+	position: relative;
+    height: 140px;
+    margin-top: 80px;
+    padding-top: 20px;
+    border-radius: 10px;
+    background-color: rgb(231,112,151);
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.today_donation_title{
+	display: inline-block;
+    width: 197px;
+    height: 66px;
+    background: url() no-repeat 100%;
+    background-size: 100%;
+    vertical-align: middle;
+}
+.blind{
+	color: #fff;
+	font-size: 28px;
+}
+.donation_today_summary{
+	display: inline-block;
+    margin-left: 45px;
+    text-align: center;
+    vertical-align: middle;	
+}
+.people{
+	background-color: #fff;
+    color: #010101;
+    position: relative;
+    border-radius: 30px;
+    border: 1px solid #fff;
+    padding: 15px;
+    margin-bottom: 20px;
+    max-width: 300px; 
+}
+
+.people::after{
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    content: "";
+    bottom: -20px; 
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 10px;
+    border-style: solid;
+    border-color: #f0f0f0 transparent transparent transparent;
+}
+.cost{
+	margin-left: 30px;
+    background-color: #41b25e;
+    color: #fff;
+    position: relative;
+    border-radius: 30px;
+    border: 1px solid #41b25e;
+    padding: 15px;
+    margin-bottom: 20px;
+    max-width: 300px; 
+}
+
+.cost::after{
+	position: absolute;
+    width: 16px;
+    height: 16px;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    content: "";
+    bottom: -20px; 
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 10px;
+    border-style: solid;
+    border-color: #41b25e transparent transparent transparent;
+}
+.donation_review_wrap{
+	margin-top: 80px;
+}
+.donation_review_title{
+	font-size: 24px;
+}
+.donation_review_card_list_wrap{
+    overflow: hidden;
+    margin: 30px -24px 0 0;	
+}
+.donation_review_card_list_item{	
+	float: left;
+    width: 33.3%;
+}
+.donation_review_card_list_link{
+	display: block;
+    overflow: hidden;
+    position: relative;
+    margin-right: 24px;
+    border-radius: 6px;	
+}
+.donation_review_card_list_link::before{
+	position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    border: 1px solid rgba(0, 0, 0, .06);
+    border-radius: inherit;
+    content: "";
+}
+.donation_review_card_list_review_top{
+	position: relative;
+    height: 94px;
+    padding: 12px 20px 0;
+    background-color: #41b25e;	
+}
+.donation_review_card_list_review_top::before{
+	position: absolute;
+    right: 18px;
+    bottom: 0;
+    width: 47px;
+    height: 38px;
+    background: url(/build/static/media/icon_quote.63e0549d.svg) no-repeat;
+    background-size: 100%;
+    content: "";	
+}
+.donation_review_card_list_thumb{
+	overflow: hidden;
+    position: relative;
+    float: left;
+    margin-right: 14px;
+    border-radius: 50%;	
+}
+.donation_review_card_title{
+	overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    display: -webkit-box;
+    line-height: 24px;
+    word-wrap: break-word;
+    word-break: break-all;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    height: 48px;
+    margin-top: 11px;
+    padding-right: 60px;
+    font-size: 16px;
+    color: #fff;
+}
+.donation_review_card_list_text{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    display: -webkit-box;
+    line-height: 24px;
+    word-wrap: break-word;
+    word-break: break-all;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    height: 96px;
+    font-size: 14px;
+    color: #333;	
 }

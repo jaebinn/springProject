@@ -12,4 +12,8 @@ public class DonationController {
 	public String dBoard() {
 		return "donation/dBoard";
 	}
+	@GetMapping("donationView")
+	public String donationView() {
+		return "donation/donationView";
+	}
 }

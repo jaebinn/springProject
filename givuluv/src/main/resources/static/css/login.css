@@ -7,7 +7,7 @@ body{
 .login{
 	position: relative;
     max-width: 600px;
-    min-height: 650px; 
+    min-height: 600px; 
     background-color: #fff;
     margin: 80px auto;
     border: 1px solid lightgrey;

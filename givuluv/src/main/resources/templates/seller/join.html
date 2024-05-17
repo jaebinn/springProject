@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<!--판매자 회원가입 페이지(기존 user.join.html을 변형했습니다)
+	css는 새로 만들되 기존 /css/join.css를 가져와 추가하는 식으로 구현할 예정입니다.
+	js -> 
+	본인인증 방식은 기존 구글 이메일 인증 방식으로 구현하였습니다.
+	판매자 아이디 찾기 / 비번 찾기 기능은 판매자 로그인 페이지에 구현 될 예정입니다.
+	-->
+<html>
+<head>
+<meta charset="UTF-8">
+<title>판매자 회원가입</title>
+<script src="https://kit.fontawesome.com/1924b51539.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="/css/join.css">
+<style>
+	.eyes{
+		position: absolute;
+		top: 42.5% !important;
+		left: 80% !important;	
+	}
+	.join_tbl input{
+		margin-bottom: 10px !important;
+	}
+</style>
+</head>
+<body>
+    <!-- 컨텐츠 -->
+    <div class="container join">           
+        <div class="content">
+			<!--뒤로가기 버튼(로그인 페이지로 이동)-->
+			<a href="/user/login"><i class="fa-solid fa-right-to-bracket backPage"></i></a>
+			<!---->
+            <h1>판매자 정보를 입력해주세요.</h1>
+            <div class="join_text">
+				<!--class="fa-solid fa-star star" 는 필수입력 표시의 별표 모양인듯 함-->
+				<span id="necessary"><i class="fa-solid fa-star star"></i></span>
+                <span>필수정보입력</span>
+            </div>
+			
+            <div class="join-input">
+				<!--post방식-->
+                <form action="/seller/join" method="post" name="seller_joinForm">
+					<!---->
+                    <div class="join-input-wrap">
+						<table class="join_tbl">
+							<tbody>
+								<tr class="id_checkBox">
+									<td>
+										<p id="id_check"></p>
+									</td>
+								</tr>
+									<!--userid -> sellerid-->
+								<th><label for="sellerid">판매자 아이디</label><span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
+								<tr>
+									<!--아이디 입력 란-->
+									<td>
+										<input type="text" name="sellerid" id="sellerid" placeholder="아이디">									
+									</td>	
+									<!--아이디 중복체크-->						
+									<td id="btns">
+										<input type="button" value="중복검사" onclick="seller_checkId()" id="checkid">									
+									</td>
+									<!--아이디 중복체크 끝-->
+								</tr>	
+									<!--userpw -> sellerpw-->						
+								<th><label for="sellerpw">비밀번호</label><span id="necessary"><i class="fa-solid fa-star star"></i>
+									
+								</span></th>
+								<tr>
+									<td id="eyesBox">
+										<!--비밀번호 입력 란-->
+										
+										<input type="password" name="sellerpw" id="sellerpw">	
+										<i class="fa-solid fa-eye-slash eyes"></i>									
+									</td>							
+								</tr>	
+								<!--비밀번호 유효성 검사-->	
+								<!--userpw_re -> sellerpw_re-->				
+								<th><label for="sellerpw_re">비밀번호 확인</label><span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
+								<tr>
+									<td>
+										<input type="password" id="sellerpw_re" onblur="seller_pwcheck()">										
+									</td>							
+								</tr>		
+								<tr class="pw_check">
+									<td>
+										<span id="pw_checkText"></span>
+									</td>
+								</tr>	
+								<!--비밀번호 유효성 검사 끝-->		
+								<!--username -> sellername-->		
+								<th><label for="sellername">판매자 이름</label><span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
+														
+								<tr>
+									<td>
+										<input type="text" name="sellername" id="sellername"> 
+										<!--기존 'username' 에서 'sellername'으로 변경됨-->								
+									</td>							
+								</tr>
+								<!--===========================================-->	
+								<!--판매자 테이블에 성별 필드가 없어서 주석처리 하였습니다.-->	
+								<!--===========================================-->					
+								<!--<th>성별<span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
+								<tr class="gender_area">
+									<td>
+										<div>
+											<ul>
+												<li class="radio_item">
+													<input type="radio" id="gender1" name="gender" value="M"><label for="gender1">남자</label>
+												</li>
+												<li class="radio_item">
+													<input type="radio" id="gender2" name="gender" value="W"><label for="gender2">여자</label>
+												</li>
+											</ul>
+										</div>
+									</td>							
+								</tr>		-->	
+										
+								<!--============================================-->	
+								<!--판매자 테이블에 생년월일 필드가 없어서 주석처리 하였습니다.-->
+								<!--============================================-->
+								<!--<th><label for="birth">생년월일</label><span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
+								<tr>
+									<td>
+										<input type="date" name="birth" id="birth">										
+									</td>							
+								</tr>-->
+								<!--판매자 이메일 입력 -->							
+								<th><label for="email">이메일</label><span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
+								<tr>
+									<td>
+										<!--이메일 입력 란-->
+										<input type="email" name="email" id="email">										
+									</td>							
+								</tr>
+								<!--판매자 전화번호 입력-->							
+								<th><label for="sellerphone">전화번호</label><span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
+								<tr>
+									<td>
+										<!--userphone -> sellerphone-->
+										<!--전화번호 입력 란-->
+										<input type="tel" name="sellerphone" id="sellerphone" placeholder="010-1234-5678">										
+									</td>							
+								</tr>	
+								<!--==========================================-->		
+								<!--판매자 테이블에 닉네임 필드가 없어 주석처리 하였습니다.-->		
+								<!--==========================================-->		
+								<!--<th><label for="nickname">닉네임</label><span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
+								<tr>
+									<td>
+										<input type="text" name="nickname" id="nickname">										
+									</td>	
+									<td id="btns">
+										<input type="button" value="중복검사" onclick="checkNickname()" id="checkNick">									
+									</td>															
+								</tr>		
+								<tr class="nickname_checkBox">
+									<td>
+										<p id="nickname_check"></p>
+									</td>
+								</tr>	-->			
+									
+								<!--======================================================================-->
+								<!--판매자 테이블에 주소관련 필드가 없어 주석처리 하였습니다. (가게등록 요청 페에지에 사용 예쩡) -->
+								<!--======================================================================-->
+								<!--<th><label for="zipcode">우편번호</label><span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
+								<tr>
+									<td>
+										<input type="text" name="zipcode" id="zipcode" onclick="findAddr()" placeholder="우편번호" readonly>										
+									</td>							
+									<td id="btns">
+										<input type="button" id="findzipcode" value="우편번호 찾기" onclick="findAddr()">
+									</td>
+								</tr>							
+								<th><label for="addr">주소</label><span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
+								<tr>
+									<td>
+										<input type="text" name="addr" id="addr" placeholder="주소" readonly>										
+									</td>							
+								</tr>							
+								<th><label for="addrdetail">상세주소</label></th>
+								<tr>
+									<td>
+										<input type="text" name="addrdetail" id="addrdetail" placeholder="상세주소">										
+									</td>							
+								</tr>																			
+								<th><label for="addretc">참고항목</label></th>
+								<tr>
+									<td>
+										<input type="text" name="addretc" id="addretc" placeholder="참고항목">										
+									</td>							
+								</tr>-->																			
+							</tbody>
+						</table>
+						<!--submit 버튼 -->
+                        <button type="button" id="joinBtn" onclick="sendit()">가입완료</button>           
+						            
+                    </div>
+                </form>
+            </div>            
+        </div>
+    </div>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<script src="/js/seller.js"></script>
+
+
+<!--비밀번호 보이기 / 가리기 스크립트문-->
+<script>
+	
+	$(document).ready(function() {
+	    $(".eyes").click(function() {
+	        let currentType = $("#sellerpw").attr("type");
+	
+	        if (currentType === "password") {
+	            $("#sellerpw").attr("type", "text");
+	            $(this).removeClass("fa-eye-slash").addClass("fa-eye");
+	        } else { 
+	            $("#sellerpw").attr("type", "password");
+	            $(this).removeClass("fa-eye").addClass("fa-eye-slash");
+	        }
+	    });
+	});
+</script>
+
+<!--비밀번호 보이기 / 가리기 스크립트문 끝-->
+</body>
+</html>

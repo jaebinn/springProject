@@ -59,7 +59,7 @@
 				</div>
 			</div>
 			<div class="otherJoin">
-				<a href="#">판매자 계정 만들기</a>
+				<a href="/seller/join">판매자 계정 만들기</a>
 				<span> / </span>
 				<a href="/org/join">사회단체 계정 만들기</a>
 			</div>
@@ -114,28 +114,9 @@
                     "background-color": "#fff"
                 });
             });
-			
 	
         });
 		
-		// 로그인 방법에 따른 form으로 제출할 action 및 파라미터 변경
-        $(".user-login").on("click", function () {
-            $("form[name='loginForm']").attr("action", "/user/login");
-            $("#userid, #sellerid, #orgid").attr("name", "userid").attr("id", "userid");
-            $("#userpw, #sellerpw, #orgpw").attr("name", "userpw").attr("id", "userpw");
-        });
-
-        $(".seller-login").on("click", function () {
-            $("form[name='loginForm']").attr("action", "/seller/login");
-            $("#userid, #orgid").attr("name", "sellerid").attr("id", "sellerid");
-            $("#userpw, #orgpw").attr("name", "sellerpw").attr("id", "sellerpw");
-        });
-
-        $(".org-login").on("click", function () {
-            $("form[name='loginForm']").attr("action", "/org/login");
-            $("#userid, #sellerid").attr("name", "orgid").attr("id", "orgid");
-            $("#userpw, #sellerpw").attr("name", "orgpw").attr("id", "orgpw");
-        });
 		
 		$(document).ready(function () {
 			const loginFailed = /*[[${loginFailed}]]*/'';
@@ -144,6 +125,8 @@
 				alert("로그인에 실패했습니다. 아이디와 비밀번호를 확인해주세요.");
 			}
 		});
+		
+		
 	</script>
 </body>
 

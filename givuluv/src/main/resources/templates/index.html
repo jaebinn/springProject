@@ -5,7 +5,9 @@
    <link rel="stylesheet" href="/css/index.css">
    <script src="https://kit.fontawesome.com/516da99189.js" crossorigin="anonymous"></script>
    <link rel="stylesheet" href="/css/login.css">
-   <link rel="stylesheet" href="/css/header_footer.css">
+   <link rel="stylesheet" href="/css/header_footer.css">   
+   <link rel="stylesheet" href="/css/kakaomap.css">
+   
 </head>
 
 <body>
@@ -317,6 +319,7 @@
             </div>
          </div>
       </section>
+	  <th:block th:replace="~{layout/kakaomap::kakaomap()}"></th:block>
    </div>
    <!-- footer -->
    <th:block th:replace="~{layout/footer::footer()}"></th:block>

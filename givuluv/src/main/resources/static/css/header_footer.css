@@ -237,26 +237,26 @@ ul{
     font-size: 14px;
     width: 600px;
 }
-
 .f_sns_box{
-    width: 200px;
-    height: 50px;
-    padding-top: 12.5px;
+	display: flex;
 }
-.f_sns_box a{
-    margin: 10px;
+.f_sns_box .link{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 18px;
+    height: 34px;
+    width: 34px;
+    border-radius: 50%;
+    margin: 0 8px;
+    background-color: #4080f4;
+    text-decoration: none;
 }
-.f_sns_box a img{
-    width: 25px;
-    height: 25px;
-    opacity: 0.4;
-    transition: 0.5s;
-}
-
-.f_sns_box a:hover img{
-    animation: pink_filter 0.5s ease-in-out;
-    filter: invert(70%) sepia(17%) saturate(7476%) hue-rotate(300deg) brightness(98%) contrast(85%);
-    opacity: 1;
+.f_sns_box .link:hover{
+	color: #fff !important;
+	transform: scale(1.2); 
+    transition: transform 0.3s ease; 
 }
 @keyframes pink_filter{
     0%{
