@@ -17,8 +17,11 @@ public class DonationController {
 		return "donation/donationView";
 	}
 	@GetMapping("write")
-	   public String write() {
-	      return "donation/write";
-	   }
-
+	public String write() {
+	    return "donation/write";
+	}
+    @GetMapping("pay")
+    public String pay() {
+    	return "donation/donationPay";
+    }
 }

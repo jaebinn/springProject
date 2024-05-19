@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <script src="https://kit.fontawesome.com/516da99189.js" crossorigin="anonymous"></script>   
+<link rel="stylesheet" href="/css/header_footer.css">
+<link rel="stylesheet" href="/css/donationPay.css">
+</head>
+<body>
+   <!-- header -->
+   <th:block th:replace="~{layout/header::header(loginUser)}"></th:block>
+   <!-- 컨텐츠 -->
+   <div class="container">
+		<div class="contents">
+			<div class="tit">
+				<a href="/donation/donationView"><i class="fa-regular fa-less-than"></i></a>
+				<h2>기부 제목</h2>
+				<p>by 사회단체명</p>
+			</div>
+		</div>
+		<div class="payment">
+			<ul class="dtn_tab">
+				<li class="on">
+					<a href="#">
+						<span class="way1">결제 기부하기</span>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<span class="way2">정기 기부하기</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div class="dtn_section">
+			<p class="dtn_txt">
+				<strong>"기부자님의 소중한 마음으로 놀라운 변화가 일어납니다."</strong>
+				투명한 기부 후기로 그 변화를 소개하고 보답하겠습니다!
+			</p>
+			<div class="pay_area">
+				<ul class="ipt_area">
+					<li class="num">
+						<strong class="tit">결제 할 금액</strong>
+						<!-- payment테이블있어야 할듯 -->
+						<form name="donationForm" method="post">
+							<input type="hidden" id="rdonaNo" name="rdonaNo" value="H000000195261">
+							<input type="hidden" id="happyId" name="happyId" value="eunhye1004">
+							<input type="hidden" id="chooseDonationMethod" name="chooseDonationMethod" value="Temporary">
+							<input type="hidden" id="categoryNo" name="categoryNo" value="0">
+							<input type="hidden" name="categoryDonation" value="false">
+							<input type="hidden" id="paySeq" name="paySeq">
+							<input type="hidden" id="p" name="p" value="p">
+							<input type="hidden" id="s" name="s" value="">
+							<input type="hidden" id="itemCode" name="itemCode" value="TemporaryDonate">
+							<input type="hidden" id="paymentType" name="paymentType" value="Temporary">
+							<input type="hidden" id="chargeTotalAmount" name="chargeTotalAmount" value="10000" style="width:107px;"
+								maxlength="8">
+							<input type="hidden" id="mktNotiReceiveAgree" name="mktNotiReceiveAgree" value="false">
+							<input type="hidden" name="messageJson">
+						</form>
+						<input type="text" title="충전콩 금액" class="inp_num" value="10000" name="stringChargeTotalAmount"
+							id="stringChargeTotalAmount" maxlength="8"><span class="tx_won">원</span>
+						<span class="sort_menu">
+							<button class="btn_sort  jq_fix_amount" type="button" data-amount="10,000">1만원</button>
+							<button class="btn_sort jq_fix_amount" type="button" data-amount="20,000">2만원</button>
+							<button class="btn_sort jq_fix_amount" type="button" data-amount="30,000">3만원</button>
+						</span>
+						<span class="tx2">* 기부를 원하는 금액을 입력한 후 <em>'기부하기'</em> 버튼을 눌러주세요!</span>
+					</li>
+					<li class="num npay_do">
+						<strong class="npay_tit">결제 수단</strong>
+						<span href="#" class="btn_npay_do payImg">
+							<img src="/images/네이버페이.png">
+						</span>
+						<span href="#" class="btn_kpay_do payImg">
+							<img src="/images/카카오페이.png">
+						</span>
+					</li>
+				</ul>
+			</div>
+			<div class="dnt_area agree">
+				<div class="agree_area v2">
+					<div class="agree_wrap">
+						<label class="label_all" for="agree_all"><input type="checkbox" id="agree_all" class="input">이용약관, 마케팅 알림 수신에 모두
+							동의합니다.
+						</label>
+					</div>
+					<div class="agree_wrap">
+						<label for="agree_term">
+							<input id="agree_term" type="checkbox" class="input jq_temporary_agree terms">
+							(필수) GivuLuv 이용약관에 동의합니다.
+						</label>
+						<p class="agree_preview">
+							<!--이용 약관-->
+							<th:block th:replace="~{layout/agreeInfo::agreeInfo()}"></th:block>
+						</p>
+					</div>
+					<div class="agree_wrap">
+						<label for="agree_alarm"><input type="checkbox" id="agree_alarm" class="input terms">(선택) 해피빈 마케팅 알림 수신에
+							동의합니다.</label>
+						<span class="agree_text">해피빈에서 제공하는 이벤트/혜택 등 다양한 정보를 휴대전화(네이버 앱 알림 또는 문자),<br>이메일로 받아보실 수 있습니다.</span>
+					</div>
+				</div>
+				<div class="donation_buttons">
+					<a href="#" class="button_highlight jq_donate">기부하기</a>
+					<a href="/donation/donationView" class="jq_prev_rdona_view">모금함으로 돌아가기</a>
+				</div>
+			</div>
+		</div>
+	</div>
+   <!-- footer -->
+   <th:block th:replace="~{layout/footer::footer()}"></th:block>
+</body>
+<script src="/js/jquery-3.7.1.min.js"></script>
+<script src="/js/donationPay.js"></script>
+<script>
+	$('.h_logout').on('click', function(){
+		alert("로그아웃되었습니다.")
+	})
+</script>
+</html>
