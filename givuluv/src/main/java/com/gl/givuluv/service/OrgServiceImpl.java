@@ -110,4 +110,11 @@ public class OrgServiceImpl implements OrgService {
 	public String getOrgnameByOrgid(String orgid) {
 		return omapper.getOrgnameByOrgid(orgid);
 	}
+
+
+	@Override
+	public String getOrgnameBynum(int dBoardnum) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

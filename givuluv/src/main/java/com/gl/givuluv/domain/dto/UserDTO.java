@@ -21,4 +21,5 @@ public class UserDTO {
 	private Date regdate;
 	private int bonus;
 	private char type;
+	private String usercategory;
 }

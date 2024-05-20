@@ -113,6 +113,11 @@ function sendit(){
         addrdetail.focus();
         return;
     }
+    const selectedCategories = document.querySelector('#selectedCategories').value;
+    if (selectedCategories === "") {
+        alert("관심 카테고리를 선택하세요!");
+        return;
+    }
     joinForm.submit();
 }
 
@@ -301,3 +306,47 @@ function findAddr() {
         }
     }).open();
 }
+
+document.addEventListener("DOMContentLoaded", function() {
+    const categoryButtons = document.querySelectorAll('.usercategory_list input[type="button"]');
+    const selectedCategoriesInput = document.getElementById('selectedCategories');
+    
+    categoryButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            toggleCategory(button);
+            updateSelectedCategories();
+        });
+    });
+    
+    function toggleCategory(button) {
+        if (button.style.backgroundColor === "rgb(231, 112, 151)") {
+            button.style.backgroundColor = "rgba(231, 112, 151, 0.7)";
+        } else {
+            if (getSelectedCategoriesCount() >= 3) {
+                alert("최대 3개까지만 선택할 수 있습니다.");
+                return;
+            }
+            button.style.backgroundColor = "rgb(231, 112, 151)";
+        }
+    }
+    
+    function updateSelectedCategories() {
+        const selectedCategories = [];
+        categoryButtons.forEach(function(button) {
+            if (button.style.backgroundColor === "rgb(231, 112, 151)") {
+                selectedCategories.push(button.value);
+            }
+        });
+        selectedCategoriesInput.value = selectedCategories.join(',');
+    }
+    
+    function getSelectedCategoriesCount() {
+        let count = 0;
+        categoryButtons.forEach(function(button) {
+            if (button.style.backgroundColor === "rgb(231, 112, 151)") {
+                count++;
+            }
+        });
+        return count;
+    }
+});

@@ -5,7 +5,8 @@
 <mapper namespace="com.gl.givuluv.mapper.SellerMapper">
    <!--회원가입시 유저정보 DB에 저장-->
    <insert id = "insertSeller">
-      insert into seller(sellerid, sellerpw, sellername, email, sellerphone)values(#{sellerid}, #{sellerpw}, #{sellername}, #{email}, #{sellerphone})
+      insert into seller(sellerid, sellerpw, sellername, sellercategory, email, sellerphone)
+      values(#{sellerid}, #{sellerpw}, #{sellername}, #{sellercategory}, #{email}, #{sellerphone})
    </insert>
    <!---->
    <select id ="getSellerById_duplication">

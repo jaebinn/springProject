@@ -9,6 +9,7 @@ public class OrgDTO {
 	private String orgid;
 	private String orgpw;
 	private String orgname;
+	private String orgcategory;
 	private String logo;
 	private String orgphone;
 	private String ceoname;

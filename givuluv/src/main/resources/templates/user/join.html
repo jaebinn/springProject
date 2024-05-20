@@ -132,7 +132,44 @@
 									<td>
 										<input type="text" name="addretc" id="addretc" placeholder="참고항목">										
 									</td>							
-								</tr>																			
+								</tr>
+								<th><label for="usercategory">관심 카테고리</label><span id="necessary"><i class="fa-solid fa-star star"></i></span>
+								<span>최대 3개이상 선택가능합니다.</span></th>
+								<tr>
+									<td class="category">
+										<div class="usercategory_list">
+											<input type="button" class="usercategory" value="동물">
+										</div>
+										<div class="usercategory_list">
+											<input type="button" class="usercategory" value="아동•청소년">
+										</div>
+										<div class="usercategory_list">
+											<input type="button" class="usercategory" value="어르신">
+										</div>
+										<div class="usercategory_list">
+											<input type="button" class="usercategory" value="장애인">
+										</div>
+										<div class="usercategory_list">
+											<input type="button" class="usercategory" value="다문화">
+										</div>
+										<div class="usercategory_list">
+											<input type="button" class="usercategory" value="지구촌">
+										</div>
+										<div class="usercategory_list">
+											<input type="button" class="usercategory" value="시민단체">
+										</div>
+										<div class="usercategory_list">
+											<input type="button" class="usercategory" value="환경">
+										</div>
+										<div class="usercategory_list">
+											<input type="button" class="usercategory" value="가족•여성">
+										</div>
+										<div class="usercategory_list">
+											<input type="button" class="usercategory" value="기타">
+										</div>
+										<input type="hidden" id="selectedCategories" name="usercategory" value="">
+									</td>
+								</tr>
 							</tbody>
 						</table>
                         <button type="button" id="joinBtn" onclick="sendit()">가입완료</button>                        
