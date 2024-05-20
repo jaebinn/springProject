@@ -72,8 +72,21 @@
 				</ul>
 			<div class="card_list">
 				<div class="card_list2">
+					<!-- 여기서부터는 돔구현해야됨 -->
+					<th:block th:each="dBoard : ${list}">
+						<div class="card_item">
+							<a th:href="${dBoard.dBoardnum}" id="donation_link" class="get">
+								<div class="card_thumbnail">
+									<img src="/images/donation.png">
+								</div>
+								<strong class="card_title" th:text="${dBoard.dTitle}"></strong>
+								<strong class="card_orgname" th:text="${orgIdToNameMap[dBoard.orgid]}"></strong>
+							</a>
+						</div>
+					</th:block>
+					
 					<div class="card_item">
-						<a href="/donation/donationView" id="donation_link">
+						<a href="#" id="donation_link">
 							<div class="card_thumbnail">
 								<img src="/images/donation.png">
 							</div>
@@ -81,7 +94,6 @@
 							<strong class="card_orgname">길동지역아동센터</strong>
 						</a>
 					</div>
-					<!-- 여기서부터는 돔구현해야됨 -->
 					<div class="card_item">
 						<a href="#" id="donation_link">
 							<div class="card_thumbnail">
@@ -222,6 +234,30 @@
 		        $(this).addClass('selected');
 		    });
 		});
+	$(".get").on("click",function(e){
+			e.preventDefault();
+			let dBoardnum = $(this).attr("href");
+			location.href = "donationView?dBoardnum="+dBoardnum;
+		})
+		$(document).ready(function() {
+		     // 초기에는 8개까지만 표시되도록 설정
+		     $('.card_item:gt(7)').hide();
+		
+		     // card_item의 개수가 8개보다 작으면 더보기 버튼 숨기기
+		     if ($('.card_item').length <= 8) {
+		         $('#more').hide();
+		     }
+		
+		     // 더보기 버튼 클릭 시
+		     $('#more').on('click', function() {
+		         // 숨겨져 있던 card_item을 모두 표시
+		         $('.card_item:hidden').slideDown();
+		         // 남아있는 card_item의 개수가 8개 이하이면 더보기 버튼 숨기기
+		         if ($('.card_item:hidden').length === 0) {
+		             $(this).hide();
+		         }
+		     });
+		    });
 </script>
 
 </html>

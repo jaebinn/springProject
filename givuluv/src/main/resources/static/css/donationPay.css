@@ -112,7 +112,7 @@
 }
 .pay_area {
     position: relative;
-    border-top: 1px solid #7f7f7f;
+    border-top: 1px solid #e5e5e5;
     color: #666;
 }
 .pay_area .ipt_area {
@@ -123,7 +123,7 @@
     position: relative;
 }
 .pay_area .ipt_area li.num {
-    padding: 0 0 18px 140px;
+    padding: 15px 0 18px 140px;
 }
 .pay_area .ipt_area li.num strong {
     top: 15px;
@@ -186,7 +186,7 @@
     letter-spacing: -1px;
     cursor: pointer;
 }
-.pay_area .ipt_area li.npay_do {
+.pay_area .ipt_area li.i {
     margin-top: -7px;
     padding: 12px 0 17px 140px;
 }
@@ -212,9 +212,28 @@
     line-height: 0;
     vertical-align: top;
 }
+
+
 .payImg img{
 	width: 50px;
 	height: 30px;
+}
+.dnt_area .commission_area {
+    position: relative;
+    padding: 28px 20px;
+    border-width: 1px 0;
+    border-style: solid;
+    border-color: #eaeaea;
+    background-color: #fcfcfc;
+}
+.dnt_area .commission_area .cms_txt.tit {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 15px;
+    color: #202020;
+}
+.dnt_area .commission_area .point2_txt {
+    color: #ff4b4b;
 }
 .dnt_area .agree_area {
     padding: 30px 20px;
@@ -247,7 +266,7 @@
     width: 550px;
     height: 192px;
     margin-top: 12px;
-    padding: 20px;
+    padding: 0 0 0 20px;
     border: 1px solid #e5e5e5;
     white-space: pre-line;
 }

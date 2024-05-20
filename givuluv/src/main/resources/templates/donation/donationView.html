@@ -15,9 +15,9 @@
 				<h2 class="theme">
 				    <a href="#" class="theme" style="text-decoration:none">카테고리</a>
 				</h2>
-				<h3 class="tit">기부 제목</h3>
+				<h3 class="tit">[[${dboard.dTitle}]]</h3>
 				<div class="d_content">
-					
+					[[${dboard.dContent}]]
 				</div>
 			</div>
 			<div class="donation_side">
@@ -33,21 +33,21 @@
 					<div class="term_area">
 						<p>
 							<strong>
-								2024.05.12 ~
-								2024.08.10
-							</strong><span>까지</span>
+								<span th:text="${#dates.format(dboard.dRegdate, 'yyyy-MM-dd')}"></span> ~
+								[[${dboard.dEnddate}]]
+							</strong><span> 까지</span>
 						</p>
 						<div>
-							<span class="d_day">D<em class="bar">-</em>85</span>
+							<span class="d_day">D<em class="bar">-</em>[[${daysUntilEnd}]]</span>
 						</div>
 					</div>
 					<div class="num_area">
-						<p class="status_num"><strong>378,000</strong><span>원</span></p>
-						<p class="detail_num v2"><strong><span>2,000,000</span><em>원 목표</em></strong></p>
+						<p class="status_num"><strong>378,000</strong><span id="won">원</span></p>
+						<p class="detail_num v2"><strong><span>[[${dboard.targetAmount}]]</span><em>원 목표</em></strong></p>
 					</div>
 				</div>
 				<div class="section_btn">		
-					<a href="/donation/pay" class="bt donate jq_donate" data-google="모금함_View" data-stat="기부하기_상단_BTN_CLK">모금함 기부하기</a>
+					<a th:href="@{/donation/pay(dBoardnum=${dboard.dBoardnum})}" class="bt donate jq_donate" data-google="모금함_View" data-stat="기부하기_상단_BTN_CLK">모금함 기부하기</a>
 				</div>
 				<div class="section_group">
 					<div class="group_bx">
@@ -57,7 +57,7 @@
 								alt="해피로그 기본 이미지">
 							<span>
 								모금단체
-								<a href="https://happylog.naver.com/hlog/eunhye1004/home" target="happylog"> <strong>은혜장애인요양원</strong>
+								<a href="https://happylog.naver.com/hlog/eunhye1004/home" target="happylog"> <strong>[[${orgname}]]</strong>
 								</a>
 							</span>
 						</h3>

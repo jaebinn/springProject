@@ -19,13 +19,13 @@
 		</div>
 		<div class="payment">
 			<ul class="dtn_tab">
-				<li class="on">
-					<a href="/donation/pay">
+				<li>
+					<a th:href="@{/donation/pay(dBoardnum=${dboard.dBoardnum})}">
 						<span class="way1">결제 기부하기</span>
 					</a>
 				</li>
-				<li>
-					<a th:href="@{/donation/regularPay(dBoardnum=${dboard.dBoardnum})}">
+				<li class="on">
+					<a href="#">
 						<span class="way2">정기 기부하기</span>
 					</a>
 				</li>
@@ -67,6 +67,15 @@
 						</span>
 						<span class="tx2">* 기부를 원하는 금액을 입력한 후 <em>'기부하기'</em> 버튼을 눌러주세요!</span>
 					</li>
+					<li class="donationOrg num">
+						<strong class="npay_tit">후원 단체</strong>
+						<span href="#" class="org_name">[[${orgname}]]</span>
+					</li>
+					<li class="nextPayDay num">
+						<strong class="npay_tit">다음 결제일</strong>
+						<span th:text="${nextPayDay}"></span>
+						<span> (매월 첫째 주 금요일)</span>
+					</li>
 					<li class="num npay_do">
 						<strong class="npay_tit">결제 수단</strong>
 						<span href="#" class="btn_npay_do payImg">
@@ -79,6 +88,10 @@
 				</ul>
 			</div>
 			<div class="dnt_area agree">
+				<div class="commission_area">
+					<strong class="cms_txt tit">정기결제 안내</strong>
+					<p class="cms_txt"><em class="point2_txt">최소 1,000원 이상</em> 결제하실 수 있으며, 첫 신청일 이후에는 매월 첫째 주 금요일에 <em class="point2_txt">자동 결제</em>됩니다.</p>
+				</div>
 				<div class="agree_area v2">
 					<div class="agree_wrap">
 						<label class="label_all" for="agree_all"><input type="checkbox" id="agree_all" class="input">이용약관, 마케팅 알림 수신에 모두

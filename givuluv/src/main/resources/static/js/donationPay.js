@@ -30,9 +30,13 @@ $(document).ready(function() {
 	// 고정 금액 버튼 클릭 시
 	$('.jq_fix_amount').on('click', function() {
         const amount = parseInt($(this).data('amount').replace(/,/g, ''));
-        const currentAmount = parseInt($('#stringChargeTotalAmount').val().replace(/,/g, ''));
+        const currentAmount = parseInt($('#ChargeTotalAmount').val().replace(/,/g, ''));
         const newAmount = currentAmount + amount;
-        $('#stringChargeTotalAmount').val(newAmount.toLocaleString());
+        $('#ChargeTotalAmount').val(newAmount.toLocaleString());
+    });
+    // 초기화 버튼 클릭 시
+     $('.reset').on('click', function() {
+        $('#ChargeTotalAmount').val('0');
     });
 	function checkAgreements() {
         const allAgreed = $('#agree_term').is(':checked');
@@ -42,8 +46,18 @@ $(document).ready(function() {
         } else {
             donateButton.addClass('disabled');
         }
+        checkAmount();
     }
-
+	// 기부 금액이 1000원 이상인지 체크
+    function checkAmount() {
+        const totalAmount = parseInt($('#ChargeTotalAmount').val().replace(/,/g, ''));
+        const donateButton = $('.jq_donate');
+        if (totalAmount >= 1000) {
+            donateButton.removeClass('disabled');
+        } else {
+            donateButton.addClass('disabled');
+        }
+    }
     // 필수 항목 체크박스 변화 감지
     $('#agree_term').on('change', function() {
         checkAgreements();
@@ -67,9 +81,13 @@ $(document).ready(function() {
     // 기부하기 버튼 클릭 시 필수 동의 여부 확인
     $('.jq_donate').on('click', function(e) {
         const allAgreed = $('#agree_term').is(':checked');
+        const totalAmount = parseInt($('#ChargeTotalAmount').val().replace(/,/g, ''));
         if (!allAgreed) {
             alert('필수 약관 동의를 해주세요.');
-            e.preventDefault(); // 링크 이동을 막음
+            e.preventDefault();
+        } else if (totalAmount < 1000) {
+            alert('최소 1000원이상 입력해주세요.');
+            e.preventDefault();
         }
     });
 });

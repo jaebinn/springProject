@@ -10,6 +10,9 @@
 	<select id="getOrgById">
 		select * from org where orgid=#{orgid}
 	</select>
+	<select id="getOrgnameByOrgid">
+		select orgname from org where orgid=#{orgid}
+	</select>
 	<update id="updateUser">
 		
 	</update>

@@ -99,6 +99,8 @@
 .card_item{
 	float: left;
     width: 25%;
+    height: auto;
+    box-sizing: border-box;
 }
 .card_item #donation_link{
 	display: block;
@@ -120,6 +122,7 @@
     content: "";
 }
 .card_thumbnail img{
+	max-width: 100%;
 	border-radius: 6px;
     vertical-align: top;
 }
@@ -135,6 +138,8 @@
     margin-top: 16px;
     font-size: 16px;
     font-weight: 700;
+    overflow: hidden; 
+    text-overflow: ellipsis
 }
 .card_orgname{
 	white-space: nowrap;
@@ -143,6 +148,7 @@
     font-size: 13px;
     color: #828282;
 }
+
 .moreBtn{
 	text-align: center;
 }
@@ -157,9 +163,9 @@
 }
 .today_donation{
 	position: relative;
+	width: 100%;
     height: 140px;
     margin-top: 80px;
-    padding-top: 20px;
     border-radius: 10px;
     background-color: rgb(231,112,151);
     text-align: center;

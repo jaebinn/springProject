@@ -13,8 +13,9 @@ import com.gl.givuluv.domain.dto.FBoardDTO;
 public interface BoardMapper {
 	//기부 게시글
 	int insertDonation(DBoardDTO dboard);
-
+	
 	DBoardDTO getDonationByBoardnum(int dBoardnum);
+	List<DBoardDTO> getList();
 	List<DBoardDTO> getDonations(Criteria cri);
 	List<DBoardDTO> getDonationsByOrgid(String orgid);
 
@@ -37,6 +38,12 @@ public interface BoardMapper {
 	
 	int deleteFundingByBoardnum(int fBoardnum);
 	int deleteFundingByOrgid(String orgid);
+
+	DBoardDTO getBoardByNum(int dBoardnum);
+
+	String getOrgnameBynum(int dBoardnum);
+
+	
 	
 	//가게 게시글
 }

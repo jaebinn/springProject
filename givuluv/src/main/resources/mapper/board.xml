@@ -8,7 +8,9 @@
 		values(#{d_boardnum},#{d_title},#{d_content},
 		#{target_amount},#{save_money}, #{d_enddate}, #{orgid})
 	</insert>
-
+	<select id="getList">
+		select * from d_board order by d_boardnum desc;
+	</select>
 	<select id="getDonationByBoardnum">
 		select * from d_board where d_boardnum=#{d_boardnum}
 	</select>
@@ -18,7 +20,9 @@
 	<select id="getDonationsByOrgid">
 		select * from d_board where orgid=#{orgid} order by d_boardnum desc limit #{cri.startrow}, #{cri.amount}
 	</select>
-
+	<select id="getOrgnameBynum">
+		select orgname from org where orgid=#{orgid}
+	</select>
 	<update id="updateDonation">
 		update d_board
 		set d_title=#{d_title}, d_content=#{d_content}, target_amount=#{target_amount}, d_enddate=#{d_enddate}

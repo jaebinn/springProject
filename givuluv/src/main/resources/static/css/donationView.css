@@ -46,6 +46,9 @@
     letter-spacing: .4px;
     line-height: 40px;
 }
+.d_content{
+	margin-top: 20px;
+}
 .graph_status {
     padding-right: 2px;
 }
@@ -91,6 +94,9 @@
 }
 .donation_side .section_status .num_area {
     padding-top: 24px;
+}
+.num_area #won{
+	font-size: 22px;
 }
 .section_status .num_area .status_num strong {
     display: inline-block;
@@ -171,10 +177,11 @@
     display: block;
     overflow: hidden;
     max-width: 100%;
-    font-size: 18px;
+    font-size: 20px;
     color: #444;
     white-space: nowrap;
     text-overflow: ellipsis;
+    margin: 5px 0 0 55px;
 }
 .donation_side .section_group .info_lst {
     width: auto;

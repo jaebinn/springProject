@@ -22,6 +22,9 @@ import com.google.gson.JsonObject;
 @Controller
 @RequestMapping("/file/*")
 public class FileController {
+   
+   @Value("${file.dir}")
+   private String saveFolder;
 
    @PostMapping(value="/uploadSummernoteImageFile", produces = "application/json")
    @ResponseBody
@@ -30,9 +33,9 @@ public class FileController {
       
       Gson gson = new Gson();
       JsonObject jsonObject = new JsonObject();
-      
+         
       System.out.println("file 경로에 저장");
-      String fileRoot = "D:/0900_GB_LYN/teamproject/file/";   //저장될 외부 파일 경로
+      String fileRoot = saveFolder;   //저장될 외부 파일 경로
 
       System.out.println("확장자 찾기");
       String originalFileName = multipartFile.getOriginalFilename();   //오리지날 파일명
@@ -51,7 +54,7 @@ public class FileController {
       try {
          InputStream fileStream = multipartFile.getInputStream();
          FileUtils.copyInputStreamToFile(fileStream, targetFile);   //파일 저장
-         jsonObject.addProperty("url", fileRoot + systemname);
+         jsonObject.addProperty("url", "/summernoteImage/" + systemname);
          jsonObject.addProperty("responseCode", "success");
             
       } catch (IOException e) {

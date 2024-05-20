@@ -1,5 +1,7 @@
 package com.gl.givuluv.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.gl.givuluv.domain.dto.OrgDTO;
@@ -14,4 +16,5 @@ public interface OrgMapper {
 		int updateOrg(OrgDTO org);
 		//D
 		int deleteOrg(String orgid);
+		String getOrgnameByOrgid(String orgid);
 }

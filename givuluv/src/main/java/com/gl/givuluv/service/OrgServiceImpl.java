@@ -3,6 +3,7 @@ package com.gl.givuluv.service;
 import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -103,4 +104,10 @@ public class OrgServiceImpl implements OrgService {
     public boolean checkId(String orgid) {
         return omapper.getOrgById(orgid) == null;
     }
+
+
+	@Override
+	public String getOrgnameByOrgid(String orgid) {
+		return omapper.getOrgnameByOrgid(orgid);
+	}
 }
