@@ -118,13 +118,6 @@
         });
 		
 		
-		$(document).ready(function () {
-			const loginFailed = /*[[${loginFailed}]]*/'';
-
-			if (loginFailed) {
-				alert("로그인에 실패했습니다. 아이디와 비밀번호를 확인해주세요.");
-			}
-		});
 		// 로그인 방법에 따른 form으로 제출할 action 및 파라미터 변경
 		        $(".user-login").on("click", function () {
 		            $("form[name='loginForm']").attr("action", "/user/login");

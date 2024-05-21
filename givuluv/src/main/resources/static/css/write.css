@@ -18,10 +18,7 @@ a, a:hover, a:focus, a:active, a:visited, a:target{
 	user-select: none;
 }
 .btn{
-	width: 40px;
-	height: 20px;
 	padding: 10px;
-	border: 2px solid #424242;
 	border-radius: 20px;
 	background-color: rgb(231, 112, 151);
 	color: white;
@@ -38,6 +35,12 @@ a, a:hover, a:focus, a:active, a:visited, a:target{
 	
 }
 
+.container{
+	width: 90%;
+	margin: 0 auto;
+}
+
+
 
 .logo{
 	width: 60px;
@@ -49,6 +52,7 @@ a, a:hover, a:focus, a:active, a:visited, a:target{
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+	margin-bottom: 10px;
 }
 .writeheaderleft{
 	display: flex;
@@ -61,8 +65,67 @@ a, a:hover, a:focus, a:active, a:visited, a:target{
 	margin-left: 10px;
 }
 
+.title{
+	border: 0;
+	border-bottom: 1px solid #424242;
+	font-size: 24px;
+	padding: 13px;
+	width: 800px;
+	margin: 0 auto;
+	margin-bottom: 10px;
+}
+.title:focus-visible{
+	outline: none;
+}
+
+.calendar_box{
+	display: inline-block;
+	padding: 8px;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	border-top: 5px solid rgb(255, 128, 192);
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+.calendar_box > i{
+	color: rgb(255, 164, 209);
+}
 
 
+.datetime{
+	width: 120px;
+	padding: 5px;
+	font-size: 20px;
+	border-radius: 30px;
+	border: none;
+	background-color: rgb(255, 164, 209);
+	color: white;
+	text-align: center;
+}
+.datetime:hover{
+	cursor: pointer;
+}
+
+.targetAmount_box{
+	margin: 20px 0;
+}
+.targetAmount_box > i{
+	font-size: 24px;
+	color: #222;
+}
+.targetAmount{
+	display: inline-block;
+	padding: 10px;
+	font-size: 20px;
+}
 
 
-
+/* summernote */
+.note-toolbar{
+	background-color:  rgba(255, 128, 192, 0.2) !important;
+}
+.note-resizebar{
+	display: none !important;
+}
+.note-statusbar{
+	border-top: none !important;
+}

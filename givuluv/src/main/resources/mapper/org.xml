@@ -13,10 +13,16 @@
 	<select id="getOrgnameByOrgid">
 		select orgname from org where orgid=#{orgid}
 	</select>
-	<update id="updateUser">
+	<select id="getOrgnameByCategory">
+		select orgname from org where orgcategory=#{orgcategory};
+	</select>
+	<select id="getCategoryByOrgid">
+		select orgcategory from org where orgid=#{orgid}
+	</select>
+	<update id="updateOrg">
 		
 	</update>
-	<delete id="deleteUser">
+	<delete id="deleteOrg">
 		delete from org where orgid=#{orgid}
 	</delete>
 </mapper>

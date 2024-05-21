@@ -76,4 +76,9 @@ public class OrgController {
 			return "X";
 		}
 	}
+	
+	@GetMapping("register")
+	public String register() {
+		return "org/register";
+	}
 }

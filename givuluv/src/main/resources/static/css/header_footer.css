@@ -112,14 +112,18 @@ ul{
   }
 
 .h_user_box{
-    width: 335px;
+    width: 100px;
     height: 80px;
-    padding-left: 85px;    
+    margin-left: 150px;
 }
 .h_user{
-    width: 250px;
+	position: relative;
     height: 80px;
 }
+.submenu{
+	text-align:right;
+}
+
 .h_user .h_login,
 .h_user .h_logout{
     width: 80px;
@@ -171,10 +175,42 @@ ul{
       transform: scale3d(1, 1, 1);
     }
   }
-  
+.dropdown-menu {
+	display: none;
+    position: absolute;
+    width: 100px;
+    top: 70%;
+    left: 0%;
+    z-index: 1000;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+.h_user:hover .dropdown-menu{
+	display: block;
+	opacity: 1;
+}
+
+.dropdown-menu li {
+    padding: 10px;
+}
+
+.dropdown-menu li a {
+    display: block;
+    text-decoration: none;
+    color: #333;
+    text-align: center;
+}
+
+.dropdown-menu li a:hover {
+    background-color: #f0f0f0;
+}
 /* header css 마무리 */
-
-
 
 @font-face {
     font-family: 'TTLaundryGothicB';

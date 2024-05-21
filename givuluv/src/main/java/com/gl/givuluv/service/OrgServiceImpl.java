@@ -3,6 +3,7 @@ package com.gl.givuluv.service;
 import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.gl.givuluv.domain.dto.DBoardDTO;
 import com.gl.givuluv.domain.dto.FileDTO;
 import com.gl.givuluv.domain.dto.OrgDTO;
 import com.gl.givuluv.mapper.FileMapper;
@@ -116,5 +118,16 @@ public class OrgServiceImpl implements OrgService {
 	public String getOrgnameBynum(int dBoardnum) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<String> getOrgnameByCategory(String orgcategory) {
+		return omapper.getOrgnameByCategory(orgcategory);
+	}
+
+
+	@Override
+	public String getCategoryByOrgid(String orgid) {
+		return omapper.getCategoryByOrgid(orgid);
 	}
 }

@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import com.gl.givuluv.domain.dto.Criteria;
 import com.gl.givuluv.domain.dto.DBoardDTO;
 import com.gl.givuluv.domain.dto.FBoardDTO;
+import com.gl.givuluv.domain.dto.OrgDTO;
 
 @Mapper
 public interface BoardMapper {
@@ -43,7 +44,7 @@ public interface BoardMapper {
 
 	String getOrgnameBynum(int dBoardnum);
 
-	
-	
+	List<DBoardDTO> getListByCategory(String orgcategory);
+
 	//가게 게시글
 }

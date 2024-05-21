@@ -5,6 +5,7 @@ import java.util.List;
 import com.gl.givuluv.domain.dto.CategoryDTO;
 import com.gl.givuluv.domain.dto.Criteria;
 import com.gl.givuluv.domain.dto.DBoardDTO;
+import com.gl.givuluv.domain.dto.OrgDTO;
 
 
 public interface DBoardService {
@@ -24,5 +25,9 @@ public interface DBoardService {
 	boolean removeByOrgid(String orgid);
 
 	String getOrgnameBynum(int dBoardnum);
+	
+	//카테고리 정렬
+	List<DBoardDTO> getItemsByCategory(String orgcategory);
+
 
 }

@@ -17,4 +17,6 @@ public interface OrgMapper {
 		//D
 		int deleteOrg(String orgid);
 		String getOrgnameByOrgid(String orgid);
+		List<String> getOrgnameByCategory(String orgcategory);
+		String getCategoryByOrgid(String orgid);
 }

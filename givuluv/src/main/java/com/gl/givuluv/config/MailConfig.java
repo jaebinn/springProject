@@ -15,7 +15,7 @@ public class MailConfig {
 
         javaMailSender.setHost("smtp.gmail.com");
         javaMailSender.setUsername("whiteclover129@gmail.com");
-        javaMailSender.setPassword("vzquqcjszzjrgutq"); // gitignore해야함
+        javaMailSender.setPassword(""); // gitignore해야함
 
         javaMailSender.setPort(465); // SSL 포트로 변경
 

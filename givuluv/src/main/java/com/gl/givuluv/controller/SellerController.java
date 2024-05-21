@@ -53,7 +53,7 @@ public class SellerController {
 		else {
 			//
 		}
-		return "seller/login";
+		return "user/login";
 	}
 	//판매자 회원가입 끝 ================================================================
 	

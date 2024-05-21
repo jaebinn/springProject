@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<header>
+	<meta charset="UTF-8">
+	<title>일반유저 myActivity_history</title>
+	<link rel="stylesheet" href="/css/userMyPageMenu.css">	
+	<link rel="stylesheet" href="/css/userMyActivityHistory.css">
+	<link rel="stylesheet" href="/css/header_footer.css">
+	<script src="https://kit.fontawesome.com/516da99189.js" crossorigin="anonymous"></script>
+</header>
+<body>
+	<!-- header -->
+	<th:block th:replace="~{layout/header::header(loginUser)}"></th:block>
+	
+	<!-- 컨텐츠 -->
+	<div class="wrap">
+		<!-- 왼쪽 메뉴바 -->
+		<th:block th:replace="~{layout/userMyPageMenu::userMyPageMenu(loginUser)}"></th:block>
+		<!-- 오른쪽 내용 -->
+		<div class="left_div">
+			<h2>활동내역</h2>
+			<div class="button_div">
+				<input type="button" value="게시글 내역">
+				<input type="button" value="기부 내역">
+				<input type="button" value="펀딩 내역">
+				<input type="button" value="가게 내역">
+			</div>
+			<div class="search_div">
+				<input type="text" placeholder="검색어를 입력하세요">
+				<input type="button" value="검색">
+			</div>
+			<div class="contents_div">
+				<div class="contents">
+					<img src="/images/pig.png">
+					<div>
+						<p>지하철 택배기사 남규에게 여름 여행을 선물해주세요.</p>
+						<p>청소년행복제단</p>
+					</div>
+				</div>
+				<div class="contents">
+					<img src="/images/pig.png">
+					<div>
+						<p>지하철 택배기사 남규에게 여름 여행을 선물해주세요.</p>
+						<p>청소년행복제단</p>
+					</div>
+				</div>
+				<div class="contents">
+					<img src="/images/pig.png">
+					<div>
+						<p>지하철 택배기사 남규에게 여름 여행을 선물해주세요.</p>
+						<p>청소년행복제단</p>
+					</div>
+				</div>
+				<div class="contents">
+					<img src="/images/pig.png">
+					<div>
+						<p>지하철 택배기사 남규에게 여름 여행을 선물해주세요.</p>
+						<p>청소년행복제단</p>
+					</div>
+				</div>
+				<div class="contents">
+					<img src="/images/pig.png">
+					<div>
+						<p>지하철 택배기사 남규에게 여름 여행을 선물해주세요.</p>
+						<p>청소년행복제단</p>
+					</div>
+				</div>
+				<div class="contents">
+					<img src="/images/pig.png">
+					<div>
+						<p>지하철 택배기사 남규에게 여름 여행을 선물해주세요.</p>
+						<p>청소년행복제단</p>
+					</div>
+				</div>
+				<div class="contents">
+					<img src="/images/pig.png">
+					<div>
+						<p>지하철 택배기사 남규에게 여름 여행을 선물해주세요.</p>
+						<p>청소년행복제단</p>
+					</div>
+				</div>
+				<div class="contents">
+					<img src="/images/pig.png">
+					<div>
+						<p>지하철 택배기사 남규에게 여름 여행을 선물해주세요.</p>
+						<p>청소년행복제단</p>
+					</div>
+				</div>
+				<div class="contents">
+					<img src="/images/pig.png">
+					<div>
+						<p>지하철 택배기사 남규에게 여름 여행을 선물해주세요.</p>
+						<p>청소년행복제단</p>
+					</div>
+				</div>
+				
+				
+			</div>
+		</div>
+	</div>
+	
+	<!-- footer -->
+	<th:block th:replace="~{layout/footer::footer()}"></th:block>
+</body>
+</html>

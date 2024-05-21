@@ -1,6 +1,8 @@
 package com.gl.givuluv.service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.gl.givuluv.domain.dto.CategoryDTO;
 import com.gl.givuluv.domain.dto.Criteria;
 import com.gl.givuluv.domain.dto.DBoardDTO;
+import com.gl.givuluv.domain.dto.OrgDTO;
 import com.gl.givuluv.mapper.BoardMapper;
 
 @Service
@@ -79,6 +82,18 @@ public class DBoardServiceImpl implements DBoardService{
 	public String getOrgnameBynum(int dBoardnum) {
 		return dbmapper.getOrgnameBynum(dBoardnum);
 	}
+
+	@Override
+    public List<DBoardDTO> getItemsByCategory(String orgcategory) {
+        List<DBoardDTO> items = new ArrayList<>();
+        if ("전체".equals(orgcategory)) {
+            items = getList();
+        } else {
+            items = dbmapper.getListByCategory(orgcategory);
+        }
+        return items;
+    }
+
 
 
 }

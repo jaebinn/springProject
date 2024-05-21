@@ -118,6 +118,7 @@ function sendit(){
         alert("관심 카테고리를 선택하세요!");
         return;
     }
+    alert("회원가입을 축하드립니다.")
     joinForm.submit();
 }
 

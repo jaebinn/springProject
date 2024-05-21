@@ -13,12 +13,10 @@
 		<div class="donation_wrap">
 			<div class="donation_content">
 				<h2 class="theme">
-				    <a href="#" class="theme" style="text-decoration:none">카테고리</a>
+				    <a href="#" class="theme" style="text-decoration:none">[[${orgcategory}]]</a>
 				</h2>
 				<h3 class="tit">[[${dboard.dTitle}]]</h3>
-				<div class="d_content">
-					[[${dboard.dContent}]]
-				</div>
+				<div class="d_content" th:utext="${dboard.dContent}"></div>
 			</div>
 			<div class="donation_side">
 				<div class="section_status ">

@@ -39,11 +39,12 @@ public class UserController {
     }
     @GetMapping("logout")
     public String logout(HttpServletRequest req) {
+    	System.out.println("로그아웃됨");
         req.getSession().invalidate();
         return "redirect:/";
     }
     @PostMapping("login")
-    public String login(String userid, String userpw, HttpServletRequest req) {
+    public String login(String userid, String userpw, HttpServletRequest req, Model model) {
         HttpSession session = req.getSession();
         if(service.login(userid, userpw)) {
             System.out.println(userid + " 로그인됨");
@@ -144,5 +145,18 @@ public class UserController {
             return "X";
         }
     }
+    @GetMapping("my/home")
+    public String myHome() {
+       return "/user/my/home";
+    }
     
+    @GetMapping("my/news")
+    public String myNews() {
+       return "/user/my/news";
+    }
+    
+    @GetMapping("my/activity_history")
+    public String my_activity_history() {
+       return "/user/my/activity_history";
+    }
 }
