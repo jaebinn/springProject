@@ -24,9 +24,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gl.givuluv.domain.dto.DBoardDTO;
 import com.gl.givuluv.domain.dto.DBoardWithOrgNameDTO;
+import com.gl.givuluv.domain.dto.DPaymentDTO;
 import com.gl.givuluv.domain.dto.FileDTO;
 import com.gl.givuluv.domain.dto.OrgDTO;
 import com.gl.givuluv.service.DBoardService;
+import com.gl.givuluv.service.DPaymentService;
 import com.gl.givuluv.service.FileService;
 import com.gl.givuluv.service.OrgService;
 import com.google.gson.Gson;
@@ -47,7 +49,8 @@ public class DonationController {
 	private OrgService oservice;
 	@Autowired
 	private FileService fservice;
-	
+	@Autowired
+	private DPaymentService pservice;
 	
 	@GetMapping("dBoard")
 	public String dBoardList(Model model) {
@@ -87,11 +90,23 @@ public class DonationController {
 		DBoardDTO dboard = dservice.getDonation(dBoardnum);
 		String orgname = oservice.getOrgnameByOrgid(dboard.getOrgid());
 		String category = oservice.getCategoryByOrgid(dboard.getOrgid());
-		
+		int d_cost = pservice.getTotalCostByBoardnum(dBoardnum);
+	    int totalCost = pservice.getTotalCostByOrgid(dboard.getOrgid());
+	    int RdonationCnt = pservice.getRdonationCntByType(dBoardnum);
+	    System.out.println(d_cost); //152000
+	    System.out.println(dboard.getTargetAmount()); //9900000
+	    double percentage = (double) d_cost / dboard.getTargetAmount() * 100;
+
+	    System.out.println("퍼센트= "+percentage);
+	    
 		System.out.println("orgname: "+orgname);
 		model.addAttribute("dboard",dboard);
+		model.addAttribute("d_cost", d_cost);
+		model.addAttribute("totalCost", totalCost);
 		model.addAttribute("orgname", orgname);
 		model.addAttribute("orgcategory", category);
+		model.addAttribute("RdonationCnt", RdonationCnt);
+		model.addAttribute("percentage", String.format("%.1f", percentage));
 		
 		// D-day 계산하여 모델에 추가
 	    LocalDate currentDate = LocalDate.now();

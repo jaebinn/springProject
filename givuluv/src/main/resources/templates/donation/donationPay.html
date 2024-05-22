@@ -14,7 +14,7 @@
 			<div class="tit">
 				<a th:href="@{/donation/donationView(dBoardnum=${dboard.dBoardnum})}"><i class="fa-regular fa-less-than"></i></a>
 				<h2>[[${dboard.dTitle}]]</h2><br>
-				by <span id="orgname">[[${orgname}]]</span>
+				<span id="orgname">by [[${orgname}]]</span>
 			</div>
 		</div>
 		<div class="payment">
@@ -82,7 +82,7 @@
 				<div class="agree_area v2">
 					<div class="agree_wrap">
 						<label class="label_all" for="agree_all"><input type="checkbox" id="agree_all" class="input">이용약관, 마케팅 알림 수신에 모두
-							동의합니다.
+							동의합니다.							
 						</label>
 					</div>
 					<div class="agree_wrap">
@@ -114,30 +114,90 @@
 <script src="/js/jquery-3.7.1.min.js"></script>
 <script src="/js/donationPay.js"></script>
 <script src="https://js.bootpay.co.kr/bootpay-4.3.4.min.js" type="application/javascript"></script>
-<script>
+<script th:inline="javascript">
 	$('.h_logout').on('click', function(){
 		alert("로그아웃되었습니다.")
 	})
 		function payBtn(){
 			let cost = parseInt($(".d_cost").val().replace(/,/g, ''));
 			console.log(cost);
-			let orgname = document.querySelector("#orgname").innerHTML;
-			
-			Bootpay.requestPayment({
-				"application_id": "664d681b2bac039f7bd3d53e",
-				"price": cost,
-				"order_name": orgname,
-				"order_id": "TEST_ORDER_ID",
-				"pg": "nicepay",
-				"method": "",
-				"tax_free": 0,
-				"user": {
-					"id": "이름",
-					"username": "이름",
-					"phone": "01000000000",
-					"email": "test@test.com"
-				 },
-			})
+			let orgname = /*[[${orgname}]]*/"";
+			let dBoardnum = /*[[${dboard.dBoardnum}]]*/"";
+			$.ajax({
+			        url: '/user/payUserInfo', 
+			        type: 'GET', 			       
+			        success: function(response) {	
+						let user = response;		            
+			            Bootpay.requestPayment({
+			                "application_id": "664d681b2bac039f7bd3d53e",
+			                "price": cost,
+			                "order_name": orgname,
+			                "order_id": "TEST_ORDER_ID", 
+			                "pg": "nicepay",
+			                "method": "",
+			                "tax_free": 0,
+			                "user": {
+			                    "id": user.userid,
+			                    "username": user.username,
+			                    "phone": user.userphone,
+			                    "email": user.email
+			                },							
+							"items": [
+							    {
+							   "id": dBoardnum,
+							   "name": orgname,
+							   "qty": 1,
+							   "price": cost
+							   }
+							],
+							"extra": {
+							    "open_type": "iframe",
+							    "card_quota": "0,2,3",
+							    "escrow": false
+							}
+						}).then(function(data) {
+						if (data.event === 'done') {
+							  console.log(data);
+							  $.ajax({
+							      url: '/payment/confirmPay',
+							      method: "POST",
+							      data: {
+							         "cost": cost,
+							         "orgname": orgname,
+									 "dBoardnum": dBoardnum
+							      },
+							      success: function(msg) {
+							         console.log(msg);
+									 alert("기부 정말 감사드립니다!")
+							         location.href = "/";
+							      },
+							      error: function() {
+							              console.error('error');
+							              alert("통신 실패");
+							      }
+							  });
+						}
+						}).catch(function(e) {
+							console.log(e.message);
+							switch (e.event) {
+							     case 'cancel':
+							           console.log(e.message);
+							       	   break;
+							     case 'error':
+							           console.log(e.error_code);
+							           break;
+							 }
+						});
+
+						
+					},
+					error: function(error) {
+					       console.error('Error fetching user info:', error);
+					}
+			        
+			    });
 		}
+		
+		
 </script>
 </html>

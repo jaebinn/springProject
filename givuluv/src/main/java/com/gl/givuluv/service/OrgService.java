@@ -18,4 +18,5 @@ public interface OrgService {
 	String getOrgnameBynum(int dBoardnum);
 	List<String> getOrgnameByCategory(@Param("orgcategory") String orgcategory);
 	String getCategoryByOrgid(String orgid);
+	String getOrgidByOrgname(String orgname);
 }

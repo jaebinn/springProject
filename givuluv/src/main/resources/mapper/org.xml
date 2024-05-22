@@ -19,6 +19,9 @@
 	<select id="getCategoryByOrgid">
 		select orgcategory from org where orgid=#{orgid}
 	</select>
+	<select id="getOrgidByOrgname">
+		select orgid from org where orgname=#{orgname}
+	</select>
 	<update id="updateOrg">
 		
 	</update>

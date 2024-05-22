@@ -131,5 +131,10 @@ public class OrgServiceImpl implements OrgService {
 		return omapper.getCategoryByOrgid(orgid);
 	}
 
+	@Override
+	public String getOrgidByOrgname(String orgname) {
+		return omapper.getOrgidByOrgname(orgname);
+	}
+
 
 }

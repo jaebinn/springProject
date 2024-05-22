@@ -11,7 +11,7 @@ public class DBoardDTO {
 	private int dBoardnum;
 	private String dTitle;
 	private String dContent;
-	private String targetAmount;
+	private int targetAmount;
 	private String saveMoney;
 	private String dRegdate;
 	private String dEnddate;

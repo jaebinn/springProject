@@ -7,6 +7,7 @@ public class DPaymentDTO {
 	int paymentnum;
 	String userid;
 	String orgid;
+	int d_boardnum;
 	int d_cost;
 	char type; //일반결제('p') 정기결제('r')
 }

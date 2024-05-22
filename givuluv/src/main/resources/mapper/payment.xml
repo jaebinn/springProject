@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.gl.givuluv.mapper.PaymentDTO">
+<mapper namespace="com.gl.givuluv.mapper.DPaymentMapper">
+	<!-- 일반 결제 -->
 	<insert id="insertPayment">
-		insert into payment
+		insert into d_payment(userid, orgid, d_boardnum, d_cost, type) values(#{userid}, #{orgid}, #{d_boardnum}, #{d_cost}, 'p');
 	</insert>
-	
+	<select id="getTotalCostByBoardnum">
+		select coalesce(sum(d_cost), 0) from d_payment where d_boardnum=#{d_boardnum}
+	</select>
+	<select id="getTotalCostByOrgid">
+		 select coalesce(sum(d_cost), 0) from d_payment where orgid=#{orgid}
+	</select>
+	<select id="getRdonationCntByType">
+		select count(d_boardnum) from d_payment where d_boardnum=#{d_boardnum} and type='r';
+	</select>
 </mapper>

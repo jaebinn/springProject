@@ -13,7 +13,19 @@ public class DPaymentServiceImpl implements DPaymentService{
 	private DPaymentMapper pmapper;
 	@Override
 	public boolean insertPayment(DPaymentDTO payment) {
-		return pmapper.insertPayment(payment);
+		return pmapper.insertPayment(payment) == 1;
+	}
+	@Override
+	public int getTotalCostByBoardnum(int dBoardnum) {
+		return pmapper.getTotalCostByBoardnum(dBoardnum);
+	}
+	@Override
+	public int getTotalCostByOrgid(String orgid) {
+		return pmapper.getTotalCostByOrgid(orgid);
+	}
+	@Override
+	public int getRdonationCntByType(int dBoardnum) {
+		return pmapper.getRdonationCntByType(dBoardnum);
 	}
 	
 }

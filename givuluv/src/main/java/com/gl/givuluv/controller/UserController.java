@@ -145,6 +145,16 @@ public class UserController {
             return "X";
         }
     }
+    //결제창에 사용자 정보 가져오기
+    @GetMapping("payUserInfo")
+    @ResponseBody
+    public UserDTO getPayUserInfo(HttpServletRequest req, HttpServletResponse resp) {
+		HttpSession session = req.getSession();
+		String userid = (String)session.getAttribute("loginUser");
+		UserDTO user = service.getUserById(userid);
+		
+        return user;	
+	}
     @GetMapping("my/home")
     public String myHome() {
        return "/user/my/home";
