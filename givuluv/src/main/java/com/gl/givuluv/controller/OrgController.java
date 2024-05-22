@@ -41,6 +41,7 @@ public class OrgController {
 		System.out.println("OrgController에서 찍힌 파일 : "+files);
 		
 		if(service.join(org, files)) {
+			System.out.println("org회원가입성공!");
 			Cookie cookie = new Cookie("joinid", org.getOrgid());
 			cookie.setPath("/");
 			cookie.setMaxAge(60);

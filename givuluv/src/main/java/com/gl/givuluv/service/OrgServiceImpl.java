@@ -15,22 +15,23 @@ import org.springframework.web.multipart.MultipartFile;
 import com.gl.givuluv.domain.dto.DBoardDTO;
 import com.gl.givuluv.domain.dto.FileDTO;
 import com.gl.givuluv.domain.dto.OrgDTO;
+import com.gl.givuluv.mapper.BoardMapper;
 import com.gl.givuluv.mapper.FileMapper;
 import com.gl.givuluv.mapper.OrgMapper;
 
 @Service
 public class OrgServiceImpl implements OrgService {
 
-    @Value("${file.dir}")
-    private String saveFolder;
-
-    @Autowired
-    private OrgMapper omapper;
-
-    @Autowired
-    private FileMapper fmapper;
-
-    @Override
+	@Value("${file.dir}")
+	private String saveFolder;
+	
+	@Autowired
+	private OrgMapper omapper;
+	
+	@Autowired
+	private FileMapper fmapper;
+	
+	@Override
     public boolean join(OrgDTO org, MultipartFile[] files) throws Exception {
 		if(omapper.insertOrg(org) != 1) {
 			return false;
@@ -69,7 +70,7 @@ public class OrgServiceImpl implements OrgService {
 				FileDTO fdto = new FileDTO();
 				fdto.setSystemname(systemname);
 				fdto.setConnectionid(org.getOrgid());
-				fdto.setType("s");
+				fdto.setType('s');
 				System.out.println("fdto 잘 포장함."+fdto);
 				
 				flag = fmapper.insertFile(fdto) == 1;
@@ -89,8 +90,7 @@ public class OrgServiceImpl implements OrgService {
 			return true;
 		}
     }
-   
-
+	
     @Override
     public boolean login(String orgid, String orgpw) {
         OrgDTO org = omapper.getOrgById(orgid);
@@ -130,4 +130,6 @@ public class OrgServiceImpl implements OrgService {
 	public String getCategoryByOrgid(String orgid) {
 		return omapper.getCategoryByOrgid(orgid);
 	}
+
+
 }

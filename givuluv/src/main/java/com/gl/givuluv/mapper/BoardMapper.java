@@ -46,5 +46,7 @@ public interface BoardMapper {
 
 	List<DBoardDTO> getListByCategory(String orgcategory);
 
+	int getDonationLastBoardnumByOrgid(String orgid);
+
 	//가게 게시글
 }

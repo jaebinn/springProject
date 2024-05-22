@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.gl.givuluv.domain.dto.DBoardDTO;
 import com.gl.givuluv.domain.dto.OrgDTO;
 
 public interface OrgService {

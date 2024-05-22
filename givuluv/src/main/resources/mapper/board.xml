@@ -3,10 +3,8 @@
 <mapper namespace="com.gl.givuluv.mapper.BoardMapper">
 	<!-- 기부 게시글 -->
 	<insert id="insertDonation">
-		insert into d_board(d_boardnum, d_title, d_content, target_amount,
-		save_money, d_enddate, orgid)
-		values(#{dBoardnum},#{Dtitle},#{dContent},
-		#{targetAmount},#{saveMoney}, #{dEnddate}, #{orgid})
+		insert into d_board(d_title, d_content, target_amount,d_enddate, orgid)
+		values(#{dTitle},#{dContent},#{targetAmount},#{dEnddate},#{orgid})
 	</insert>
 	<select id="getList">
 		select * from d_board order by d_boardnum desc;
@@ -20,6 +18,11 @@
 	<select id="getDonationsByOrgid">
 		select * from d_board where orgid=#{orgid} order by d_boardnum desc limit #{cri.startrow}, #{cri.amount}
 	</select>
+	<select id="getDonationLastBoardnumByOrgid">
+      select max(d_boardnum)
+      from d_board
+      where orgid=#{orgid};
+   </select>
 	<!--<select id="getOrgnameBynum">
 		select orgname from org where orgid=#{orgid}
 	</select>-->

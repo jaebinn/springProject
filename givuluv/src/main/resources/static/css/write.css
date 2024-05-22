@@ -1,71 +1,76 @@
 @font-face {
-     font-family: 'NIXGONM-Vb';
-     src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/NIXGONM-Vb.woff') format('woff');
-     font-weight: normal;
-     font-style: normal;
-}
-@font-face {
-    font-family: 'TTLaundryGothicB';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/TTLaundryGothicB.woff2') format('woff2');
-    font-weight: 700;
-    font-style: normal;
+	font-family: 'NIXGONM-Vb';
+	src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/NIXGONM-Vb.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
 }
 
-a, a:hover, a:focus, a:active, a:visited, a:target{
+@font-face {
+	font-family: 'TTLaundryGothicB';
+	src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/TTLaundryGothicB.woff2') format('woff2');
+	font-weight: 700;
+	font-style: normal;
+}
+
+a,
+a:hover,
+a:focus,
+a:active,
+a:visited,
+a:target {
 	text-decoration: none;
 	/*background-color: transparent;*/
 	color: #424242;
 	user-select: none;
 }
-.btn{
+
+.btn {
 	padding: 10px;
 	border-radius: 20px;
 	background-color: rgb(231, 112, 151);
 	color: white;
-    font-family: 'NIXGONM-Vb';
-    font-size: 20px;
-    text-align: center;
+	font-family: 'NIXGONM-Vb';
+	font-size: 20px;
+	text-align: center;
 	cursor: pointer;
 	user-select: none;
 }
-.btn:hover{
+.btn:hover, .btn:focus {
 	color: white;
 }
-.btn_option{
-	
-}
 
-.container{
-	width: 90%;
+.container {
+	width: 1340px;
 	margin: 0 auto;
 }
 
 
-
-.logo{
+.logo {
 	width: 60px;
 	height: 60px;
 }
 
-.writeheader{
+.writeheader {
 	padding: 10px;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	margin-bottom: 10px;
 }
-.writeheaderleft{
+
+.writeheaderleft {
 	display: flex;
 	align-items: center;
 	font-family: 'TTLaundryGothicB';
 }
-.writeheaderleft > p{
+
+.writeheaderleft>p {
 	margin: 0;
 	font-size: 30px;
 	margin-left: 10px;
 }
 
-.title{
+.title {
 	border: 0;
 	border-bottom: 1px solid #424242;
 	font-size: 24px;
@@ -74,58 +79,103 @@ a, a:hover, a:focus, a:active, a:visited, a:target{
 	margin: 0 auto;
 	margin-bottom: 10px;
 }
-.title:focus-visible{
+
+.title:focus-visible {
 	outline: none;
 }
 
-.calendar_box{
+.boxes{
+	display: flex;
+	justify-content: space-between;
+}
+/* 사이드 바 */
+.option {
+	display: flex;
+	height: fit-content;
+	flex-direction: column;
+	align-items: end;
+	user-select: none;
+	background-color: rgba(231, 112, 151, 0.2);
+	border-radius: 20px;
+	padding: 20px;
+}
+
+.targetAmount_box {
 	display: inline-block;
+	margin-bottom: 20px;
+}
+.targetAmount_box>i {
+	font-size: 24px;
+	color: #222;
+}
+.targetAmount {
+	padding: 10px;
+	font-size: 20px;
+}
+
+/* 캘린더 */
+.calendar_box {
+	display: inline-block;
+	margin-bottom: 20px;
 	padding: 8px;
 	border: 1px solid rgba(0, 0, 0, 0.2);
 	border-top: 5px solid rgb(255, 128, 192);
 	border-bottom-left-radius: 5px;
 	border-bottom-right-radius: 5px;
 }
-.calendar_box > i{
+.calendar_box>p {
+	display: inline-block;
+	margin: 0;
+}
+.calendar_box>i {
 	color: rgb(255, 164, 209);
 }
-
-
-.datetime{
+.datetime {
 	width: 120px;
 	padding: 5px;
 	font-size: 20px;
 	border-radius: 30px;
 	border: none;
-	background-color: rgb(255, 164, 209);
+	background:linear-gradient(to right, rgb(236, 138, 170) 0%, rgb(255, 164, 209) 100%);
 	color: white;
 	text-align: center;
 }
-.datetime:hover{
+.datetime:hover {
 	cursor: pointer;
 }
 
-.targetAmount_box{
-	margin: 20px 0;
+/* file */
+.thumbnail_box {
+	width: 180px;
+	background-color: rgba(255, 128, 192, 0.2);
+	padding: 20px;
+	padding-bottom: 30px;
 }
-.targetAmount_box > i{
-	font-size: 24px;
-	color: #222;
+img.thumbnailImg {
+	display: block;
+	width: 180px;
+	margin-bottom: 10px;
 }
-.targetAmount{
-	display: inline-block;
-	padding: 10px;
-	font-size: 20px;
+#file_box #thumbnailname {
+	margin: 0;
+	margin-bottom: 20px;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
-
 
 /* summernote */
-.note-toolbar{
-	background-color:  rgba(255, 128, 192, 0.2) !important;
+.note-editor.note-frame {
+	margin-top: 10px;
 }
-.note-resizebar{
+
+.note-toolbar {
+	background-color: rgba(255, 128, 192, 0.2) !important;
+}
+
+.note-resizebar {
 	display: none !important;
 }
-.note-statusbar{
+
+.note-statusbar {
 	border-top: none !important;
 }

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -153,4 +154,31 @@ public class DonationController {
         System.out.println("과연: "+resultList);
         return resultList;
     }
+    
+    @PostMapping("write")
+	public String write(DBoardDTO dBoard, String filenames, MultipartFile thumbnail) throws Exception{
+		// 경로
+		System.out.println("Post : donation/write");
+		// 파라미터 출력
+		System.out.println(dBoard.getDTitle());
+		System.out.println(dBoard.getDContent());
+		System.out.println(dBoard.getDEnddate());
+		System.out.println(dBoard.getTargetAmount());
+		System.out.println(dBoard.getOrgid());
+		System.out.println(filenames);
+		System.out.println(thumbnail.getOriginalFilename());
+		// 세션이랑 orgid 맞는지 확인 유효성 검사 해야함.
+//		if(dBoard.getOrgid() == sessionID)
+		
+		if(dservice.regist(dBoard, filenames, thumbnail)) {
+			int dBoardnum = dservice.getDonationLastBoardnumByOrgid(dBoard.getOrgid());
+			System.out.println(dBoardnum);
+			return "redirect:/donation/donationView?dBoardnum="+dBoardnum;
+		}
+		else {
+			return "donation/dBoard";
+		}
+	}
+	
+
 }

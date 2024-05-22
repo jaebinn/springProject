@@ -12,10 +12,12 @@ import com.gl.givuluv.domain.dto.FileDTO;
 public interface FileMapper {
 	//C
 	int insertFile(FileDTO file);
+	int insertThumbnail(FileDTO file);
 	//R
 	FileDTO getFileBySystemname(String systemname);
 	List<FileDTO> getFiles(long boardnum);
 	//D
 	int deleteFileBySystemname(String systemname);
 	int deleteFilesByBoardnum(long boardnum);
+
 }
