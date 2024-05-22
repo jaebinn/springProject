@@ -19,5 +19,7 @@ public interface FileMapper {
 	//D
 	int deleteFileBySystemname(String systemname);
 	int deleteFilesByBoardnum(long boardnum);
+	List<FileDTO> getFiles();
+	List<String> getSystemnameByBoardnum(String dBoardnum);
 
 }

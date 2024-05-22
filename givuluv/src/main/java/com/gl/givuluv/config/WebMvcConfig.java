@@ -20,5 +20,6 @@ public class WebMvcConfig implements WebMvcConfigurer{
        System.out.println("WebMvcConfig");
         registry.addResourceHandler("/summernoteImage/**")
                 .addResourceLocations("file:///"+saveFolder);
+        		
     }
 }

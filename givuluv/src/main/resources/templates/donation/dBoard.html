@@ -76,7 +76,7 @@
 						<div class="card_item">
 							<a th:href="${dBoard.dBoardnum}" id="donation_link" class="get">
 								<div class="card_thumbnail">
-									<img src="/images/donation.png">
+									<img th:src="${systemname}">
 								</div>
 								<strong class="card_title" th:text="${dBoard.dTitle}"></strong>
 								<strong class="card_orgname" th:text="${orgIdToNameMap[dBoard.orgid]}"></strong>
@@ -213,11 +213,12 @@
 									console.log(item);
 									let dBoard = item.dboard;
 									let orgname = item.orgname;
+									let systemname = item.systemname;
 									let cardItem = `
 									 <div class="card_item">
 										<a href="donationView?dBoardnum=${dBoard.dboardnum}" id="donation_link" class="get">
 											<div class="card_thumbnail">
-												<img src="/images/donation.png">
+												<img src="${systemname}">
 											</div>
 											<strong class="card_title">${dBoard.dtitle}</strong>
 											<strong class="card_orgname">${orgname}</strong>

@@ -9,4 +9,10 @@
 	 <insert id="insertThumbnail">
       	insert into file values(#{systemname},#{connectionid},#{type},'Y')
    </insert>
+   <select id="getFiles">
+		select * from file;
+   </select>
+   <select id="getSystemnameByBoardnum">
+		select systemname from file where connectionid=#{dBoardnum}
+   </select>
 </mapper>

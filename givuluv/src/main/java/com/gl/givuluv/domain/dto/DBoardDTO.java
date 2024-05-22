@@ -8,7 +8,7 @@ import lombok.Data;
 
 @Data
 public class DBoardDTO {
-	private String dBoardnum;
+	private int dBoardnum;
 	private String dTitle;
 	private String dContent;
 	private String targetAmount;

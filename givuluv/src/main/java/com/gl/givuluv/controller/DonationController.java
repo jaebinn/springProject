@@ -27,6 +27,7 @@ import com.gl.givuluv.domain.dto.DBoardWithOrgNameDTO;
 import com.gl.givuluv.domain.dto.FileDTO;
 import com.gl.givuluv.domain.dto.OrgDTO;
 import com.gl.givuluv.service.DBoardService;
+import com.gl.givuluv.service.FileService;
 import com.gl.givuluv.service.OrgService;
 import com.google.gson.Gson;
 
@@ -44,16 +45,19 @@ public class DonationController {
 	private DBoardService dservice;
 	@Autowired
 	private OrgService oservice;
-	/* private FileSerivce fservice; */
+	@Autowired
+	private FileService fservice;
 	
 	
 	@GetMapping("dBoard")
 	public String dBoardList(Model model) {
 		List<DBoardDTO> list = dservice.getList();
+		
 		System.out.println(list);
-	    
+	    String src = "/summernoteImage/";
+		//orgname을 Map타입에 저장
 		Map<String, String> orgIdToNameMap = new HashMap<>();
-
+			
 		// list에서 각 DBoardDTO 객체의 orgid 값을 추출하여 orgname을 가져와 Map에 저장
 		for (DBoardDTO dBoard : list) {
             String orgid = dBoard.getOrgid();
@@ -61,7 +65,18 @@ public class DonationController {
             String orgname = oservice.getOrgnameByOrgid(orgid);
             System.out.println(orgname);
             orgIdToNameMap.put(orgid, orgname);
+            
+            System.out.println(orgIdToNameMap); 
         }
+		
+		//systemname가져오기
+		for(DBoardDTO dBoard : list) {
+			List<String> systemnameList = fservice.getSystemnameByBoardnum(dBoard.getDBoardnum()+"");
+			if(systemnameList != null) {
+				System.out.println(systemnameList.get(1));
+				model.addAttribute("systemname", src+systemnameList.get(1));
+			}
+		}
 		
 		/* List<FileDTO> dfile = fservice.getFileByTypeisD(); */
 		model.addAttribute("list", list);
@@ -74,6 +89,7 @@ public class DonationController {
 		DBoardDTO dboard = dservice.getDonation(dBoardnum);
 		String orgname = oservice.getOrgnameByOrgid(dboard.getOrgid());
 		String category = oservice.getCategoryByOrgid(dboard.getOrgid());
+		
 		System.out.println("orgname: "+orgname);
 		model.addAttribute("dboard",dboard);
 		model.addAttribute("orgname", orgname);
@@ -121,28 +137,44 @@ public class DonationController {
     	return "donation/donationRegularPay";
     }
     
-    //카테고리 정렬
     @GetMapping("getCategoryItems")
     public @ResponseBody List<DBoardWithOrgNameDTO> getCategoryItems(@RequestParam String orgcategory) {
+        String src = "/summernoteImage/";
         List<DBoardDTO> items = dservice.getItemsByCategory(orgcategory);
         List<DBoardWithOrgNameDTO> resultList = new ArrayList<>();
         if ("전체".equals(orgcategory)) {
             List<DBoardDTO> list = dservice.getList();
             Map<String, String> orgIdToNameMap = new HashMap<>();
-
+            
             for (DBoardDTO dBoard : list) {
                 String orgid = dBoard.getOrgid();
                 String orgname = oservice.getOrgnameByOrgid(orgid);
                 orgIdToNameMap.put(orgid, orgname);
-                resultList.add(new DBoardWithOrgNameDTO(dBoard, orgname));
+                // 파일의 systemname 가져오기
+                List<String> systemnameList = fservice.getSystemnameByBoardnum(dBoard.getDBoardnum()+"");
+                if (systemnameList != null && !systemnameList.isEmpty()) {
+                    String systemname = src + systemnameList.get(1); 
+                    System.out.println("파일이름: "+systemname);
+                    resultList.add(new DBoardWithOrgNameDTO(dBoard, orgname, systemname));
+                } else {
+                    resultList.add(new DBoardWithOrgNameDTO(dBoard, orgname));
+                }
+                System.out.println(resultList);
                 System.out.println(orgname);
             }
-        } else {
+        } 
+        //전체 말고 다른 카테고리 선택했을 때
+        else {
             for (DBoardDTO dBoard : items) {
                 String orgname = oservice.getOrgnameByOrgid(dBoard.getOrgid());
-                resultList.add(new DBoardWithOrgNameDTO(dBoard, orgname));
-                System.out.println(orgname);
-                System.out.println(resultList);
+                List<String> systemnameList = fservice.getSystemnameByBoardnum(dBoard.getDBoardnum()+"");
+                if (systemnameList != null && !systemnameList.isEmpty()) {
+                    String systemname = src + systemnameList.get(1); 
+                    System.out.println("파일이름: "+systemname);
+                    resultList.add(new DBoardWithOrgNameDTO(dBoard, orgname, systemname));
+                } else {
+                    resultList.add(new DBoardWithOrgNameDTO(dBoard, orgname));
+                }
             }
 
             if (items == null || items.isEmpty()) {
