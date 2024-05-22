@@ -11,6 +11,9 @@
 	font-weight: 700;
 	font-style: normal;
 }
+p{
+	margin:0;
+}
 
 a,
 a:hover,
@@ -34,8 +37,11 @@ a:target {
 	text-align: center;
 	cursor: pointer;
 	user-select: none;
+	border: none;
 }
-.btn:hover, .btn:focus {
+
+.btn:hover,
+.btn:focus {
 	color: white;
 }
 
@@ -84,10 +90,11 @@ a:target {
 	outline: none;
 }
 
-.boxes{
+.boxes {
 	display: flex;
 	justify-content: space-between;
 }
+
 /* 사이드 바 */
 .option {
 	display: flex;
@@ -100,17 +107,52 @@ a:target {
 	padding: 20px;
 }
 
+/* 목표 금액 */
 .targetAmount_box {
 	display: inline-block;
 	margin-bottom: 20px;
 }
+
 .targetAmount_box>i {
 	font-size: 24px;
 	color: #222;
 }
+
 .targetAmount {
 	padding: 10px;
 	font-size: 20px;
+}
+
+/* 상품 */
+.product_box{
+	width: 200px;
+	margin: 20px 0;
+}
+.product_box p{
+	font-size: 30px;
+	color: white;
+	font-weight: bold;
+}
+.product_box input{
+	margin-bottom: 10px;
+	width: 180px;
+	height: 30px;
+	border: none;
+	font-size: 18px;
+	background-color: transparent;
+	border-bottom: 1px solid #424242;
+}
+.product{
+	margin-bottom: 5px;
+}
+.product p{
+	text-shadow: 1px 1px 1px #999;
+}
+.product_btn_box{
+	margin: 5px 0 20px 0;
+}
+.product_box .btn{
+	font-size: 18px;
 }
 
 /* 캘린더 */
@@ -123,25 +165,39 @@ a:target {
 	border-bottom-left-radius: 5px;
 	border-bottom-right-radius: 5px;
 }
+
 .calendar_box>p {
 	display: inline-block;
 	margin: 0;
 }
+
 .calendar_box>i {
 	color: rgb(255, 164, 209);
 }
+
 .datetime {
 	width: 120px;
 	padding: 5px;
 	font-size: 20px;
 	border-radius: 30px;
 	border: none;
-	background:linear-gradient(to right, rgb(236, 138, 170) 0%, rgb(255, 164, 209) 100%);
+	background: linear-gradient(to right, rgb(236, 138, 170) 0%, rgb(255, 164, 209) 100%);
 	color: white;
 	text-align: center;
 }
+
 .datetime:hover {
 	cursor: pointer;
+}
+
+.daterangepicker.opensright:after {
+	left: unset !important;
+	right: 10px;
+}
+
+.daterangepicker.opensright:before {
+	left: unset !important;
+	right: 9px;
 }
 
 /* file */
@@ -151,11 +207,13 @@ a:target {
 	padding: 20px;
 	padding-bottom: 30px;
 }
+
 img.thumbnailImg {
 	display: block;
 	width: 180px;
 	margin-bottom: 10px;
 }
+
 #file_box #thumbnailname {
 	margin: 0;
 	margin-bottom: 20px;

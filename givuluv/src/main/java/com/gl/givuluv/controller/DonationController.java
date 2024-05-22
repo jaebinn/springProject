@@ -186,29 +186,32 @@ public class DonationController {
     }
     
     @PostMapping("write")
-	public String write(DBoardDTO dBoard, String filenames, MultipartFile thumbnail) throws Exception{
-		// 경로
-		System.out.println("Post : donation/write");
-		// 파라미터 출력
-		System.out.println(dBoard.getDTitle());
-		System.out.println(dBoard.getDContent());
-		System.out.println(dBoard.getDEnddate());
-		System.out.println(dBoard.getTargetAmount());
-		System.out.println(dBoard.getOrgid());
-		System.out.println(filenames);
-		System.out.println(thumbnail.getOriginalFilename());
-		// 세션이랑 orgid 맞는지 확인 유효성 검사 해야함.
-//		if(dBoard.getOrgid() == sessionID)
-		
-		if(dservice.regist(dBoard, filenames, thumbnail)) {
-			int dBoardnum = dservice.getDonationLastBoardnumByOrgid(dBoard.getOrgid());
-			System.out.println(dBoardnum);
-			return "redirect:/donation/donationView?dBoardnum="+dBoardnum;
-		}
-		else {
-			return "donation/dBoard";
-		}
-	}
+    public String write(DBoardDTO dBoard, String filenames, MultipartFile thumbnail, HttpServletRequest req) throws Exception{
+       // 경로
+       System.out.println("Post : donation/write");
+       // 파라미터 출력
+       System.out.println(dBoard.getDTitle());
+       System.out.println(dBoard.getDContent());
+       System.out.println(dBoard.getDEnddate());
+       System.out.println(dBoard.getTargetAmount());
+       System.out.println(dBoard.getOrgid());
+       System.out.println(filenames);
+       System.out.println(thumbnail.getOriginalFilename());
+       // 세션이랑 orgid 맞는지 확인
+       HttpSession session = req.getSession();
+       String orgId = session.getAttribute("loginOrg").toString();
+       if(dBoard.getOrgid().equals(orgId)) {
+          System.out.println("세션검사완료");
+          if(dservice.regist(dBoard, filenames, thumbnail)) {
+             System.out.println("게시글 등록완료");
+             int dBoardnum = dservice.getDonationLastBoardnumByOrgid(dBoard.getOrgid());
+             System.out.println(dBoardnum);
+             return "redirect:/donation/donationView?dBoardnum="+dBoardnum;
+          }
+       }
+       System.out.println("실패");
+       return "donation/dBoard";
+    }
 	
 
 }

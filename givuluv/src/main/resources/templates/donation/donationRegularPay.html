@@ -12,9 +12,9 @@
    <div class="container">
 		<div class="contents">
 			<div class="tit">
-				<a href="/donation/donationView"><i class="fa-regular fa-less-than"></i></a>
-				<h2>[[${dboard.dTitle}]]</h2>
-				<p>by [[${orgname}]]</p>
+				<a th:href="@{/donation/donationView(dBoardnum=${dboard.dBoardnum})}"><i class="fa-regular fa-less-than"></i></a>
+				<h2>[[${dboard.dTitle}]]</h2><br>
+				by <span id="orgname">[[${orgname}]]</span>
 			</div>
 		</div>
 		<div class="payment">

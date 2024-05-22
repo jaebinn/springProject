@@ -13,8 +13,8 @@
 		<div class="contents">
 			<div class="tit">
 				<a th:href="@{/donation/donationView(dBoardnum=${dboard.dBoardnum})}"><i class="fa-regular fa-less-than"></i></a>
-				<h2>[[${dboard.dTitle}]]</h2>
-				<p>by [[${orgname}]]</p>
+				<h2>[[${dboard.dTitle}]]</h2><br>
+				by <span id="orgname">[[${orgname}]]</span>
 			</div>
 		</div>
 		<div class="payment">
@@ -57,12 +57,12 @@
 							<input type="hidden" id="mktNotiReceiveAgree" name="mktNotiReceiveAgree" value="false">
 							<input type="hidden" name="messageJson">
 						</form>
-						<input type="text" class="inp_num" value="10000" name="ChargeTotalAmount"
-							id="ChargeTotalAmount" maxlength="8"><span class="tx_won">원</span>
+						<input type="text" class="inp_num d_cost" value="1000" name="ChargeTotalAmount"
+						 id="ChargeTotalAmount" maxlength="8"><span class="tx_won">원</span>
 						<span class="sort_menu">
-							<button class="btn_sort  jq_fix_amount" type="button" data-amount="10,000">1만원</button>
-							<button class="btn_sort jq_fix_amount" type="button" data-amount="20,000">2만원</button>
-							<button class="btn_sort jq_fix_amount" type="button" data-amount="30,000">3만원</button>
+							<button class="btn_sort  jq_fix_amount" type="button" data-amount=10,000>1만원</button>
+							<button class="btn_sort jq_fix_amount" type="button" data-amount=20,000>2만원</button>
+							<button class="btn_sort jq_fix_amount" type="button" data-amount=30,000>3만원</button>
 							<button class="btn_sort reset" type="button" data-amount="0">초기화</button>
 						</span>
 						<span class="tx2">* 기부를 원하는 금액을 입력한 후 <em>'기부하기'</em> 버튼을 눌러주세요!</span>
@@ -88,7 +88,7 @@
 					<div class="agree_wrap">
 						<label for="agree_term">
 							<input id="agree_term" type="checkbox" class="input jq_temporary_agree terms">
-							(필수) GivuLuv 이용약관에 동의합니다.
+							(필수) GivuLuv 이용약관에 동의합니다.													
 						</label>
 						<!--이용 약관-->
 						<p class="agree_preview">
@@ -102,7 +102,7 @@
 					</div>
 				</div>
 				<div class="donation_buttons">
-					<a href="#" class="button_highlight jq_donate">기부하기</a>
+					<input type="button" class="button_highlight jq_donate" onclick="payBtn()" value="기부하기">
 					<a href="/donation/donationView" class="jq_prev_rdona_view">모금함으로 돌아가기</a>
 				</div>
 			</div>
@@ -113,9 +113,31 @@
 </body>
 <script src="/js/jquery-3.7.1.min.js"></script>
 <script src="/js/donationPay.js"></script>
+<script src="https://js.bootpay.co.kr/bootpay-4.3.4.min.js" type="application/javascript"></script>
 <script>
 	$('.h_logout').on('click', function(){
 		alert("로그아웃되었습니다.")
 	})
+		function payBtn(){
+			let cost = parseInt($(".d_cost").val().replace(/,/g, ''));
+			console.log(cost);
+			let orgname = document.querySelector("#orgname").innerHTML;
+			
+			Bootpay.requestPayment({
+				"application_id": "664d681b2bac039f7bd3d53e",
+				"price": cost,
+				"order_name": orgname,
+				"order_id": "TEST_ORDER_ID",
+				"pg": "nicepay",
+				"method": "",
+				"tax_free": 0,
+				"user": {
+					"id": "이름",
+					"username": "이름",
+					"phone": "01000000000",
+					"email": "test@test.com"
+				 },
+			})
+		}
 </script>
 </html>

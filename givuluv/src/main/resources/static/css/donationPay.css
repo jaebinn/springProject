@@ -296,11 +296,29 @@
     background-color: rgb(231,112,151);
     color: #fff;
 }
-.dnt_area .donation_buttons a~a {
+.dnt_area .donation_buttons input~a {
     margin-left: 8px;
 }
-.dnt_area .donation_buttons a {
+.dnt_area .donation_buttons input{
     display: inline-block;
+    width: 166px;
+    height: 45px;
+   /* padding: 13px 10px 0;*/
+    border: 1px solid #333;
+    border-radius: 3px;
+    font-size: 15px;
+    color: #000;
+    vertical-align: top;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    text-align: center;
+}
+.jq_donate{
+	cursor: pointer;
+	margin-right: 10px;
+}
+.dnt_area .donation_buttons a{
+	display: inline-block;
     width: 166px;
     height: 45px;
     padding: 13px 10px 0;

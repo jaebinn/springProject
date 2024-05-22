@@ -35,7 +35,9 @@ $(function() {
 		singleDatePicker: true,
 		showDropdowns: true,
 		minYear: parseInt(moment().format('YYYY')),
-		maxYear: parseInt(moment().format('YYYY')) + 5
+		maxYear: parseInt(moment().format('YYYY')) + 5,
+		minDate: moment(),
+		maxDate: moment().add(5, 'years')
 	},
 		function(start, end, label) {
 			days = moment().diff(start, 'days');
@@ -56,6 +58,7 @@ $(function() {
 });
 
 //섬머노트
+
 $(document).ready(function() {
 	//여기 아래 부분
 	$('#summernote').summernote({
@@ -71,6 +74,7 @@ $('#summernote').summernote({
 	placeholder: '글을 작성해주세요.',
 	minHeight: 600,             // 최소 높이
 	maxHeight: 600,             // 최대 높이
+	width: 950,					//고정 width
 	height: 600,              // 기초 높이
 	tabsize: 2,
 	focus: true,
@@ -127,20 +131,142 @@ function uploadSummernoteImageFile(file, editor) {
 	});
 }
 
-/*보류 파일 삭제
-function deleteSummernoteImageFile(imageName) {
-	console.log("사진 삭제 : "+ imageName)
-	let idx = files.indexOf(imageName);
-	if(idx > -1){
-		files.splice(idx, 1)
-	}
-	console.log(files);
-	
-}*/
 
+//파일
+function upload() {
+	$("#thumbnail").click();
+}
+//$(선택자).change(함수) : 해당 선택자의 요소에 변화가 일어난다면 넘겨주는 함수 호출
+$("[type=file]").change(function(e) {
+	//e : 파일이 업로드된 상황 자체를 담고있는 이벤트 객체
+	//e.target : 파일이 업로드가 된 input[type=file] 객체(태그객체)
+	const fileTag = e.target;
+	console.log(fileTag);
+	//e.target.files : 파일태그에 업로드가 된 파일들의 배열
+	const file = fileTag.files[0];
+	console.log(file);
+
+	if (file == undefined) {
+		//업로드 창을 띄웠다가 취소한 경우(파일이 업로드 되었다가 없어진 경우)
+		cancelFile();
+	}
+	else {
+		//파일을 업로드를 한 경우(없었다가 업로드, 있었는데 다른 파일로 업로드)
+		//#file0name 찾아서 내부 텍스트 변경(파일의 이름으로)
+		$("img.thumbnailImg").remove();
+		$("#thumbnailname").text(file.name);
+		//업로드 된 파일의 확장자명         
+		let ext = file.name.split(".").pop();
+		if (ext == "jpeg" || ext == "JPEG" || ext == "png" || ext == "PNG" || ext == "jpg" || ext == "JPG" || ext == "webp" || ext == "WEBP" || ext == "gif" || ext == "GIF") {
+			const reader = new FileReader();
+			reader.onload = function(ie) {
+				const img = document.createElement("img");
+				img.setAttribute("src", ie.target.result);
+				img.setAttribute("class", "thumbnailImg");
+				$("#file_box").prepend(img);
+			}
+			reader.readAsDataURL(file);
+		}
+		else {
+			cancelFile();
+			alert("사진 파일만 넣어주세요!");
+		}
+	}
+})
+
+function cancelFile() {
+	$("#thumbnailname").html("선택된 썸네일 없음")
+	$("img.thumbnailImg").remove();
+	$("[type=file]").val('');
+}
+
+// 상품 등록
+let i = 0; //상품 추가 횟수
+function addProduct(num) {
+	const product_box = $(".product_box");
+	const product = $("#product" + num);
+	console.log(product_box);
+	console.log(product);
+
+	const cloneElement = product.clone();
+	console.log(cloneElement)
+	i++;
+	cloneElement.attr("id", "product" + i);
+	cloneElement.children("p").text(i + 1);
+
+	cloneElement.find("#product" + (i - 1) + "name").val('');
+	cloneElement.find("#product" + (i - 1) + "name").attr("name", "productList[" + i + "].productname");
+	cloneElement.find("#product" + (i - 1) + "name").attr("id", "product" + i + "name");
+	cloneElement.find("#product" + (i - 1) + "cost").val('');
+	cloneElement.find("#product" + (i - 1) + "cost").attr("name", "productList[" + i + "].cost");
+	cloneElement.find("#product" + (i - 1) + "cost").attr("id", "product" + i + "cost");
+	cloneElement.find("#product" + (i - 1) + "amount").val('');
+	cloneElement.find("#product" + (i - 1) + "amount").attr("name", "productList[" + i + "].pAmount");
+	cloneElement.find("#product" + (i - 1) + "amount").attr("id", "product" + i + "amount");
+
+	cloneElement.find("#removeProduct" + (i - 1)).attr("href", "javascript:removeProduct(" + i + ")");
+	cloneElement.find("#removeProduct" + (i - 1)).attr("id", "removeProduct" + i);
+	cloneElement.find("#addProduct" + (i - 1)).attr("href", "javascript:addProduct(" + i + ")");
+	cloneElement.find("#addProduct" + (i - 1)).attr("id", "addProduct" + i);
+
+	console.log(cloneElement);
+	//jQuery객체.appendTo("부모선택자") : 해당 선택자의 자식으로 jQuery 객체 추가
+	cloneElement.appendTo(".product_box");
+	$("#addProduct" + (i - 1)).remove();
+
+}
+
+function removeProduct(num) {
+	console.log(i);
+	// 하나 남았을 때 누르면
+	if (i == 0) {
+		$("#product0name").val('');
+		$("#product0cost").val('');
+		$("#product0amount").val('');
+		return;
+	}
+
+	//마지막 누르면
+	if (i == num) {
+		console.log("마지막거")
+		const addProduct = $("#addProduct" + i).clone();
+		addProduct.appendTo("#product" + (num - 1) + " .product_btn_box");
+		$("#addProduct" + i).attr("href", "javascript:addProduct(" + (i - 1) + ")");
+		$("#addProduct" + i).attr("id", "addProduct" + (i - 1))
+
+		$("#product" + num).remove();
+		i--;
+		return;
+	}
+
+	// 해당 물건 삭제
+	$("#product" + num).remove();
+
+	//지워진 다음 행 부터 숫자 바꿔주기
+	for (let j = num + 1; j <= i; j++) {
+		const el = $("#product" + j);
+		el.attr("id", "product" + (j - 1));
+		el.find("p").text(j);
+
+		el.find("#product" + j + "name").attr("name", "productList[" + (j - 1) + "].productname");
+		el.find("#product" + j + "name").attr("id", "product" + (j - 1) + "name");
+		el.find("#product" + j + "cost").attr("name", "productList[" + (j - 1) + "].cost");
+		el.find("#product" + j + "cost").attr("id", "product" + (j - 1) + "cost");
+		el.find("#product" + j + "amount").attr("name", "productList[" + (j - 1) + "].pAmount");
+		el.find("#product" + j + "amount").attr("id", "product" + (j - 1) + "amount");
+
+		el.find("#removeProduct" + j).attr("href", "javascript:removeProduct(" + (j - 1) + ")");
+		el.find("#removeProduct" + j).attr("id", "removeProduct" + (j - 1));
+		el.find("#addProduct" + j).attr("href", "javascript:addProduct(" + (i - 1) + ")");
+		el.find("#addProduct" + j).attr("id", "addProduct" + (i - 1));
+	}
+	i--;
+}
+
+//donation/wirte submit 유효성 검사
 function donationsubmit() {
 	const donationForm = document.donationForm;
-	
+
 	// 제목 유효성 검사
 	let title = $("#dTitle").val();
 	console.log(title);
@@ -152,7 +278,7 @@ function donationsubmit() {
 
 	// 내용 유효성 검사
 	let content = $(".note-editable").html();
-	if(content === ''){
+	if (content === '') {
 		alert("내용을 입력해주세요.")
 		$(".note-editable").focus();
 		return false;
@@ -181,14 +307,14 @@ function donationsubmit() {
 		return false;
 	}
 	// 3. 작성된 Amount가 int 이상 범위인지
-	if($("#realtargetAmount").val()>2000000000){
+	if ($("#realtargetAmount").val() > 2000000000) {
 		alert("목표 금액은 2,000,000,000 이하로 설정해주세요.")
 		$("#targetAmount").focus();
 		return false;
 	}
-	
+
 	// 날짜 유효성 검사
-	if($("#dEnddate").val()===''){
+	if ($("#dEnddate").val() === '') {
 		alert("마감일을 선택해주세요!")
 		return false;
 	}
@@ -196,7 +322,7 @@ function donationsubmit() {
 	//파일 유효성 검사
 	console.log($("#thumbnail")[0])
 	console.log($("#thumbnail")[0].files.length)
-	if($("#thumbnail")[0].files.length==0){
+	if ($("#thumbnail")[0].files.length == 0) {
 		alert("파일을 첨부해주세요!")
 		return false;
 	}
@@ -212,4 +338,77 @@ function donationsubmit() {
 
 	console.log("submit");
 	donationForm.submit();
+}
+
+
+
+//store/write submit 유효성 검사
+function storesubmit() {
+	const storeForm = document.storeForm;
+
+	// 제목 유효성 검사
+	let title = $("#dTitle").val();
+	console.log(title);
+	if (title.length < 1 || title.length === '') {
+		alert("제목을 작성해주세요!");
+		$("#dTitle").focus();
+		return false;
+	}
+
+	// 내용 유효성 검사
+	let content = $(".note-editable").html();
+	if (content === '') {
+		alert("내용을 입력해주세요.")
+		$(".note-editable").focus();
+		return false;
+	}
+
+	//파일 유효성 검사
+	console.log($("#thumbnail")[0])
+	console.log($("#thumbnail")[0].files.length)
+	if ($("#thumbnail")[0].files.length == 0) {
+		alert("파일을 첨부해주세요!")
+		return false;
+	}
+
+	//상품 유효성 검사
+	let product = []; 
+	$(".product").each(function(){
+		product.push($(this))
+	})
+	for(j=0;j<product.length;j++){
+		let productname = product[j].find(".productname");
+		let productcost = product[j].find(".productcost")
+		let productamount = product[j].find(".productamount")
+		
+		if(productname.val() == ''){
+			alert("상품명을 작성해주세요.")
+			productname.focus();
+			return;
+		}
+		if(productcost.val() == ''){
+			alert("상품의 가격을 작성해주세요.")
+			productcost.focus();
+			return;
+		}
+		if(productamount.val() == ''){
+			alert("상품 수량을 작성해주세요.")
+			productamount.focus();
+			return;
+		}
+	}
+	//가격, 수량 숫자만 유효성검사 / 3개마다 , 찍어주기 
+	
+
+	// 내용 input:hidden에 삽입
+	$("#dContent").val(content);
+	console.log("content : " + content);
+	console.log("dContent 삽입 : " + $("#dContent").val())
+
+	//파일 이름 input:hidden에 삽입
+	$(".filenames").val(filenames);
+	console.log("filename 삽입 : " + $(".filenames").val());
+
+	console.log("submit");
+	storeForm.submit();
 }

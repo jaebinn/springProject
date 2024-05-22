@@ -86,6 +86,10 @@
 .categoryBtn:hover{
 	border: 1px solid rgba(0,0,0,0.3);
 }
+.nothingBoard{
+	text-align: center;
+	line-height: 200px;
+}
 .card_list{
 	width: 100%;
 	height: auto;

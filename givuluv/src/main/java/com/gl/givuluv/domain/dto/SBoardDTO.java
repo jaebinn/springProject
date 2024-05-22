@@ -4,9 +4,9 @@ import lombok.Data;
 
 @Data
 public class SBoardDTO {
-	private int s_boardnum;
-	private String s_title;
-	private String s_content;
-	private String s_regdate;
-	private int s_num;
+	private int sBoardnum;
+	private String sTitle;
+	private String sContent;
+	private String sRegdate;
+	private int sNum;
 }
