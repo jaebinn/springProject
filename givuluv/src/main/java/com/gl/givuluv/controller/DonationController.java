@@ -59,29 +59,27 @@ public class DonationController {
 		Map<String, String> orgIdToNameMap = new HashMap<>();
 			
 		// list에서 각 DBoardDTO 객체의 orgid 값을 추출하여 orgname을 가져와 Map에 저장
+		List<DBoardWithOrgNameDTO> resultList = new ArrayList<>();
 		for (DBoardDTO dBoard : list) {
-            String orgid = dBoard.getOrgid();
-            System.out.println(orgid);
-            String orgname = oservice.getOrgnameByOrgid(orgid);
-            System.out.println(orgname);
-            orgIdToNameMap.put(orgid, orgname);
-            
-            System.out.println(orgIdToNameMap); 
-        }
-		
-		//systemname가져오기
-		for(DBoardDTO dBoard : list) {
-			List<String> systemnameList = fservice.getSystemnameByBoardnum(dBoard.getDBoardnum()+"");
-			if(systemnameList != null) {
-				System.out.println(systemnameList.get(1));
-				model.addAttribute("systemname", src+systemnameList.get(1));
+			String orgid = dBoard.getOrgid();
+			String orgname = oservice.getOrgnameByOrgid(orgid);
+			orgIdToNameMap.put(orgid, orgname);
+			// 파일의 systemname 가져오기
+			List<String> systemnameList = fservice.getSystemnameByBoardnum(dBoard.getDBoardnum() + "");
+			if (systemnameList != null && !systemnameList.isEmpty()) {
+				String systemname = src + systemnameList.get(1);
+				System.out.println("파일이름: " + systemname);
+				resultList.add(new DBoardWithOrgNameDTO(dBoard, orgname, systemname));
+			} else {
+				resultList.add(new DBoardWithOrgNameDTO(dBoard, orgname));
 			}
-		}
+			System.out.println(resultList);
+			System.out.println(orgname);
+			
+        } 
 		
 		/* List<FileDTO> dfile = fservice.getFileByTypeisD(); */
-		model.addAttribute("list", list);
-		model.addAttribute("orgIdToNameMap", orgIdToNameMap);
-		/* model.addAttribute("dfile", dfile); */
+		model.addAttribute("list", resultList);
 		return "donation/dBoard";
 	}
 	@GetMapping("donationView")

@@ -72,18 +72,19 @@
 				</ul>
 			<div class="card_list">
 				<div class="card_list2">
+					<!-- 맨처음 기부페이지 눌렀을 때 -->
 					<th:block th:each="dBoard : ${list}">
-						<div class="card_item">
-							<a th:href="${dBoard.dBoardnum}" id="donation_link" class="get">
-								<div class="card_thumbnail">
-									<img th:src="${systemname}">
-								</div>
-								<strong class="card_title" th:text="${dBoard.dTitle}"></strong>
-								<strong class="card_orgname" th:text="${orgIdToNameMap[dBoard.orgid]}"></strong>
-							</a>
-						</div>
+					    <div class="card_item">
+					        <a th:href="${dBoard.dBoard.dBoardnum}" id="donation_link" class="get">
+					            <div class="card_thumbnail">
+					                <img th:src="${dBoard.systemname}">
+					            </div>
+					            <strong class="card_title" th:text="${dBoard.dBoard.dTitle}"></strong>
+					            <strong class="card_orgname" th:text="${dBoard.orgname}"></strong>
+					        </a>
+					    </div>
 					</th:block>
-					<!-- 여기서부터는 돔구현해야됨 -->
+					<!-- 여기서부터는 돔구현됨 -->
 				</div>
 				<div class="moreBtn">
 					<input type="button" value="더보기" id="more">
