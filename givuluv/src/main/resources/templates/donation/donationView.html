@@ -45,7 +45,7 @@
 					</div>
 				</div>
 				<div class="section_btn">		
-					<a th:href="@{/donation/pay(dBoardnum=${dboard.dBoardnum})}" class="bt donate jq_donate" data-google="모금함_View" data-stat="기부하기_상단_BTN_CLK">모금함 기부하기</a>
+					<a th:href="@{/donation/pay(dBoardnum=${dboard.dBoardnum})}" class="bt donate jq_donate" data-google="모금함_View" data-stat="기부하기_상단_BTN_CLK" onclick="donationBtn()">모금함 기부하기</a>
 				</div>
 				<div class="section_group">
 					<div class="group_bx">
@@ -75,17 +75,20 @@
    <th:block th:replace="~{layout/footer::footer()}"></th:block>
 </body>
 <script src="/js/jquery-3.7.1.min.js"></script>
-<script>
+<script th:inline="javascript">
 	$('.h_logout').on('click', function(){
 		alert("로그아웃되었습니다.")
 	})
-	$(document).ready(function() {
-		    $('.categoryBtn').click(function() {
-		        // 클릭된 카테고리 버튼에만 selected 클래스를 추가하고 나머지에서는 제거
-		        $('.categoryBtn').removeClass('selected');
-		        $(this).addClass('selected');
-		    });
-		});
+	
+	function donationBtn(){
+		let NotUserMessage = /*[[${NotUserMessage == null}]]*/ false;
+		console.log(NotUserMessage)
+		if (NotUserMessage) {
+			alert("사용자로 로그인 후 이용해주세요");
+		 }
+	}
+	
+	
 </script>
 
 </html>

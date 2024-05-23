@@ -4,9 +4,6 @@
     font-weight: 700;
     font-style: normal;
 }
-li{
-	list-style: none;
-}
 .re_wrap{
     width: 100%;
 }
@@ -31,9 +28,8 @@ li{
    width: 100px;
    height: 20px;
    display: inline-block;
-   
-}
 
+}
 .re_header .re_tit {
     font-family: 'TTLaundryGothicB';
     line-height: 60px;
@@ -101,8 +97,8 @@ li{
 }
 .re_button_join {
     display: inline-block;
-    min-width: 160px;
-    height: 48px;
+    min-width: 128px;
+    height: 32px;
     border: 1px solid rgb(231, 112, 151);
     text-align: center;
     vertical-align: top;
@@ -111,6 +107,7 @@ li{
     font-family: "Do Hyeon", sans-serif;
     font-weight: 700;
     font-style: normal;
+    padding: 14px 15px 0;
     font-size: 20px;
 }
 .re_button_area .re_modify{
@@ -194,7 +191,9 @@ li{
 .re_condition_right{
     padding-left: 600px;
     width: 850px;
-
+    }
+.re_condition_list{
+	list-style-type: none;
 }
 .re_condition_item a{
     position: relative;

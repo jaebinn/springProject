@@ -82,4 +82,9 @@ public class OrgController {
 	public String register() {
 		return "org/register";
 	}
+	@GetMapping("logsignup")
+	public String logsignup() {
+		return "org/logsignup";
+	}
+	
 }

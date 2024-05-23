@@ -347,11 +347,11 @@ function storesubmit() {
 	const storeForm = document.storeForm;
 
 	// 제목 유효성 검사
-	let title = $("#dTitle").val();
+	let title = $("#sTitle").val();
 	console.log(title);
 	if (title.length < 1 || title.length === '') {
 		alert("제목을 작성해주세요!");
-		$("#dTitle").focus();
+		$("#sTitle").focus();
 		return false;
 	}
 
@@ -401,9 +401,9 @@ function storesubmit() {
 	
 
 	// 내용 input:hidden에 삽입
-	$("#dContent").val(content);
+	$("#sContent").val(content);
 	console.log("content : " + content);
-	console.log("dContent 삽입 : " + $("#dContent").val())
+	console.log("sContent 삽입 : " + $("#sContent").val())
 
 	//파일 이름 input:hidden에 삽입
 	$(".filenames").val(filenames);

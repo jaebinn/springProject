@@ -99,8 +99,8 @@
 					<span class="blind">오늘 함께한 기부금<br> 이만큼 모였어요!</span>
 				</h3>
 				<div class="donation_today_summary">
-					<span class="today_donation_summary people">😄 1,610명</span>
-					<span class="today_donation_summary cost">❤️ 4,774,900원</span>
+					<span class="today_donation_summary people">😄 명</span>
+					<span class="today_donation_summary cost">❤️ 원</span>
 				</div>
 			</div>
 			<div class="donation_review_wrap">
@@ -155,10 +155,11 @@
    <th:block th:replace="~{layout/footer::footer()}"></th:block>
 </body>
 <script src="/js/jquery-3.7.1.min.js"></script>
-<script>
+<script th:inline="javascript">
 	$('.h_logout').on('click', function(){
 		alert("로그아웃되었습니다.")
 	})
+	
 	$(document).ready(function() {
 		    $('.categoryBtn').click(function() {
 		        // 클릭된 카테고리 버튼에만 selected 클래스를 추가하고 나머지에서는 제거

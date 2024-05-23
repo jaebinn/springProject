@@ -55,6 +55,8 @@ a, input {
 		border: 1px solid white;
 		width: 70px; height: 70px;
 		border-radius: 50%;
+		background-image: url(../images/newprofile.png);
+		
 	}
 	.profile_div > :nth-child(3) {
 		font-size: 12px;
@@ -79,4 +81,8 @@ a, input {
 	}
 	.menu_div > :nth-child(-n+5) {
 		border-bottom: 1px solid #e0e0e0;
+	}
+	
+	#electronic_receipt:hover{
+		color: crimson;
 	}

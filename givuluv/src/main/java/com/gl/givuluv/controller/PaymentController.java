@@ -26,17 +26,43 @@ public class PaymentController {
 	
 	@PostMapping("confirmPay")
 	@ResponseBody
-	public void successPayment(@RequestParam int cost, @RequestParam String orgname, @RequestParam int dBoardnum, HttpServletRequest req) {
-		DPaymentDTO payment = new DPaymentDTO();
+	public DPaymentDTO successPayment(@RequestParam int cost, @RequestParam String orgname, @RequestParam int dBoardnum, HttpServletRequest req) {
+		DPaymentDTO dpayment = new DPaymentDTO();
 		HttpSession session = req.getSession();
 		String userid = (String)session.getAttribute("loginUser");
-		payment.setD_cost(cost);
-		payment.setOrgid(oservice.getOrgidByOrgname(orgname));
-		payment.setUserid(userid);
-		payment.setD_boardnum(dBoardnum);
-		payment.setType('p');
-		System.out.println(payment);
-		pservice.insertPayment(payment);
+		dpayment.setD_cost(cost);
+		dpayment.setOrgid(oservice.getOrgidByOrgname(orgname));
+		dpayment.setUserid(userid);
+		dpayment.setD_boardnum(dBoardnum);
+		dpayment.setType('p');
+		System.out.println(cost);
+		System.out.println(dBoardnum);
+		if(pservice.insertPayment(dpayment) == 1) {
+			DPaymentDTO payment = pservice.getLastPaymentById(userid);
+			System.out.println(payment);
+			return payment;
+		}
+		return null;
+	
+
+	}
+	@PostMapping("RconfirmPay")
+	@ResponseBody
+	public DPaymentDTO successRPayment(@RequestParam int cost, @RequestParam String orgname, @RequestParam int dBoardnum, HttpServletRequest req) {
+		DPaymentDTO dpayment = new DPaymentDTO();
+		HttpSession session = req.getSession();
+		String userid = (String)session.getAttribute("loginUser");
+		dpayment.setD_cost(cost);
+		dpayment.setOrgid(oservice.getOrgidByOrgname(orgname));
+		dpayment.setUserid(userid);
+		dpayment.setD_boardnum(dBoardnum);
+		dpayment.setType('r');
+		if(pservice.insertPayment(dpayment) == 1) {
+			DPaymentDTO payment = pservice.getLastRPaymentById(userid);
+			return payment;
+		}
+		return null;
+		
 	}
 }
 	

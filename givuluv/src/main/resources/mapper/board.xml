@@ -23,6 +23,9 @@
       from d_board
       where orgid=#{orgid};
    </select>
+   <select id="getEnddateByBoardnum">
+	  select d_enddate from d_board where d_boardnum=#{dBoardnum}
+   </select>
 	<!--<select id="getOrgnameBynum">
 		select orgname from org where orgid=#{orgid}
 	</select>-->
@@ -87,7 +90,17 @@
 		delete from f_board where orgid=#{orgid}
 	</delete>
 	
-	
+	 <!-- 상점 게시글 -->
+   <insert id="insertStoreBoard">
+      insert into s_board(s_title, s_content, s_num)
+      values(#{sTitle}, #{sContent}, #{sNum})
+   </insert>
+   
+   <select id="getStoreBoardLastNumBySNum">
+      select max(s_boardnum)
+      from s_board
+      where s_num=#{sNum};
+   </select>
 	
 	
 	

@@ -28,12 +28,12 @@
 		<!-- 컨텐츠 -->
 		<div class="wrap storewrite write">
 			<form method="post" name="storeForm" id="storeForm" enctype="multipart/form-data">
-				<input type="text" id="dTitle" class="title" name="dTitle" placeholder="제목">
+				<input type="text" id="sTitle" class="title" name="sTitle" placeholder="제목">
 				<div class="boxes">
 					<div class="textarea_box">
 						<textarea id="summernote" name="editordata" class="content"></textarea>
-						<input type="hidden" id="dContent" name="sContent">
-						<input type="hidden" id="orgid" name="sellerId" th:value="${session.loginSeller}">
+						<input type="hidden" id="sContent" name="sContent">
+						<input type="hidden" id="sellerId" name="sellerId" th:value="${session.loginSeller}">
 						<input type="hidden" id="filenames" name="filenames">
 					</div>
 					<div class="option">

@@ -27,10 +27,12 @@ import com.gl.givuluv.domain.dto.DBoardWithOrgNameDTO;
 import com.gl.givuluv.domain.dto.DPaymentDTO;
 import com.gl.givuluv.domain.dto.FileDTO;
 import com.gl.givuluv.domain.dto.OrgDTO;
+import com.gl.givuluv.domain.dto.UserDTO;
 import com.gl.givuluv.service.DBoardService;
 import com.gl.givuluv.service.DPaymentService;
 import com.gl.givuluv.service.FileService;
 import com.gl.givuluv.service.OrgService;
+import com.gl.givuluv.service.UserService;
 import com.google.gson.Gson;
 
 import jakarta.servlet.http.Cookie;
@@ -46,7 +48,11 @@ public class DonationController {
 	@Autowired
 	private DBoardService dservice;
 	@Autowired
+	private UserService uservice;
+	@Autowired
 	private OrgService oservice;
+	@Autowired
+	private DBoardService dbservice;
 	@Autowired
 	private FileService fservice;
 	@Autowired
@@ -80,6 +86,9 @@ public class DonationController {
 			System.out.println(orgname);
 			
         } 
+		List<DPaymentDTO> payment = pservice.getDPayment();
+		System.out.println(payment);
+		
 		
 		/* List<FileDTO> dfile = fservice.getFileByTypeisD(); */
 		model.addAttribute("list", resultList);
@@ -122,12 +131,27 @@ public class DonationController {
 	    return "donation/write";
 	}
     @GetMapping("pay")
-    public String pay(@RequestParam("dBoardnum") int dBoardnum, Model model) {
+    public String pay(@RequestParam("dBoardnum") int dBoardnum, Model model, HttpServletRequest req) {
     	DBoardDTO dboard = dservice.getDonation(dBoardnum);
     	String orgname = oservice.getOrgnameByOrgid(dboard.getOrgid());
-		model.addAttribute("dboard",dboard);
-		model.addAttribute("orgname", orgname);
-    	return "donation/donationPay";
+    	HttpSession session = req.getSession();
+		String loginUser = (String)session.getAttribute("loginUser");
+		String loginSeller = (String)session.getAttribute("loginSeller");
+		String loginOrg = (String)session.getAttribute("loginOrg");
+		System.out.println(loginUser);
+		if(loginUser == null && loginSeller == null && loginOrg == null) {
+			model.addAttribute("loginMessage", "로그인 후 이용해주세요");
+	        return "user/login";
+		}
+		else if(loginSeller != null || loginOrg != null) {
+			model.addAttribute("NotUserMessage", "사용자로 로그인 후 이용해주세요");
+	        return "redirect:/donation/donationView?dBoardnum="+dBoardnum;
+		}
+		else{
+			model.addAttribute("dboard",dboard);
+			model.addAttribute("orgname", orgname);
+			return "donation/donationPay";			
+		}
     }
     @GetMapping("regularPay")
     public String regularPay(@RequestParam("dBoardnum") int dBoardnum, Model model) {
@@ -227,6 +251,21 @@ public class DonationController {
        System.out.println("실패");
        return "donation/dBoard";
     }
-	
-
+    @GetMapping("receipt")
+	public String dReceipt(@RequestParam int paymentnum, @RequestParam int d_boardnum, @RequestParam int d_cost, Model model, HttpServletRequest req) {
+    	HttpSession session = req.getSession();
+		String userid = (String)session.getAttribute("loginUser");
+    	DPaymentDTO payment = pservice.getLastPaymentById(userid);
+    	DBoardDTO dboard = dbservice.getDonation(d_boardnum);
+    	String orgname = oservice.getOrgnameByOrgid(payment.getOrgid());
+    	UserDTO user = uservice.getUserById(userid);
+    	
+    	model.addAttribute("payment", payment);
+    	model.addAttribute("orgname", orgname);
+    	model.addAttribute("dboard", dboard);
+    	model.addAttribute("user", user);
+    	model.addAttribute("d_cost", d_cost);
+    	
+	    return "donation/dReceipt";
+	}
 }

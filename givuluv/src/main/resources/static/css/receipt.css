@@ -1,0 +1,71 @@
+@font-face {
+    font-family: 'TTLaundryGothicB';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/TTLaundryGothicB.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+*{
+	margin: 0;padding: 0;
+	font-family: 'TTLaundryGothicB';
+}
+.receipt{
+	width: 700px;
+	margin: 0 auto;
+}
+.content{
+	height: auto;
+	padding-top: 50px;
+}
+.payementTit{
+	text-align: center;
+	padding: 30px 0;
+	border-bottom: 1px solid lightgray;
+}
+.payementTit strong{
+	color: rgb(231,112,151);
+}
+.paymentInfo{
+	padding: 30px 0;
+}
+.paymentInfo p{
+	color: #828282;
+	padding-bottom: 30px;
+}
+.paymentInfo h3{
+	padding-bottom: 15px;
+	border-bottom: 2px solid black;
+}
+.paymentInfo #payTbl{
+	padding: 15px 0;
+	width: 100%;
+	border-bottom: 1px solid lightgray;
+	
+}
+#payTbl tr{
+	text-align: left;
+}
+#payTbl th{
+	color: #828282;
+}
+#payTbl td{
+	text-align: right;
+}
+.payCost{
+	padding: 15px 0;
+	display: flex;
+	justify-content: space-between;
+	border-bottom: 1px solid lightgray;
+}
+.payCost h2{
+	color: gray;
+}
+.backtoDontion input{
+	width: 100%;
+	height: 50px;
+	border-radius: 5px;
+	background-color: rgb(231,112,151);
+	border: none;
+	color: #fff;
+	font-size: 18px;
+	cursor: pointer;
+}

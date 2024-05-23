@@ -5,6 +5,10 @@
 	<insert id="insertPayment">
 		insert into d_payment(userid, orgid, d_boardnum, d_cost, type) values(#{userid}, #{orgid}, #{d_boardnum}, #{d_cost}, 'p');
 	</insert>
+	<!-- 정기 결제 -->
+	<insert id="insertRPayment">
+		insert into d_payment(userid, orgid, d_boardnum, d_cost, type) values(#{userid}, #{orgid}, #{d_boardnum}, #{d_cost}, 'r');
+	</insert>
 	<select id="getTotalCostByBoardnum">
 		select coalesce(sum(d_cost), 0) from d_payment where d_boardnum=#{d_boardnum}
 	</select>
@@ -12,6 +16,15 @@
 		 select coalesce(sum(d_cost), 0) from d_payment where orgid=#{orgid}
 	</select>
 	<select id="getRdonationCntByType">
-		select count(d_boardnum) from d_payment where d_boardnum=#{d_boardnum} and type='r';
+		select count(distinct userid) from d_payment where d_boardnum=#{d_boardnum} and type='r';
+	</select>
+	<select id="getLastPaymentById">
+		select * from d_payment where userid=#{userid} and type='p' order by paymentnum desc limit 1;
+	</select>
+	<select id="getLastRPaymentById">
+		select * from d_payment where userid=#{userid} and type='r' order by paymentnum desc limit 1;
+	</select>
+	<select id="getDPayment">
+		select * from d_payment
 	</select>
 </mapper>

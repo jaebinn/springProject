@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class StoreDTO {
-	private String sNum;
+	private int sNum;
 	private String sName;
 	private String sRegnum;
 	private String sPhone;

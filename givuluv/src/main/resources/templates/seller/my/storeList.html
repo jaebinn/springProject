@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>판매자 myhome</title>
+	<script src="https://kit.fontawesome.com/1924b51539.js" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="/css/header_footer.css">
+	<link rel="stylesheet" href="/css/seller/my/rank.css">
+	<link rel="stylesheet" href="/css/seller/my/storeList.css">
+</head>
+
+<body>
+	<!-- header -->
+	<th:block th:replace="~{layout/header::header(loginUser)}"></th:block>
+	
+	<!-- 컨텐츠 -->
+	<div class="wrap">
+		<!-- up_area - 프로필 및 랭킹 -->
+		<th:block th:replace="~{layout/sellerMyPageRank::sellerMyPageRank(loginUser)}"></th:block>
+		
+		<div class="down_area" >
+			<div class="menu_area" >
+				<div>
+					<h3>상품</h3>
+					<a>현제 재고현황</a>
+					<a>새 물품 등록</a>
+				</div>
+				<div>
+					<h3>스토어</h3>
+					<a href="/seller/my/storeList">내 스토어</a>
+					<a href="/seller/my/storeUpdate">스토어 수정</a>
+				</div>
+				<div>
+					<h3>Q&A</h3>
+					<a>Q&A 목록 및 관리</a>
+				</div>
+				<div>
+					<h3>리뷰</h3>
+					<a>리뷰 목록 및 관리</a>
+				</div>
+			</div>
+			<div class="contents_area">
+				<div class="button_div">
+					<a href="/seller/my/storeList">
+						<img src="/images/seller/my/스토어.png">
+						<span>apple님 스토어</span>
+					</a>
+					<a>
+						<img src="/images/seller/my/review.png">
+						<span>리뷰</span>
+					</a>
+					<a>
+						<img src="/images/seller/my/qna.png">
+						<span>Q&A</span>
+					</a>
+					<a>
+						<img src="/images/seller/my/쇼핑.png">
+						<span>다른스토어 보기</span>
+					</a>
+				</div>
+				<h1>apple님 스토어
+				</h1>
+				<div class="storeList_div">
+					<a class="store">
+						<div>
+							<h3>리바인더</h3>
+							<span>기억을 위한 기록, 리바인더</span>
+						</div>
+						<img src="https://happybean-phinf.pstatic.net/20201029_22/1603952042489jbJ9i_JPEG/PC__1920x500.jpg">
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- footer -->
+	<th:block th:replace="~{layout/footer::footer()}"></th:block>
+</body>
+
+</html>

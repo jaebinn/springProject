@@ -1,5 +1,7 @@
 package com.gl.givuluv.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,8 +14,12 @@ public class DPaymentServiceImpl implements DPaymentService{
 	@Autowired
 	private DPaymentMapper pmapper;
 	@Override
-	public boolean insertPayment(DPaymentDTO payment) {
-		return pmapper.insertPayment(payment) == 1;
+	public int insertPayment(DPaymentDTO payment) {
+		return pmapper.insertPayment(payment);
+	}
+	@Override
+	public int insertRPayment(DPaymentDTO payment) {
+		return pmapper.insertRPayment(payment);
 	}
 	@Override
 	public int getTotalCostByBoardnum(int dBoardnum) {
@@ -27,5 +33,18 @@ public class DPaymentServiceImpl implements DPaymentService{
 	public int getRdonationCntByType(int dBoardnum) {
 		return pmapper.getRdonationCntByType(dBoardnum);
 	}
+	@Override
+	public DPaymentDTO getLastPaymentById(String userid) {
+		return pmapper.getLastPaymentById(userid);
+	}
+	@Override
+	public DPaymentDTO getLastRPaymentById(String userid) {
+		return pmapper.getLastRPaymentById(userid);
+	}
+	@Override
+	public List<DPaymentDTO> getDPayment() {
+		return pmapper.getDPayment();
+	}
+	
 	
 }

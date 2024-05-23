@@ -9,6 +9,7 @@ import com.gl.givuluv.domain.dto.Criteria;
 import com.gl.givuluv.domain.dto.DBoardDTO;
 import com.gl.givuluv.domain.dto.FBoardDTO;
 import com.gl.givuluv.domain.dto.OrgDTO;
+import com.gl.givuluv.domain.dto.SBoardDTO;
 
 @Mapper
 public interface BoardMapper {
@@ -48,5 +49,9 @@ public interface BoardMapper {
 
 	int getDonationLastBoardnumByOrgid(String orgid);
 
+	String getEnddateByBoardnum(int dBoardnum);
+
 	//가게 게시글
+	int insertStoreBoard(SBoardDTO sboard);
+	int getStoreBoardLastNumBySNum(int sNum);
 }

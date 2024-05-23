@@ -158,3 +158,24 @@ a, input {
 		text-align: end;
 	}
 	
+		#Trip:hover{
+		color: red;
+	}
+	
+	#electronic_receipt{
+		/*width: 100px;*/
+		float: left;
+	}
+	
+	#electronic_receipt_Dona:hover{
+		color: red;
+	}
+	
+	#electronic_receipt_Fund:hover{
+		color: red;
+	}
+	
+	#receipt_wrap{
+		border: 1px solid red;
+	}
+	

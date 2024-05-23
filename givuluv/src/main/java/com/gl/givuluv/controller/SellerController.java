@@ -118,5 +118,22 @@ public class SellerController {
 		        return "user/login";
 		    }
 		}
+		 @GetMapping("my/home")
+	      public String SellerMyHome(String sellerid, HttpServletRequest req) {
+	         HttpSession session = req.getSession();
+	         return "seller/my/home";
+	      }
+	      
+	      @GetMapping("my/storeList")
+	      public String SellerMyStoreList(String sellerid, HttpServletRequest req) {
+	         HttpSession session = req.getSession();
+	         return "seller/my/storeList";
+	      }
+	      
+	      @GetMapping("my/storeUpdate")
+	      public String SellerMyStoreUpdate(String sellerid, HttpServletRequest req) {
+	         HttpSession session = req.getSession();
+	         return "seller/my/storeUpdate";
+	      }
 	//로그인 끝 ====================================================================
 }

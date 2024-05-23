@@ -170,6 +170,9 @@
     margin-top: 15px;
     font-size: 12px;
 }
+#rtext{
+	color: #ff4b4b;
+}
 .pay_area .ipt_area li .sort_menu .btn_sort {
     letter-spacing: 0;
     padding: 6px 12px 5px 11px;

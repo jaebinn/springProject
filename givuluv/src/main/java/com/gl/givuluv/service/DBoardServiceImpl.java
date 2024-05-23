@@ -161,6 +161,8 @@ public class DBoardServiceImpl implements DBoardService{
 	   }
 
 
-
-
+	@Override
+	public String getEnddateByBoardnum(int dBoardnum) {
+		return dbmapper.getEnddateByBoardnum(dBoardnum);
+	}
 }

@@ -33,5 +33,7 @@ public interface DBoardService {
 
 	int getDonationLastBoardnumByOrgid(String orgid);
 
+	String getEnddateByBoardnum(int dBoardnum);
+
 	
 }
