@@ -46,8 +46,15 @@
 		set orgid=#{orgid}
 		where d_boardnum=#{dBoardnum}
 	</update>
-	<update id="updateDonationOfSaveMoney">
-
+	<update id="updateSaveMoney">
+		UPDATE d_board b
+		JOIN (SELECT d_boardnum, SUM(d_cost) as total_cost 
+		FROM d_payment
+		WHERE d_boardnum = #{dBoardnum}
+		GROUP BY d_boardnum) p 
+		 ON b.d_boardnum = p.d_boardnum 
+		SET b.save_money = p.total_cost 
+		WHERE b.d_boardnum = #{dBoardnum}
 	</update>
 
 	<delete id="deleteDonationByBoardnum">

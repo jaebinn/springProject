@@ -62,6 +62,12 @@
     margin-top: 3px;
     background: #ebebeb;
 }
+#bar{
+	display: inline-block;
+    height: 4px;
+    background: rgb(231,112,151);
+    vertical-align: top;
+}
 .donation_side .section_status .term_area p {
     padding: 13px 0 11px;
     font-size: 18px;
@@ -193,4 +199,40 @@
     font-size: 15px;
     letter-spacing: -.04em;
     line-height: 28px;
+}
+.donationReview{
+	width: 930px;
+	padding: 0 94px 90px;
+    background-color: #fff;
+}
+#d_review{
+	padding-bottom: 15px;
+	border-bottom: 1px solid black;
+}
+#totalReview{
+	padding: 15px 0;
+}
+#totalReview strong{
+	color: rgb(231,112,151);
+}
+.rbox_list {
+    margin-top: 4px;
+}
+.rbox_info {
+    padding-bottom: 8px;
+}
+.rbox_text_wrap {
+    font-size: 15px;
+    line-height: 1.5;
+    color: #202020;
+    letter-spacing: -.3px;
+}
+.rbox_info_date .rbox_date{
+	font-size: 13px;
+    color: #828282;
+	
+}
+.rbox_comment{
+	border-bottom: 0.5px solid lightgray;
+	padding-bottom: 15px;
 }

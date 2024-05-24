@@ -35,5 +35,7 @@ public interface DBoardService {
 
 	String getEnddateByBoardnum(int dBoardnum);
 
+	boolean updateSaveMoney(int dBoardnum);
+
 	
 }

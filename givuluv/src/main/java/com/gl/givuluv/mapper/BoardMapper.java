@@ -54,4 +54,6 @@ public interface BoardMapper {
 	//가게 게시글
 	int insertStoreBoard(SBoardDTO sboard);
 	int getStoreBoardLastNumBySNum(int sNum);
+
+	boolean updateSaveMoney(int dBoardnum);
 }

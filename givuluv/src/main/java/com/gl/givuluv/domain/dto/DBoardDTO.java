@@ -12,7 +12,7 @@ public class DBoardDTO {
 	private String dTitle;
 	private String dContent;
 	private int targetAmount;
-	private String saveMoney;
+	private int saveMoney;
 	private String dRegdate;
 	private String dEnddate;
 	private String orgid;

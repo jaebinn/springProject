@@ -166,38 +166,36 @@
 		        $('.categoryBtn').removeClass('selected');
 		        $(this).addClass('selected');
 		    });
-		});
-	$(document).ready(function () {
-	    // 한 번에 표시할 아이템의 개수 설정
-	    var itemsPerPage = 8;
-	
-	    // 아이템의 총 개수
-	    var totalItems = $('.card_item').length;
-	
-	    // 초기에는 itemsPerPage 개수까지만 표시되도록 설정
-	    $('.card_item:gt(' + (itemsPerPage - 1) + ')').hide();
-	
-	    // 아이템이 itemsPerPage 개수 이하이면 더보기 버튼 숨기기
-	    if (totalItems <= itemsPerPage) {
-	        $('#more').hide();
-	    }
-		$(".get").on("click", function (e) {
-			e.preventDefault();
-			let dBoardnum = $(this).attr("href");
-			location.href = "donationView?dBoardnum=" + dBoardnum;
-		})
-	    // 더보기 버튼 클릭 시
-	    $('#more').on('click', function () {
-	        // itemsPerPage 개수 만큼 추가로 표시
-	        $('.card_item:hidden').slice(0, itemsPerPage).slideDown();
-	        // 아직 표시하지 않은 아이템의 개수 갱신
-	        totalItems -= itemsPerPage;
-	        // 남은 아이템이 itemsPerPage 개수 이하이면 더보기 버튼 숨기기
-	        if (totalItems <= itemsPerPage) {
-	            $('#more').hide();
-	        }
-	    });
-	});
+					// 한 번에 표시할 아이템의 개수 설정
+				    let itemsPerPage = 8;
+				
+				    // 아이템의 총 개수
+				    let totalItems = $('.card_item').length;
+					console.log("몇개:"+totalItems)
+				    // 초기에는 itemsPerPage 개수까지만 표시되도록 설정
+				    $('.card_item:gt(' + (itemsPerPage - 1) + ')').hide();
+				
+				    // 아이템이 itemsPerPage 개수 이하이면 더보기 버튼 숨기기
+				    if (totalItems <= itemsPerPage) {
+				        $('#more').hide();
+				    }
+					$(".get").on("click", function (e) {
+						e.preventDefault();
+						let dBoardnum = $(this).attr("href");
+						location.href = "donationView?dBoardnum=" + dBoardnum;
+					})
+				    // 더보기 버튼 클릭 시
+				    $('#more').on('click', function () {
+				        // itemsPerPage 개수 만큼 추가로 표시
+				        $('.card_item:hidden').slice(0, itemsPerPage).slideDown();
+				        // 아직 표시하지 않은 아이템의 개수 갱신
+				        totalItems -= itemsPerPage;
+				        // 남은 아이템이 itemsPerPage 개수 이하이면 더보기 버튼 숨기기
+				        if (totalItems <= itemsPerPage) {
+				            $('#more').hide();
+				        }
+				    });
+			});
 		$(document).ready(function () {
 				// 카테고리 버튼 클릭 이벤트
 				$('.categoryBtn').click(function () {
@@ -220,6 +218,7 @@
 									let dBoard = item.dboard;
 									let orgname = item.orgname;
 									let systemname = item.systemname;
+									console.log(systemname);
 									let cardItem = `
 									 <div class="card_item">
 										<a href="donationView?dBoardnum=${dBoard.dboardnum}" id="donation_link" class="get">

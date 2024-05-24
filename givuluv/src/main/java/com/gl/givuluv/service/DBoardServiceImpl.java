@@ -165,4 +165,10 @@ public class DBoardServiceImpl implements DBoardService{
 	public String getEnddateByBoardnum(int dBoardnum) {
 		return dbmapper.getEnddateByBoardnum(dBoardnum);
 	}
+
+
+	@Override
+	public boolean updateSaveMoney(int dBoardnum) {
+		return dbmapper.updateSaveMoney(dBoardnum);
+	}
 }

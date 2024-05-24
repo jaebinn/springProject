@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gl.givuluv.domain.dto.DPaymentDTO;
+import com.gl.givuluv.service.DBoardService;
 import com.gl.givuluv.service.DPaymentService;
 import com.gl.givuluv.service.OrgService;
 
@@ -26,6 +27,8 @@ public class PaymentController {
 	private DPaymentService pservice;
 	@Autowired
 	private OrgService oservice;
+	@Autowired
+	private DBoardService dbservice;
 	
 	@PostMapping("confirmPay")
 	@ResponseBody
@@ -42,6 +45,7 @@ public class PaymentController {
 		System.out.println(pservice.getTotalCostByBoardnum(dBoardnum));
 		
 		if(pservice.insertPayment(dpayment)) {
+			dbservice.updateSaveMoney(dBoardnum);
 			DPaymentDTO payment = pservice.getLastPaymentById(userid);
 			System.out.println(payment);
 			return payment;

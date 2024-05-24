@@ -247,7 +247,7 @@ section > a> h2{
 }
 .donation_amount{
    height: 7px;
-   background-color: white;
+   background-color: rgb(231,112,151);
    position: relative;
    border-radius: 30px;
 }

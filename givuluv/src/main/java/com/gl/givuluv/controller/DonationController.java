@@ -126,7 +126,6 @@ public class DonationController {
 	    long daysUntilEnd = ChronoUnit.DAYS.between(currentDate, endDate);
 	    model.addAttribute("daysUntilEnd", daysUntilEnd);
 
-		
 		return "donation/donationView";
 	}
 	@GetMapping("write")
@@ -259,12 +258,44 @@ public class DonationController {
     	DBoardDTO dboard = dbservice.getDonation(payment.getDBoardnum());
     	String orgname = oservice.getOrgnameByOrgid(payment.getOrgid());
     	UserDTO user = uservice.getUserById(userid);
+    	LocalDate today = LocalDate.now();
+        LocalDate nextMonthFirstDay = today.plusMonths(1).withDayOfMonth(1);
+        LocalDate firstFriday = nextMonthFirstDay.with(DayOfWeek.FRIDAY);
+
+        if (nextMonthFirstDay.getDayOfWeek().getValue() > DayOfWeek.FRIDAY.getValue()) {
+            firstFriday = firstFriday.plusWeeks(1);
+        }
+        
+    	model.addAttribute("payment", payment);
+    	model.addAttribute("orgname", orgname);
+    	model.addAttribute("dboard", dboard);
+    	model.addAttribute("user", user);
+    	model.addAttribute("nextpayday", nextMonthFirstDay);
+    	
+	    return "donation/dReceipt";
+	}
+    @GetMapping("Rreceipt")
+    public String dRReceipt(@RequestParam int paymentnum, Model model, HttpServletRequest req) {
+    	HttpSession session = req.getSession();
+    	String userid = (String)session.getAttribute("loginUser");
+    	DPaymentDTO payment = pservice.getLastPaymentById(userid);
+    	DBoardDTO dboard = dbservice.getDonation(payment.getDBoardnum());
+    	String orgname = oservice.getOrgnameByOrgid(payment.getOrgid());
+    	UserDTO user = uservice.getUserById(userid);
+    	LocalDate today = LocalDate.now();
+    	LocalDate nextMonthFirstDay = today.plusMonths(1).withDayOfMonth(1);
+    	LocalDate firstFriday = nextMonthFirstDay.with(DayOfWeek.FRIDAY);
+    	
+    	if (nextMonthFirstDay.getDayOfWeek().getValue() > DayOfWeek.FRIDAY.getValue()) {
+    		firstFriday = firstFriday.plusWeeks(1);
+    	}
     	
     	model.addAttribute("payment", payment);
     	model.addAttribute("orgname", orgname);
     	model.addAttribute("dboard", dboard);
     	model.addAttribute("user", user);
+    	model.addAttribute("nextpayday", nextMonthFirstDay);
     	
-	    return "donation/dReceipt";
-	}
+    	return "donation/dRReceipt";
+    }
 }

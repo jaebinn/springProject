@@ -25,7 +25,7 @@
 							<span class="per"><strong class="num">[[${percentage}]]</strong>%</span>
 						</div>
 						<div class="graph_bar">
-							<span style="width:18%"></span>
+							<span id="bar"></span>
 						</div>
 					</div>
 					<div class="term_area">
@@ -70,6 +70,41 @@
 				</div>
 			</div>
 		</div>
+		<div class="donationReview">
+			<h2 id="d_review">기부 후기</h2>
+			<div id="totalReview">
+				<p>총 <strong>3</strong>개의 댓글</p>
+			</div>
+			<ul class="rbox_list">
+				<li class="rbox_comment">
+					<div class="rbox_comment_box">
+						<div class="rbox_area">
+							<div class="rbox_info">
+								<span class="rbox_info_main">
+									<span class="rbox_name">
+										<span class="rbox_name_area">
+											<span class="rbox_nick_area">
+												<span class="rbox_nick">도경이</span>
+											</span><span class="rbox_id_area">
+												<span class="rbox_id">(qntn****)</span>
+											</span>
+										</span>
+									</span>
+								</span>
+								<span class="rbox_info_sub"></span>
+							</div>
+							<div class="rbox_text_wrap">
+								<span class="rbox_contents">응원합니다</span>
+							</div>
+							<div class="rbox_info_date">
+								<span class="rbox_date">1시간 전</span>
+							</div>
+						</div>
+					</div>
+				</li>
+				<!-- 돔구현 -->
+			</ul>
+		</div>
 	</div>
    <!-- footer -->
    <th:block th:replace="~{layout/footer::footer()}"></th:block>
@@ -87,7 +122,11 @@
 			alert("사용자로 로그인 후 이용해주세요");
 		 }
 	}
-	
+	document.addEventListener("DOMContentLoaded", function () {
+	        const percentage = /*[[${percentage}]]*/"";
+	        const graphBarSpan = document.querySelector('#bar');
+	        graphBarSpan.style.width = percentage + '%';
+	    });
 	
 </script>
 

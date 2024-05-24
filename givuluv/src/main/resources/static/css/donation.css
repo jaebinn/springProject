@@ -96,12 +96,16 @@
 	margin-top: 40px;
 }
 .card_list2{
-	height: 200px;
+	display: flex;
+	flex-wrap: wrap;
+	height: auto;
 	margin-right: -24px;
     margin-bottom: -30px;
 }
+.card_list2 p{
+	margin: 0 auto;
+}
 .card_item{
-	float: left;
     width: 25%;
     height: auto;
     box-sizing: border-box;
@@ -115,6 +119,7 @@
 	overflow: hidden;
     border-radius: 6px;
 }
+
 .card_thumbnail::before{
 	position: absolute;
     top: 0;
@@ -153,6 +158,7 @@
 }
 
 .moreBtn{
+	padding-top: 30px;
 	text-align: center;
 }
 #more{
@@ -276,6 +282,13 @@
     border-radius: inherit;
     content: "";
 }
+.donation_review_card_list::after{
+	display: table;
+    table-layout: fixed;
+    clear: both;
+    content: "";
+}
+
 .donation_review_card_list_review_top{
 	position: relative;
     height: 94px;

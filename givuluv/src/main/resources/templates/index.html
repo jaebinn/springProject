@@ -80,74 +80,7 @@
             <h2># 기부</h2>
          </a>
          <div class="donations">
-            <div id="donation0" class="donation" onmouseover="donation_down_animation(0)" onmouseleave="donation_down_animation_remove(0)">
-               <a href="#">
-                  <div>
-                     <div>
-                        <img loading="lazy"
-                           src="https://platinumlist.net/guide/wp-content/uploads/2023/03/IMG-worlds-of-adventure.webp"
-                           width="250px" height="300px">
-                     </div>
-                     <div id="donation_info_box0" class="donation_info_box">
-                        <div class="donation_info_header">
-                           <p id="donation_title0" class="donation_title">제목 기부금 넣기 단체 펀딩 제목 기부금 넣기 단체 펀딩</p>
-                           <p id="donation_D-day0" class="donation_D-day">D-20</p>
-                        </div>
-                        <div class="row_graph_box">
-                           <div class="row_graph">
-                              <div style="width:45%" class="donation_amount"></div>
-                              <div class="donation_save_money_box">
-                                 <p id="donation_save_money0" class="donation_save_money">기부금</p>
-                                 <p id="donation_save_money_percent0">%</p>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </a>
-            </div>
-            <!--   javascript   content에 대괄호 쓰면 오류나서 안 씀. 써야함.
-                  str = '';
-                  for(i=0;i<donations.length;i++){
-                     str += '<div id="donation${i}" class="donation" onmouseover="donation_down_animation(num)" onmouseleave="donation_down_animation_remove(num)">'
-                     str += '<a href="#">'
-                   str += '<div>'
-                   str += '<div>'
-                   str += '<img loading="lazy" src="/img/${사진}" width="250px" height="300px">'
-                   str += '</div>'
-                   str += '<div id="donation_info_box0" class="donation_info_box">'
-                   str += '<div class="donation_info_header">'
-                   str += '<p id="donation_title${i}" class="donation_title">${donations[i].title}</p>'
-                   str += '<p id="donation_D-day0" class="donation_D-day">D-${donations[i].regdate - donation[i].enddate}</p>'
-                   str += '</div>'
-                   str += '<div class="row_graph_box">'
-                   str += '<div class="row_graph">'
-                   str += '<div style="width:${실제모금한금액/총금액*100}%" class="donation_amount"></div>'
-                               -> 미리 계산해서 넣기(밑에서 또 씀). javascript로 출력이 잘 될지 모르겠음.
-                   str += '<div class="donation_save_money_box">'
-                   str += '<p id=donation_save_money${i} class=donation_save_money>${donations[i].save_money}</p>'
-                   str += '<p id=donation_save_money_percent${i}>${실제모금한금액/총금액*100}%</p>'
-                   str += '</div>'
-                   str += '</div>'
-                   str += '</div>'
-                   str += '</div>'
-                   str += '</div>'
-                   str += '</a>'
-                     str += '</div>'
-                  }
-                  $(".donations").html(str);
-            }-->
-            <div id="donation1" class="donation">
-
-            </div>
-            <div id="donation2" class="donation">
-
-            </div>
-            <div id="donation3" class="donation">
-
-            </div>
-            <div id="donation4" class="donation">
-
+            <!-- #기부 돔 구현 -->
             </div>
          </div>
       </section>
@@ -355,9 +288,72 @@
    
    roller.classList.add('original');
    clone.classList.add('clone');
-   
-  
-   
+   $(document).ready(function(){
+	//기부 정보 가져오기
+	   $.ajax({
+	   		url: '/index/getDonationInfo',
+	   		method: "GET",
+			dataType: 'json',
+			contentType: 'application/json; charset=utf-8', 
+			success: function(response) {
+			    console.log(response);
+			
+				// response가 배열이라고 가정하고, 최대 3개까지만 요소 추가
+				            for (let index = 0; index < Math.min(response.length, 5); index++) {
+				                let item = response[index];
+								let dboard = item.dboard;
+				                let dTitle = item.dboard.dtitle;
+				                let targetAmount = item.dboard.targetAmount;
+				                let deadline = item.deadline;
+				                let percentage = item.percentage.toFixed(1); // 소수점 1자리까지 표시
+				                let systemname = item.systemname;
+								console.log(systemname)
+				                let str = '<div id="donation' + index + '" class="donation" onmouseover="donation_down_animation(' + index + ')" onmouseleave="donation_down_animation_remove(' + index + ')">';
+				                str += `<a href="donation/donationView?dBoardnum=${dboard.dboardnum}">`;
+				                str += '<div>';
+				                str += '<div>';
+				                str += `<img loading="lazy" src='${systemname}'" width="250px" height="300px">`;
+				                str += '</div>';
+				                str += `<div id="donation_info_box${index}" class="donation_info_box">`;
+				                str += '<div class="donation_info_header">';
+				                str += '<p id="donation_title' + index + '" class="donation_title">' + dTitle + '</p>';
+				                str += '<p id="donation_D-day' + index + '" class="donation_D-day">D-' + deadline + '</p>';
+				                str += '</div>';
+				                str += '<div class="row_graph_box">';
+				                str += '<div class="row_graph">';
+				                str += '<div style="width:' + percentage + '%" class="donation_amount"></div>';
+				                str += '<div class="donation_save_money_box">';
+				                str += '<p id="donation_save_money' + index + '" class="donation_save_money">목표금액: ' + targetAmount + '원</p>';
+				                str += '<p id="donation_save_money_percent' + index + '">' + percentage + '%</p>';
+				                str += '</div>';
+				                str += '</div>';
+				                str += '</div>';
+				                str += '</div>';
+				                str += '</div>';
+				                str += '</a>';
+				                str += '</div>';
+				                
+				                $(".donations").append(str); // 이전에 생성된 HTML에 새로운 요소 추가
+				            }
+				        },
+	   		error: function(e) {
+				console.log(e);	   		
+			}
+	   	});
+		//펀딩 정보 가져오기
+		$.ajax({
+			url: '/index/getFundingInfo',
+			method: "GET",
+			dataType: 'json',
+			contentType: 'application/json; charset=utf-8',
+			success: function(response) {
+			
+			},
+			error: function(e) {
+				console.log(e);	   		
+			}
+		})
+	});
 </script>
 
 </html>
