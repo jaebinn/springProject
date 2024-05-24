@@ -81,7 +81,7 @@
 	})
 	
 	function donationBtn(){
-		let NotUserMessage = /*[[${NotUserMessage == null}]]*/ false;
+		let NotUserMessage = /*[[${NotUserMessage != null}]]*/ false;
 		console.log(NotUserMessage)
 		if (NotUserMessage) {
 			alert("사용자로 로그인 후 이용해주세요");

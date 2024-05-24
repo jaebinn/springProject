@@ -6,9 +6,9 @@ import com.gl.givuluv.domain.dto.DPaymentDTO;
 
 public interface DPaymentService {
 	//일반결제 db삽입
-	int insertPayment(DPaymentDTO payment);
+	boolean insertPayment(DPaymentDTO payment);
 	//정기결제 db삽입 
-	int insertRPayment(DPaymentDTO payment);
+	boolean insertRPayment(DPaymentDTO payment);
     //현재까지 기부금액
 	int getTotalCostByBoardnum(int dBoardnum);
     //총 모금액
@@ -20,6 +20,8 @@ public interface DPaymentService {
 	DPaymentDTO getLastRPaymentById(String userid);
 	
 	List<DPaymentDTO> getDPayment();
+	int getTodayDonationCost();
+	int getTodayDonationPeople();
 	
 
 }

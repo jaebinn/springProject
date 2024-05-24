@@ -61,7 +61,6 @@ public class DonationController {
 	@GetMapping("dBoard")
 	public String dBoardList(Model model) {
 		List<DBoardDTO> list = dservice.getList();
-		
 		System.out.println(list);
 	    String src = "/summernoteImage/";
 		//orgname을 Map타입에 저장
@@ -86,12 +85,16 @@ public class DonationController {
 			System.out.println(orgname);
 			
         } 
-		List<DPaymentDTO> payment = pservice.getDPayment();
-		System.out.println(payment);
+		//오늘날 기부한 금액 총합  
+		int todayCost = pservice.getTodayDonationCost(); 
+		//오늘날 기부한 사람들 
+		int todayDonationPeople = pservice.getTodayDonationPeople();
 		
 		
 		/* List<FileDTO> dfile = fservice.getFileByTypeisD(); */
 		model.addAttribute("list", resultList);
+		model.addAttribute("todayCost", todayCost);
+		model.addAttribute("todayDonationPeople", todayDonationPeople);
 		return "donation/dBoard";
 	}
 	@GetMapping("donationView")
@@ -105,7 +108,7 @@ public class DonationController {
 	    System.out.println(d_cost); //152000
 	    System.out.println(dboard.getTargetAmount()); //9900000
 	    double percentage = (double) d_cost / dboard.getTargetAmount() * 100;
-
+	    System.out.println(d_cost);
 	    System.out.println("퍼센트= "+percentage);
 	    
 		System.out.println("orgname: "+orgname);
@@ -143,15 +146,12 @@ public class DonationController {
 			model.addAttribute("loginMessage", "로그인 후 이용해주세요");
 	        return "user/login";
 		}
-		else if(loginSeller != null || loginOrg != null) {
-			model.addAttribute("NotUserMessage", "사용자로 로그인 후 이용해주세요");
+		else if(loginUser == null && (loginSeller != null || loginOrg != null)) {
 	        return "redirect:/donation/donationView?dBoardnum="+dBoardnum;
 		}
-		else{
 			model.addAttribute("dboard",dboard);
 			model.addAttribute("orgname", orgname);
 			return "donation/donationPay";			
-		}
     }
     @GetMapping("regularPay")
     public String regularPay(@RequestParam("dBoardnum") int dBoardnum, Model model) {
@@ -252,11 +252,11 @@ public class DonationController {
        return "donation/dBoard";
     }
     @GetMapping("receipt")
-	public String dReceipt(@RequestParam int paymentnum, @RequestParam int d_boardnum, @RequestParam int d_cost, Model model, HttpServletRequest req) {
+	public String dReceipt(@RequestParam int paymentnum, Model model, HttpServletRequest req) {
     	HttpSession session = req.getSession();
 		String userid = (String)session.getAttribute("loginUser");
     	DPaymentDTO payment = pservice.getLastPaymentById(userid);
-    	DBoardDTO dboard = dbservice.getDonation(d_boardnum);
+    	DBoardDTO dboard = dbservice.getDonation(payment.getDBoardnum());
     	String orgname = oservice.getOrgnameByOrgid(payment.getOrgid());
     	UserDTO user = uservice.getUserById(userid);
     	
@@ -264,7 +264,6 @@ public class DonationController {
     	model.addAttribute("orgname", orgname);
     	model.addAttribute("dboard", dboard);
     	model.addAttribute("user", user);
-    	model.addAttribute("d_cost", d_cost);
     	
 	    return "donation/dReceipt";
 	}

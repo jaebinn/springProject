@@ -4,11 +4,11 @@ import lombok.Data;
 
 @Data
 public class DPaymentDTO {
-	int paymentnum;
-	String userid;
-	String orgid;
-	int d_boardnum;
-	int d_cost;
-	String paydate; 
-	char type; //일반결제('p') 정기결제('r')
+	private int paymentnum;
+	private String userid;
+	private String orgid;
+	private int dBoardnum;
+	private int dCost;
+	private String paydate;
+	private char type; //일반결제('p') 정기결제('r')
 }

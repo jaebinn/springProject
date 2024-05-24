@@ -8,9 +8,9 @@ import com.gl.givuluv.domain.dto.DPaymentDTO;
 
 @Mapper
 public interface DPaymentMapper {
-	int insertPayment(DPaymentDTO payment);
+	boolean insertPayment(DPaymentDTO payment);
 
-	int insertRPayment(DPaymentDTO payment);
+	boolean insertRPayment(DPaymentDTO payment);
 	
 	int getTotalCostByBoardnum(int dBoardnum);
 
@@ -23,5 +23,9 @@ public interface DPaymentMapper {
 	DPaymentDTO getLastRPaymentById(String userid);
 
 	List<DPaymentDTO> getDPayment();
+
+	int getTodayDonationCost();
+
+	int getTodayDonationPeople();
 
 }

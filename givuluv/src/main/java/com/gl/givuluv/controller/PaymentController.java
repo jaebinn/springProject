@@ -1,7 +1,10 @@
 package com.gl.givuluv.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,21 +33,21 @@ public class PaymentController {
 		DPaymentDTO dpayment = new DPaymentDTO();
 		HttpSession session = req.getSession();
 		String userid = (String)session.getAttribute("loginUser");
-		dpayment.setD_cost(cost);
+		dpayment.setDCost(cost);
 		dpayment.setOrgid(oservice.getOrgidByOrgname(orgname));
 		dpayment.setUserid(userid);
-		dpayment.setD_boardnum(dBoardnum);
+		dpayment.setDBoardnum(dBoardnum);
 		dpayment.setType('p');
-		System.out.println(cost);
-		System.out.println(dBoardnum);
-		if(pservice.insertPayment(dpayment) == 1) {
+		System.out.println(dpayment);
+		System.out.println(pservice.getTotalCostByBoardnum(dBoardnum));
+		
+		if(pservice.insertPayment(dpayment)) {
 			DPaymentDTO payment = pservice.getLastPaymentById(userid);
 			System.out.println(payment);
 			return payment;
 		}
 		return null;
 	
-
 	}
 	@PostMapping("RconfirmPay")
 	@ResponseBody
@@ -52,12 +55,12 @@ public class PaymentController {
 		DPaymentDTO dpayment = new DPaymentDTO();
 		HttpSession session = req.getSession();
 		String userid = (String)session.getAttribute("loginUser");
-		dpayment.setD_cost(cost);
+		dpayment.setDCost(cost);
 		dpayment.setOrgid(oservice.getOrgidByOrgname(orgname));
 		dpayment.setUserid(userid);
-		dpayment.setD_boardnum(dBoardnum);
+		dpayment.setDBoardnum(dBoardnum);
 		dpayment.setType('r');
-		if(pservice.insertPayment(dpayment) == 1) {
+		if(pservice.insertRPayment(dpayment)) {
 			DPaymentDTO payment = pservice.getLastRPaymentById(userid);
 			return payment;
 		}

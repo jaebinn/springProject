@@ -14,11 +14,11 @@ public class DPaymentServiceImpl implements DPaymentService{
 	@Autowired
 	private DPaymentMapper pmapper;
 	@Override
-	public int insertPayment(DPaymentDTO payment) {
+	public boolean insertPayment(DPaymentDTO payment) {
 		return pmapper.insertPayment(payment);
 	}
 	@Override
-	public int insertRPayment(DPaymentDTO payment) {
+	public boolean insertRPayment(DPaymentDTO payment) {
 		return pmapper.insertRPayment(payment);
 	}
 	@Override
@@ -44,6 +44,14 @@ public class DPaymentServiceImpl implements DPaymentService{
 	@Override
 	public List<DPaymentDTO> getDPayment() {
 		return pmapper.getDPayment();
+	}
+	@Override
+	public int getTodayDonationCost() {
+		return pmapper.getTodayDonationCost();
+	}
+	@Override
+	public int getTodayDonationPeople() {
+		return pmapper.getTodayDonationPeople();
 	}
 	
 	

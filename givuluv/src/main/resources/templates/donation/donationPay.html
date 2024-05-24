@@ -175,7 +175,7 @@
 							         console.log("payment: "+msg);
 									 
 									 alert("기부 감사드립니다!")
-									 location.href = "/donation/receipt?paymentnum="+msg.paymentnum+"&d_boardnum="+dBoardnum+"&d_cost="+cost;
+									 location.href = "/donation/receipt?paymentnum="+msg.paymentnum;
 							      },
 							      error: function() {
 							         console.error('error');
