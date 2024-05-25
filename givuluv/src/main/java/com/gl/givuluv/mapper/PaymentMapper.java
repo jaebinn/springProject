@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.gl.givuluv.domain.dto.DPaymentDTO;
 
 @Mapper
-public interface DPaymentMapper {
+public interface PaymentMapper {
 	boolean insertPayment(DPaymentDTO payment);
 
 	boolean insertRPayment(DPaymentDTO payment);
@@ -27,5 +27,13 @@ public interface DPaymentMapper {
 	int getTodayDonationCost();
 
 	int getTodayDonationPeople();
+
+	int getDonationTotalPeople();
+
+	int getDonationTotalCost();
+	
+	int getFundingTotalPeople();
+
+	int getFundingTotalCost();
 
 }

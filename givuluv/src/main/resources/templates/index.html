@@ -289,10 +289,26 @@
    roller.classList.add('original');
    clone.classList.add('clone');
    $(document).ready(function(){
+	//오늘까지 기부된 사랑 카운팅
+	$.ajax({
+		url:"/index/getTodayCnt",
+		method: 'GET',
+		dataType:'json',
+		contentType:'application/json; charset=utf-8',
+		success: function(response){
+			
+		},
+		error: function(e){
+			
+		}
+	})
+	
+	
+	
 	//기부 정보 가져오기
 	   $.ajax({
 	   		url: '/index/getDonationInfo',
-	   		method: "GET",
+	   		method: 'GET',
 			dataType: 'json',
 			contentType: 'application/json; charset=utf-8', 
 			success: function(response) {

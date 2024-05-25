@@ -46,8 +46,6 @@ import org.springframework.ui.Model;
 @RequestMapping("/donation/*")
 public class DonationController {
 	@Autowired
-	private DBoardService dservice;
-	@Autowired
 	private UserService uservice;
 	@Autowired
 	private OrgService oservice;
@@ -60,7 +58,7 @@ public class DonationController {
 	
 	@GetMapping("dBoard")
 	public String dBoardList(Model model) {
-		List<DBoardDTO> list = dservice.getList();
+		List<DBoardDTO> list = dbservice.getList();
 		System.out.println(list);
 	    String src = "/summernoteImage/";
 		//orgname을 Map타입에 저장
@@ -99,7 +97,7 @@ public class DonationController {
 	}
 	@GetMapping("donationView")
 	public String view(@RequestParam("dBoardnum") int dBoardnum, Model model) {
-		DBoardDTO dboard = dservice.getDonation(dBoardnum);
+		DBoardDTO dboard = dbservice.getDonation(dBoardnum);
 		String orgname = oservice.getOrgnameByOrgid(dboard.getOrgid());
 		String category = oservice.getCategoryByOrgid(dboard.getOrgid());
 		int d_cost = pservice.getTotalCostByBoardnum(dBoardnum);
@@ -134,7 +132,7 @@ public class DonationController {
 	}
     @GetMapping("pay")
     public String pay(@RequestParam("dBoardnum") int dBoardnum, Model model, HttpServletRequest req) {
-    	DBoardDTO dboard = dservice.getDonation(dBoardnum);
+    	DBoardDTO dboard = dbservice.getDonation(dBoardnum);
     	String orgname = oservice.getOrgnameByOrgid(dboard.getOrgid());
     	HttpSession session = req.getSession();
 		String loginUser = (String)session.getAttribute("loginUser");
@@ -154,7 +152,7 @@ public class DonationController {
     }
     @GetMapping("regularPay")
     public String regularPay(@RequestParam("dBoardnum") int dBoardnum, Model model) {
-    	DBoardDTO dboard = dservice.getDonation(dBoardnum);
+    	DBoardDTO dboard = dbservice.getDonation(dBoardnum);
     	String orgname = oservice.getOrgnameByOrgid(dboard.getOrgid());
 		// 현재 날짜에서 한 달을 더한 날짜 계산
 		LocalDate today = LocalDate.now();
@@ -176,10 +174,10 @@ public class DonationController {
     @GetMapping("getCategoryItems")
     public @ResponseBody List<DBoardWithOrgNameDTO> getCategoryItems(@RequestParam String orgcategory) {
         String src = "/summernoteImage/";
-        List<DBoardDTO> items = dservice.getItemsByCategory(orgcategory);
+        List<DBoardDTO> items = dbservice.getItemsByCategory(orgcategory);
         List<DBoardWithOrgNameDTO> resultList = new ArrayList<>();
         if ("전체".equals(orgcategory)) {
-            List<DBoardDTO> list = dservice.getList();
+            List<DBoardDTO> list = dbservice.getList();
             Map<String, String> orgIdToNameMap = new HashMap<>();
             
             for (DBoardDTO dBoard : list) {
@@ -240,9 +238,9 @@ public class DonationController {
        String orgId = session.getAttribute("loginOrg").toString();
        if(dBoard.getOrgid().equals(orgId)) {
           System.out.println("세션검사완료");
-          if(dservice.regist(dBoard, filenames, thumbnail)) {
+          if(dbservice.regist(dBoard, filenames, thumbnail)) {
              System.out.println("게시글 등록완료");
-             int dBoardnum = dservice.getDonationLastBoardnumByOrgid(dBoard.getOrgid());
+             int dBoardnum = dbservice.getDonationLastBoardnumByOrgid(dBoard.getOrgid());
              System.out.println(dBoardnum);
              return "redirect:/donation/donationView?dBoardnum="+dBoardnum;
           }

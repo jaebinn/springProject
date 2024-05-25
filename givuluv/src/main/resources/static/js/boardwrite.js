@@ -28,6 +28,48 @@ $("#targetAmount").keyup(function() {
 		return false;
 	}
 })
+//물건 가격 유효성 검사 + ','찍어주기
+function productcost(e) {
+	console.log("productcost 함수 호출")
+	const productcosttarget = $(e.target);
+	console.log(productcosttarget)
+	//숫자를 제외하고 ,을 비롯한 모든 문자 없애기
+	let productcost = productcosttarget.val().replace(/[^\d]/g, '');
+
+	//if문 안이 유효성 검사
+	if (!(pattern_eng.test(productcost)) && !(pattern_spc.test(productcost)) && !(pattern_kor.test(productcost))) {
+		// ',' 찍어서 보여주기
+		let result = productcost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+		productcosttarget.val(result);
+		console.log(result);
+		return true;
+	} else {
+		alert("숫자만 입력 가능합니다.");
+		productcosttarget.val('');
+		return false;
+	}
+}
+
+//물건 상품 유효성 검사 + ','찍어주기
+function productamount(e) {
+	const productamounttarget = $(e.target);
+	console.log(productamounttarget)
+	//숫자를 제외하고 ,을 비롯한 모든 문자 없애기
+	let productamount = productamounttarget.val().replace(/[^\d]/g, '');
+
+	//if문 안이 유효성 검사
+	if (!(pattern_eng.test(productamount)) && !(pattern_spc.test(productamount)) && !(pattern_kor.test(productamount))) {
+		// ',' 찍어서 보여주기
+		let result = productamount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+		productamounttarget.val(result);
+		console.log(result);
+		return true;
+	} else {
+		alert("숫자만 입력 가능합니다.");
+		productamounttarget.val('');
+		return false;
+	}
+}
 //캘린더
 var days = 1;
 $(function() {
@@ -50,7 +92,7 @@ $(function() {
 			else {
 				//히든 input에 양식 맞춰서 시간 넣기
 				console.log(start.format('YYYY-MM-DD'))
-				$('#dEnddate').val(start.format('YYYY-MM-DD'))
+				$('#enddate').val(start.format('YYYY-MM-DD'))
 			}
 
 		});
@@ -58,17 +100,10 @@ $(function() {
 });
 
 //섬머노트
-
 $(document).ready(function() {
-	//여기 아래 부분
-	$('#summernote').summernote({
-		height: 300,                 // 에디터 높이
-		minHeight: null,             // 최소 높이
-		maxHeight: null,             // 최대 높이
-		focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
-		lang: "ko-KR",               // 한글 설정
-		placeholder: '최대 2048자까지 쓸 수 있습니다'   //placeholder 설정
-	});
+	// .productcost에 대한 keyup 이벤트 핸들러를 바인딩
+	$(document).on('keyup', '.productcost', productcost);
+	$(document).on('keyup', '.productamount', productamount);
 });
 $('#summernote').summernote({
 	placeholder: '글을 작성해주세요.',
@@ -314,7 +349,7 @@ function donationsubmit() {
 	}
 
 	// 날짜 유효성 검사
-	if ($("#dEnddate").val() === '') {
+	if ($("#enddate").val() === '') {
 		alert("마감일을 선택해주세요!")
 		return false;
 	}
@@ -333,8 +368,8 @@ function donationsubmit() {
 	console.log("dContent 삽입 : " + $("#dContent").val())
 
 	//파일 이름 input:hidden에 삽입
-	$(".filenames").val(filenames);
-	console.log("filename 삽입 : " + $(".filenames").val());
+	$("#filenames").val(filenames);
+	console.log("filename 삽입 : " + $("#filenames").val());
 
 	console.log("submit");
 	donationForm.submit();
@@ -372,33 +407,43 @@ function storesubmit() {
 	}
 
 	//상품 유효성 검사
-	let product = []; 
-	$(".product").each(function(){
+	let product = [];
+	$(".product").each(function() {
 		product.push($(this))
 	})
-	for(j=0;j<product.length;j++){
+	for (j = 0; j < product.length; j++) {
 		let productname = product[j].find(".productname");
 		let productcost = product[j].find(".productcost")
 		let productamount = product[j].find(".productamount")
-		
-		if(productname.val() == ''){
+
+		if (productname.val()== '') {
 			alert("상품명을 작성해주세요.")
 			productname.focus();
 			return;
 		}
-		if(productcost.val() == ''){
+		if (productcost.val().replace(/[^\d]/g, '') == '') {
 			alert("상품의 가격을 작성해주세요.")
 			productcost.focus();
 			return;
 		}
-		if(productamount.val() == ''){
+		if (productamount.val().replace(/[^\d]/g, '') == '') {
 			alert("상품 수량을 작성해주세요.")
 			productamount.focus();
 			return;
 		}
 	}
-	//가격, 수량 숫자만 유효성검사 / 3개마다 , 찍어주기 
-	
+	//가격, 수량에 있는 문자 지우고 숫자만 남겨서 넣기
+	for (j = 0; j < product.length; j++) {
+		let productcosttarget = product[j].find(".productcost")
+		let productamounttarget = product[j].find(".productamount")
+
+		let productcost = productcosttarget.val().replace(/[^\d]/g, '');
+		let productamount = productamounttarget.val().replace(/[^\d]/g, '');
+		productcosttarget.val(productcost)
+		productcosttarget.val(productamount)
+	}
+
+
 
 	// 내용 input:hidden에 삽입
 	$("#sContent").val(content);
@@ -406,9 +451,123 @@ function storesubmit() {
 	console.log("sContent 삽입 : " + $("#sContent").val())
 
 	//파일 이름 input:hidden에 삽입
-	$(".filenames").val(filenames);
-	console.log("filename 삽입 : " + $(".filenames").val());
+	$("#filenames").val(filenames);
+	console.log("filename 삽입 : " + $("#filenames").val());
 
 	console.log("submit");
 	storeForm.submit();
+}
+
+//funding/write submit 유효성 검사
+function fundingsubmit() {
+	const fundingForm = document.fundingForm;
+
+	// 제목 유효성 검사
+	let title = $("#fTitle").val();
+	console.log(title);
+	if (title.length < 1 || title.length === '') {
+		alert("제목을 작성해주세요!");
+		$("#fTitle").focus();
+		return false;
+	}
+
+	// 내용 유효성 검사
+	let content = $(".note-editable").html();
+	if (content === '') {
+		alert("내용을 입력해주세요.")
+		$(".note-editable").focus();
+		return false;
+	}
+	// 목표 금액 유효성 검사
+	// 1. 작성 됐는지
+	let targetAmount = $("#targetAmount").val().replace(/[^\d]/g, '');
+	targetAmount = targetAmount.replace(/,/g, '');
+	if (pattern_num.test(targetAmount)) {
+		console.log(targetAmount);
+	}
+	else {
+		alert("목표 금액을 작성해주세요!");
+		$("#targetAmount").focus();
+		return false;
+	}
+	// 2. 작성된 targetamount에 숫자 외 문자 있는지 다시 검사 후, realAmount에 다시 넣음.
+	if (!(pattern_eng.test(targetAmount)) && !(pattern_spc.test(targetAmount)) && !(pattern_kor.test(targetAmount))) {
+		// 진짜 realAmount를 넘겨줄 요소에 삽입
+		$("#realtargetAmount").val(targetAmount);
+		console.log($("#realtargetAmount").val())
+	} else {
+		alert("목표 금액에는 숫자만 입력 가능합니다.");
+		$("#targetAmount").val('');
+		return false;
+	}
+	// 3. 작성된 Amount가 int 이상 범위인지
+	if ($("#realtargetAmount").val() > 2000000000) {
+		alert("목표 금액은 2,000,000,000 이하로 설정해주세요.")
+		$("#targetAmount").focus();
+		return false;
+	}
+
+	// 날짜 유효성 검사
+	if ($("#enddate").val() === '') {
+		alert("마감일을 선택해주세요!")
+		return false;
+	}
+	//파일 유효성 검사
+	console.log($("#thumbnail")[0])
+	console.log($("#thumbnail")[0].files.length)
+	if ($("#thumbnail")[0].files.length == 0) {
+		alert("파일을 첨부해주세요!")
+		return false;
+	}
+
+	//상품 유효성 검사
+	let product = [];
+	$(".product").each(function() {
+		product.push($(this))
+	})
+	for (j = 0; j < product.length; j++) {
+		let productname = product[j].find(".productname");
+		let productcost = product[j].find(".productcost")
+		let productamount = product[j].find(".productamount")
+
+		if (productname.val()== '') {
+			alert("상품명을 작성해주세요.")
+			productname.focus();
+			return;
+		}
+		if (productcost.val().replace(/[^\d]/g, '') == '') {
+			alert("상품의 가격을 작성해주세요.")
+			productcost.focus();
+			return;
+		}
+		if (productamount.val().replace(/[^\d]/g, '') == '') {
+			alert("상품 수량을 작성해주세요.")
+			productamount.focus();
+			return;
+		}
+	}
+	//가격, 수량에 있는 문자 지우고 숫자만 남겨서 넣기
+	for (j = 0; j < product.length; j++) {
+		let productcosttarget = product[j].find(".productcost")
+		let productamounttarget = product[j].find(".productamount")
+
+		let productcost = productcosttarget.val().replace(/[^\d]/g, '');
+		console.log(productcost);
+		let productamount = productamounttarget.val().replace(/[^\d]/g, '');
+		console.log(productamount);
+		productcosttarget.val(productcost)
+		productamounttarget.val(productamount)
+	}
+
+	// 내용 input:hidden에 삽입
+	$("#fContent").val(content);
+	console.log("content : " + content);
+	console.log("sContent 삽입 : " + $("#fContent").val())
+
+	//파일 이름 input:hidden에 삽입
+	$("#filenames").val(filenames);
+	console.log("filename 삽입 : " + $("#filenames").val());
+
+	console.log("submit");
+	fundingForm.submit();
 }

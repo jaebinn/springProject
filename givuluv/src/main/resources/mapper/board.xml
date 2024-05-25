@@ -36,6 +36,11 @@
 		where o.orgcategory = #{orgcategory}
 		order by d.d_regdate desc;
 	</select>
+	<select id="getFundingLastBoardnumByOrgid">
+      select max(f_boardnum)
+      from f_board
+      where orgid=#{orgid};
+   </select>
 	<update id="updateDonation">
 		update d_board
 		set d_title=#{d_title}, d_content=#{dContent}, target_amount=#{targetAmount}, d_enddate=#{dEnddate}
@@ -78,6 +83,7 @@
 	<select id="getFundingsByOrgid"> <!-- limit 0 0 써야함. -->
 		select * from f_board where orgid=#{orgid} order by f_boardnum desc limit #{startrow}, #{amount}
 	</select>
+	
 	
 	<update id="updateFunding">
 		update f_board

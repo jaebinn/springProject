@@ -22,6 +22,8 @@ public interface DPaymentService {
 	List<DPaymentDTO> getDPayment();
 	int getTodayDonationCost();
 	int getTodayDonationPeople();
+	int getDonationTotalPeople();
+	int getDonationTotalCost();
 	
 
 }

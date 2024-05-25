@@ -18,6 +18,8 @@ import com.gl.givuluv.domain.dto.DBoardWithOrgNameDTO;
 import com.gl.givuluv.domain.dto.DPaymentDTO;
 import com.gl.givuluv.service.DBoardService;
 import com.gl.givuluv.service.DPaymentService;
+import com.gl.givuluv.service.FBoardService;
+import com.gl.givuluv.service.FPaymentService;
 import com.gl.givuluv.service.FileService;
 import com.gl.givuluv.service.OrgService;
 import com.gl.givuluv.service.SBoardService;
@@ -35,6 +37,31 @@ public class IndexController {
 	private FileService fservice;
 	@Autowired
 	private DPaymentService pservice;
+	@Autowired
+	private FPaymentService fpservice;
+	
+	@GetMapping("getTodayCnt")
+	@ResponseBody
+	public String getTodayCnt() {
+		List<DPaymentDTO> plist = pservice.getDPayment();
+		int d_totalPeople = pservice.getDonationTotalPeople();
+		int d_totalCost = pservice.getDonationTotalCost();
+		System.out.println(d_totalPeople);
+		System.out.println(d_totalCost);
+		int f_totalPeople = fpservice.getFundingTotalPeople();
+		int f_totalCost = fpservice.getFundingTotalCost();
+		System.out.println("펀딩사람: "+f_totalPeople);
+		System.out.println("펀딩금액: "+f_totalCost);
+		
+		return "";
+	}
+	
+	
+	
+	
+	
+	
+	
 	
 	@GetMapping("getDonationInfo")
 	@ResponseBody

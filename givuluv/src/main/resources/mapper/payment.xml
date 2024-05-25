@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.gl.givuluv.mapper.DPaymentMapper">
+<mapper namespace="com.gl.givuluv.mapper.PaymentMapper">
+	<!-- *기부결제* -->
 	<select id="getDPayment">
 		select * from d_payment
 	</select>
@@ -28,9 +29,27 @@
 		select * from d_payment where userid=#{userid} and type='r' order by paymentnum desc limit 1;
 	</select>
 	<select id="getTodayDonationCost">
-		select sum(d_cost) from d_payment where date(paydate) = curdate()
+		select coalesce(sum(d_cost),0) from d_payment where date(paydate) = curdate()
 	</select>
 	<select id="getTodayDonationPeople">
-		select count(distinct userid) from d_payment where date(paydate) = curdate();
+		select coalesce(count(distinct userid),0) from d_payment where date(paydate) = curdate();
 	</select>
+	<select id="getDonationTotalPeople">
+		select count(distinct userid) from d_payment;
+	</select>
+	<select id="getDonationTotalCost">
+		select coalesce(sum(d_cost),0) from d_payment;
+	</select>
+	<!-- *펀딩결제* -->
+	<select id="getFundingTotalPeople">
+		select count(distinct userid) from f_payment;
+	</select>
+	<select id="getFundingTotalCost">
+		select coalesce(sum(f_cost),0) from f_payment;
+	</select>
+	
+	
+	
+	
+	
 </mapper>

@@ -33,56 +33,58 @@ public class DBoardServiceImpl implements DBoardService{
 	private FileMapper fmapper;
 	
 	@Override
-	public boolean regist(DBoardDTO dboard, String filenames, MultipartFile thumbnail) throws Exception{
-		if(dbmapper.insertDonation(dboard) != 1) {
-			return false;
-		}
-		else {
-			//board 마지막 번호 찾기
-			int dBoardnum = dbmapper.getDonationLastBoardnumByOrgid(dboard.getOrgid());
-			
-			// content에 있는 파일이름 DB에 저장
-			System.out.println(filenames);
-			String[] filenameList = filenames.split(",");
-			for (String systemname : filenameList) {
-				FileDTO file = new FileDTO();
-				file.setConnectionid(dBoardnum+"");
-				file.setType('D');
-				file.setSystemname(systemname);
-				fmapper.insertFile(file);
-			}
-			
-			// 썸네일 저장
-			String orgname = thumbnail.getOriginalFilename();
-			int lastIdx = orgname.lastIndexOf(".");
-			String ext = orgname.substring(lastIdx);
-			System.out.println(ext);
-			
-			LocalDateTime now = LocalDateTime.now();
-			String time = now.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS"));
-			
-			String systemname = time+UUID.randomUUID().toString()+ext;
-			
-			String path = saveFolder+systemname;
-			
-			FileDTO thumbnailFile = new FileDTO();
-			thumbnailFile.setConnectionid(dBoardnum+"");
-			thumbnailFile.setType('D');
-			thumbnailFile.setSystemname(systemname);
-			System.out.println(thumbnailFile.getConnectionid());
-			System.out.println(thumbnailFile.getType());
-			System.out.println(thumbnailFile.getSystemname());
-			
-			if(fmapper.insertThumbnail(thumbnailFile) == 1) {
-				thumbnail.transferTo(new File(path));
-			}
-			else {
-				//content에 해당하는 파일들과 파일db 삭제, board삭제 등
-				return false;
-			}
-			return true;
-		}
-	}
+	   public boolean regist(DBoardDTO dboard, String filenames, MultipartFile thumbnail) throws Exception{
+	      if(dbmapper.insertDonation(dboard) != 1) {
+	         return false;
+	      }
+	      else {
+	         //board 마지막 번호 찾기
+	         int dBoardnum = dbmapper.getDonationLastBoardnumByOrgid(dboard.getOrgid());
+	         
+	         // content에 있는 파일이름 DB에 저장
+	         System.out.println(filenames);
+	         String[] filenameList = filenames.split(",");
+	         if(!filenameList[0].isEmpty()){
+	            for (String systemname : filenameList) {
+	               FileDTO file = new FileDTO();
+	               file.setConnectionid(dBoardnum+"");
+	               file.setType('D');
+	               file.setSystemname(systemname);
+	               fmapper.insertFile(file);
+	            }
+	         }
+	         
+	         // 썸네일 저장
+	         String orgname = thumbnail.getOriginalFilename();
+	         int lastIdx = orgname.lastIndexOf(".");
+	         String ext = orgname.substring(lastIdx);
+	         System.out.println(ext);
+	         
+	         LocalDateTime now = LocalDateTime.now();
+	         String time = now.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS"));
+	         
+	         String systemname = time+UUID.randomUUID().toString()+ext;
+	         
+	         String path = saveFolder+systemname;
+	         
+	         FileDTO thumbnailFile = new FileDTO();
+	         thumbnailFile.setConnectionid(dBoardnum+"");
+	         thumbnailFile.setType('D');
+	         thumbnailFile.setSystemname(systemname);
+	         System.out.println(thumbnailFile.getConnectionid());
+	         System.out.println(thumbnailFile.getType());
+	         System.out.println(thumbnailFile.getSystemname());
+	         
+	         if(fmapper.insertThumbnail(thumbnailFile) == 1) {
+	            thumbnail.transferTo(new File(path));
+	         }
+	         else {
+	            //content에 해당하는 파일들과 파일db 삭제, board삭제 등
+	            return false;
+	         }
+	         return true;
+	      }
+	   }
 
 
 	@Override

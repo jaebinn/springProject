@@ -17,6 +17,13 @@ public interface BoardMapper {
 	int insertDonation(DBoardDTO dboard);
 	
 	DBoardDTO getDonationByBoardnum(int dBoardnum);
+	DBoardDTO getBoardByNum(int dBoardnum);
+	
+	String getOrgnameBynum(int dBoardnum);
+	
+	
+	int getDonationLastBoardnumByOrgid(String orgid);
+	List<DBoardDTO> getListByCategory(String orgcategory);
 	List<DBoardDTO> getList();
 	List<DBoardDTO> getDonations(Criteria cri);
 	List<DBoardDTO> getDonationsByOrgid(String orgid);
@@ -41,16 +48,10 @@ public interface BoardMapper {
 	int deleteFundingByBoardnum(int fBoardnum);
 	int deleteFundingByOrgid(String orgid);
 
-	DBoardDTO getBoardByNum(int dBoardnum);
-
-	String getOrgnameBynum(int dBoardnum);
-
-	List<DBoardDTO> getListByCategory(String orgcategory);
-
-	int getDonationLastBoardnumByOrgid(String orgid);
 
 	String getEnddateByBoardnum(int dBoardnum);
-
+	
+	int getFundingLastBoardnumByOrgid(String orgid);
 	//가게 게시글
 	int insertStoreBoard(SBoardDTO sboard);
 	int getStoreBoardLastNumBySNum(int sNum);
