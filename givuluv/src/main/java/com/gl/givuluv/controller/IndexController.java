@@ -4,7 +4,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,7 +44,7 @@ public class IndexController {
 	
 	@GetMapping("getTodayCnt")
 	@ResponseBody
-	public String getTodayCnt() {
+	public Map<String, Object> getTodayCnt() {
 		List<DPaymentDTO> plist = pservice.getDPayment();
 		int d_totalPeople = pservice.getDonationTotalPeople();
 		int d_totalCost = pservice.getDonationTotalCost();
@@ -53,7 +55,13 @@ public class IndexController {
 		System.out.println("펀딩사람: "+f_totalPeople);
 		System.out.println("펀딩금액: "+f_totalCost);
 		
-		return "";
+		 Map<String, Object> result = new HashMap<>();
+		 result.put("donationTotalPeople", d_totalPeople);
+		 result.put("donationTotalCost", d_totalCost);
+		 result.put("fundingTotalPeople", f_totalPeople);
+		 result.put("fundingTotalCost", f_totalCost);
+		
+		return result;
 	}
 	
 	

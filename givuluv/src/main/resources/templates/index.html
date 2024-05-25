@@ -296,7 +296,19 @@
 		dataType:'json',
 		contentType:'application/json; charset=utf-8',
 		success: function(response){
-			
+			const counters = document.querySelectorAll(".count");
+			const max = [
+				response.donationTotalPeople,
+				response.donationTotalCost,
+				response.fundingTotalPeople,
+				response.fundingTotalCost
+			];
+
+			for (let i = 0; i < 4; i++) {
+				let $counter = counters[i];
+				let $max = max[i];
+				setTimeout(() => counter($counter, $max), 1318);
+			}
 		},
 		error: function(e){
 			
