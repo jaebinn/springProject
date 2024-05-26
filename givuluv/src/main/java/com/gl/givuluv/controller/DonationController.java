@@ -27,11 +27,13 @@ import com.gl.givuluv.domain.dto.DBoardWithOrgNameDTO;
 import com.gl.givuluv.domain.dto.DPaymentDTO;
 import com.gl.givuluv.domain.dto.FileDTO;
 import com.gl.givuluv.domain.dto.OrgDTO;
+import com.gl.givuluv.domain.dto.ReviewDTO;
 import com.gl.givuluv.domain.dto.UserDTO;
 import com.gl.givuluv.service.DBoardService;
 import com.gl.givuluv.service.DPaymentService;
 import com.gl.givuluv.service.FileService;
 import com.gl.givuluv.service.OrgService;
+import com.gl.givuluv.service.ReviewService;
 import com.gl.givuluv.service.UserService;
 import com.google.gson.Gson;
 
@@ -55,10 +57,13 @@ public class DonationController {
 	private FileService fservice;
 	@Autowired
 	private DPaymentService pservice;
+	@Autowired
+	private ReviewService rservice;
 	
 	@GetMapping("dBoard")
 	public String dBoardList(Model model) {
 		List<DBoardDTO> list = dbservice.getList();
+		
 		System.out.println(list);
 	    String src = "/summernoteImage/";
 		//orgname을 Map타입에 저장
@@ -74,13 +79,13 @@ public class DonationController {
 			List<String> systemnameList = fservice.getSystemnameByBoardnum(dBoard.getDBoardnum() + "");
 			if (systemnameList != null && !systemnameList.isEmpty()) {
 				String systemname = src + systemnameList.get(1);
-				System.out.println("파일이름: " + systemname);
+				//System.out.println("파일이름: " + systemname);
 				resultList.add(new DBoardWithOrgNameDTO(dBoard, orgname, systemname));
 			} else {
 				resultList.add(new DBoardWithOrgNameDTO(dBoard, orgname));
 			}
-			System.out.println(resultList);
-			System.out.println(orgname);
+			//System.out.println(resultList);
+			//System.out.println(orgname);
 			
         } 
 		//오늘날 기부한 금액 총합  
@@ -97,6 +102,17 @@ public class DonationController {
 	}
 	@GetMapping("donationView")
 	public String view(@RequestParam("dBoardnum") int dBoardnum, Model model) {
+		List<ReviewDTO> rlist = rservice.getReviewList(dBoardnum);
+		int reviewCnt = rservice.getReviewCnt(dBoardnum);
+		List<Map<String, Object>> rlistWithNicknames = new ArrayList<>();
+		for (ReviewDTO review : rlist) {
+		     String nickname = uservice.getNicknameByUserId(review.getUserid());
+		     Map<String, Object> reviewWithNickname = new HashMap<>();
+		     reviewWithNickname.put("review", review);
+		     reviewWithNickname.put("nickname", nickname);
+		     rlistWithNicknames.add(reviewWithNickname);
+		}
+		System.out.println(rlistWithNicknames);
 		DBoardDTO dboard = dbservice.getDonation(dBoardnum);
 		String orgname = oservice.getOrgnameByOrgid(dboard.getOrgid());
 		String category = oservice.getCategoryByOrgid(dboard.getOrgid());
@@ -117,6 +133,8 @@ public class DonationController {
 		model.addAttribute("orgcategory", category);
 		model.addAttribute("RdonationCnt", RdonationCnt);
 		model.addAttribute("percentage", String.format("%.1f", percentage));
+		model.addAttribute("review", rlistWithNicknames);
+		model.addAttribute("reviewCnt", reviewCnt);
 		
 		// D-day 계산하여 모델에 추가
 	    LocalDate currentDate = LocalDate.now();

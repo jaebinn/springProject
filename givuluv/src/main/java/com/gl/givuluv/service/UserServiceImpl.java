@@ -127,4 +127,9 @@ public class UserServiceImpl implements UserService{
 		return umapper.getDonaNameByUserId(userid);
 	}
 
+	@Override
+	public String getNicknameByUserId(String userid) {
+		return umapper.getNicknameByUserId(userid);
+	}
+
 }

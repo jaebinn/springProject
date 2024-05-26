@@ -47,5 +47,6 @@ public interface UserMapper {
 	
 //	유저가 기부한 프로젝트명을 전부 뽑아옴
 	List<String> getDonaNameByUserId(UserDTO userid);
+	String getNicknameByUserId(String userid);
 	
 }

@@ -8,5 +8,4 @@ public class FileDTO {
 	private String connectionid;
 	private char type;
 	private char boardthumbnail;
-	
 }

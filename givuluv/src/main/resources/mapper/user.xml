@@ -13,6 +13,9 @@
 	<select id="getUserByNickname">
 		select * from user where nickname=#{nickname}
 	</select>
+	<select id="getNicknameByUserId">
+		select nickname from user where userid=#{userid}
+	</select>
 	<select id="getUseridByEmail">
 		select userid from user where email=#{email}
 	</select>

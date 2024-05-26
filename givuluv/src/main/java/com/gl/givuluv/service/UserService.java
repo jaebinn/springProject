@@ -14,6 +14,7 @@ public interface UserService {
 	UserDTO getUseridByEmail(String email);
 	boolean nickAndIdCheck(String nickname, String userid);
 	UserDTO getUserById(String userid);
+	String getNicknameByUserId(String userid);
 //	보너스 포인트를 불러오기 위해 아이디로 보너스 포인트 불러오기
 	String getUserBonusById(UserDTO userid);
 //	유저가 기부/펀드한 총 금액을 불러오기 위해 아이디로 s_cost불러오기
@@ -30,4 +31,5 @@ public interface UserService {
 	String getDoneTimeById(UserDTO userid);
 //	유저가 기부한 프로젝트명을 전부 뽑아옴
 	List<String> getDonaNameByUserid(UserDTO userid);
+	
 }
