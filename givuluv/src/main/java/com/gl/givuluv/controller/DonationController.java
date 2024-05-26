@@ -101,7 +101,7 @@ public class DonationController {
 		return "donation/dBoard";
 	}
 	@GetMapping("donationView")
-	public String view(@RequestParam("dBoardnum") int dBoardnum, Model model) {
+	public String view(@RequestParam("dBoardnum") int dBoardnum, Model model, HttpServletRequest req) {
 		List<ReviewDTO> rlist = rservice.getReviewList(dBoardnum);
 		int reviewCnt = rservice.getReviewCnt(dBoardnum);
 		List<Map<String, Object>> rlistWithNicknames = new ArrayList<>();
@@ -112,6 +112,9 @@ public class DonationController {
 		     reviewWithNickname.put("nickname", nickname);
 		     rlistWithNicknames.add(reviewWithNickname);
 		}
+		HttpSession session = req.getSession();
+		String loginUser = (String)session.getAttribute("loginUser");
+		String loginNickname = uservice.getNicknameByUserId(loginUser);
 		System.out.println(rlistWithNicknames);
 		DBoardDTO dboard = dbservice.getDonation(dBoardnum);
 		String orgname = oservice.getOrgnameByOrgid(dboard.getOrgid());
@@ -135,6 +138,7 @@ public class DonationController {
 		model.addAttribute("percentage", String.format("%.1f", percentage));
 		model.addAttribute("review", rlistWithNicknames);
 		model.addAttribute("reviewCnt", reviewCnt);
+		model.addAttribute("loginNickname", loginNickname);
 		
 		// D-day 계산하여 모델에 추가
 	    LocalDate currentDate = LocalDate.now();

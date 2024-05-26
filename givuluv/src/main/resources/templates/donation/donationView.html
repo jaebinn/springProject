@@ -79,47 +79,47 @@
 				 <th:block th:if="${#lists.isEmpty(review)}">
 				        <li>응원 메시지가 없습니다.</li>
 				</th:block>
-					<th:block th:unless="${#lists.isEmpty(review)}">
-						<th:block th:each="reviewWithNickname : ${review}">
-							<li class="rbox_comment">
-								<div class="rbox_comment_box">
-									<div class="rbox_area">
-										<div class="rbox_info">
-											<span class="rbox_info_main">
-												<span class="rbox_name">
-													<span class="rbox_name_area">
-														<span class="rbox_nick_area">
-															<span class="rbox_nick" th:text="${reviewWithNickname.nickname}">닉네임</span>
-														</span>
-														<span class="rbox_id_area">
-															(<span class="rbox_id" th:text="${reviewWithNickname.review.userid}">아이디</span>)
-														</span>
+					<th:block th:each="reviewWithNickname : ${review}">
+						<li class="rbox_comment">
+							<div class="rbox_comment_box">
+								<div class="rbox_area">
+									<div class="rbox_info">
+										<span class="rbox_info_main">
+											<span class="rbox_name">
+												<span class="rbox_name_area">
+													<span class="rbox_nick_area">
+														<span class="rbox_nick" th:text="${reviewWithNickname.nickname}">닉네임</span>
+													</span>
+													<span class="rbox_id_area">
+														(<span class="rbox_id" th:text="${reviewWithNickname.review.userid}">아이디</span>)
 													</span>
 												</span>
 											</span>
-											<span class="rbox_info_sub"></span>
-										</div>
-										<div class="rbox_text_wrap">
-											<span class="rbox_contents" th:text="${reviewWithNickname.review.reviewdetail}">리뷰 내용</span>
-										</div>
-										<div class="rbox_info_date">
-											<span class="rbox_date" th:text="${reviewWithNickname.review.reviewdate}">날짜</span>
+										</span>
+										<span class="rbox_info_sub"></span>
+									</div>
+									<div class="rbox_text_wrap">
+										<span class="rbox_contents" th:text="${reviewWithNickname.review.reviewdetail}">리뷰 내용</span>
+									</div>
+									<div class="rbox_info_date">
+										<span class="rbox_date" th:text="${reviewWithNickname.review.reviewdate}">날짜</span>
+										<th:block th:if="${session.loginUser == reviewWithNickname.review.userid}">											
 											<div class="rbox_updateAndDelete">
 												<a href="#" id="updateReview">수정</a>
 												<a href="#" id="deleteReview">삭제</a>
 											</div>
-										</div>
+										</th:block>
 									</div>
 								</div>
-							</li>
-						</th:block>
-				    </th:block>
+							</div>
+						</li>
+					</th:block>
 				</ul>
 			</ul>
 			<th:block th:if="${session.loginUser != null}">
 				<div class="comment replyForm">
 					<div class="comment_inbox">
-						<em class="comment_inbox_name">닉네임 ([[${session.loginUser}]])</em>
+						<em class="comment_inbox_name">[[${loginNickname}]] ([[${session.loginUser}]])</em>
 						<textarea placeholder="댓글을 남겨보세요" rows="1" class="commentText" id="reviewdetail"></textarea>
 						<div class="comment_inbox_number">
 							<span class="blind">현재 입력한 글자수</span>
@@ -193,64 +193,45 @@
 		reviewService.insert(
 			{"reviewdetail":reviewdetail.val(),"connectid":boardnum,"userid":loginUser},
 			function(result){
-			//DOM
-			console.log(result);
+				const newComment = `
+				                       <li class="rbox_comment">
+				                               <div c la ss="rb ox_ comme nt_b ox">
+				                                   <div class="rbox_area">
+				                                   <div class="rbox_info">
+				                                       <span class="rbox_info_main">
+				                                           <span class="rbox_name">
+				                                               <span class="rbox_name_area">
+				                                                   <span class="rbox_nick_area">
+				                                                       <span class="rbox_nick">${result.nickname}</span>
+				                                                   </span>
+				                                                   <span class="rbox_id_area">
+				                                                       (<span class="rbox_id">${result.review.userid}</span>)
+				                                                   </span>
+				                                               </span>
+				                                           </span>
+				                                       </span>
+				                                       <span class="rbox_info_sub"></span>
+				                                   </div>
+				                                   <div class="rbox_text_wrap">
+				                                       <span class="rbox_contents">${result.review.reviewdetail}</span>
+				                                   </div>
+				                                   <div class="rbox_info_date">
+				                                       <span class="rbox_date">${result.review.reviewdate}</span>
+				                                       <div class="rbox_updateAndDelete">
+				                                           <a href="#" id="updateReview">수정</a>
+				                                           <a href="#" id="deleteReview">삭제</a>
+				                                       </div>
+				                                   </div>
+				                               </div>
+				                           </div>
+				                       </li>`;
+				                   
+				$('.rbox_list').append(newComment);
+				reviewdetail.val(''); 
+				console.log(result);
 			}
 		)
 	})
-	function showList(){
-			reviewService.selectAll(
-				{"connectid":boardnum},
-				function(list){
-					//LIST DOM
-					let str = "";
-					if(list == null || list.length == 0){
-						//실제로 댓글이 하나도 없을 때
-						if(pagenum == 1){
-							str += `<li class="no-reply">등록된 댓글이 없습니다.</li>`;
-							replies.html(str);
-							return;
-						}
-						//삭제를 통해서 현재 페이지의 댓글이 모두 삭제됐을 때
-						else{
-							showList(pagenum-1);
-							return;
-						}
-					}
-					
-					for(let i=0;i<list.length;i++){
-						const reply = list[i];
-						str += `<li class="li${reply.replynum} row">
-		<div class="row">
-			<strong class="userid${reply.userid}">${reply.userid}</strong>
-			<p class="reply${reply.replynum}">
-				${reply.replycontents}
-			</p>
-		</div>
-		<div>
-			<strong>${displayTime(reply)}</strong>
-		</div>`;
-						str += "<div>"
-						if(reply.userid == loginUser){
-							str += `<a href="${reply.replynum}" class="modify btn">수정</a>`
-							str += `<a href="${reply.replynum}" class="mfinish btn" style="display:none;">수정 완료</a>`
-							str += `<a href="${reply.replynum}" class="remove btn">삭제</a>`
-						}
-						str += "</div>"
-						str += "</li>"
-					}
-					replies.html(str);
-					
-					//DOM으로 생성된 버튼들에 이벤트 달기
-					$(".remove").on("click",deleteReply);
-					$(".modify").on("click",modifyReply);
-					$(".mfinish").on("click",modifyReplyOk);
-					
-					//댓글 페이징 DOM 구현
-					showReplyPages(replyCnt, pagenum);
-				}
-			)
-		}
 	
 </script>
 

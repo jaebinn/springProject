@@ -233,6 +233,7 @@
     line-height: 1.5;
     color: #202020;
     letter-spacing: -.3px;
+    padding-bottom: 8px;
 }
 .rbox_info_date{
 	display: flex;
@@ -251,7 +252,6 @@
     font-weight: 700;
 }
 .rbox_comment{
-	border-bottom: 0.5px solid lightgray;
 	padding-bottom: 15px;
 }
 .comment{
