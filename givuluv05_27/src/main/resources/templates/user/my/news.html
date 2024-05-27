@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>일반유저 myNews</title>
+	<link rel="stylesheet" href="/css/userMyPageMenu.css">
+	<link rel="stylesheet" href="/css/userMyNews.css">
+	<link rel="stylesheet" href="/css/header_footer.css">
+	<script src="https://kit.fontawesome.com/516da99189.js" crossorigin="anonymous"></script>
+	<!--<style>
+	        .hidden {
+	            display: none;
+	        }
+	</style>-->
+</head>
+
+
+<body>
+	<!-- header -->
+	<th:block th:replace="~{layout/header::header(loginUser)}"></th:block>
+	<!-- 컨텐츠 -->
+	<div class="wrap">
+		<!-- 왼쪽 메뉴바 -->
+		<th:block th:replace="~{layout/userMyPageMenu::userMyPageMenu(loginUser)}"></th:block>
+		<!-- 오른쪽 내 소식 -->
+		<div class="left_div">
+			<div class="myNews_div">
+				<div>
+					<div>
+						<h3>내소식</h3>
+						<span>총 기부[[${UserDonate}]] / 펀딩[[${UserFunding}]] 건</span>
+						<p>※최근 기부/펀딩 내역이 표시됩니다</p>
+						<div id="done_fund_btn">
+						<input type="button" id="Dona_btn" value="기부목록">
+						<input type="button" id="Fund_btn" value="펀딩목록">
+						</div>
+						<div id="shipStateBtn">
+						<input type="button" id="shipState_btn" value="배송목록보기">
+						</div>
+					</div>
+				</div>
+				<div>
+					
+					<div class="Dona_List" th:if="${not #lists.isEmpty(Donation_List)}" th:each="donationItem : ${Donation_List}">
+						<a id="Dona_Red">[기부활동]</a><span th:text="${donationItem}">Donation List Name</span>
+						<p id="Name_Time">[[${DoneUserName}]] &nbsp; [[${DoneTime}]]</p>
+					</div>
+					<div class="Fund_List" th:if="${not #lists.isEmpty(Funding_List)}" th:each="fundingItem : ${Funding_List}">
+						<a id="Fund_Blue">[펀딩활동]</a><span th:text="${fundingItem}">Funding List Name</span>
+						<p>[[${FundUserName}]] &nbsp; [[${FundTime}]]</p>
+					</div>
+					<!--현재 최초 1번쨰 div에만 display : none이 적용되고 그 후의 div태그들은 적용이 안되는 상황입니다.-->
+					
+					<!--<div th:if="${not #lists.isEmpty(Donation_List)}">
+									      <h2>Donation List</h2>
+									      <ul>
+									          <li th:each="donation : ${Donation_List}" th:text="${donation}"></li>
+											  <p>[[${DoneUserName}]] &nbsp; [[${DoneTime}]]</p>
+									      </ul>
+									  </div>-->
+									
+									  <!-- 펀딩 내역 표시 -->
+									 <!-- <div th:if="${not #lists.isEmpty(Funding_List)}">
+									      <h2>Funding List</h2>
+									      <ul>
+									          <li th:each="funding : ${Funding_List}" th:text="${funding}"></li>
+											  <p>[[${FundingUserName}]] &nbsp; [[${FundingTime}]]</p>
+									      </ul>
+									  </div>-->
+									
+									  <!-- 내역이 없을 때 메시지 표시 -->
+									 <!-- <div th:if="${#lists.isEmpty(Funding_List)}">
+									      <p>내역이 존재하지 않습니다.</p>
+									  </div>-->
+									  <!--정상 작동 합니다-->
+									  <div th:if="${#lists.isEmpty(Donation_List) and #lists.isEmpty(Funding_List)}">
+									      <p>내역이 존재하지 않습니다.</p>
+									  </div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- footer -->
+	<th:block th:replace="~{layout/footer::footer()}"></th:block>
+</body>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+       
+	$(document).ready(function(){
+	
+	           $("#Dona_btn").on("click", function(){
+	               $(".Fund_List").attr("style", "display : none");
+	               $(".Dona_List").removeAttr("style");
+	           });
+	
+	           $("#Fund_btn").on("click", function(){
+				$(".Dona_List").attr("style", "display : none");
+				$(".Fund_List").removeAttr("style");
+	           });
+			});
+	       
+   </script>
+
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <script src="https://kit.fontawesome.com/516da99189.js" crossorigin="anonymous"></script>   
+<link rel="stylesheet" href="/css/header_footer.css">
+<link rel="stylesheet" href="/css/donationView.css">
+</head>
+<body>
+   <!-- header -->
+   <th:block th:replace="~{layout/header::header(loginUser)}"></th:block>
+   <!-- 컨텐츠 -->
+   <div class="container">
+		<div class="donation_wrap">
+			<div class="donation_content">
+				<h2 class="theme">
+				    <a href="#" class="theme" style="text-decoration:none">[[${orgcategory}]]</a>
+				</h2>
+				<h3 class="tit">[[${dboard.dTitle}]]</h3>
+				<div class="d_content" th:utext="${dboard.dContent}"></div>
+			</div>
+			<div class="donation_side">
+				<div class="section_status ">
+					<div class="graph_wrap">
+						<div class="graph_status">
+							<span class="per"><strong class="num">[[${percentage}]]</strong>%</span>
+						</div>
+						<div class="graph_bar">
+							<span id="bar"></span>
+						</div>
+					</div>
+					<div class="term_area">
+						<p>
+							<strong>
+								<span th:text="${#dates.format(dboard.dRegdate, 'yyyy-MM-dd')}"></span> ~
+								[[${dboard.dEnddate}]]
+							</strong><span> 까지</span>
+						</p>
+						<div>
+							<span class="d_day">D<em class="bar">-</em>[[${daysUntilEnd}]]</span>
+						</div>
+					</div>
+					<div class="num_area">
+						<p class="status_num"><strong>[[${d_cost}]]</strong><span id="won">원</span></p>
+						<p class="detail_num v2"><strong><span>[[${dboard.targetAmount}]]</span><em>원 목표</em></strong></p>
+					</div>
+				</div>
+				<div class="section_btn">		
+					<a th:href="@{/donation/pay(dBoardnum=${dboard.dBoardnum})}" class="bt donate jq_donate" data-google="모금함_View" data-stat="기부하기_상단_BTN_CLK" onclick="donationBtn()">모금함 기부하기</a>
+				</div>
+				<div class="section_group">
+					<div class="group_bx">
+						<h3>
+							<!-- [D]등록이미지 없을 경우 디폴트 이미지로 노출 -->
+							<img src="https://ssl.pstatic.net/happyimg2/img3/social/comment/img/no_img32_32.png" width="32" height="32"
+								alt="해피로그 기본 이미지">
+							<span>
+								모금단체
+								<a href="https://happylog.naver.com/hlog/eunhye1004/home" target="happylog"> <strong>[[${orgname}]]</strong>
+								</a>
+							</span>
+						</h3>
+						<div class="info_lst">
+							<ul>
+								<li><strong>사회단체 가입: </strong><span>2021년</span></li>
+								<li><strong>총 모금액: </strong><span>[[${totalCost}]]원</span></li>
+								<li><strong>현재 정기기부자: </strong><span>[[${RdonationCnt}]]명</span></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="donationReview">
+			<h2 id="d_review">기부 후기</h2>
+			<div id="totalReview">
+				<p>총 <strong>3</strong>개의 댓글</p>
+			</div>
+			<ul class="rbox_list">
+				<li class="rbox_comment">
+					<div class="rbox_comment_box">
+						<div class="rbox_area">
+							<div class="rbox_info">
+								<span class="rbox_info_main">
+									<span class="rbox_name">
+										<span class="rbox_name_area">
+											<span class="rbox_nick_area">
+												<span class="rbox_nick">도경이</span>
+											</span><span class="rbox_id_area">
+												<span class="rbox_id">(qntn****)</span>
+											</span>
+										</span>
+									</span>
+								</span>
+								<span class="rbox_info_sub"></span>
+							</div>
+							<div class="rbox_text_wrap">
+								<span class="rbox_contents">응원합니다</span>
+							</div>
+							<div class="rbox_info_date">
+								<span class="rbox_date">1시간 전</span>
+							</div>
+						</div>
+					</div>
+				</li>
+				<!-- 돔구현 -->
+			</ul>
+		</div>
+	</div>
+   <!-- footer -->
+   <th:block th:replace="~{layout/footer::footer()}"></th:block>
+</body>
+<script src="/js/jquery-3.7.1.min.js"></script>
+<script th:inline="javascript">
+	$('.h_logout').on('click', function(){
+		alert("로그아웃되었습니다.")
+	})
+	
+	function donationBtn(){
+		let NotUserMessage = /*[[${NotUserMessage != null}]]*/ false;
+		console.log(NotUserMessage)
+		if (NotUserMessage) {
+			alert("사용자로 로그인 후 이용해주세요");
+		 }
+	}
+	document.addEventListener("DOMContentLoaded", function () {
+	        const percentage = /*[[${percentage}]]*/"";
+	        const graphBarSpan = document.querySelector('#bar');
+	        graphBarSpan.style.width = percentage + '%';
+	    });
+	
+</script>
+
+</html>

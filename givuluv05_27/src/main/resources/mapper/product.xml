@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gl.givuluv.mapper.ProductMapper">
+	<!--  
+	`productnum` int PRIMARY KEY auto_increment,
+  	`productname` varchar(300),
+  	`p_amount` int NOT NULL,
+  	`cost` int NOT NULL,
+  	`connectid` varchar(100),
+  	`p_type` char(1)
+	-->
+	<insert id="insertSBoardProduct">
+		insert into product(productname, p_amount, cost, connectid, p_type)
+		values(#{productname}, #{pAmount}, #{cost}, #{connectid}, 'M')
+	</insert>
+	<insert id="insertFundingProduct">
+		insert into product(productname, p_amount, cost, connectid, p_type)
+		values(#{productname}, #{pAmount}, #{cost}, #{connectid}, 'F')
+	</insert>
+
+
+</mapper>
