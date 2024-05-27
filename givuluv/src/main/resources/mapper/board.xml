@@ -116,7 +116,21 @@
    </select>
 	
 	
-	
+		<!-- 캠페인 게시글 -->
+	<insert id="insertCampaign">
+		insert into c_board(c_content, connectid, type)
+		values(#{cContent}, #{connectid}, #{type})
+	</insert>
+	<select id="getCampaignLastNumByConnectid">
+		select max(c_boardnum)
+		from c_board
+		where connectid=#{connectid};
+	</select>
+	<select id="getCampaignByCBoardnum">
+		select *
+		from c_board
+		where c_boardnum=#{cBoardnum} 
+	</select>
 	
 	
 	

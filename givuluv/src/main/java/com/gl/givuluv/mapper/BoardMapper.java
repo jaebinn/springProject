@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.gl.givuluv.domain.dto.CBoardDTO;
 import com.gl.givuluv.domain.dto.Criteria;
 import com.gl.givuluv.domain.dto.DBoardDTO;
 import com.gl.givuluv.domain.dto.FBoardDTO;
@@ -57,4 +58,9 @@ public interface BoardMapper {
 	int getStoreBoardLastNumBySNum(int sNum);
 
 	boolean updateSaveMoney(int dBoardnum);
+	//캠페인 게시글
+	int insertCampaign(CBoardDTO cboard);
+	
+	int getCampaignLastNumByConnectid(String connectid);
+	CBoardDTO getCampaignByCBoardnum(int cBoardnum);
 }
