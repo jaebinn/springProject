@@ -81,14 +81,23 @@ img{
 
 .board{
 	width: 900px;
-	margin: 0 auto;
+	margin: 100px auto;
 	border-radius: 30px;
 	box-shadow: 0 0 2px rgb(79, 148, 111);
 }
+.managerBoard{
+	width: 600px;
+	box-shadow: 0 0 10px rgb(164, 142, 151);
+}
 .contents{
 	max-height: 800px;	
+    overflow: hidden;
+    word-break: break-word;
+	padding: 30px;
 }
-
+.managerBoard .contents{
+	max-height: fit-content;
+}
 .boardHeader{
 	display: flex;
 	height: 70px;
@@ -101,7 +110,7 @@ img{
 	justify-content: space-between;
 	padding-right: 50px;
 }
-.boardHeader > a{
+.follow{
 	padding: 10px;
 	border-radius: 30px;
 	background-color: rgb(79, 148, 111);	
@@ -127,15 +136,16 @@ img{
 	margin-left: 5px;
 	margin-right: 10px;
 }
-.contents{
-	padding: 30px;
-}
 .boardFooter{
 	padding: 10px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	padding-right: 30px;
+	user-select: none;
+}
+.managerBoard .boardFooter{
+	justify-content: end;
 }
 .hashtag{
 	display: flex;	
@@ -153,11 +163,11 @@ img{
 	content: '#';
 }
 .btn_box i {
-	font-size: 26px;
+	font-size: 26px; 
 	margin: 10px;
 }
 
-.modal_box{
+.modal_box, .modal_exit{
 	display: flex;
 	width: 100%; height: 100%;
 	position: fixed;
@@ -168,11 +178,19 @@ img{
     background: rgba(71, 58, 58, 0.25);
     z-index: 1;
 }
+.modal_exit{
+	background-color: rgba(0, 0, 0, 0);
+}
 .modal{
+	z-index: 2;
 	display: flex;
-	width: 1000px; max-height: 600px;
+	width: 1000px; height: 600px;
 	background-color: white;
 	border-radius: 10px;
+}
+.managerBoard .modal{
+	box-shadow: 0 0 2px rgb(231, 112, 151);
+	width: 700px;
 }
 .modalBoard{
 	width: 700px;
@@ -185,65 +203,167 @@ img{
 	border-top-right-radius: 0;
 	border-radius: 10px 0 0 0;
 }
-.modalBoard>a, .modal .boardFooter{
-	border-right: 1px solid #999;
+.managerBoard .modalBoard>.contents {
+	max-height: 534px;
 }
-.modalBoard>a {
+.modalBoard>.contents {
+	max-height: 460px;
 	display: block;
 	flex: 1 0 auto;
+	overflow-y: scroll
 }
-.replybox{
+.modalBoard>.contents::-webkit-scrollbar{
+	background-color: rgba(0, 0, 0, 0);
+}
+.modalBoard>.contents::-webkit-scrollbar-thumb{
+	background-color: rgba(79, 148, 111, 0.5);	
+	border-radius: 20px;
+	border: 3px solid white;
+}
+.managerBoard .modalBoard>.contents::-webkit-scrollbar-thumb{
+	background-color: rgba(231, 112, 151, 0.5);	
+}
+.modal_side_box{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+.commentbox{
 	width: 300px;
+	height: 600px;
 	overflow-y: scroll;
+	border-left: 1px solid #999;
 }
-.replybox::-webkit-scrollbar-button{ display: none; }
-.replybox::-webkit-scrollbar-thumb{ border-radius: 20px; }
+.commentbox::-webkit-scrollbar{
+	border-radius: 10px;
+}
+.commentbox::-webkit-scrollbar-thumb{
+	background-color: rgba(79, 148, 111, 0.5);	
+	border-radius: 20px;
+	border: 3px solid white;
+}
+.managerBoard .commentbox::-webkit-scrollbar-thumb{
+	background-color: rgba(231, 112, 151, 0.5);	
+}
 
-.reply{
+.comment{
 	border-bottom: 1px solid #999;
 	padding: 10px;
+	padding-right: 3px;
 }
-.replyHeader{
+.comment:last-child{
+	border-bottom: none;
+}	
+.commentHeader{
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	padding-right: 10px;
 }
-.replyprofile{
+.commentHeaderLeft{
+	display: flex;
+}
+.commentprofile{
 	display: flex;
 	align-items: center;
 }
-.replyprofile img{
+.commentprofile img{
 	width: 30px; height: 30px;	
 	border-radius: 50%;
 	border: 1px solid #444;
 	margin-right: 5px;
 }
-.replydetail{
+.commentA_box{
+	margin-left: 5px;
+	display: flex;
+	align-items: center;
+}
+.commentA{
+	border-bottom: 1px solid #666;
+	font-size: 12px;
+	margin-right: 5px;
+	color: #888;
+}
+.like_box{
+	display: flex;
+	align-items: center;
+}
+.like_box > p{
+	margin-left: 3px;
+}
+
+.othercommentdetail{
 	padding-top:5px;
-   overflow: hidden;
-   word-break: break-word;
-   text-overflow: ellipsis;
+    overflow: hidden;
+    word-break: break-word;
+    text-overflow: ellipsis;
+}
+.comment_regist_box{
+	display: flex;
+	height: 90px;
+	min-height: 90px;
+	background-color: rgba(79, 148, 111, 0.5);	
+	padding: 10px;
+	border-bottom-right-radius: 10px;
+}
+.managerBoard .comment_regist_box{
+	display: flex;
+	height: 90px;
+	min-height: 90px;
+	background-color: rgba(231, 112, 151, 0.5);	
+	padding: 10px;
+	border-bottom-right-radius: 10px;
+}
+.registBtn{
+	width: 80px;
+	margin-left: 10px;
+	border-radius: 10px;
+	background-color: rgb(79, 148, 111);	
+	color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 20px;
+}
+.managerBoard .registBtn{
+	width: 80px;
+	margin-left: 10px;
+	border-radius: 10px;
+	background-color: rgb(231, 112, 151);	
+	color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 20px;
+}
+.commentdetail{
+	width: 190px;
+    overflow: hidden;
+    word-break: break-all;
+    vertical-align: text-top;
+    text-align: start;
+    cursor: auto;
+    resize: none;
+}
+
+.commentFooter{
+	display: flex;
+	justify-content: space-between;
+	margin-top: 10px;
+}
+.date{
+	color: #888;
+	font-size: 14px;
 }
 
 
+/*------------------------------------*/
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.campaignView .board{
+	box-shadow: none;
+}
+.campaignView .board .modal{
+	border: 1px solid #888;
+}
 
 
 

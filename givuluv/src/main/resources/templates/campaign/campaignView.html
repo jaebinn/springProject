@@ -11,38 +11,9 @@
 	<!-- header -->
 	<th:block th:replace="~{layout/header::header(loginUser)}"></th:block>
 	<!-- 컨텐츠 -->
-	<div class="wrap campaignList mt">
+	<div class="wrap campaignView mt">
 		<div id="Board(boardnum)" class="orgBoard board">
-			<div class="boardHeader">
-				<div class="mainHeader">
-					<a href="#" class="profile">
-						<img src="/summernoteImage/202405221023256949ed58d39-11cf-4eb5-bab3-0a9a7b59ab73.png">
-						<p>단체 이름</p>
-					</a>
-					<p>2주전</p>
-				</div>
-				<a class="follow follow_${orgid}" href="javascript:follow(orgid)">팔로우</a>
-				<!--if문으로 팔로우 돼있으면 안 보이게 / 팔로우 누르면 DB에 넣고 팔로우 안 보이게-->
-			</div>
-			<a href="javascript:modal('boardnum')">
-				<div class="contents">
-					내용<br>내용<br>내용<br>내용<br>내용<br>내용<br>내용<br>내용<br>내용<br>내용
-				</div>
-			</a>
-			<div class="boardFooter">
-				<div class="hashtag">
-					<p>동물</p>
-				</div>
-				<div class="btn_box like_box">
-					<a href="javascript:addLike(boardnum)" id="addLike(boardnum)" class="addLike"><i
-							class="fa-regular fa-heart"></i></a>
-					<!--<a href="javascript:cancelLike(boardnum)" id="addLike(boardnum)" class="cancelLike"><i style="color:rgb(255, 128, 194)" class="fa-solid fa-heart"></i></a>-->
-					<p>999</p>
-					<a href="javascript:copyLink(boardnum)"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-				</div>
-			</div>
-			<div class="modal_box" style="display: none;">
-				<div class="modal_exit"></div>
+			<div class="modal_box" style="display: flex; position: relative;">
 				<div class="modal">
 					<div class="modalBoard">
 						<div class="boardHeader">
@@ -113,22 +84,7 @@
 			</div>
 		</div>
 		<div class="managerBoard board">
-			<a href="javascript:modal('cBoardnum')">
-				<div class="contents">
-					내용<br>내용<br>내용<br>내용<br>내용<br>내용<br>내용<br>내용<br>내용<br>내용
-				</div>
-			</a>
-			<div class="boardFooter">
-				<div class="btn_box like_box">
-					<a href="javascript:addLike(boardnum)" id="addLike(boardnum)" class="addLike"><i
-							class="fa-regular fa-heart"></i></a>
-					<!--<a href="javascript:cancelLike(boardnum)" id="addLike(boardnum)" class="cancelLike"><i style="color:rgb(255, 128, 194)" class="fa-solid fa-heart"></i></a>-->
-					<p>999</p>
-					<a href="javascript:copyLink(boardnum)"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-				</div>
-			</div>
-			<div class="modal_box" style="display: none;">
-				<div class="modal_exit"></div>
+			<div class="modal_box" style="display: flex; position: relative;">
 				<div class="modal">
 					<div class="modalBoard">
 						<div class="contents">
@@ -158,20 +114,6 @@
 	$('.h_logout').on('click', function () {
 		alert("로그아웃되었습니다.")
 	})
-
-
-	$(".modal_exit").on('click', function () {
-		$(".modal_box").attr("style", "display:none")
-	})
-
-	function modal(boardnum) {
-		console.log("modal 실행")
-		$(".modal_box").attr("style", "display:flex")
-	}
-
-
-
-
 
 	/*
 	//enter => <br> textarea에 있는 value를 DB에 저장하기 위해서 해야함.

@@ -237,3 +237,7 @@ img.thumbnailImg {
 .note-statusbar {
 	border-top: none !important;
 }
+
+.campaignwrite .note-editor.note-frame{
+	width: 1340px !important;
+}
