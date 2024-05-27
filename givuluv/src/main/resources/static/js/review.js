@@ -15,4 +15,20 @@ const reviewService = {
 			}
 		})
 	},
+	update:function(data,callback){
+		$.ajax({
+			type:"PUT",
+			url:"/review/"+data.reviewnum,
+			data:JSON.stringify(data),
+			contentType:"application/json;charset=utf-8",
+			success:function(result,status,xhr){
+				console.log(result)
+				callback(result)
+			},
+			error:function(result,status,xhr){
+				
+			}
+		})
+	}
+	
 }

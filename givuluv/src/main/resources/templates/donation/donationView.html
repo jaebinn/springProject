@@ -105,8 +105,8 @@
 										<span class="rbox_date" th:text="${reviewWithNickname.review.reviewdate}">날짜</span>
 										<th:block th:if="${session.loginUser == reviewWithNickname.review.userid}">											
 											<div class="rbox_updateAndDelete">
-												<a href="#" id="updateReview">수정</a>
-												<a href="#" id="deleteReview">삭제</a>
+												<a href="#" class="updateReview" th:data-reviewnum="${reviewWithNickname.review.reviewnum}">수정</a>
+												<a th:href="@{/review/delete(reviewnum=${reviewWithNickname.review.reviewnum}, connectid=${reviewWithNickname.review.connectid})}" id="deleteReview">삭제</a>
 											</div>
 										</th:block>
 									</div>
@@ -116,11 +116,14 @@
 					</th:block>
 				</ul>
 			</ul>
+			<div class="moreBtn">
+				<input type="button" value="더보기" id="more">
+			</div>
 			<th:block th:if="${session.loginUser != null}">
 				<div class="comment replyForm">
 					<div class="comment_inbox">
 						<em class="comment_inbox_name">[[${loginNickname}]] ([[${session.loginUser}]])</em>
-						<textarea placeholder="댓글을 남겨보세요" rows="1" class="commentText" id="reviewdetail"></textarea>
+						<textarea placeholder="응원 메시지를 남겨보세요" rows="1" class="commentText" id="reviewdetail"></textarea>
 						<div class="comment_inbox_number">
 							<span class="blind">현재 입력한 글자수</span>
 							<strong class="inbox_count">0</strong>
@@ -156,6 +159,22 @@
 			alert("사용자로 로그인 후 이용해주세요");
 		 }
 	}
+	$(document).ready(function() {
+	    const comments = $('.rbox_list li');
+	    const numToShow = 10;
+	    let numInPage = numToShow;
+	
+	    comments.slice(numToShow).hide(); 
+	
+	    $('.moreBtn').on('click', function() {
+	        const hiddenComments = $('.rbox_list li:hidden');
+	        numInPage += numToShow;
+	        hiddenComments.slice(0, numToShow).show(); 
+	        if (hiddenComments.length === 0) {
+	            $(this).hide(); 
+	        }
+	    })
+	});
 	document.addEventListener("DOMContentLoaded", function () {
 	        const percentage = /*[[${percentage}]]*/"";
 	        const graphBarSpan = document.querySelector('#bar');
@@ -218,8 +237,8 @@
 				                                   <div class="rbox_info_date">
 				                                       <span class="rbox_date">${result.review.reviewdate}</span>
 				                                       <div class="rbox_updateAndDelete">
-				                                           <a href="#" id="updateReview">수정</a>
-				                                           <a href="#" id="deleteReview">삭제</a>
+				                                           <a href="#" id="updateReview" >수정</a>
+				                                           <a href="/review/delete?reviewnum=${result.review.reviewnum}&connectid=${result.review.connectid}" id="deleteReview">삭제</a>
 				                                       </div>
 				                                   </div>
 				                               </div>
@@ -228,10 +247,82 @@
 				                   
 				$('.rbox_list').append(newComment);
 				reviewdetail.val(''); 
+				$('#totalReview strong').text(result.reviewCnt);
 				console.log(result);
 			}
 		)
 	})
+	$(document).on('click', '#deleteReview', function(e) {
+	    e.preventDefault();
+	    const url = $(this).attr('href');
+		console.log(url)
+	    if (confirm("응원메시지를 삭제하시겠습니까?")) {
+	        window.location.href = url;
+	    }
+	});
+	$(document).on('click', '.updateReview', function(e) {
+	    e.preventDefault();
+	    const $commentBox = $(this).closest('.rbox_comment_box');
+	    const reviewDetail = $commentBox.find('.rbox_contents').text();
+	    const reviewNum = $(this).data('reviewnum');
+	    const updateAndDelete = $('.rbox_updateAndDelete');
+		const rboxDate = $commentBox.find('.rbox_date');
+		
+	    const $updateForm = $(`
+	        <div class="updateForm">
+				<div class="update_commentBox">
+					<div class="updateBox">
+			            <textarea class="updatedReviewDetail">${reviewDetail}</textarea>						
+					</div>
+					<div class="updateAndCancel">
+			            <a class="cancelUpdate">취소</a>					
+			            <a class="saveUpdate" data-reviewnum="${reviewNum}">저장</a>						
+					</div>
+				</div>
+	        </div>`
+	    );
+		updateAndDelete.hide();
+		rboxDate.hide();
+	    $commentBox.find('.rbox_text_wrap').empty().append($updateForm);
+		$updateForm.find('.updatedReviewDetail').focus();
+		
+		
+	});
+	
+	$(document).on('click', '.cancelUpdate', function(e) {
+	    e.preventDefault();
+		const $updateForm = $(this).closest('.updateForm');
+		const $commentBox = $(this).closest('.rbox_comment_box');
+		const reviewDetail = $updateForm.find('.updatedReviewDetail').val();
+		const updateAndDelete = $commentBox.find('.rbox_updateAndDelete');
+		const rboxDate = $commentBox.find('.rbox_date');
+		
+		$commentBox.find('.rbox_text_wrap').html(`<span class="rbox_contents">${reviewDetail}</span>`);
+		$updateForm.remove();
+		updateAndDelete.show();
+		rboxDate.show();
+	});
+	$(document).on('click', '.saveUpdate', function(e) {
+	    e.preventDefault();
+	    const updatedReviewDetail = $('.updatedReviewDetail').val();
+	    const reviewNum = $(this).data('reviewnum');
+		
+		console.log(updatedReviewDetail);
+		console.log(reviewNum)
+	    if (updatedReviewDetail.length > 100) {
+	        alert("100자를 초과할 수 없습니다.");
+	        return; 
+	    }
+		reviewService.update(
+			{reviewnum:reviewNum, updatedReviewDetail:updatedReviewDetail},
+			function(result){
+				
+				alert('댓글 수정 완료!');
+				window.location.href = "/donation/donationView?dBoardnum="+boardnum;
+				
+			}
+		)
+	});
 	
 </script>
 

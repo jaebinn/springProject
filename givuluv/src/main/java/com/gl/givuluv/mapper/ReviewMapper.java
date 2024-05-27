@@ -15,5 +15,9 @@ public interface ReviewMapper {
 	List<ReviewDTO> getReviewList(int dBoardnum);
 
 	int getReviewCnt(int dBoardnum);
+
+	boolean deleteReview(int reviewnum);
+
+	boolean updateReview(int reviewnum, String reviewdetail);
 	
 }

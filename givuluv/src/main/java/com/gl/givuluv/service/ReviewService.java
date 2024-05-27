@@ -12,4 +12,8 @@ public interface ReviewService {
 
 	int getReviewCnt(int dBoardnum);
 
+	boolean deleteReview(int reviewnum);
+
+	boolean updateReview(int reviewnum, String reviewdetail);
+
 }

@@ -16,4 +16,10 @@
 	<select id="getReviewCnt">
 		select count(reviewnum) from review where connectid=#{dBoardnum}
 	</select>
+	<delete id="deleteReview">
+		delete from review where reviewnum=#{reviewnum}
+	</delete>
+	<update id="updateReview">
+		update review set reviewdetail=#{reviewdetail}, reviewdate=now() where reviewnum=#{reviewnum}
+	</update>
 </mapper>

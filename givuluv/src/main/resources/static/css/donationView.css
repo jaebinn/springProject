@@ -256,7 +256,7 @@
 }
 .comment{
 	position: relative;
-	margin: 12px 0 29px;
+	margin: 29px 0;
     padding: 16px 10px 10px 18px;
     border: 2px solid lightgray;
     border-radius: 6px;
@@ -321,4 +321,39 @@
     font-weight: 700;
     text-align: center;
     border: 2px solid rgb(231,112,151);
+}
+.update_commentBox{
+	position: relative;
+	margin:12px 0 29px;
+	padding: 16px 10px 10px 18px;
+	border: 2px solid lightgray;
+	box-sizing: border-box;
+	border-radius: 6px;
+}
+.updatedReviewDetail{
+	resize: none;
+	border: none;
+	width: 100%;
+	min-height: 17px;
+    height: auto;
+}
+.updateAndCancel{
+	text-align: right;
+}
+.updateAndCancel a{
+    font-weight: 700;
+    color: rgb(231,112,151);
+    cursor: pointer;
+}
+.moreBtn{
+	text-align: center;
+}
+#more{
+	padding: 10px 30px;
+	border-radius: 30px;
+	border: 1px solid rgba(0,0,0,0.1);
+	cursor: pointer;
+}
+#more:hover{
+	border: 1px solid rgba(0,0,0,0.7);
 }

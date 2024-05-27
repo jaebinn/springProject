@@ -1,6 +1,8 @@
 package com.gl.givuluv.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +32,16 @@ public class ReviewServiceImpl implements ReviewService{
 	@Override
 	public int getReviewCnt(int dBoardnum) {
 		return rmapper.getReviewCnt(dBoardnum);
+	}
+
+	@Override
+	public boolean deleteReview(int reviewnum) {
+		return rmapper.deleteReview(reviewnum);
+	}
+
+	@Override
+	public boolean updateReview(int reviewnum, String reviewdetail) {
+		return rmapper.updateReview(reviewnum, reviewdetail);
 	}
 
 }
