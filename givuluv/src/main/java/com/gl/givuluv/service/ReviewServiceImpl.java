@@ -44,4 +44,9 @@ public class ReviewServiceImpl implements ReviewService{
 		return rmapper.updateReview(reviewnum, reviewdetail);
 	}
 
+	@Override
+	public List<ReviewDTO> getDReviewThree() {
+		return rmapper.getDReviewThree();
+	}
+
 }

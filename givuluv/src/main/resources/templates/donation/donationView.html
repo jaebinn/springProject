@@ -80,39 +80,39 @@
 				        <li>응원 메시지가 없습니다.</li>
 				</th:block>
 					<th:block th:each="reviewWithNickname : ${review}">
-						<li class="rbox_comment">
-							<div class="rbox_comment_box">
-								<div class="rbox_area">
-									<div class="rbox_info">
-										<span class="rbox_info_main">
-											<span class="rbox_name">
-												<span class="rbox_name_area">
-													<span class="rbox_nick_area">
-														<span class="rbox_nick" th:text="${reviewWithNickname.nickname}">닉네임</span>
-													</span>
-													<span class="rbox_id_area">
-														(<span class="rbox_id" th:text="${reviewWithNickname.review.userid}">아이디</span>)
+							<li class="rbox_comment">
+								<div class="rbox_comment_box">
+									<div class="rbox_area">
+										<div class="rbox_info">
+											<span class="rbox_info_main">
+												<span class="rbox_name">
+													<span class="rbox_name_area">
+														<span class="rbox_nick_area">
+															<span class="rbox_nick" th:text="${reviewWithNickname.nickname}">닉네임</span>
+														</span>
+														<span class="rbox_id_area">
+															(<span class="rbox_id" th:text="${reviewWithNickname.review.userid}">아이디</span>)
+														</span>
 													</span>
 												</span>
 											</span>
-										</span>
-										<span class="rbox_info_sub"></span>
-									</div>
-									<div class="rbox_text_wrap">
-										<span class="rbox_contents" th:text="${reviewWithNickname.review.reviewdetail}">리뷰 내용</span>
-									</div>
-									<div class="rbox_info_date">
-										<span class="rbox_date" th:text="${reviewWithNickname.review.reviewdate}">날짜</span>
-										<th:block th:if="${session.loginUser == reviewWithNickname.review.userid}">											
-											<div class="rbox_updateAndDelete">
-												<a href="#" class="updateReview" th:data-reviewnum="${reviewWithNickname.review.reviewnum}">수정</a>
-												<a th:href="@{/review/delete(reviewnum=${reviewWithNickname.review.reviewnum}, connectid=${reviewWithNickname.review.connectid})}" id="deleteReview">삭제</a>
-											</div>
-										</th:block>
+											<span class="rbox_info_sub"></span>
+										</div>
+										<div class="rbox_text_wrap">
+											<span class="rbox_contents" th:text="${reviewWithNickname.review.reviewdetail}">리뷰 내용</span>
+										</div>
+										<div class="rbox_info_date">
+											<span class="rbox_date" th:text="${reviewWithNickname.review.reviewdate}">날짜</span>
+											<th:block th:if="${session.loginUser == reviewWithNickname.review.userid}">											
+												<div class="rbox_updateAndDelete">
+													<a href="#" class="updateReview" th:data-reviewnum="${reviewWithNickname.review.reviewnum}">수정</a>
+													<a th:href="@{/review/delete(reviewnum=${reviewWithNickname.review.reviewnum}, connectid=${reviewWithNickname.review.connectid})}" id="deleteReview">삭제</a>
+												</div>
+											</th:block>
+										</div>
 									</div>
 								</div>
-							</div>
-						</li>
+							</li>
 					</th:block>
 				</ul>
 			</ul>
@@ -166,6 +166,10 @@
 	
 	    comments.slice(numToShow).hide(); 
 	
+	    if (comments.length <= numToShow) {
+	        $('.moreBtn').hide(); // 댓글이 10개 이하일 때 "더보기" 버튼 숨김
+	    }
+	
 	    $('.moreBtn').on('click', function() {
 	        const hiddenComments = $('.rbox_list li:hidden');
 	        numInPage += numToShow;
@@ -173,8 +177,9 @@
 	        if (hiddenComments.length === 0) {
 	            $(this).hide(); 
 	        }
-	    })
+	    });
 	});
+
 	document.addEventListener("DOMContentLoaded", function () {
 	        const percentage = /*[[${percentage}]]*/"";
 	        const graphBarSpan = document.querySelector('#bar');
@@ -214,7 +219,7 @@
 			function(result){
 				const newComment = `
 				                       <li class="rbox_comment">
-				                               <div c la ss="rb ox_ comme nt_b ox">
+				                               <div class="rbox_comment_box">
 				                                   <div class="rbox_area">
 				                                   <div class="rbox_info">
 				                                       <span class="rbox_info_main">
@@ -237,7 +242,7 @@
 				                                   <div class="rbox_info_date">
 				                                       <span class="rbox_date">${result.review.reviewdate}</span>
 				                                       <div class="rbox_updateAndDelete">
-				                                           <a href="#" id="updateReview" >수정</a>
+														   <a href="#" class="updateReview" data-reviewnum=${result.review.reviewnum}">수정</a>
 				                                           <a href="/review/delete?reviewnum=${result.review.reviewnum}&connectid=${result.review.connectid}" id="deleteReview">삭제</a>
 				                                       </div>
 				                                   </div>
@@ -281,7 +286,6 @@
 				</div>
 	        </div>`
 	    );
-		updateAndDelete.hide();
 		rboxDate.hide();
 	    $commentBox.find('.rbox_text_wrap').empty().append($updateForm);
 		$updateForm.find('.updatedReviewDetail').focus();

@@ -107,45 +107,20 @@
 				<h3 class="donation_review_title">응원 메시지</h3>
 				<div class="donation_review_card_list_wrap">
 					<ul class="donation_review_card_list">
-						<li class="donation_review_card_list_item">
-							<a href="#" class="donation_review_card_list_link">
+						<li th:each="review : ${reviewWithTitle}" class="donation_review_card_list_item">
+							<a th:href="@{/donation/donationView(dBoardnum=${review.review.connectid})}" class="donation_review_card_list_link">
 								<div class="donation_review_card_list_review_top">
 									<div class="donation_review_card_list_thumb">
-										<img src="https://happybean-phinf.pstatic.net/20230612_192/1686536189325KXi2w_JPEG/%EA%BF_%B4%EB%D7%D7.jpeg" width="70" height="70" alt="" class="donation_review_card_list_image">
+										<img th:src="${review.systemname}" width="70" height="70" alt=""
+											class="donation_review_card_list_image">
 									</div>
-									<strong class="donation_review_card_title">배고픈 꿀벌을 위한 꿀벌급식소 100% 달성!</strong>
+									<strong class="donation_review_card_title" th:text="${review.boardtitle}"></strong>
 								</div>
-							<div class="donation_review_card_list_info">
-								<span class="donation_review_card_list_text">식물이 열매를 맺는데 도움을 주는 꿀벌이지만 심각한 기후변화로 꿀벌의 집단 폐사 소식이 잦은요즘입니다. 2023년, 평화의숲과 유한킴벌리는 꿀벌이 꿀을 수확할 수 없는 배고픈 시기, 무밀기인 보릿고개를 무사히 넘길 수 있게 꽃가루떡과 밀원수를 지원하는 '꿀벌급식소' 모금함을 열었습니다. 후원자분들의 지원과 정성으로 모금함 100%를 달성해 2024년 봄, 최종 사업까지 마무리 했습니다. 보내주신 응원과 정성에 진심으로 감사드립니다.</span>
-							</div>
-							</a>
-					    </li>
-						<li class="donation_review_card_list_item">
-							<a href="#" class="donation_review_card_list_link">
-								<div class="donation_review_card_list_review_top">
-									<div class="donation_review_card_list_thumb">
-										<img src="https://happybean-phinf.pstatic.net/20230612_192/1686536189325KXi2w_JPEG/%EA%BF_%B4%EB%D7%D7.jpeg" width="70" height="70" alt="" class="donation_review_card_list_image">
-									</div>
-									<strong class="donation_review_card_title">배고픈 꿀벌을 위한 꿀벌급식소 100% 달성!</strong>
+								<div class="donation_review_card_list_info">
+									<span class="donation_review_card_list_text" th:text="${review.review.reviewdetail}"></span>
 								</div>
-							<div class="donation_review_card_list_info">
-								<span class="donation_review_card_list_text">식물이 열매를 맺는데 도움을 주는 꿀벌이지만 심각한 기후변화로 꿀벌의 집단 폐사 소식이 잦은요즘입니다. 2023년, 평화의숲과 유한킴벌리는 꿀벌이 꿀을 수확할 수 없는 배고픈 시기, 무밀기인 보릿고개를 무사히 넘길 수 있게 꽃가루떡과 밀원수를 지원하는 '꿀벌급식소' 모금함을 열었습니다. 후원자분들의 지원과 정성으로 모금함 100%를 달성해 2024년 봄, 최종 사업까지 마무리 했습니다. 보내주신 응원과 정성에 진심으로 감사드립니다.</span>
-							</div>
 							</a>
-					    </li>
-						<li class="donation_review_card_list_item">
-							<a href="#" class="donation_review_card_list_link">
-								<div class="donation_review_card_list_review_top">
-									<div class="donation_review_card_list_thumb">
-										<img src="https://happybean-phinf.pstatic.net/20230612_192/1686536189325KXi2w_JPEG/%EA%BF_%B4%EB%D7%D7.jpeg" width="70" height="70" alt="" class="donation_review_card_list_image">
-									</div>
-									<strong class="donation_review_card_title">배고픈 꿀벌을 위한 꿀벌급식소 100% 달성!</strong>
-								</div>
-							<div class="donation_review_card_list_info">
-								<span class="donation_review_card_list_text">식물이 열매를 맺는데 도움을 주는 꿀벌이지만 심각한 기후변화로 꿀벌의 집단 폐사 소식이 잦은요즘입니다. 2023년, 평화의숲과 유한킴벌리는 꿀벌이 꿀을 수확할 수 없는 배고픈 시기, 무밀기인 보릿고개를 무사히 넘길 수 있게 꽃가루떡과 밀원수를 지원하는 '꿀벌급식소' 모금함을 열었습니다. 후원자분들의 지원과 정성으로 모금함 100%를 달성해 2024년 봄, 최종 사업까지 마무리 했습니다. 보내주신 응원과 정성에 진심으로 감사드립니다.</span>
-							</div>
-							</a>
-					    </li>
+						</li>
 					</ul>
 				</div>
 			</div>
@@ -171,7 +146,6 @@
 				
 				    // 아이템의 총 개수
 				    let totalItems = $('.card_item').length;
-					console.log("몇개:"+totalItems)
 				    // 초기에는 itemsPerPage 개수까지만 표시되도록 설정
 				    $('.card_item:gt(' + (itemsPerPage - 1) + ')').hide();
 				
@@ -237,7 +211,29 @@
 								$('.card_list2').append('<p>등록된 기부 게시글이 없습니다.</p>');
 								$('.card_list2').css("text-align", "center");
 								$('.card_list2 p').css("line-height", "200px");
+								
 							}
+							let itemCount = $('.card_item').length;
+							let hidden = $('.card_item:hidden').length
+							console.log("글개수: "+itemCount)
+							console.log("히든: "+hidden)
+							    $('.card_item').hide();
+							    $('.card_item:lt(8)').show();
+
+							    if (itemCount > 8) {
+							         $('#more').show();
+							    } else {
+							         $('#more').hide();
+								}
+								$('#more').off('click').on('click', function () {
+								     $('.card_item:hidden').slice(0, 8).slideDown();
+								                
+								     // 모든 아이템이 표시되었을 경우 더보기 버튼을 숨깁니다.
+								     if ($('.card_item:hidden').length === 0) {
+								         $('#more').hide();
+								     }
+								});
+
 						},
 						error: function (xhr, status, error) {
 							console.error('AJAX Error: ', status, error);

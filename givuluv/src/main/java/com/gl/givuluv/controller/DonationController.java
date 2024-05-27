@@ -63,8 +63,8 @@ public class DonationController {
 	@GetMapping("dBoard")
 	public String dBoardList(Model model) {
 		List<DBoardDTO> list = dbservice.getList();
+		List<ReviewDTO> rlist = rservice.getDReviewThree();
 		
-		System.out.println(list);
 	    String src = "/summernoteImage/";
 		//orgname을 Map타입에 저장
 		Map<String, String> orgIdToNameMap = new HashMap<>();
@@ -86,18 +86,33 @@ public class DonationController {
 			}
 			//System.out.println(resultList);
 			//System.out.println(orgname);
-			
-        } 
+        }
+		List<Map<String, Object>> reviewWithTitle = new ArrayList<>();
+		for(ReviewDTO review : rlist) {
+			int rboardnum = review.getConnectid();
+			String boardtitle = dbservice.getDonation(rboardnum).getDTitle();
+			List<String> systemnameList = fservice.getSystemnameByBoardnum(rboardnum + "");
+			if (systemnameList != null && !systemnameList.isEmpty()) {
+				String systemname = src + systemnameList.get(1);
+				Map<String, Object> reviewDetail = new HashMap<>();
+		        reviewDetail.put("review", review);
+		        reviewDetail.put("boardtitle", boardtitle);
+		        reviewDetail.put("systemname", systemname);
+		        reviewWithTitle.add(reviewDetail);
+			} else {
+			}
+		}
 		//오늘날 기부한 금액 총합  
 		int todayCost = pservice.getTodayDonationCost(); 
 		//오늘날 기부한 사람들 
 		int todayDonationPeople = pservice.getTodayDonationPeople();
-		
+		System.out.println(reviewWithTitle);
 		
 		/* List<FileDTO> dfile = fservice.getFileByTypeisD(); */
 		model.addAttribute("list", resultList);
 		model.addAttribute("todayCost", todayCost);
 		model.addAttribute("todayDonationPeople", todayDonationPeople);
+		model.addAttribute("reviewWithTitle", reviewWithTitle);
 		return "donation/dBoard";
 	}
 	@GetMapping("donationView")

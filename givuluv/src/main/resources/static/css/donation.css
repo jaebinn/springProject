@@ -265,6 +265,9 @@
 	float: left;
     width: 33.3%;
 }
+.donation_review_card_list_info{
+	padding: 20px;
+}
 .donation_review_card_list_link{
 	display: block;
     overflow: hidden;

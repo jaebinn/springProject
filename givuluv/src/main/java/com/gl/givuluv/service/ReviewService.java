@@ -7,7 +7,9 @@ import com.gl.givuluv.domain.dto.ReviewDTO;
 public interface ReviewService {
 
 	ReviewDTO regist(ReviewDTO review);
-
+	
+	List<ReviewDTO> getDReviewThree();
+	
 	List<ReviewDTO> getReviewList(int dBoardnum);
 
 	int getReviewCnt(int dBoardnum);
@@ -15,5 +17,6 @@ public interface ReviewService {
 	boolean deleteReview(int reviewnum);
 
 	boolean updateReview(int reviewnum, String reviewdetail);
+
 
 }

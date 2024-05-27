@@ -10,6 +10,9 @@
 	<select id="getLastReview">
 		select * from review where userid=#{userid} order by reviewnum desc limit 1
 	</select>
+	<select id="getDReviewThree">
+		select * from review where type='d' order by reviewnum desc limit 3
+	</select>
 	<select id="getReviewList">
 		select * from review where connectid=#{dBoardnum}
 	</select>
