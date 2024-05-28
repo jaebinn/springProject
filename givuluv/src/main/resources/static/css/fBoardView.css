@@ -1,0 +1,476 @@
+@font-face {
+    font-family: 'TTLaundryGothicB';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/TTLaundryGothicB.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'KCC-Hanbit';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/KCC-Hanbit.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+*{ box-sizing: border-box; margin: 0; padding: 0; }
+
+ul, li {
+    list-style: none;
+}
+a{
+    text-decoration: none; /* 링크의 밑줄 제거 */
+    color: black; /* 링크의 텍스트 색상을 투명하게 설정 */
+}
+.funding_wrap{
+	width: 1340px;
+	overflow: hidden;
+    margin: 0 auto;
+    padding-bottom: 20px;
+}
+.fundingDetail_top{
+    position: relative;
+    width: 1140px;
+    height: auto;
+    margin: 0 auto;
+    padding: 50px 0 30px;
+    background-color: #fff;
+}
+.fundingDetail_cover{
+    position: relative;
+    float: left;
+    width: 750px;
+    margin-right: 40px;
+    font-family: NanumSquareWebFont, dotum, Sans-serif;
+}
+.fundingList{
+    position: relative;
+    font-size: 0;
+    line-height: 0;
+}
+.slick_list{
+	transform: translateZ(0);
+}
+.slick_track:after, .slick_track:before {
+    display: table;
+    content: "";
+}
+.slick-slide {
+    display: block;
+}
+.FundingDetailCover_thumbnail img{
+	width: 750px;
+	height: 480px;
+}
+.fundingSummary{
+	overflow: hidden;
+    position: relative;
+    font-family: NanumSquareWebFont, dotum, Sans-serif;
+}
+.fundingSummary .FundingDetailSummary_dday {
+    display: inline-block;
+    position: relative;
+    min-width: 54px;
+    padding: 3px 9px;
+    background-color: rgb(231, 112, 151);
+    border-radius: 13px;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.33;
+    color: #fff;
+    letter-spacing: -.4px;
+    text-align: center;
+}
+.fundingSummary .FundingDetailSummary_title{
+    word-break: keep-all;
+    word-wrap: break-word;
+    min-height: 82px;
+    margin-top: 12px;
+    font-size: 32px;
+    font-weight: 900;
+    line-height: 41px;
+    letter-spacing: -1px;
+}
+.FundingDetailSummary_graph{
+    width: 350px;
+    margin-top: 2px;
+}
+.FundingDetailSummary_graph .FundingDetailSummary_rate{
+    font-size: 28px;
+    text-align: right;
+    color: rgb(231, 112, 151);
+}
+.FundingDetailSummary_graph .FundingDetailSummary_bar {
+    position: relative;
+    width: 100%;
+    height: 3px;
+    margin-top: 7px;
+    background-color: #eee;
+}
+.FundingDetailSummary_graph .FundingDetailSummary_goal {
+    float: left;
+    margin-top: 13px;
+    font-size: 15px;
+    line-height: 1.13;
+    color: #828282;
+    letter-spacing: -.6px;
+}
+.FundingDetailSummary_graph .FundingDetailSummary_amount {
+    float: right;
+    margin-top: 14px;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.11;
+    letter-spacing: -.8px;
+}
+.FundingDetailSummary_amount .FundingDetailSummary_number {
+    display: inline-block;
+    margin: 0 1px -3px 0;
+    font-size: 23px;
+    line-height: 1.13;
+    letter-spacing: -1px;
+    vertical-align: bottom;
+}
+.FundingDetailSummary_profile {
+    overflow: hidden;
+    display: table;
+    position: relative;
+    width: 350px;
+    height: 60px;
+    margin: 26px 16px 0;
+    table-layout: fixed;
+}
+.FundingDetailSummary_profile .FundingDetailSummary_thumbnail {
+    display: table-cell;
+    width: 74px;
+    height: 60px;
+    padding-right: 14px;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+.FundingDetailSummary_profile .FundingDetailSummary_text {
+    display: table-cell;
+    width: 100%;
+    padding-top: 1px;
+    vertical-align: middle;
+}
+.FundingDetailSummary_profile .FundingDetailSummary_name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+    font-size: 16px;
+    font-weight: 700;
+    color: #000;
+    letter-spacing: -.3px;
+}
+.FundingDetailSummary_profile .FundingDetailSummary_introduction {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+    margin-top: 4px;
+    font-size: 14px;
+    color: #666;
+}
+.FundingDetailSummary_profile .FundingDetailSummary_link {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    content: "";
+}
+.FundingDetailSummary_profile .FundingDetailSummary_image {
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-size: cover;
+    width: 60px;
+    height: 60px;
+    background-origin: border-box;
+    border: 1px solid rgba(0, 0, 0, .05);
+    border-radius: 50%;
+}
+.FundingReward{
+    float: right;
+    position: relative;
+    width: 350px;
+    border-top: 1px solid rgba(0, 0, 0, .05);
+    padding-top: 18px;
+}
+.FundingReward_inner{
+	position: relative;
+}
+.funding_option{
+	position: relative;
+}
+#rewardList{
+	position: relative;
+    width: 100%;
+    height: 40px;
+    padding-left: 11px;
+    border: 1px solid rgba(0, 0, 0, .12);
+    border-radius: 3px;
+    font-size: 14px;
+    color: #202020;
+    text-align: left;
+}
+.FundingDetailSummary_list_cart {
+    margin-top: 20px;
+    border: 1px solid #000;
+    border-width: 1px 0;
+}
+.FundingDetailRewardCartItem_wrap {
+    position: relative;
+    padding: 18px 0;
+}
+.FundingDetailRewardCartItem_name {
+    display: block;
+    margin-right: 30px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.36;
+    color: #000;
+    word-break: break-all;
+}
+.FundingDetailRewardCartItem_counter{
+    position: relative;
+    width: 136px;
+    margin-top: 10px;
+}
+.FundingDetailRewardCartItem_input_count {
+    display: inline-block;
+    height: 38px;
+    background-color: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 3px;
+    font-size: 16px;
+    line-height: 1.25;
+    color: #333;
+    text-align: center;
+    vertical-align: top;
+}
+.FundingDetailRewardCartItem_input_count{
+    width: 100%;
+    padding: 2px 37px 0;
+}
+.FundingDetailRewardCartItem_button_minus {
+	position: absolute;
+    left: 0;
+}
+.FundingDetailRewardCartItem_icon_minus {
+    display: inline-block;
+    position: relative;
+    width: 30px;
+    height: 34px;
+    font-size: 0;
+    text-align: center;
+    vertical-align: top;
+}
+.FundingDetailRewardCartItem_icon_minus:after {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 15px;
+    height: 1px;
+    margin-left: 7px;
+    background-color: #666;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    content: "";
+}
+.FundingDetailRewardCartItem_icon_plus {
+    display: inline-block;
+    position: relative;
+    width: 30px;
+    height: 34px;
+    font-size: 0;
+    text-align: center;
+    vertical-align: top;
+}
+.FundingDetailRewardCartItem_button_plus {
+	position: absolute;
+    right: 0;
+}
+FundingDetailRewardCartItem_icon_plus:after {
+    -ms-transform: translate(-50%, -50%) rotate(90deg);
+    transform: translate(-50%, -50%) rotate(90deg);
+}
+.FundingDetailRewardCartItem_icon_plus:after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 1px;
+    height: 15px;
+    background-color: #666;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    content: "";
+}
+.FundingDetailRewardCartItem_icon_plus:before{
+	position: absolute;
+    top: 50%;
+    left: 0;
+    width: 15px;
+    height: 1px;
+    margin-left: 7px;
+    background-color: #666;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    content: "";
+}
+.FundingDetailRewardCartItem_input_amount, .FundingDetailRewardCartItem_input_count {
+    display: inline-block;
+    height: 38px;
+    background-color: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 3px;
+    font-size: 16px;
+    line-height: 1.25;
+    color: #333;
+    text-align: center;
+    vertical-align: top;
+}
+.FundingDetailRewardCartItem_button_delete{
+    position: absolute;
+    top: 5px;
+    right: -15px;
+    padding: 15px;
+    font-size: 0;
+    line-height: 0;
+    border: none;
+    background-color: #fff;
+    cursor: pointer;
+}
+.FundingDetailRewardCartItem_button_delete .FundingDetailRewardCartItem_icon:before {
+    -ms-transform: translate(-50%, -50%) rotate(45deg);
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+.FundingDetailRewardCartItem_button_delete .FundingDetailRewardCartItem_icon:after {
+    -ms-transform: translate(-50%, -50%) rotate(135deg);
+    transform: translate(-50%, -50%) rotate(135deg);
+}
+.FundingDetailRewardCartItem_button_delete .FundingDetailRewardCartItem_icon:after, .FundingDetailRewardCartItem_button_delete .FundingDetailRewardCartItem_icon:before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 19px;
+    height: 1px;
+    background-color: rgba(0, 0, 0, .2);
+}
+.FundingDetailRewardCartItem_button_delete .FundingDetailRewardCartItem_icon {
+    position: relative;
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+}
+FundingDetailSummary_total{
+    margin-top: 21px;
+}
+.FundingDetailSummary_total .FundingDetailSummary_count {
+    float: left;
+    margin: 6px 0 0 1px;
+    font-size: 14px;
+    color: #666;
+}
+.FundingDetailSummary_total .FundingDetailSummary_amount .FundingDetailSummary_name {
+    margin-right: 15px;
+    font-size: 15px;
+    font-weight: 700;
+}
+.blind{
+    overflow: hidden;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    clip: rect(0 0 0 0);
+}
+.FundingDetailRewardCartItem_amount {
+    position: absolute;
+    right: 0;
+    bottom: 27px;
+    font-size: 15px;
+}
+.FundingDetailSummary_total {
+    margin: 21px 0 15px 0;
+    display: flex;
+    justify-content: space-evenly;
+}
+.FundingDetailSummary_total .FundingDetailSummary_count {
+    float: left;
+    margin: 6px 0 0 1px;
+    font-size: 14px;
+    color: #666;
+}
+.FundingDetailSummary_total .FundingDetailSummary_amount .FundingDetailSummary_name {
+    margin-right: 15px;
+    font-size: 15px;
+    font-weight: 700;
+}
+.FundingDetailSummary_total .FundingDetailSummary_amount .FundingDetailSummary_number {
+    display: inline-block;
+    margin: -2px 1px 0 0;
+    font-family: NanumSquareWebFont, dotum, Sans-serif;
+    font-size: 27px;
+    font-weight: 800;
+    line-height: 1.11;
+    letter-spacing: -1.1px;
+    vertical-align: top;
+}
+.FundingDetailSummary_total .FundingDetailSummary_amount .FundingDetailSummary_description {
+    font-size: 17px;
+    line-height: 1.76;
+    color: rgb(231, 112, 151);
+}
+.FundingDetailSummary_total:after {
+    display: table;
+    table-layout: fixed;
+    clear: both;
+    content: "";
+}
+.FundingDetailSummary_delivery {
+    margin-top: 10px;
+    border-top: 1px solid rgba(0, 0, 0, .05);
+}
+.FundingDetailSummary_delivery .FundingDetailSummary_name:after {
+    display: inline-block;
+    width: 1px;
+    height: 14px;
+    margin: 2px 8px 0;
+    background-color: rgba(0, 0, 0, .15);
+    vertical-align: top;
+    content: "";
+}
+.FundingDetailSummary_delivery .FundingDetailSummary_name {
+    float: left;
+    font-size: 14px;
+    color: #666;
+}
+.FundingDetailSummary_delivery .FundingDetailSummary_description {
+    display: inline-block;
+    font-size: 13px;
+    color: #828282;
+    vertical-align: top;
+}
+.FundingDetailSummary_delivery .FundingDetailSummary_delivery_fee{
+    overflow: hidden;
+}
+.fundingBtn{
+	margin-top: 15px;
+	text-align: center;
+}
+#f_Btn{
+	width: 100%;
+	height: 50px;	
+	background-color: rgb(231, 112, 151);
+	border: none;
+	border-radius: 6px;
+	font-size: 18px;
+	color: white;
+	cursor: pointer;
+}
+.fundingDetail{
+	margin: 0 auto;
+	width: 1340px;
+	padding: 20px 100px;
+}

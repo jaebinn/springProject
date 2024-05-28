@@ -15,4 +15,11 @@
    <select id="getSystemnameByBoardnum">
 		select systemname from file where connectionid=#{dBoardnum}
    </select>
+   <select id="getFileByProductnum">
+		select * from file where connectionid = #{productnum} and type = 'M'
+	</select>
+   
+	<select id="getFileByStorenum">
+		select * from file where connectionid = #{storenum} and type = 'S'
+	</select>
 </mapper>

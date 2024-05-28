@@ -6,10 +6,10 @@ import lombok.Data;
 
 @Data
 public class ProductDTO {
-	private String productnum;
+	private int productnum;
 	private String productname;
-	private String pAmount;
-	private String cost;
+	private int pAmount;
+	private int cost;
 	private String connectid;
 	private char pType;
 

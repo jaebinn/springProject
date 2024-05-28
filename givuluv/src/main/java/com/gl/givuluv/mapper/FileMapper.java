@@ -21,5 +21,7 @@ public interface FileMapper {
 	int deleteFilesByBoardnum(long boardnum);
 	List<FileDTO> getFiles();
 	List<String> getSystemnameByBoardnum(String dBoardnum);
+	FileDTO getFileByProductnum(int productnum);
+	FileDTO getFileByStorenum(int storenum);
 
 }

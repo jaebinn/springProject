@@ -62,4 +62,9 @@ public class FundingController {
 		System.out.println("실패");
 		return "store/sBoard";
 	}
+	
+	@GetMapping("fundingView")
+	public String fundingView() {
+		return "/funding/fundingView";
+	}
 }

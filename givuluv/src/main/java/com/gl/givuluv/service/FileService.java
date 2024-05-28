@@ -8,4 +8,8 @@ public interface FileService {
 	boolean regist(FileDTO file);
 
 	List<String> getSystemnameByBoardnum(String dBoardnum);
+	
+	FileDTO getFileByProductnum(int productnum);
+
+	FileDTO getFileByStorenum(int storenum);
 }

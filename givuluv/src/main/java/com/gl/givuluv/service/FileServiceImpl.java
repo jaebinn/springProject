@@ -34,4 +34,15 @@ public class FileServiceImpl implements FileService{
 		}
 		return null;
 	}
+	
+	@Override
+	public FileDTO getFileByProductnum(int productnum) {
+		return fmapper.getFileByProductnum(productnum);
+	}
+	
+	@Override
+	public FileDTO getFileByStorenum(int storenum) {
+		return fmapper.getFileByStorenum(storenum);
+	}
+
 }

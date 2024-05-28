@@ -173,8 +173,8 @@
 	    $('.moreBtn').on('click', function() {
 	        const hiddenComments = $('.rbox_list li:hidden');
 	        numInPage += numToShow;
-	        hiddenComments.slice(0, numToShow).show(); 
-	        if (hiddenComments.length === 0) {
+	        hiddenComments.slice(0, numToShow).show();
+	        if (hiddenComments.length < 10) {
 	            $(this).hide(); 
 	        }
 	    });

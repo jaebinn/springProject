@@ -43,9 +43,7 @@ a, input {
 	/* menu_area - 메뉴 */
 	.menu_area {
 		background-color: white;
-		border: 1px solid #e0e0e0;
-		width: 250px; max-height: 500px;
-		padding: 30px;
+		width: 250px;  max-height: 300px;
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
@@ -204,6 +202,7 @@ a, input {
 	}
 	.QnA_div > div > .table > img {
 		width: 25px; height: 25px;
+		border: 1px solid #e0e0e0;
 		border-radius: 50%;
 		src: url("/images/default_profile.png");
 	}

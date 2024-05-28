@@ -10,5 +10,7 @@ public interface StoreMapper {
 	
 	StoreDTO getStoreBySellerId(String selloerId);
 	StoreDTO getStoreBySBoardnum(int sBoarddnum);
+
+	StoreDTO getStoreById(String connectid);
 	
 }

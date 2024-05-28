@@ -8,7 +8,10 @@
 	<select id="getStoreBySellerId">
 		select * from store where sellerid=#{sellerid}
 	</select>
-	<select id="getStoreBySBoardnum">
+	<!--<select id="getStoreBySBoardnum">
 		
-	</select>	
+	</select>	-->
+	<select id ="getStoreById">
+	     select * from store where sellerid = #{connectid}
+	</select>
 </mapper>

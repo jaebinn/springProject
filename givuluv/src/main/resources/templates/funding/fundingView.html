@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>funding</title>
+    <link rel="stylesheet" href="/css/fBoardView.css">
+	<link rel="stylesheet" href="/css/header_footer.css">
+	<script src="https://kit.fontawesome.com/516da99189.js" crossorigin="anonymous"></script>
+</head>
+<body>
+	<!-- header -->
+	<th:block th:replace="~{layout/header::header(loginUser)}"></th:block>
+	<!-- 컨텐츠 -->
+    <div class="funding_wrap">
+        <div class="fundingDetail_top">
+			<div class="fundingDetail_cover">
+				<div class="fundingList">
+					<div class="slick_list" style="padding: 0px;">
+						<div class="slide_track" style="width: 6000px; opacity: 1;">
+							<div class="slick-slide slick-current" style="width: 750px;">
+								<div>
+									<div class="FundingDetailCover_thumbnail" tabindex="-1" style="width: 100%; display: inline-block;">
+										<img src="/images/product.jpg" width="" height="" alt="" class="FundingDetailCover_image">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="fundingSummary">
+				<strong class="FundingDetailSummary_dday">D-38</strong>
+				<h3 class="FundingDetailSummary_title">꿀잠을 위한 안전지대! 항균성 비건 베개 커버</h3>
+				<div class="FundingDetailSummary_graph">
+					<div class="FundingDetailSummary_rate">
+						<strong class="FundingDetailSummary_number">19</strong>%
+					</div>
+					<div class="FundingDetailSummary_bar">
+						<span class="FundingDetailSummary_current" style="width: 19%;">
+						</span>
+					</div>
+					<span class="FundingDetailSummary_goal">
+						<span class="FundingDetailSummary_number">1,000,000</span>원 목표</span>
+						<span class="FundingDetailSummary_amount">
+							<strong class="FundingDetailSummary_number">194,000</strong>원</span>
+					</div>
+			</div>
+			<div class="FundingDetailSummary_profile">
+				<div class="FundingDetailSummary_thumbnail">
+					<div class="FundingDetailSummary_image" style="background-image: url(/images/product.jpg);">
+						
+					</div>
+				</div>
+				<div class="FundingDetailSummary_text">
+					<span class="FundingDetailSummary_name">피스하나</span>
+					<span class="FundingDetailSummary_introduction">지구를 위하는 라이프 테라피</span>
+				</div>
+				<div class="FundingDetailSummary_page">
+					<span class="FundingDetailSummary_box">공감가게<span class="FundingDetailSummary_icon"></span>
+				</span>
+				<a href="/flower/brand/peaceair" class="FundingDetailSummary_link" aria-label="공감가게 페이지로 이동"></a>
+			</div>
+		</div>
+		<div class="FundingReward">
+			<div class="FundingReward_inner">
+				<div class="funding_option">
+					<select id="rewardList">
+						<option value="" disabled selected hidden>펀딩 선택하기</option>
+						<option>베개커버 세트1</option>
+						<option>베개커버 세트2</option>
+						<option>베개커버 세트3</option>
+					</select>
+				</div>
+				<ul class="FundingDetailSummary_list_cart">
+					<li class="FundingDetailRewardCartItem_wrap">
+						<strong class="FundingDetailRewardCartItem_name">베개 커버 1개 / 딸기(연분홍)</strong>
+						<div class="FundingDetailRewardCartItem_counter">
+							<input id="reward-cart-item-1" type="number" class="FundingDetailRewardCartItem_input_count" value="1">
+							<label for="reward-cart-item-1" class="blind">개수</label>
+							<button type="button" class="FundingDetailRewardCartItem_button_minus" disabled="">
+								<span class="FundingDetailRewardCartItem_icon_minus">
+								</span>
+								<span class="blind">-</span>
+							</button>
+							<button type="button" class="FundingDetailRewardCartItem_button_plus">
+								<span class="FundingDetailRewardCartItem_icon_plus">
+								</span>
+								<span class="blind"><i class="fa-light fa-plus"></i></span>
+							</button>
+						</div>
+						<span class="FundingDetailRewardCartItem_amount">
+							<strong>35,000</strong>원</span>
+							<button class="FundingDetailRewardCartItem_button_delete">
+								<span class="FundingDetailRewardCartItem_icon"></span>
+								<span class="blind">삭제</span>
+							</button>
+						</li>
+					</ul>
+					<div class="FundingDetailSummary_total">
+						<div class="FundingDetailSummary_count">총 수량<span class="FundingDetailSummary_number">1</span>개</div>
+						<div class="FundingDetailSummary_amount">
+							<strong class="FundingDetailSummary_name">총 금액</strong>
+							<strong class="FundingDetailSummary_description">
+							<span class="FundingDetailSummary_number">35,000</span>원</strong>
+						</div>
+					</div>
+					<div class="FundingDetailSummary_delivery">
+						<span class="FundingDetailSummary_name">배송비</span>
+						<div class="FundingDetailSummary_delivery_fee">
+							<span class="FundingDetailSummary_amount">
+								<strong>4,000</strong>원</span>
+							<span class="FundingDetailSummary_description">(200,000원 이상 구매 시 무료)</span>
+							<span class="FundingDetailSummary_description">도서산간지역 추가 5,500원</span>
+						</div>
+					</div>
+					<div class="fundingBtn">
+						<input type="button" id="f_Btn" value="펀딩 참여하기">
+					</div>
+			</div>
+		</div>
+	</div>
+	</div>
+	<div class="fundingDetail">
+		
+	</div>
+	<!-- footer -->
+	<th:block th:replace="~{layout/footer::footer()}"></th:block>
+</body>
+<script src="/js/jquery-3.7.1.min.js"></script>
+<script th:inline="javascript">
+	$(document).ready(function() {
+	            const itemsPerPage = 20;
+	            const totalItems = $('.funding_item_box').length;
+	            $('.funding_item_box').slice(itemsPerPage).hide();
+	
+	            if (totalItems <= itemsPerPage) {
+	                $('#funding_more').hide();
+	            }
+	
+	            $('#funding_more').click(function() {
+	                const hiddenItems = $('.funding_item_box:hidden');
+	                hiddenItems.slice(0, itemsPerPage).show();
+	
+	                if (hiddenItems.length <= itemsPerPage) {
+	                    $('#funding_more').hide();
+	                }
+	            });
+				
+				const slidelength = $(".banner img").length; //banner list의 길이
+				let currentIndex = 0
+				const moveSlide = function(num){
+					$(".slide_banner").attr("style",`transform:translateX(${-num * 2200}px)`)
+					currentIndex = num;
+				}
+				$(".prev").on("click",function(num){
+					if(currentIndex !== 0){
+						moveSlide(currentIndex-1)
+					}
+				});
+				$(".next").on("click",function(num){
+					if(currentIndex !== slidelength-1){
+						moveSlide(currentIndex+1)
+					}
+				});
+				setInterval(()=>{
+				       if(currentIndex !== slidelength -1){
+					       moveSlide(currentIndex +1);
+				       } else {
+				           moveSlide(0);
+				       }
+				}, 2500)
+	        });
+</script>
+</html>
