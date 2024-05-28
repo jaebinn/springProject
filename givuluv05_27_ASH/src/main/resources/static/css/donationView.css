@@ -1,0 +1,238 @@
+@font-face {
+    font-family: 'TTLaundryGothicB';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/TTLaundryGothicB.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+*{
+   margin: 0;padding: 0;
+   font-family: 'TTLaundryGothicB';
+}
+.container{
+	width: 1340px;
+    margin: 0 auto 40px;
+    border-bottom: 1px solid #e5e5e5;
+}
+.donation_wrap{
+	width: 100%;
+    position: relative;
+    overflow: hidden;
+    margin: 0;	
+}
+.donation_content{
+	float: left;
+    width: 930px;
+    padding: 60px 94px 90px;
+    font-size: 16px;
+}
+.donation_side{
+	float: left;
+    width: 282px;
+    font-size: 15px;
+    margin-top: 20px;
+}
+.theme{
+	padding-bottom: 16px;
+    font-size: 17px;
+    font-weight: 400;
+    color: rgb(231,112,151);
+    letter-spacing: -.06em;
+    line-height: 1;
+}
+.tit{
+	font-size: 36px;
+    font-weight: 400;
+    color: #222;
+    letter-spacing: .4px;
+    line-height: 40px;
+}
+.d_content{
+	margin-top: 20px;
+}
+.graph_status {
+    padding-right: 2px;
+}
+.donation_side .section_status {
+    position: relative;
+    padding-bottom: 25px;
+}
+.section_status .graph_bar {
+    width: 100%;
+    height: 4px;
+    margin-top: 3px;
+    background: #ebebeb;
+}
+#bar{
+	display: inline-block;
+    height: 4px;
+    background: rgb(231,112,151);
+    vertical-align: top;
+}
+.donation_side .section_status .term_area p {
+    padding: 13px 0 11px;
+    font-size: 18px;
+    color: #888;
+    letter-spacing: -.04em;
+}
+.donation_side .section_status .term_area p strong {
+    display: inline-block;
+    font-size: 18px;
+    font-weight: 400;
+    vertical-align: text-top;
+}
+.donation_side .section_status .term_area div {
+    min-height: 21px;
+    padding-left: 2px;
+}
+.donation_side .section_status .term_area div span {
+    display: inline-block;
+    height: 20px;
+    padding: 1px 10px 0;
+    margin-right: 5px;
+    border-radius: 2px;
+    background: #f86f46;
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 21px;
+    text-align: center;
+    vertical-align: top;
+}
+.donation_side .section_status .num_area {
+    padding-top: 24px;
+}
+.num_area #won{
+	font-size: 22px;
+}
+.section_status .num_area .status_num strong {
+    display: inline-block;
+    font-size: 34px;
+    font-weight: 400;
+    color: #444;
+    letter-spacing: -1.3px;
+    vertical-align: text-top;
+}
+.section_status .num_area .status_num span {
+    display: inline-block;
+    margin: 8px 0 0 4px;
+    vertical-align: text-top;
+}
+.num_area .status_num+.detail_num {
+    margin-top: 3px;
+}
+.num_area .detail_num strong {
+    font-weight: 400;
+    vertical-align: middle;
+}
+.num_area .detail_num {
+    margin-left: -3px;
+    font-size: 16px;
+    color: #888;
+    letter-spacing: -.02em;
+    line-height: 22px;
+}
+.num_area .detail_num.v2 {
+    margin: 6px 0 0 0;
+    color: #888;
+}
+.donation_side .bt {
+    display: inline-block;
+    width: 282px;
+    height: 60px;
+    padding-top: 17px;
+    border: 1px solid rgba(0, 0, 0, .1);
+    background: rgb(231,112,151);
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+    text-decoration: none;
+    text-shadow: 0 0 1px #086a1e;
+    text-align: center;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.donation_side .section_group {
+    border-top: 1px solid #e5e5e5;
+}
+.section_group .group_bx {
+    padding: 28px 30px 23px 30px;
+}
+/*.section_group h3 {
+    margin-left: 1px;
+}*/
+.section_group h3 img {
+    float: left;
+    margin-top: 2px;
+    margin-right: 10px;
+}
+.section_group h3 span {
+    overflow: hidden;
+    width: 170px;
+    margin-left: 16px;
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: .01em;
+    line-height: 20px;
+    color: #444;
+    vertical-align: top;
+}
+.section_group h3 a {
+    color: #000;
+}
+.section_group h3 span strong {
+    display: block;
+    overflow: hidden;
+    max-width: 100%;
+    font-size: 20px;
+    color: #444;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin: 5px 0 0 55px;
+}
+.donation_side .section_group .info_lst {
+    width: auto;
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: 1px solid #f0f0f1;
+}
+.donation_side .section_group .info_lst li {
+    font-size: 15px;
+    letter-spacing: -.04em;
+    line-height: 28px;
+}
+.donationReview{
+	width: 930px;
+	padding: 0 94px 90px;
+    background-color: #fff;
+}
+#d_review{
+	padding-bottom: 15px;
+	border-bottom: 1px solid black;
+}
+#totalReview{
+	padding: 15px 0;
+}
+#totalReview strong{
+	color: rgb(231,112,151);
+}
+.rbox_list {
+    margin-top: 4px;
+}
+.rbox_info {
+    padding-bottom: 8px;
+}
+.rbox_text_wrap {
+    font-size: 15px;
+    line-height: 1.5;
+    color: #202020;
+    letter-spacing: -.3px;
+}
+.rbox_info_date .rbox_date{
+	font-size: 13px;
+    color: #828282;
+	
+}
+.rbox_comment{
+	border-bottom: 0.5px solid lightgray;
+	padding-bottom: 15px;
+}

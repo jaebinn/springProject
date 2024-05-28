@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/register.css}">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poor+Story&display=swap');
+    </style>
+</head>
+<body>
+<div class="re_wrap">
+    <!--헤더-->    
+    <div class="re_header">
+        <div class="re_header_inner">
+            <div class="re_logobox">
+                <a th:href="@{/}" class="re_logo">
+                    <img src="/images/GivuLuv_logo.png" alt="">
+                </a>
+                <a th:href="@{/}" class="re_tit">
+                    기부러브
+                </a>
+                <span class="re_subtitle">기부러브로그 가입</span>
+            </div>
+        </div>            
+    </div>
+    <div class="re_main">
+        <!--비주얼 메인-->
+        <div class="re_visual_area">
+            <div class="re_visual_inner">
+                <p class="re_slogan">
+                    <span class="re_slogan_subtitle">
+                        <span>네티즌과 함께 더 나은 변화를 만들어내는</span>
+                    </span>
+                    <span class="re_slogan_title">
+                        <span>온라인 모금 플랫폼 기부러브로그</span>
+                    </span>
+                </p>
+                <div class="re_button_area">
+                    <a href="/org/logsignup" class="re_button_join" id="joinButton">가입하기</a>
+                    <a href="#" class="re_modify">신청서 수정</a>
+                </div>
+                <div class="re_banner_area">
+                    <div class="re_banner_container">
+                        <div class="re_banner_wrapper">
+                            <div class="re_banner_item">
+                                <span class="re_banner_img1" style="background-image: url(https://cdn.pixabay.com/photo/2017/08/30/07/56/money-2696228_1280.jpg)"></span>
+                                <p class="re_banner_text">"긴급한 기금이 필요할 때 바로 모금을 시작할 수 있었어요"</p>
+                            </div>
+                            <div class="re_banner_item">
+                                <span class="re_banner_img2" style="background-image: url(https://cdn.pixabay.com/photo/2021/10/06/21/56/freelance-6686755_1280.png)"></span>
+                                <p class="re_banner_text">"온라인에서 쉽게 모금함을 만들고 모금액은 100% 전달 받아요"</p>
+                            </div>
+                            <div class="re_banner_item">
+                                <span class="re_banner_img3" style="background-image: url(https://cdn.pixabay.com/photo/2021/09/03/11/04/success-6595539_1280.png)"></span>
+                                <p class="re_banner_text">"다양한 지원 프로그램 덕분에 단체와 담당자가 함께 성장해요"</p>
+                            </div>
+                            <div class="re_banner_item">
+                                <span class="re_banner_img4" style="background-image: url(https://cdn.pixabay.com/photo/2018/02/19/13/26/crowdfunding-3165075_1280.png)"></span>
+                                <p class="re_banner_text">"기부자에게 투명하고 빠르게 모금 소식을 알릴 수 있어요"</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 가입 조건-->
+        <div class="re_join_condition">
+            <div class="re_condition_inner">
+                <div class="re_condition_left">
+                    <h2 class="re_join_title">가입 조건</h2>
+                </div>
+                <div class="re_condition_right">
+                    <ul class="re_condition_list">
+                        <li class="re_condition_item">
+                            <a href="#" role="button" id="button1">
+                                단체 설립 및 운영기간이 3년 이상인 단체 
+                            </a>
+                            <div class="re_condition_desc" id="desc1">단체 설립을 공식적으로 확인할 수 있는 서류상 설립일 3년이 넘어야 합니다.</div>
+                        </li>
+                        <li class="re_condition_item">
+                            <a href="#" role="button" id="button2">
+                                순수비영리민간법인 혹은 단체
+                            </a>
+                            <div class="re_condition_desc"
+                            id="desc2">가입 가능한 단체 유형은 아래와 같습니다.
+                            <ul>
+                                <li>사회복지법인</li>
+                                <li>사회복지시설</li>
+                                <li>사단법인</li>
+                                <li>재단법인</li>
+                                <li>비영리민간단체</li>
+                                <li>사회적협동조합</li>
+                            </ul>
+                            </div>
+                        </li>
+                        <li class="re_condition_item">
+                            <a href="#" role="button" id="button3">
+                                공익사업을 주사업으로하며,고유목적사업이 정관에 명시된 단체
+                            </a>
+                            <div class="re_condition_desc"
+                            id="desc3">
+                                <ul>
+                                    <li>소외＊취약계층의 삶의 질 향상과 변화의 기회 제공</li>
+                                    <li>시민참여를 통하 지역사회변화와 공익 추구</li>
+                                    <li>환경,복지,보건의료,교육,문화,주거,고용 등과 같은 영역 활동</li>
+                                    <li>그 외 사회 변화를 추구하는 공익 사업 운영</li>
+                                </ul>
+                            </div>    
+                        </li>
+                        <li class="re_condition_item">
+                            <a href="#" role="button" id="button4">
+                                공익사업을 주사업으로하며,고유목적사업이 정관에 명시된 단체
+                            </a>
+                            <div class="re_condition_desc"
+                            id="desc4">
+                                <ul>
+                                    <li>특례기부금단체</li>
+                                    <li>일반기부금단체</li>
+                                </ul>
+                            </div>    
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--가입 절차-->
+        <div class="re_join_process">
+            <div class="re_process_inner">
+                <div class="re_process_left">
+                    <h2 class="re_join_title">가입 절차</h2>
+                </div>
+                <div class="re_process_right">
+                    <ol class="re_process_list">
+                        <li class="re_process_item">
+                            <img src="/images/가입신청icon.png" class="re_joinicon">
+                            가입신청
+                            <br>
+                            &서류제출
+                        </li>
+                        <li class="re_process_item">
+                            <img src="/images/승인심사.png" class="re_judgeicon">
+                            승인심사
+                            <span class="re_process_subtext">
+                                매월 1회 진행
+                                <br>
+                                (11월~1월은 진행 안함)
+                            </span>
+                        </li>
+                        <li class="re_process_item">
+                            <img src="/images/결과 안내.png"
+                            class="re_resulticon">
+                            결과안내
+                            <span class="re_process_subtext">
+                                심사 후 7일 이내,
+                                <br>
+                                이메일 통보
+                            </span>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <div class="re_join_check">
+            <div class="re_check_inner">
+                <h2 class="re_check_title">확인사항</h2>
+                <ul class="re_check_list">
+                    <li>
+                        '가입하기' 버튼을 누르시고 빈칸에 정보를 빠짐없이 입력해주세요.
+                    </li>
+                    <li>
+                        신청서 작성 중'임시 저장'이 가능하며,'신청서 수정'에서 이어서 작성할 수 있습니다.
+                    </li>
+                    <li>
+                        '임시 저장'한 신청서는 최초 작성 일로부터 180일 동안만 보관합니다.
+                    </li>
+                    <li>
+                        가입 심사에 필요한 서류는 반드시 첨부해주세요.
+                        <a href="#">서류확인하기</a>
+                    </li>
+                    <li>
+                        제출이 완료된 가입 신청서는 내용을 확인하거나 수정할 수 없습니다.
+                    </li>
+                    <li>
+                        기부러브로그 탈퇴 이력이 있는 단체의 경우 사유에 따라 재가입이 가능합니다.
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="re_footer">
+        <div class="re_footer_inner">
+            <p><a href="#">기부러브</a><span>Copyright © GivuLuv Corp. All Rights Reserved.</span></p>
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const buttons = document.querySelectorAll('a[role="button"]');
+
+        buttons.forEach(button => {
+            button.addEventListener('click', function(event) {
+                event.preventDefault();
+                const id = this.id.replace('button', 'desc');
+                const desc = document.getElementById(id);
+                if (desc.style.display === "none" || desc.style.display === "") {
+                    desc.style.display = "block";
+                } else {
+                    desc.style.display = "none";
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>
