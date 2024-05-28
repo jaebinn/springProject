@@ -43,8 +43,7 @@ a, input {
 	/* menu_area - 메뉴 */
 	.menu_area {
 		background-color: white;
-		max-height: 500px;
-		padding: 30px;
+		width: 250px;  max-height: 300px;
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
@@ -59,12 +58,24 @@ a, input {
 		gap: 3px;
 		border-bottom: 1px solid #e0e0e0;
 	}
-	.menu_area > div > a {
+	
+	/* 버튼 호버 */
+	.menu_area > div > a,
+	.file_btn > a,
+	#checkid:hover,
+	#findzipcode:hover,
+	#joinBtn {
 		transition: all 0.3s;
 	}
 	.menu_area > div > a:hover,
-	.menu_area > :nth-child(2) > :nth-child(3) {
+	.menu_area > :nth-child(2) > :nth-child(3),
+	.file_btn > a:hover,
+	#checkid:hover,
+	#findzipcode:hover {
 		color: #e77097;
+	}
+	#joinBtn:hover {
+		background-color: rgb(0, 166, 0);
 	}
 	
 	/* contents_area - 본문 내용 */
@@ -76,6 +87,13 @@ a, input {
 		flex-direction: column;
 		gap: 40px;
 		padding: 20px;
+	}
+	#joinBtn {
+		width: 350px; height: 40px;
+		background-color: #2f956b;
+		color: white;
+		border: 1px solid #e0e0e0;
+		margin: auto;
 	}
 		/* button_div - 사용자 버튼 */
 		.button_div {
@@ -109,7 +127,7 @@ a, input {
 			margin-left: 10px;
 		}
 		.update_div {
-			width: 100%;
+			width: 100%; max-height: 340px;
 			display: grid;
 			grid-template-columns: repeat(2, 1fr);
 		}
@@ -117,6 +135,9 @@ a, input {
 			width: 100%;
 			font-size: 15px;
 			border-spacing: 10px;
+		}
+		.sName_checkBox > td > p {
+			text-align: center;
 		}
 		tbody > tr > th {
 			width: 111px;
@@ -133,8 +154,40 @@ a, input {
 			width: 100%;
 		}
 		.hellpPhoto_div {
-			border: 1px solid black;
+			border: 1px solid #e0e0e0;
+			width: 100%; max-height: 340px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+		.hellpPhoto_div:hover {
+			cursor: pointer;
+		}
+		.hellpPhoto_div > img {
 			width: 100%; height: 100%;
+			object-fit: contain;
+		}
+		.file_cont {
+			border-bottom: 1px solid #e0e0e0;
+			color: #757575;
+		}
+		.file_btn {
+			display: flex;
+			align-items: center;
+			justify-content: space-around;
+		}
+		.file_btn > a{
+			width: 85px; height: 30px;
+			background-color: #e0e0e0;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+		.contents_form > table > tbody > tr > td > .content {
+			padding: 5px;
+			border: 1px solid #e0e0e0;
+			resize: none;
+			outline: none;
 		}
 	
 	
