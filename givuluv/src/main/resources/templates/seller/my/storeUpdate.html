@@ -23,7 +23,7 @@
 			<div class="menu_area">
 				<div>
 					<h3>상품</h3>
-					<a>현제 재고현황</a>
+					<a href="/seller/my/productNow">현제 재고현황</a>
 					<a>새 물품 등록</a>
 				</div>
 				<div>
@@ -33,11 +33,11 @@
 				</div>
 				<div>
 					<h3>Q&A</h3>
-					<a>Q&A 목록 및 관리</a>
+					<a href="/seller/my/qna">Q&A 목록 및 관리</a>
 				</div>
 				<div>
 					<h3>리뷰</h3>
-					<a>리뷰 목록 및 관리</a>
+					<a href="/seller/my/reviewList">리뷰 목록 및 관리</a>
 				</div>
 			</div>
 			<div class="contents_area">
@@ -46,11 +46,11 @@
 						<img src="/images/seller/my/스토어.png">
 						<span>apple님 스토어</span>
 					</a>
-					<a>
+					<a href="/seller/my/reviewList">
 						<img src="/images/seller/my/review.png">
 						<span>리뷰</span>
 					</a>
-					<a>
+					<a href="/seller/my/qna">
 						<img src="/images/seller/my/qna.png">
 						<span>Q&A</span>
 					</a>
@@ -61,15 +61,10 @@
 				</div>
 				<h1>스토어 정보 수정</h1>
 				<div class="update_div">
-					<form action="/seller/storeUpdate" class="innfo_form" method="post" name="storeUpdateForm"
+					<form action="/seller/storeUpdate" class="info_form" method="post" name="storeInfoForm"
 						enctype="multipart/form-data">
 						<table class="su_table">
 							<tbody>
-								<tr class="sName_checkBox">
-									<td>
-										<p id="sName_check"></p>
-									</td>
-								</tr>
 								<tr>
 									<th><label for="s_name">스토어 이름</label></th>
 									<td>
@@ -79,10 +74,15 @@
 										<input type="button" value="중복검사" onclick="check_sName()" id="checkid">
 									</td>
 								</tr>
+								<tr class="sName_checkBox">
+									<td colspan="3">
+										<p id="sName_check"></p>
+									</td>
+								</tr>
 								<tr>
 									<th><label for="s_phone">스토어 전화번호</label></th>
 									<td>
-										<input type="text" name="s_phone" id="s_phone" placeholder="전화번호">
+										<input type="text" name="s_phone" id="s_phone" placeholder="ex) 010-1234-5678">
 									</td>
 								</tr>
 								<tr>
@@ -122,39 +122,41 @@
 								<tr>
 									<th><label for="s_leader">대표자 이름</label></th>
 									<td>
-										<input type="text" name="s_leader" id="s_leader">
+										<input type="text" name="s_leader" id="s_leader" placeholder="대표자이름">
 									</td>
 								</tr>
 							</tbody>
 						</table>
-						<button type="button" id="joinBtn" onclick="sendit()">수정 완료</button>
 					</form>
-					<div class="hellpPhoto_div">
-
+					<div class="hellpPhoto_div" onclick="javascript:BP_plus()">
+						<img class="thumbnail" src="/images/seller/my/그림추가이미지.png" style="width: 100px; height: 100px;">
 					</div>
 				</div>
-				<form class="contents_form">
+				<form action="/seller/storeUpdate" class="contents_form" method="post" name="storeContentsForm" enctype="multipart/form-data">
 					<table>
 						<tbody>
 							<tr>
 								<th><label>배경사진</label></th>
 								<td class="file_cont">
-									<input type="file" name="files" id="file" style="display:none">
-									<span id="filename">로고 사진을 업로드하세요.</span>
+									<input type="file" name="files" id="BP_file" style="display:none">
+									<span id="filename">배경 사진을 업로드하세요.</span>
 								</td>
-								<td>
-									<a class="btn" href="javascript:upload()">파일 선택</a>
+								<td class="file_btn">
+									<a class="btn" href="javascript:BP_plus()">파일 추가</a>
+									<a class="btn" href="javascript:BP_remove()">파일 삭제</a>
 								</td>
 							</tr>
 							<tr>
 								<th><label>대표문구</label></th>
 								<td>
-									<textarea cols="50" rows="8"></textarea>
+									<textarea onkeydown="if(event.keyCode===9){var v=this.value,s=this.selectionStart,e=this.selectionEnd;this.value=v.substring(0, s)+'\t'+v.substring(e);this.selectionStart=this.selectionEnd=s+1;return false;}"
+									class="content" cols="50" rows="8" placeholder="대표문구를 작성하세요."></textarea>
 								</td>
 							</tr>
 						</tbody>
 					</table>
 				</form>
+				<button type="button" id="joinBtn" onclick="sendit()">수정 완료</button>
 			</div>
 		</div>
 	</div>
@@ -164,5 +166,63 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="/js/storeUpdate.js"></script>
+<script>
+	function BP_plus(){
+		$("#BP_file").click();
+	}
+	
+	//$(선택자).change(함수) : 해당 선택자의 요소에 변화가 일어난다면 넘겨주는 함수 호출
+	$("[type=file]").change(function(e){
+		//e : 파일이 업로드된 상황 자체를 담고있는 이벤트 객체
+		//e.target : 파일이 업로드가 된 input[type=file] 객체(태그객체)
+		const fileTag = e.target;
+		console.log(fileTag);
+		//e.target.files : 파일태그에 업로드가 된 파일들의 배열
+		const file = fileTag.files[0];
+		console.log(file);
+		
+		if(file == undefined){
+			//업로드 창을 띄웠다가 취소한 경우(파일이 업로드 되었다가 없어진 경우)
+			cancelFile(fileTag.id.split("e").pop());
+		}
+		else{
+			//파일을 업로드를 한 경우(없었다가 업로드, 있었는데 다른 파일로 업로드)
+			//#file0name 찾아서 내부 텍스트 변경(파일의 이름으로)
+			$("#"+fileTag.id+"name").text(file.name);
+			$("#"+fileTag.id+"name").attr("style","color:black");
+			
+			//업로드 된 파일의 확장자명			
+			let ext = file.name.split(".").pop();
+			if(ext == "jpeg" || ext == "png" || ext == "jpg" || ext == "webp" || ext == "gif"){
+				//".  file0       _cont"
+				$(".thumbnail").remove();
+				const reader = new FileReader();
+				reader.onload = function(ie){
+					const img = document.createElement("img");
+					img.setAttribute("src",ie.target.result);
+					img.setAttribute("class","thumbnail");
+					document.querySelector(".hellpPhoto_div").append(img);
+				}
+				reader.readAsDataURL(file);
+			}
+			else{
+				$("."+fileTag.id+"_cont").remove();
+			}
+		}
+	})
+	function BP_remove(){
+		$(".thumbnail").remove();
+		
+		const img = document.createElement("img");
+		img.setAttribute("src", "/images/seller/my/그림추가이미지.png");
+		img.setAttribute("class","thumbnail");
+		img.setAttribute("style","width: 100px; height: 100px;");
+		document.querySelector(".hellpPhoto_div").append(img);
+		
+		$("#filename").text("배경 사진을 업로드하세요.");
+		$("#filename").attr("style","color:#757575");		
+		return;
+	}
+</script>
 
 </html>

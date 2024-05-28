@@ -1,0 +1,255 @@
+/* 폰트 */
+@font-face {
+    font-family: 'TTLaundryGothicB';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/TTLaundryGothicB.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'KCC-Hanbit';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/KCC-Hanbit.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 전체  */
+* table, tr,th,td {
+	box-sizing: border-box;
+	font-family: 'KCC-Hanbit';
+}
+body {
+	background-color: white;
+}
+a, input {
+	cursor: pointer;
+}
+.wrap {
+	
+	width: 1000px;
+	min-height: 800px;
+	margin: 0 auto;
+	margin-top: 20px;
+}
+
+/* 컨텐츠 */
+
+/* down_area - 내용 영역 */
+.down_area {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	gap: 30px;
+}
+	/* menu_area - 메뉴 */
+	.menu_area {
+		background-color: white;
+		width: 250px;  max-height: 300px;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		align-items: center;
+		gap: 30px;
+	}
+	.menu_area > div {
+		width: 100%;
+		padding-bottom: 10px;
+		display: flex;
+		flex-direction: column;
+		gap: 3px;
+		border-bottom: 1px solid #e0e0e0;
+	}
+	
+	/* 버튼 호버 */
+	.menu_area > div > a,
+	.file_btn > a,
+	#checkid:hover,
+	#findzipcode:hover,
+	#joinBtn {
+		transition: all 0.3s;
+	}
+	.menu_area > div > a:hover,
+	.menu_area > :nth-child(3) > :nth-child(2),
+	.file_btn > a:hover,
+	#checkid:hover,
+	#findzipcode:hover {
+		color: #e77097;
+	}
+	#joinBtn:hover {
+		background-color: rgb(0, 166, 0);
+	}
+	
+	/* contents_area - 본문 내용 */
+	.contents_area {
+		background-color: white;
+		border: 1px solid #e0e0e0;
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		gap: 40px;
+		padding: 20px;
+	}
+	#joinBtn {
+		width: 350px; height: 40px;
+		background-color: #2f956b;
+		color: white;
+		border: 1px solid #e0e0e0;
+		margin: auto;
+	}
+		/* button_div - 사용자 버튼 */
+		.button_div {
+			width: 100%;
+			display: flex;
+			justify-content: space-around;
+			
+		}
+		.button_div > a {
+			border-radius: 50%;
+			width: 120px; height: 120px;
+			padding: 10px;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			font-size: 13px;
+			gap: 10px;
+			transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+		}
+		.button_div > a:hover,
+		.button_div > :nth-child(3) {
+			box-shadow: 0 8px 8px #e77097, 0 5px 5px rgb(255, 255, 255);
+		}
+		.button_div > a > img {
+			width: 60px; height: 60px;
+		}
+		
+		/* titie_search - 제목 및 검색 및 글쓰기 div */
+		.titie_search {
+			width: 100%;
+			display: flex;
+			align-items: center;
+		}
+		.titie_search > h1 {
+			font-size: 28px;
+			margin-right: auto;
+		}
+		/* 검색바 */
+		.ps_div {
+			width: 200px; height: 35px;
+			margin-right: 20px;
+			padding: 0 10px;
+			border: 1px solid #dddee4;
+			border-radius: 8.5rem;
+			background-color: #f6f6f8;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+		.ps_div:focus-within {
+			border: 1px solid #e77097;
+		}
+		.ps_div > svg{
+			width: 28px; height: 28px;
+		}
+		.ps_div > input {
+			width: 100%; height: 50%;
+			background-color: #f6f6f8;
+			border: none;
+			outline: none;
+		}
+		/* 질문하기 버튼 */
+		.writeButton_div {
+			border-radius: 10px;
+			background-color: #e77097;
+			color: white;
+			width: 125px; height: 43px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 5px;
+		}
+		.writeButton_div > svg > path {
+			fill: white;
+		}
+		
+		/* filter_div - qna 필터 div */
+		.filter_div {
+			width: 100%;
+			display: flex;
+			align-items: center;
+			padding: 0 10px 20px 10px;
+			border-bottom: 1px solid #e77097;
+		}
+		.filter_div > input {
+			border: none;
+			fill: none;
+			background-color: white;
+		}
+		.filter_div > :nth-child(1){
+			font-size: 20px;
+		}
+		.filter_div > :nth-child(2){
+			font-size: 20px;
+			margin-right: auto; margin-left: 20px;
+		}
+		.filter_div > :nth-child(3){
+			font-size: 15px;
+			color: #757575;
+		}
+		
+		/* qna_contents_div - qna 내용 div */
+		.qna_contents_div {
+			width: 100%; height:100%;
+			display: flex;
+			flex-direction: column;
+			gap: 20px;
+		}
+		.qna_contents_div > .content {
+			border: 1px solid #e0e0e0;
+    		box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+			padding: 10px;
+			display: flex;
+			flex-direction: column;
+		}
+		.qna_contents_div > .content > span {
+			line-height: 1.5;
+		}
+		.qna_contents_div > .content > div {
+			width: 100%;
+			display: flex;
+			align-items: center;
+			margin-top: 10px;
+		}
+		.cm_check {
+			background: #e0e0e0;
+			border-radius: 50%;
+			width: 30px; height: 30px;
+			margin-right: 5px;
+			text-align: center;
+			line-height: 1.9;
+			color: #79787a;
+		}
+		.qna_contents_div > .content > div > span {
+			margin-right: auto;
+			color: #757575;
+		}
+		.qna_contents_div > .content > div >.profile_info {
+			display: flex;
+			align-items: center;
+		}
+		.profile_info > img{
+			border: 1px solid #e0e0e0;
+			width: 30px; height: 30px;
+			border-radius: 50%;
+			margin-right: 2px;
+		}
+		.profile_info > :nth-child(2) {
+			margin-right: 15px;
+			font-size: 18px;
+		}
+		.profile_info > :nth-child(3) {
+			color: #757575;
+			font-size: 13px;
+		}
+		
+	
+	
