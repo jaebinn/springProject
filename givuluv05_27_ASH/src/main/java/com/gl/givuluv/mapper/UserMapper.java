@@ -63,5 +63,5 @@ public interface UserMapper {
 	String getUserEmailById(UserDTO userid);
 	
 	String getUserPhoneById(UserDTO userid);
-	//
+	//  
 }

@@ -88,5 +88,5 @@
 	<delete id="deleteUser">
 		delete from user where userid=#{userid}
 	</delete>
-	<!---->
+	<!--  -->
 </mapper>

@@ -323,7 +323,7 @@ public class UserController {
     	return "/user/my/modify_userinfo";
     }
     
-    // 커밋테스트
+    // 커밋테스트  
     
 	/*
 	 * // 없어도 되는 파트임
