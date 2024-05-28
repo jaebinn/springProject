@@ -112,15 +112,20 @@ ul{
   }
 
 .h_user_box{
-    width: 335px;
+    width: 100px;
     height: 80px;
-    padding-left: 85px;    
+    margin-left: 150px;
 }
 .h_user{
-    width: 250px;
+	position: relative;
     height: 80px;
 }
-.h_user .h_login{
+.submenu{
+	text-align:right;
+}
+
+.h_user .h_login,
+.h_user .h_logout{
     width: 80px;
     height: 30px;
     margin: 25px 10px;
@@ -137,7 +142,8 @@ ul{
 }
 
 
-.h_user .h_login:before {
+.h_user .h_login:before,
+.h_user .h_logout:before {
     content: '';
     position: absolute;
     z-index: -1;
@@ -145,13 +151,15 @@ ul{
     transform: scale3d(0.8, 0.5, 1);
 }
   
-.h_user .h_login:hover {
+.h_user .h_login:hover,
+.h_user .h_logout:hover {
     background-color: rgb(79, 148, 111);
     color: white;
     font-weight: bold;
 }
   
-.h_user .h_login:hover {
+.h_user .h_login:hover, 
+.h_user .h_logout:hover {
     transition: background-color 0.1s 0.3s, color 0.1s 0.3s;
     background-color: rgb(79, 148, 111);
     color: white;
@@ -167,10 +175,42 @@ ul{
       transform: scale3d(1, 1, 1);
     }
   }
-  
+.dropdown-menu {
+	display: none;
+    position: absolute;
+    width: 100px;
+    top: 70%;
+    left: 0%;
+    z-index: 1000;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+.h_user:hover .dropdown-menu{
+	display: block;
+	opacity: 1;
+}
+
+.dropdown-menu li {
+    padding: 10px;
+}
+
+.dropdown-menu li a {
+    display: block;
+    text-decoration: none;
+    color: #333;
+    text-align: center;
+}
+
+.dropdown-menu li a:hover {
+    background-color: #f0f0f0;
+}
 /* header css 마무리 */
-
-
 
 @font-face {
     font-family: 'TTLaundryGothicB';
@@ -221,51 +261,43 @@ ul{
 .f_notice_box ul{
     width: 900px;
 }
-.f_notice_box ul li:first-child{
+.f_notice_box ul li p, .f_notice_box ul li a {
+	font-family: Arial, Helvetica, sans-serif;
+}
+.f_notice_box ul li p{
     line-height: 50px;
     width: 100px;
     float: left;
     font-size: 15px;
     font-weight: bold;
 }
-.f_notice_box ul li:nth-child(2){
+.f_notice_box ul li a{
     line-height: 50px;
     font-size: 14px;
     width: 600px;
 }
 
 .f_sns_box{
-    width: 200px;
-    height: 50px;
-    padding-top: 12.5px;
+	display: flex;
+	align-items: center;
 }
-.f_sns_box a{
-    margin: 10px;
+.f_sns_box .link{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 18px;
+    height: 34px;
+    width: 34px;
+    border-radius: 50%;
+    margin: 0 8px;
+    background-color: #4080f4;
+    text-decoration: none;
 }
-.f_sns_box a img{
-    width: 25px;
-    height: 25px;
-    opacity: 0.4;
-    transition: 0.5s;
-}
-
-.f_sns_box a:hover img{
-    animation: pink_filter 0.5s ease-in-out;
-    filter: invert(70%) sepia(17%) saturate(7476%) hue-rotate(300deg) brightness(98%) contrast(85%);
-    opacity: 1;
-}
-@keyframes pink_filter{
-    0%{
-        opacity: 0.3;
-    }
-    50%{
-        filter: invert(70%) sepia(17%) saturate(7476%) hue-rotate(300deg) brightness(98%) contrast(85%);
-        opacity: 0.5;
-    }
-    100%{
-        filter: invert(70%) sepia(17%) saturate(7476%) hue-rotate(300deg) brightness(98%) contrast(85%);
-        opacity: 1;
-    }
+.f_sns_box .link:hover{
+	color: #fff !important;
+	transform: scale(1.2); 
+    transition: transform 0.3s ease; 
 }
 
 .f_info_box{
@@ -279,6 +311,7 @@ ul{
     margin: 20px 0;
 }
 .f_info_law ul li{
+	font-family: Arial, Helvetica, sans-serif;
     font-weight: 700;
     color: rgb(90, 90, 90);
     display: inline;
@@ -296,6 +329,7 @@ ul{
     display: none;
 }
 .f_info_law ul li a{
+	font-family: Arial, Helvetica, sans-serif;
     color: rgb(90, 90, 90);
 }
 
@@ -303,6 +337,7 @@ ul{
     width: 60%;
 }
 .f_info ul li{
+	font-family: Arial, Helvetica, sans-serif;
     color: rgb(90, 90, 90);
     display: inline;
     white-space: nowrap;
@@ -326,6 +361,7 @@ ul{
     margin-top: 10px;
     font-size: 14px;
     color: rgb(90, 90, 90);
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .f_copyright a{
@@ -334,5 +370,7 @@ ul{
     margin-right: 10px;
     font-family: 'TTLaundryGothicB';
 }
-
+.f_copyright p span{
+	font-family: Arial, Helvetica, sans-serif;
+}
 /* footer css 마무리 */

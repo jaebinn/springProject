@@ -1,0 +1,110 @@
+/* 폰트 */
+@font-face {
+    font-family: 'TTLaundryGothicB';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/TTLaundryGothicB.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'KCC-Hanbit';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/KCC-Hanbit.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 전체  */
+* {
+	box-sizing: border-box;
+	font-family: 'KCC-Hanbit';
+}
+body {
+	background-color: #f1f1f1;
+}
+a, input {
+	cursor: pointer;
+}
+.wrap {
+	width: 1000px;
+	min-height: 800px;
+	padding: 10px;
+	margin: 0 auto;
+	display: grid;
+	grid-template-columns: 22% 75%;
+	gap: 3%;
+}
+
+/* left_div (내용 div) */
+.left_div {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+	/* button_div(버튼 div) */
+	.button_div {
+		width: 100%; height: 50px;
+		display: grid;
+		grid-template-columns: 24% 24% 24% 24%;
+		justify-content: center;
+		gap: 1%;
+	}
+	.button_div > input {
+		background-color: white;
+		border: none;
+		box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  		transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+	}
+	.button_div > input:hover{
+		box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+	}
+	
+	/* search_div(검색바) */
+	.search_div {
+		width: 100%; height: 40px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: 10px;
+	}
+	.search_div > input[type="text"] {
+		width: 500px; height: 100%;
+		
+	}
+	.search_div > input[type="text"]:focus {
+		outline: none;
+	}
+	.search_div > input[type="button"] {
+		width: 50px; height: 100%;
+		background-color: rgb(60, 197, 20);
+		color: white;
+		border: #e0e0e0;
+	}
+	
+	/* contents_div(컨텐츠 div) */
+	.contents_div {
+		width: 100%;
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 10px;
+	}
+	.contents_div > .contents {
+		width: 100%; height: 190px;
+		background-color: white;
+		border: 1px solid #e0e0e0;
+		display: grid;
+		grid-template-rows: 60% 40%;
+	}
+	.contents_div > .contents > img {
+		width: 100%; height: 100%;
+		object-fit: cover;
+	}
+	.contents_div > .contents > div {
+		padding: 5px;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-end;
+		gap: 5px;
+	}
+	.contents_div > .contents > div > :nth-child(2) {
+		font-size: 12px;
+	}
+	

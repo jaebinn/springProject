@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+    <title>주소로 장소 표시하기</title>
+    
+</head>
+<body>
+<div>
+	<p>전국자활기업현황</p>
+</div>
+<div id="map" style="width:100%;height:800px;"></div>
+
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ea001b868dee194be97b608c6d21912a&libraries=services"></script>
+<script>
+	// 현재 URL의 쿼리 문자열을 가져옵니다
+	var queryString = window.location.search;
+	
+	// URLSearchParams 객체를 사용하여 쿼리 문자열을 파싱합니다
+	var urlParams = new URLSearchParams(queryString);
+	
+	// local1과 local2 값을 가져옵니다
+	var local1 = urlParams.get('local1');
+	var local2 = urlParams.get('local2');
+	
+	
+	$(document).ready(function(){
+	    var mapContainer = document.getElementById('map'); // 지도를 표시할 div
+	    var mapOption = {
+	        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+	        level: 3 // 지도의 확대 레벨
+	    };
+	
+	    // 지도를 생성합니다
+	    var map = new kakao.maps.Map(mapContainer, mapOption);
+	
+	    // 주소-좌표 변환 객체를 생성합니다
+	    var geocoder = new kakao.maps.services.Geocoder();
+	
+	    $.ajax({
+	        url:"/api/public",
+	        method:"POST",
+	        success:function(data){
+	            console.log(data);
+	            let str = "";
+	            for(let items of data.data){
+					if(items.시도 == local1 ||items.시도 == local2){
+	                	// 주소로 좌표를 검색합니다
+	                	geocoder.addressSearch(items.주소, function(result, status) {
+	                    
+		                     // 정상적으로 검색이 완료됐으면 
+		                    if (status === kakao.maps.services.Status.OK) {
+		                    
+		                        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+		                    
+		                        // 결과값으로 받은 위치를 마커로 표시합니다
+		                        var marker = new kakao.maps.Marker({
+		                            map: map,
+		                            position: coords
+		                        });
+		                    
+		                        // 인포윈도우로 장소에 대한 설명을 표시합니다
+		                        var infowindow = new kakao.maps.InfoWindow({
+		                            content: `<div style="width:150px;font-size:10px;text-align:center;padding:6px 0;"><p style="font-weight:bold;">${items.자활기업}</p><p>${items.업종}</p></div>`
+		                        });
+		                        infowindow.open(map, marker);
+		                    
+		                        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+		                        //map.setCenter(coords);
+		                    }
+	                	});    
+					}
+	            }
+	        },
+	        error:function(data){
+	            
+	        }
+	    });
+	});
+</script>
+</body>
+</html>

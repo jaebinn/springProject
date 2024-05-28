@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>공공데이터</title>
+</head>
+<body>
+	<h2>공공데이터 확인용</h2>
+	<input type="button" value="확인하기" onclick="public()">
+	<table id="resultTbl" border="1">
+		<thead>
+			<tr>
+				<th>순번</th>
+				<th>시도</th>
+				<th>시군구</th>
+				<th>자활기업</th>
+				<th>기업유형</th>
+				<th>주소</th>
+				<th>대표자</th>
+				<th>업종</th>
+				<th>사업자구분</th>
+			</tr>		
+		</thead>
+		<tbody></tbody>
+	</table>
+</body>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+	const resultTbl = document.getElementById("resultTbl");
+	
+	function public(){
+		$.ajax({
+			url:"/api/public",
+			method:"POST",
+			success:function(data){
+				console.log(data);
+				let str = "";
+				for(let items of data.data){
+					str += `<tr>
+	<td>${items.순번}</td>
+	<td>${items.시도}</td>
+	<td>${items.시군구}</td>
+	<td>${items.자활기업}</td>
+	<td>${items.기업유형}</td>
+	<td>${items.주소}</td>
+	<td>${items.대표자}</td>
+	<td>${items.업종}</td>
+	<td>${items.사업자구분}</td>
+</tr>`;					
+				}
+				$("#resultTbl tbody").html(str);
+			},
+			error:function(data){
+				
+			}
+		})
+	}
+	
+</script>
+</html>

@@ -1,0 +1,302 @@
+@font-face {
+    font-family: 'TTLaundryGothicB';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/TTLaundryGothicB.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+.re_wrap{
+    width: 100%;
+}
+
+.re_header_inner{
+    background-color: #f1f1f1;
+    margin: 0 auto;
+    width: 100%;
+    height: 100px;
+}
+.re_header .re_logobox{
+    display: flex;
+}
+.re_header .re_logo{
+    display: inline-block;
+    padding: 22px 0 20px;
+}
+.re_header img{
+    width: 78px;
+}
+.re_header .re_tit{
+   width: 100px;
+   height: 20px;
+   display: inline-block;
+
+}
+.re_header .re_tit {
+    font-family: 'TTLaundryGothicB';
+    line-height: 60px;
+    font-size: 25px;
+    text-align: center;
+    color: rgb(231, 112, 151);
+    margin-top: 22px;
+    text-decoration: none;
+}
+.re_header .re_subtitle{
+    font-family: 'TTLaundryGothicB';
+    line-height: 60px;
+    font-size: 15px;
+    text-align: center;
+    color: rgb(231, 112, 151);
+    margin-top: 24px;
+}
+.re_visual_area{
+    position: relative;
+    height: 535px;
+    background: url(https://cdn.pixabay.com/photo/2018/03/10/12/00/teamwork-3213924_1280.jpg) center;
+    background-size: cover;
+}
+.re_visual_inner{
+    position: relative;
+    margin: 0 auto;
+    width: 1140px;
+    padding-top: 80px;
+    text-align: center;
+    
+}
+.re_slogan{
+    position: relative;
+}
+.re_slogan_subtitle{
+    display: block;
+    width: 400px;
+    height: 20px;
+    margin: 0 auto;
+}
+.re_slogan_subtitle span{
+    font-family: 'TTLaundryGothicB';
+    line-height: 60px;
+    font-size: 24px;
+    text-align: center;
+    color: rgb(255, 255, 255);
+    filter: brightness(100%) !important;
+}
+.re_slogan_title{
+    display: block;
+    width: 580px;
+    height: 45px;
+    margin: 23px auto 0;
+}
+.re_slogan_title span{
+    font-family: 'TTLaundryGothicB';
+    line-height: 60px;
+    font-size: 24px;
+    text-align: center;
+    color: rgb(255, 255, 255);
+}
+.re_button_area {
+    position: relative;
+    margin-top: 42px;
+}
+.re_button_join {
+    display: inline-block;
+    min-width: 128px;
+    height: 32px;
+    border: 1px solid rgb(231, 112, 151);
+    text-align: center;
+    vertical-align: top;
+    color: rgb(231, 112, 151);
+    background-color: transparent;
+    font-family: "Do Hyeon", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    padding: 14px 15px 0;
+    font-size: 20px;
+}
+.re_button_area .re_modify{
+    display: inline-block;
+    min-width: 128px;
+    height: 32px;
+    border: 1px solid rgb(255, 255, 255);
+    text-align: center;
+    vertical-align: top;
+    color: rgb(255, 255, 255);
+    background-color: transparent;
+    font-family: "Do Hyeon", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    padding: 14px 15px 0;
+    font-size: 20px;
+}
+.re_button_area a{
+    text-decoration: none;
+}
+.re_banner_area {
+    position: absolute;
+    top: 320px;
+    padding: 0 55px;
+    
+}
+.re_banner_wrapper{
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 100%; 
+}
+.re_banner_item{
+    display: inline-block;
+    position: relative;
+    width: 250px;
+    background: #fff;
+    box-shadow: 0 2px 5px 0;
+    vertical-align: top;
+}
+.re_banner_item+.re_banner_item{
+    margin-left: 10px;
+}
+.re_banner_img1 {
+    display: block;
+    height: 150px;
+    background-size: cover;
+}
+.re_banner_text {
+    overflow: hidden;
+    height: 80px;
+    padding: 25px 20px 0;
+}
+.re_banner_img2 {
+    display: block;
+    height: 150px;
+    background-size: cover;
+}
+.re_banner_img3 {
+    display: block;
+    height: 150px;
+    background-size: cover;
+}
+.re_banner_img4 {
+    display: block;
+    height: 150px;
+    background-size: cover;
+}
+.re_join_condition {
+    padding: 130px 0 60px;
+}
+.re_join_condition_inner{
+    margin: 0 auto;
+    width: 1140px;
+}
+.re_condition_left {
+    float: left;
+    width: 300px;
+    padding-left: 300px;
+}
+.re_condition_right{
+    padding-left: 600px;
+    width: 850px;
+    }
+.re_condition_list{
+	list-style-type: none;
+}
+.re_condition_item a{
+    position: relative;
+    display: table-cell;
+    width: 850px;
+    height: 90px;
+    padding: 5px 60px 0 40px;
+    border: 1px solid #e6e5e5;
+    vertical-align: middle;
+    color: #333;
+    font-family: "Do Hyeon", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 25px;
+    text-decoration: none;
+}
+.re_condition_desc{
+    display: none;
+    padding: 18px 40px 19px;
+    border: 1px solid #e6e5e5;
+    background: rgb(201, 199, 199); 
+    color: #202020;
+}
+.re_condition_right li{
+    font-family: "Poor Story", system-ui;
+    font-weight: 500;
+    font-style: normal; 
+    font-size: 20px;
+}
+.re_join_process {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 20px;
+    background: #e6e5e5;
+  }
+  .re_process_inner {
+    display: flex;
+    width: 100%;
+    max-width: 1200px;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .re_process_left {
+    flex: 1;
+  }
+  .re_process_right {
+    flex: 3;
+  }
+  .re_process_list {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+  }
+  .re_process_item {
+    text-align: center;
+    margin: 0 10px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .re_process_item img {
+    display: block;
+    margin: 0 auto;
+  }
+  .re_process_subtext {
+    display: block;
+    margin-top: 5px;
+  }
+ 
+.re_join_check{
+    padding: 49px 0 60px;
+}
+.re_check_inner{
+    margin: 0 auto;
+    width: 1140px;
+}
+.re_check_list{
+    margin-top: 19px;
+}
+.re_join_check li{
+    font-family: "Poor Story", system-ui;
+    font-weight: 500;
+    font-style: normal; 
+    font-size: 20px;
+}
+.re_footer{
+    padding: 19px 0 100px;
+    border-top: 1px solid rgb(201, 199, 199);
+}
+.re_footer_inner{
+    margin: 0 auto;
+    width: 1140px;
+    text-align: center;
+}
+.re_footer_inner a{
+    text-decoration: none;
+    font-family: 'TTLaundryGothicB';
+    line-height: 60px;
+    font-size: 20px;
+    color: rgb(231, 112, 151);
+}

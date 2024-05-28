@@ -40,16 +40,3 @@ setInterval(()=>{
            moveSlide(0);
        }
 }, 2500)
-
-window.onload = () => {
-	// 카운트를 적용시킬 요소
-	const counters = document.querySelectorAll(".count");
-	// 목표 수치
-	const max = [2123,24215,4512,78543];
-	/*const max = [${donation_people}, ${donation_save_money}, ${funding_people}, ${funding_save_money}]*/
-	for(i=0;i<4;i++){
-		let $counter = counters[i];
-		let $max = max[i];
-		setTimeout(() => counter($counter, $max), 1318);
-	}
-}

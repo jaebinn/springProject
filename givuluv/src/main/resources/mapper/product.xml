@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gl.givuluv.mapper.ProductMapper">
+   <!--회원가입시 유저정보 DB에 저장-->
+   <insert id = "insertProduct">
+      insert into product(productname, p_amount, cost, connectid, p_type)
+      values(#{productname}, #{p_amount}, #{cost}, #{connectid}, #{p_type})
+   </insert>
+   
+   <select id="getList">
+		select * from product where p_type='M' order by productnum desc
+   </select>
+   
+   <select id="getCategoryList">
+		SELECT p.*
+		FROM product p
+		JOIN store s ON p.connectid = s.s_num
+		JOIN seller se ON s.sellerid = se.sellerid
+		WHERE se.sellercategory = #{categoty}
+		order by productnum desc
+   </select>
+   
+   <select id="getProductConnectid">
+		select distinct connectid from product
+   </select>
+   
+   <select id="getProduct">
+		select * from product where productnum = #{productnum}
+   </select>
+   
+   
+</mapper>

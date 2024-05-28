@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<header>
+	<meta charset="UTF-8">
+	<title>일반유저 myhome</title>
+	<link rel="stylesheet" href="/css/userMyPageMenu.css">	
+	<link rel="stylesheet" href="/css/userMyHome.css">
+	<link rel="stylesheet" href="/css/header_footer.css">
+	<script src="https://kit.fontawesome.com/516da99189.js" crossorigin="anonymous"></script>
+</header>
+<body>
+	<!-- header -->
+	<th:block th:replace="~{layout/header::header(loginUser)}"></th:block>
+	
+	<!-- 컨텐츠 -->
+	<div class="wrap">
+		<!-- 왼쪽 메뉴바 -->
+		<th:block th:replace="~{layout/userMyPageMenu::userMyPageMenu(loginUser)}"></th:block>
+		<!-- 오른쪽 내용 -->
+		<div class="left_div">
+			<div class="donation_div">
+				<div class="my_AmountOfHolding">
+					<div>
+						<span>나의 보유금액</span>
+						<span>0원</span>
+					</div>
+					<div>
+						<input type="button" value="콩 받으러 가기">
+					</div>
+				</div>
+				<div class="total_donation">
+					<div>
+						<span>총 후원금액</span>
+						<span>0원</span>
+					</div>
+					<div>
+						<input type="button" value="모금함 바로가기">
+						<input type="button" value="펀딩 참여하기">
+					</div>
+				</div>
+			</div>
+			<div class="savings_div">
+				<a>
+					<img src="/images/pig.png">&nbsp;나의 정기저금 시작하고&nbsp;<span>매달 콩 10% 더 받기	&nbsp;</span>클릭!
+				</a>
+			</div>
+			<div class="myNews_div">
+				<div>
+					<div>
+						<h3>내소식</h3>
+						<span>총 ?건</span>
+						<p>※결제 알림은 마케팅 알림 수신 동의 여부와 관계없이 발송됩니다.</p>						
+					</div>
+					<a>전체보기></a>
+				</div>
+				<div>
+					<div>
+						<span>해피빈 마케팅 정보 수신에 동의하였습니다.</span>
+						<p>닉네임 | 2024.05.14</p>
+					</div>
+					<div>
+						<span>해피빈 마케팅 정보 수신에 동의하였습니다.</span>
+						<p>닉네임 | 위에 DB날짜 그대로 가져오기</p>
+					</div>
+					<div>
+						<span>해피빈 마케팅 정보 수신에 동의하였습니다.</span>
+						<p>닉네임 | 위에 DB날짜 그대로 가져오기</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- footer -->
+	<th:block th:replace="~{layout/footer::footer()}"></th:block>
+</body>
+</html>

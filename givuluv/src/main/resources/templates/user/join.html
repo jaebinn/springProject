@@ -26,7 +26,7 @@
 										<p id="id_check"></p>
 									</td>
 								</tr>
-								<th>아이디<span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
+								<th><label for="userid">아이디</label><span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
 								<tr>
 									<td>
 										<input type="text" name="userid" id="userid" placeholder="아이디">									
@@ -35,98 +35,144 @@
 										<input type="button" value="중복검사" onclick="checkId()" id="checkid">									
 									</td>
 								</tr>							
-								<th>비밀번호<span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
+								<th><label for="userpw">비밀번호</label><span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
 								<tr>
-									<td>
-										<input type="password" name="userpw" id="userpw">										
+									<td id="eyesBox">
+										<input type="password" name="userpw" id="userpw">	
+										<i class="fa-solid fa-eye-slash eyes"></i>									
 									</td>							
 								</tr>						
-								<th>비밀번호 확인<span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
+								<th><label for="userpw_re">비밀번호 확인</label><span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
 								<tr>
 									<td>
-										<input type="password" id="userpw_re" onkeyup="pwcheck()">										
+										<input type="password" id="userpw_re" onblur="pwcheck()">										
 									</td>							
 								</tr>		
 								<tr class="pw_check">
 									<td>
-										<span id="pw_checkText">🤗</span>
+										<span id="pw_checkText"></span>
 									</td>
 								</tr>					
-								<th>이름<span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
+								<th><label for="username">이름</label><span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
 								<tr>
 									<td>
 										<input type="text" name="username" id="username">										
 									</td>							
 								</tr>							
 								<th>성별<span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
-								<tr>
+								<tr class="gender_area">
 									<td>
-										<ul class="genderBox">
-										    <li class="radio_item">
-												<label for="gender">남</label>
-										        <input type="radio" id="gender" name="gender" value="M">
-										    </li>
-										    <li class="radio_item">
-												<label for="gender">여</label>
-										        <input type="radio" id="gender" name="gender" value="W">
-										    </li>
-										</ul>									
+										<div>
+											<ul>
+												<li class="radio_item">
+													<input type="radio" id="gender1" name="gender" value="M"><label for="gender1">남자</label>
+												</li>
+												<li class="radio_item">
+													<input type="radio" id="gender2" name="gender" value="W"><label for="gender2">여자</label>
+												</li>
+											</ul>
+										</div>
 									</td>							
 								</tr>							
-								<th>생년월일<span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
+								<th><label for="birth">생년월일</label><span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
 								<tr>
 									<td>
 										<input type="date" name="birth" id="birth">										
 									</td>							
 								</tr>							
-								<th>이메일<span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
+								<th><label for="email">이메일</label><span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
 								<tr>
 									<td>
 										<input type="email" name="email" id="email">										
 									</td>							
 								</tr>							
-								<th>전화번호<span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
+								<th><label for="userphone">전화번호</label><span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
 								<tr>
 									<td>
-										<input type="tel" name="userphone" id="userphone">										
+										<input type="tel" name="userphone" id="userphone" placeholder="010-1234-5678">										
 									</td>							
 								</tr>							
-								<th>닉네임<span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
+								<th><label for="nickname">닉네임</label><span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
 								<tr>
 									<td>
 										<input type="text" name="nickname" id="nickname">										
-									</td>							
-								</tr>							
-								<th>우편번호<span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
+									</td>	
+									<td id="btns">
+										<input type="button" value="중복검사" onclick="checkNickname()" id="checkNick">									
+									</td>															
+								</tr>		
+								<tr class="nickname_checkBox">
+									<td>
+										<p id="nickname_check"></p>
+									</td>
+								</tr>					
+								<th><label for="zipcode">우편번호</label><span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
 								<tr>
 									<td>
-										<input type="text" name="zipcode" id="zipcode">										
+										<input type="text" name="zipcode" id="zipcode" onclick="findAddr()" placeholder="우편번호" readonly>										
 									</td>							
 									<td id="btns">
 										<input type="button" id="findzipcode" value="우편번호 찾기" onclick="findAddr()">
 									</td>
 								</tr>							
-								<th>주소<span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
+								<th><label for="addr">주소</label><span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
 								<tr>
 									<td>
-										<input type="text" name="addr" id="addr" readonly>										
+										<input type="text" name="addr" id="addr" placeholder="주소" readonly>										
 									</td>							
 								</tr>							
-								<th>상세주소</th>
+								<th><label for="addrdetail">상세주소</label></th>
 								<tr>
 									<td>
-										<input type="text" name="addrdetail" id="addrdetail">										
+										<input type="text" name="addrdetail" id="addrdetail" placeholder="상세주소">										
 									</td>							
 								</tr>																			
-								<th>참고항목</th>
+								<th><label for="addretc">참고항목</label></th>
 								<tr>
 									<td>
-										<input type="text" name="addretc" id="addretc" readonly>										
+										<input type="text" name="addretc" id="addretc" placeholder="참고항목">										
 									</td>							
-								</tr>																			
+								</tr>
+								<th><label for="usercategory">관심 카테고리</label><span id="necessary"><i class="fa-solid fa-star star"></i></span>
+								<span>최대 3개이상 선택가능합니다.</span></th>
+								<tr>
+									<td class="category">
+										<div class="usercategory_list">
+											<input type="button" class="usercategory" value="동물">
+										</div>
+										<div class="usercategory_list">
+											<input type="button" class="usercategory" value="아동•청소년">
+										</div>
+										<div class="usercategory_list">
+											<input type="button" class="usercategory" value="어르신">
+										</div>
+										<div class="usercategory_list">
+											<input type="button" class="usercategory" value="장애인">
+										</div>
+										<div class="usercategory_list">
+											<input type="button" class="usercategory" value="다문화">
+										</div>
+										<div class="usercategory_list">
+											<input type="button" class="usercategory" value="지구촌">
+										</div>
+										<div class="usercategory_list">
+											<input type="button" class="usercategory" value="시민단체">
+										</div>
+										<div class="usercategory_list">
+											<input type="button" class="usercategory" value="환경">
+										</div>
+										<div class="usercategory_list">
+											<input type="button" class="usercategory" value="가족•여성">
+										</div>
+										<div class="usercategory_list">
+											<input type="button" class="usercategory" value="기타">
+										</div>
+										<input type="hidden" id="selectedCategories" name="usercategory" value="">
+									</td>
+								</tr>
 							</tbody>
 						</table>
-                        <button type="submit" id="joinBtn" onclick="sendit()">가입완료</button>                        
+                        <button type="button" id="joinBtn" onclick="sendit()">가입완료</button>                        
                     </div>
                 </form>
             </div>            
@@ -136,8 +182,19 @@
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="/js/user.js"></script>
 <script>
+	$(document).ready(function() {
+	    $(".eyes").click(function() {
+	        let currentType = $("#userpw").attr("type");
 	
-
+	        if (currentType === "password") {
+	            $("#userpw").attr("type", "text");
+	            $(this).removeClass("fa-eye-slash").addClass("fa-eye");
+	        } else { 
+	            $("#userpw").attr("type", "password");
+	            $(this).removeClass("fa-eye").addClass("fa-eye-slash");
+	        }
+	    });
+	});
 </script>
 </body>
 </html>
