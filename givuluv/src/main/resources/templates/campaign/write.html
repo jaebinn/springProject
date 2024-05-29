@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<script src="https://kit.fontawesome.com/516da99189.js" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="/css/write.css">
+	<link rel="stylesheet" href="/css/summernote/summernote-lite.css">
+	<link rel="stylesheet" href="/css/date/daterangepicker.css">
+</head>
+
+<body>
+	<th:block th:if="${ session.loginOrg == null && session.loginManager == null }">
+		<script>
+			alert("로그인 후 이용하세요!");
+			location.replace("/");
+		</script>
+	</th:block>
+	<div class="container">
+		<!-- 헤더 -->
+		<div class="writeheader">
+			<div class="writeheaderleft">
+				<img class=logo src="/images/GivuLuv_logo.png" alt="">
+				<p>글쓰기</p>
+			</div>
+			<a href="javascript:campaignsubmit();" class="btn">등록</a>
+		</div>
+
+		<!-- 컨텐츠 -->
+
+		<div class="wrap campaignwrite write">
+			<form method="post" name="campaignForm" id="campaignForm">
+				<div class="boxes">
+					<div class="textarea_box">
+						<textarea id="summernote" name="editordata" class="content"></textarea>
+						<input type="hidden" id="cContent" name="cContent">
+						<input type="hidden" id="filenames" name="filenames">
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+</body>
+<script src="/js/jquery-3.7.1.min.js"></script>
+<script src="/js/summernote/summernote-lite.js"></script>
+<script src="/js/summernote/lang/summernote-ko-KR.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<script src="/js/boardwrite.js"></script>
+
+</html>

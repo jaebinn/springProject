@@ -1,0 +1,108 @@
+<th:block th:fragment="header(loginUser)">
+	<th:block th:if="${loginUser == null}">
+		<script>
+			alert("로그인 후 이용하세요!");
+			location.replace("/");
+		</script>
+	</th:block>
+   <body>
+       <nav class="navigation">
+           <div class="header_wrap">
+               <div class="h_gnb">
+                   <div class="h_logobox">
+                       <a href="/" class="h_logo">
+                           <img src="/images/GivuLuv_logo.png" alt="">
+                       </a>
+                       <a href="/" class="h_tit">
+                           <p>기부러브</p>
+                       </a>
+                   </div>
+                   <div class="h_gnb_menu">
+                       <nav class="gnb_menu">
+                           <ul>
+                               <li>
+                                   <a href="/campaign/cBoard" data-hover="게시글" class="h_menu">게시글</a>
+                               </li>
+                               <li>
+                                   <a href="/donation/dBoard" data-hover="기부" class="h_menu">기부</a>
+                               </li>
+                               <li>
+                                   <a href="/funding/fBoard" data-hover="펀딩" class="h_menu">펀딩</a>
+                               </li>
+                               <li>
+                                   <a href="/store/sBoard" data-hover="가게" class="h_menu">가게</a>
+                               </li>
+                           </ul>
+                       </nav>
+                   </div>
+                   <div class="h_user_box">
+					<th:block th:if="${session.loginUser == null}">
+						<!-- loginSeller가 null일 경우 -->
+						<th:block th:if="${session.loginSeller == null}">
+							<!-- loginOrg가 null일 경우 -->
+							<th:block th:if="${session.loginOrg == null}">
+								<div class="h_user">
+									<a href="/user/login" class="h_login">로그인</a>
+								</div>
+							</th:block>
+						</th:block>
+					</th:block>
+					<th:block th:if="${session.loginUser != null}">
+						<div class="h_user menu">
+							<a href="/user/my/home" class="h_login " data-toggle="dropdown">
+								[[${session.loginUser}]]
+							</a>
+							<ul class="dropdown-menu">
+								<li>
+									<a class="items logout" href="/user/logout">로그아웃</a>
+								</li>
+							</ul>
+						</div>
+					</th:block>
+				<th:block th:if="${session.loginSeller != null}">
+					<div class="h_user menu">
+						<a href="/seller/my/home" class="h_login " data-toggle="dropdown">
+							[[${session.loginSeller}]]
+						</a>
+						<ul class="dropdown-menu">
+							<li>
+								<a class="items" href="/store/write">가게 등록</a>
+							</li>
+							<li>
+								<a class="items" href="#">스토어 승인</a>
+							</li>
+							<li>
+								<a class="items logout" href="/user/logout">로그아웃</a>
+							</li>
+						</ul>
+					</div>
+				</th:block>
+					<th:block th:if="${session.loginOrg != null}">
+						<div class="h_user menu">
+							<a href="/org/my/home" class="h_login " data-toggle="dropdown">
+								[[${session.loginOrg}]]
+							</a>
+							<ul class="dropdown-menu">
+								<li>
+									<a class="items" href="/donation/write">기부 글쓰기</a>									
+								</li>
+								<li>									
+									<a class="items" href="/funding/write">펀딩 글쓰기</a>
+								</li>
+								<li>									
+									<a class="items" href="/campaign/write">게시판 등록</a>
+								</li>
+								<li>									
+									<a class="items" href="/org/register">단체 승인</a>
+								</li>
+								<li>
+									<a class="items logout" href="/user/logout">로그아웃</a>									
+								</li>
+							</ul>
+						</div>
+					</th:block>
+                   </div>
+               </div>
+           </div>
+       </nav>
+</th:block>

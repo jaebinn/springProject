@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>productView</title>
+	<script src="https://kit.fontawesome.com/516da99189.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/css/productView.css">
+	<link rel="stylesheet" href="/css/header_footer.css">
+</head>
+<body>
+	<!-- header -->
+	<th:block th:replace="~{layout/header::header(loginUser)}"></th:block>
+    <div class="s_view_wrap">
+<!--        <div class="view_top">
+            <div class="top_logo">
+                <a href="/">
+                    <img src="/images/GivuLuv_logo.png" alt="">
+                </a>
+            </div>
+            <div class="top_mypage">
+                <a href="/user/mypage">마이페이지</a>
+            </div>
+        </div>-->
+        <div class="store_tit">
+            <div class="store_name">
+                <h1 th:text="${store.sName}"></h1>
+            </div>
+        </div>
+        <div class="product_box">
+            <div class="product_info_box">
+                <div class="product_img">
+					<!--물품 썸네일 넣기-->
+                    <img th:src="@{'/summernoteImage/' + ${imgFile.systemname}}" alt="">
+                </div>
+                <div class="product_info">
+                    <div class="p_name">
+                        <p th:text="${product.productname}"></p>
+                    </div>
+                    <div class="p_cost">
+                        <p><span th:text="${cost}"></span>원</p>
+                    </div>
+                    <div class="p_bonus">
+                        <p>상품을 구매하는 고객님을 위한 기부포인트</p>
+                        <p><span th:text="${#numbers.formatInteger(cost * 0.1,3)}"></span>포인트</p>
+                    </div>
+                    <div class="p_delivery_info">
+                        <p>택배배송 3000원(주문시 결제)</p>
+                        <p>제주 / 도서산간 5000원</p>
+                    </div>
+                    <div class="buy_amount">
+                        <form action="/store/buy" method="post" id="pBuyForm" name="pBuyForm">
+                            <div class="buy_amount_box">
+                                <!-- 버튼, 클릭시 del 실행 -->
+                                <input type="button" value=" - " onclick="del();" class="del_btn">
+                                <input type="hidden" name="sell_price" id="sell_price" style="width:30px;" th:value="${cost}" >
+                                <!-- 기본 수량 1로 설정 -->
+                                <input type="text" name="amounts" id="amounts" value="1" size="3">
+                                <!-- +버튼, 클릭시 add 실행 -->
+                                <input type="button" value=" + " onclick="add();" class="add_btn">
+                                <input type="hidden" name="sum" size="11" readonly>
+                            </div>
+                            <div class="sumCost">
+                                <p>총 상품 금액 : </p>
+                                <p><span id="my_sum">[[${cost}]]</span> 원</p>
+                            </div>	
+                        </form>
+                        <div class="buy_btn">
+                            <a class="p_btn" href="javascript:sendit();">
+                                <p>구매하기</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product_detail_info">
+                <div class="product_info_tag">
+                    <ul>
+                        <li class="product_detail">
+                            <a href="">
+                                <p>상세정보</p>
+                            </a>
+                        </li>
+                        <li class="product_review">
+                            <a href="#product_review_box">
+                                <p>리뷰(리뷰수)</p>
+                            </a>
+                        </li>
+                        <li class="product_qna">
+                            <a href="#product_qna_box">
+                                <p>Q&A(qna수)</p>
+                            </a>
+                        </li>
+                        <li class="product_back">
+                            <a href="#p_rturn">
+                                <p>반품/교환정보</p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="warning">
+                    <div>
+                        <img src="/images/warning_icon.png" alt="">
+                    </div>
+                    <p>판매자가 타 사이트 안내 및 현금 결제, 개인정보 유도 시 <span>절대 결제/입력하지 마시고</span> 신고해주세요.</p>
+                </div>
+                <div class="product_detail">
+                    <strong>상품정보</strong>
+                    <div class="p_detail_info_box">
+                        <table class="p_detail_info">
+                            <colgroup>
+                                <col width="160px">
+                                <col width="340px">
+                                <col width="160px">
+                                <col width="340px">
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">상품번호</th>
+                                    <td colspan="1">[[${product.productnum}]]</td>
+                                    <th scope="row">상품상태</th>
+                                    <td colspan="1">신상품</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">모델명</th>
+                                    <td colspan="1">[[${product.productname}]]</td>
+                                    <th scope="row">브랜드</th>
+                                    <td colspan="1">[[${store.sName}]]</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="p_etc_box">
+                        <table class="p_detail_info">
+                            <colgroup>
+                                <col width="160px">
+                                <col width="840px">
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">영수증발급</th>
+                                    <td colspan="3">신용카드전표, 현금영수증발급</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">판매자 특이사항</th>
+                                    <td colspan="3">해외배송 제외상품</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="product_detail_img">
+                        <!-- 내용이 들어가야하는데 일단 이미지로 채움 -->
+                        <img src="/images/product_info.png" alt="" id="p_info_img">
+                    </div>
+                    <div class="more_info_view">
+                        <div class="white_box"></div>
+                        <!-- 자바스크립트로 화면 늘리기 -->
+                        <input type="button" value="상세정보 펼쳐보기" id="more_info_view_btn" onclick="infoMoreview()"/>
+                    </div>
+                </div>
+                <div class="buy_info">
+                    <strong>거래조건에 관한 정보</strong>
+                    <table class="p_buy_info">
+                        <colgroup>
+                            <col width="300px">
+                            <col>
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <th scope="row">재화등의 배송방법에 관한 정보</th>
+                                <td colspan="1">택배등</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">주문 이후 예상되는 배송기간</th>
+                                <td colspan="1">대금 지급일로부터 3일 이내에 발송</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">제품하자·오배송 등에 따른 청약철회 등의 경우 청약철회 등의 기한 및 통신판매업자가 부담하는 반품비용 등에 관한 정보</th>
+                                <td colspan="1">전자상거래 등에서의 소비자보호에 관한 법률 등에 의한 제품의 하자 또는 오배송 등으로 인한 청약철회의 경우에는 상품 수령 후 3개월 이내, 그 사실을 안 날 또는 알 수 있었던 날로부터 30일 이내에 청약철회를 할 수 있으며, 반품 비용은 통신판매업자가 부담합니다.</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">제품하자가 아닌 소비자의 단순변심에 따른 청약철회 시 소비자가 부담하는 반품비용 등에 관한 정보</th>
+                                <td colspan="1">편도 3000원 (최초 배송비 무료인 경우 6000원 부과)</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">제품하자가 아닌 소비자의 단순변심에 따른 청약철회가 불가능한 경우 그 구체적 사유와 근거</th>
+                                <td colspan="1">전자상거래 등에서의 소비자보호에 관한 법률 등에 의한 청약철회 제한 사유에 해당하는 경우 및 기타 객관적으로 이에 준하는 것으로 인정되는 경우 청약철회가 제한될 수 있습니다.</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">재화등의 교환·반품·보증 조건 및 품질보증기준</th>
+                                <td colspan="1">소비자분쟁해결기준(공정거래위원회 고시) 및 관계법령에 따릅니다.</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">대금을 환불받기 위한 방법과 환불이 지연될 경우 지연배상금을 지급받을 수 있다는 지연배상금 지급의 구체적인 조건·절차</th>
+                                <td colspan="1">주문취소 및 대금의 환불은 마이페이지에서 신청할 수 있으며, 전자상거래 등에서의 소비자보호에 관한 법률에 따라 소비자의 청약철회 후 판매자가 재화 등을 반환 받은 날로부터 3영업일 이내에 지급받은 대금의 환급을 정당한 사유 없이 지연하는 때에는 소비자는 지연기간에 대해서 연 15%의 지연배상금을 판매자에게 청구할 수 있습니다.</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">소비자피해보상의 처리, 재화등에 대한 불만 처리 및 소비자와 사업자 사이의 분쟁처리에 관한 사항</th>
+                                <td colspan="1">소비자분쟁해결기준(공정거래위원회 고시) 및 관계법령에 따릅니다.</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">거래에 관한 약관의 내용 또는 확인할 수 있는 방법</th>
+                                <td colspan="1">상품상세 페이지 및 페이지 하단의 이용약관 링크를 통해 확인할 수 있습니다.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="product_review_box" id="product_review_box">
+                    <div class="p_review_tit">
+                        <p>상품리뷰</p>
+                        <p>리뷰 (몇)건</p>
+                    </div>
+                    <div>
+                        <!-- 리뷰가 있을경우 -->
+                        <div class="p_review_view">
+                            <div class="review_cont">
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse voluptates inventore veritatis modi. Perspiciatis voluptatibus adipisci voluptatum debitis ab quasi qui ullam dolorum, at quae, dicta provident illum, blanditiis id.
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque magni nulla delectus quis possimus accusantium, magnam, culpa nam omnis autem maiores a ducimus obcaecati? Aliquid nostrum placeat dignissimos qui laboriosam.</p>
+                            </div>
+                            <div class="review_info">
+                                <p>userid(apple)</p>
+                                <p>2024.00.00</p>
+                            </div>
+                            <!-- 작성자와 로그인유저가 같은경우 수정 삭제 버튼 생성 -->
+                        </div>
+                        <div class="p_review_view">
+                            <div class="review_cont">
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse voluptates inventore veritatis modi. Perspiciatis voluptatibus adipisci voluptatum debitis ab quasi qui ullam dolorum, at quae, dicta provident illum, blanditiis id.
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque magni nulla delectus quis possimus accusantium, magnam, culpa nam omnis autem maiores a ducimus obcaecati? Aliquid nostrum placeat dignissimos qui laboriosam.</p>
+                            </div>
+                            <div class="review_info">
+                                <p>userid(apple)</p>
+                                <p>2024.00.00</p>
+                            </div>
+                            <!-- 작성자와 로그인유저가 같은경우 수정 삭제 버튼 생성 -->
+                        </div>
+                        <div class="p_review_view">
+                            <div class="review_cont">
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse voluptates inventore veritatis modi. Perspiciatis voluptatibus adipisci voluptatum debitis ab quasi qui ullam dolorum, at quae, dicta provident illum, blanditiis id.
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque magni nulla delectus quis possimus accusantium, magnam, culpa nam omnis autem maiores a ducimus obcaecati? Aliquid nostrum placeat dignissimos qui laboriosam.</p>
+                            </div>
+                            <div class="review_info">
+                                <p>userid(apple)</p>
+                                <p>2024.00.00</p>
+                            </div>
+                            <!-- 작성자와 로그인유저가 같은경우 수정 삭제 버튼 생성 -->
+                        </div>
+                        <div class="p_review_view">
+                            <div class="review_cont">
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse voluptates inventore veritatis modi. Perspiciatis voluptatibus adipisci voluptatum debitis ab quasi qui ullam dolorum, at quae, dicta provident illum, blanditiis id.
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque magni nulla delectus quis possimus accusantium, magnam, culpa nam omnis autem maiores a ducimus obcaecati? Aliquid nostrum placeat dignissimos qui laboriosam.</p>
+                            </div>
+                            <div class="review_info">
+                                <p>userid(apple)</p>
+                                <p>2024.00.00</p>
+                            </div>
+                            <!-- 작성자와 로그인유저가 같은경우 수정 삭제 버튼 생성 -->
+                        </div>
+                        <!-- 리뷰가 없을경우 -->
+                        <!-- <div class="no_review">
+                            <p>아직 작성된 리뷰가 없습니다.</p>
+                        </div> -->
+                    </div>
+                    <!-- 리뷰갯수가 더 남았을때 표시 -->
+                    <div class="review_moreBtn">
+                        <input type="button" value="더보기" id="review_more" onclick="">
+                    </div>
+                </div>
+                <div class="product_qna_box" id="product_qna_box">
+                    <div class="qna_tit">
+                        <p>Q&A</p>
+                        <input type="button" value="상품 Q&A 작성하기" id="qnaBtn" name="qnaBtn" onclick="qnaBtn()">
+                    </div>
+					<div class="qna_contents" id="qna_contents">
+						<input type="hidden" name="productnum" id="productnum" th:value="${product.productnum}">
+						<input type="hidden" name="userid" id="userid" th:value="${loginUser}">
+						<textarea placeholder="내용을 입력해주세요." class="qna_content" id="qna_content"></textarea>
+						<div class="qna_submit_box">
+							<input type="button" value="등록" class="qna_submit" id="qna_submit" onclick="qnaSubmit()">
+						</div>
+					</div>
+					
+                    <!-- qna가 있으면 작성 -->
+                    <div class="p_qna_box">
+                        <div class="p_qna_tit">
+                            <div><span>답변상태</span></div>
+                            <div><span>제목</span></div>
+                            <div><span>작성자</span></div>
+                            <div><span>작성일</span></div>
+                        </div>
+                        <th:block th:if="${qnaList != null and not #lists.isEmpty(qnaList)}">
+							<th:block th:each="qna : ${qnaList}">
+		                        <div class="p_qna_cont_box">
+		                            <ul class="p_qna_cont">
+		                                <li class="p_qna_cont_list">
+		                                    <div class="p_qna_simple">
+		                                        <div th:if="${qna.answer == null}"><span>답변미완료</span></div>
+		                                        <div th:unless="${qna.answer == null}"><span>답변완료</span></div>
+		                                        <div>
+		                                            <a href="javascript:void(0);" onclick="toggleDetail(this);">
+		                                                <span th:text="${qna.question}"></span>
+		                                            </a>
+		                                        </div>
+		                                        <div><span th:text="${qna.userid}"></span></div>
+		                                        <div><span th:text="${qna.qnaregdate}"></span></div>
+		                                    </div>
+		                                    <!-- 내용 클릭시 질문 자세히 보기 -->
+		                                    <div id="p_qna_detail_box">
+		                                        <div class="p_qna_detail">
+		                                            <div></div>
+		                                            <div><span th:text="${qna.question}"></span></div>
+			                                        <div><span th:text="${qna.userid}"></span></div>
+			                                        <div><span th:text="${qna.qnaregdate}"></span></div>
+		                                        </div>
+		                                        <div class="p_qna_detail answer">
+													<th:block th:if="${qna.answer == null}">
+			                                            <div><span></span></div>
+			                                            <div style="text-align: center"><span style="font-weight: bold;">아직 답변이 작성되지 않았습니다.</span></div>
+			                                            <div><span></span></div>
+														<div><span></span></div>
+													</th:block>
+													<th:block th:unless="${qna.answer == null}">
+			                                            <div><span>판매자 답변</span></div>
+			                                            <div><span th:text="${qna.answer}"></span></div>
+			                                            <div><span>판매자</span></div>
+														<div><span></span></div>
+													</th:block>
+		                                        </div>
+		                                    </div>
+		                                </li>
+		                            </ul>
+		                        </div>
+							</th:block>
+						</th:block>
+                    </div>
+                    <!-- qna가 없을경우 -->
+					<th:block th:if="${qnaList == null or #lists.isEmpty(qnaList)}">
+                    <div class="no_qna">
+                        <p>작성된 Q&A가 없습니다.</p>
+                    </div>
+					</th:block>
+                </div>
+                <!-- Q&A갯수가 더 남았을때 표시 -->
+                <div class="qna_moreBtn">
+                    <input type="button" value="더보기" id="qna_more" onclick="">
+                </div>
+                <div class="p_rturn" id="p_rturn">
+                    <div class="p_return_tit">
+                        <strong>반품/교환정보</strong>
+                    </div>
+                    <div class="p_return_guide">
+                        <p><span>[[${store.sName}]]</span> 반품/교환 안내</p>
+                        <p>반품 시 먼저 판매자와 연락하셔어 반품사유, 택배사, 배송비, 반품지 주소 등을 협의하신 후 반품상품을 발송해 주시기 바랍니다.</p>
+                    </div>
+                    <table class="p_return_info">
+                        <colgroup>
+                            <col width="200px">
+                            <col>
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <th scope="row">지정택배사</th>
+                                <td colspan="1">OO택배</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">보내실 곳</th>
+                                <td colspan="1">[[${store.sAddr}]]</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">반품/교환 사유에 따른 요청 가능 기간</th>
+                                <td colspan="1">구매자 단순 변심은 상품 수령 후 7일 이내. 또는 표시/광고와 상이, 계약 내용과 다르게 이행된 경우 상품 수령 수 3개월 이내 혹은 표시/광고와 다른 사실을 안 날로부터 30일 이내</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" rowspan="7">반품/교환 불가능 사유</th>
+                                <td colspan="1">
+                                    <ul>
+                                        <li>
+                                            <span>1. 반품요청기간이 지난 경우</span>
+                                        </li>
+                                        <li>
+                                            <span>2. 구매자의 책임 있는 사유로 상품 등이 멸실 또는 훼손된 경우</span>
+                                        </li>
+                                        <li>
+                                            <span>3. 구매자의 책임있는 사유로 포장이 훼손되어 상품 가치가 현저히 상실된 경우</span>
+                                        </li>
+                                        <li>
+                                            <span>4. 구매자의 사용 또는 일부 소비에 의하여 상품의 가치가 현저히 감소한 경우</span>
+                                        </li>
+                                        <li>
+                                            <span>5. 시간의 경과에 의하여 재판매가 곤란할 정도로 상품 등의 가치가 현저히 감소한 경우</span>
+                                        </li>
+                                        <li>
+                                            <span>6. 고객의 요청사항에 맞춰 제작에 들어가는 맞춤제작상품의 경우</span>
+                                        </li>
+                                        <li>
+                                            <span>7. 복제가 가능한 상품 등의 포장을 훼손한 경우</span>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+	<!-- footer -->
+	<th:block th:replace="~{layout/footer::footer()}"></th:block>
+</body>
+<script src="/js/jquery-3.7.1.min.js"></script>
+<script th:inline="javascript">
+	$('.h_logout').on('click', function(){
+		alert("로그아웃되었습니다.")
+	})
+    function add() {
+		hm = document.getElementById('amounts');// id가 amounts인 요소
+		sell_price = document.getElementById('sell_price');// id가 sell_price인 요소
+		hm.value++;// hm 값을 1 증가
+		var sum_ = parseInt(hm.value) * sell_price.value;// hm 문자값을 정수로 변환 * sell_price	해서 금액 계산
+		document.getElementById("my_sum").innerHTML = sum_.toLocaleString('ko-KR');// id가 my_sum인 요소를 찾아 값을 위에서 계산한 sum_ 값으로 설정, 각 나라 표시방식에 맞게 설정해줌
+	}
+
+	function del() {
+		hm = document.getElementById('amounts');
+		sell_price = document.getElementById('sell_price');// name이 sell_price인 요소
+		if (hm.value > 1) {// hm(amounts에서 가져온 값)가 1보다 크면
+			hm.value--;// hm 값 1 감소
+			var sum_ = parseInt(hm.value) * sell_price.value;
+			document.getElementById("my_sum").innerHTML = sum_.toLocaleString('ko-KR');		
+		}
+	}
+
+    function sendit(){
+		const pBuyForm = document.pBuyForm;
+		pBuyForm.submit();
+	}
+	
+	//Q&A를 디테일하게 보기위한 함수
+    function toggleDetail(element) {
+        var detailBox = element.closest('.p_qna_cont_list').querySelector('#p_qna_detail_box');
+        if (detailBox.style.display == 'block') {
+            detailBox.style.display = 'none';
+        } else {
+            detailBox.style.display = 'block';
+        }
+    }
+	
+	
+	//상품 정보 더 보기 위한 함수
+    function infoMoreview(){
+        let moreView = document.getElementById('p_info_img');
+        let infoBtn = document.getElementById('more_info_view_btn');
+		
+		
+		// getComputedStyle을 사용하여 현재 요소의 모든 CSS 속성을 가져옴
+		// 이는 CSS 파일이나 외부 스타일시트에서 설정된 스타일도 포함
+
+		let computedStyle = getComputedStyle(moreView);
+		// 현재 높이를 가져옴
+		let currentHeight = computedStyle.height;
+		if(currentHeight == '1500px'){
+            moreView.style.height = '100%';
+            infoBtn.value = '상세정보 접기';
+        }
+        else{
+            moreView.style.height = '1500px';
+            infoBtn.value = '상세정보 펼쳐보기';
+        }
+    }
+	
+	function qnaBtn(){
+		
+		let userid = document.getElementById('userid').value;
+		
+		if (!userid) {
+		    alert("로그인 후 이용해 주세요.(일반회원만 작성 가능합니다.)");
+		    return;
+		}
+		
+		let qnaTextarea = document.getElementById('qna_contents');
+		
+		let qnaStyle = getComputedStyle(qnaTextarea);
+		let qnaDisplay = qnaStyle.display;
+		
+		if(qnaDisplay == 'none'){
+			qnaTextarea.style.display = 'block';
+		}
+		else{
+			qnaTextarea.style.display = 'none';
+		}
+	}
+	
+	function qnaSubmit(){
+							
+		let productnum = document.getElementById('productnum').value;
+		let userid = document.getElementById('userid').value;
+		let question = document.getElementById('qna_content').value;
+		let qnaTextarea = document.getElementById('qna_contents');
+		if(question == ""){
+			alert("내용을 입력해주세요.");
+			document.getElementById('qna_content').focus;
+			return;			
+		}
+		
+		let data = {
+			productnum: productnum,
+			userid: userid,
+			question: question
+		};
+		
+		$.ajax({
+			type: "POST",
+			url:"/qna/regist",
+			data: JSON.stringify(data),
+			contentType: "application/json;charset=utf-8",
+			success: function(result, status, xhr){
+				console.log(result);
+				//성공했을때 돔으로 qna만들어 주기
+				alert("Q&A 등록에 성공하셨습니다.");
+				document.getElementById('qna_content').value = '';
+				qnaTextarea.style.display = 'none';
+				let question = result.question;
+				let qnaregdate = result.qnaregdate == 'null' ? '지금' :	 result.qnaregdate;
+				let answer = result.answer == 'null' ? '아직 답변이 작성되지 않았습니다.' : result.answer;
+				let userid = result.userid;
+				
+				let qnarsult = `
+				<div class="p_qna_cont_box">
+					<ul class="p_qna_cont">
+						<li class="p_qna_cont_list">
+							<div class="p_qna_simple">
+								<div th:if="${qna.answer == null}"><span>답변미완료</span></div>
+								<div th:unless="${qna.answer == null}"><span>답변완료</span></div>
+								<div>
+									<a href="javascript:void(0);" onclick="toggleDetail(this);">
+										<span th:text="${qna.question}"></span>
+									</a>
+								</div>
+								<div><span th:text="${qna.userid}"></span></div>
+								<div><span th:text="${qna.qnaregdate}"></span></div>
+							</div>
+							<!-- 내용 클릭시 질문 자세히 보기 -->
+							<div id="p_qna_detail_box">
+								<div class="p_qna_detail">
+									<div></div>
+									<div><span th:text="${qna.question}"></span></div>
+									<div><span th:text="${qna.userid}"></span></div>
+									<div><span th:text="${qna.qnaregdate}"></span></div>
+								</div>
+								<div class="p_qna_detail answer">
+									<th:block th:if="${qna.answer == null}">
+										<div><span></span></div>
+										<div style="text-align: center"><span style="font-weight: bold;">아직 답변이 작성되지 않았습니다.</span></div>
+										<div><span></span></div>
+										<div><span></span></div>
+									</th:block>
+									<th:block th:unless="${qna.answer == null}">
+										<div><span>판매자 답변</span></div>
+										<div><span th:text="${qna.answer}"></span></div>
+										<div><span>판매자</span></div>
+										<div><span></span></div>
+									</th:block>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>`
+			
+				
+				
+			},
+			error: function(xhr, status, xhr){
+				console.log("실패");			
+			}
+		});
+		
+		
+	}
+</script>
+</html>

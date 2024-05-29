@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <link rel="stylesheet" href="/css/index.css">
+   <script src="https://kit.fontawesome.com/516da99189.js" crossorigin="anonymous"></script>
+   <link rel="stylesheet" href="/css/login.css">
+   <link rel="stylesheet" href="/css/header_footer.css">   
+   <link rel="stylesheet" href="/css/kakaomap.css">
+   
+</head>
+
+<body>
+   <!-- header -->
+   <th:block th:replace="~{layout/header::header(loginUser)}"></th:block>
+   <!-- 컨텐츠 -->
+   <div class="wrap indexwrap">
+      <aside id="intro" class="intro">
+         <!-- 소개 -->
+         <h1>" 사랑을 기부하세요 "</h1>
+         <h1>" GivuLuv "</h1>
+      </aside>
+      <aside id="banner_box" class="banner_box">
+         <!-- 배너 -->
+         <div class="prev"><i class="fa-solid fa-arrow-left fa-2xl"></i></div>
+         <div class="banner_slide_box">
+            <div id="slide_banner" class="slide_banner">
+               <div id="banner0" class="banner">
+                  <a href="#"><img
+                        src="https://image.cherry.charity/static/publish/givecherry/banner/banner-chest.png"
+                        alt="banner1"></a>
+               </div>
+               <div id="banner1" class="banner">
+                  <a href="#"><img
+                        src="https://image.cherry.charity/static/publish/givecherry/banner/banner-salvationarmy.png"
+                        alt="banner2"></a>
+               </div>
+               <div id="banner2" class="banner">
+                  <a href="#"><img
+                        src="https://image.cherry.charity/static/publish/givecherry/banner/banner-cherrycard.png"
+                        alt="banner3"></a>
+               </div>
+               <!--   javascript
+                        str = '';
+                        for(i=0;i<divbanner.length;i++){
+                           str += "<div id="banner${i}" class="banner">";
+                           str += "<a href=""><img src=`/img/${사진}`></a>"
+                           str += "</div>"
+                        }
+                        $(".slide_banner").html(str);
+                  }-->
+            </div>
+         </div>
+         <div class="next"><i class="fa-solid fa-arrow-right fa-2xl"></i></div>
+      </aside>
+      <section class="live_luv_box row mt">
+         <!-- 실시간 누적 기부금 -->
+         <div>
+            <h2>오늘까지</h2>
+            <h2>기부된 사랑</h2>
+         </div>
+         <div>
+            <p>기부</p>
+            <div class="column">
+               <p class="column_center right"><span id="donation_people" class="count">0</span>명</p>
+               <p class="column_center right"><span id="donation_save_money" class="count">0</span>원</p>
+            </div>
+         </div>
+         <div>
+            <p>펀딩</p>
+            <div class="column">
+               <p class="column_center right"><span id="funding_people" class="count">0</span>명</p>
+               <p class="column_center right"><span id="funding_save_money" class="count">0</span>원</p>
+            </div>
+         </div>
+      </section>
+      <section class="donation_box column mt">
+         <!-- 기부 -->
+         <a href="#">
+            <h2># 기부</h2>
+         </a>
+         <div class="donations">
+            <!-- #기부 돔 구현 -->
+            </div>
+         </div>
+      </section>
+      <section class="funding_box column mt">
+         <!-- 펀딩 -->
+         <a href="#">
+            <h2># 펀딩</h2>
+         </a>
+         <div class="fundings">
+            <div id="funding0" class="funding">
+               <a href="#">
+                  <div>
+                     <div>
+                        <img loading="lazy"
+                           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8gVQVDGQNz0Ayv82tfti4gvhjHjqLcEErCnmxP1TYAQ&s"
+                           width="250px" height="180px">
+                     </div>
+                     <div id="funding_info_box0" class="funding_info_box">
+                        <div class="funding_info_header">
+                           <p id="funding_title0" class="funding_title">제목 기부금 넣기 단체 펀딩 제목 기부금 넣기 단체 펀딩</p>
+                           <div class="space-between">
+                              <div class="column">
+                                 <p id="funding_market0" class="funding_market">마켓이름</p>
+                                 <p id="funding_D-day0" class="funding_D-day">D-21</p>
+                                 <p id="funding_save_money0" class="funding_save_money">424,526원</p>
+                              </div>
+                              <div class="funding_chart">
+                                 <p id="funding_save_money_percent0" class="funding_save_money_percent">24%</p>
+                                 <div class="funding_chart-bar" style="background: conic-gradient(rgb(231, 112, 151) 200deg, rgb(200, 200, 200) 50deg);"></div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </a>
+            </div>
+            <!--   javascript   content에 대괄호 쓰면 오류나서 안 씀. 써야함.
+                  str = '';
+                  for(i=0;i<fundings.length;i++){
+                     str += '<div id="funding${i}" class="funding">'
+                     str += '<a href="#">'
+                   str += '<div>'
+                   str += '<div>'
+                   str += '<img loading="lazy" src="/img/${사진}" width="250px" height="180px">'
+                   str += '</div>'
+                   str += '<div id="funding_info_box0" class="funding_info_box">'
+                   str += '<div class="funding_info_header">'
+                   str += '<p id="funding_title${i}" class="funding_title">${fundings[i].title}</p>'
+                   str += '<div class="space-between">'
+                   str += '<div class="column">'
+                   str += '<p id="funding_market${i}" class="funding_market">마켓이름</p>'
+                   str += '<p id="funding_D-day${i}" class="funding_D-day">${fundings[i].regdate-fundings[i].enddate}</p>'
+                   str += '<p id="funding_save_money${i}" class="funding_save_money">${fundings[i].save_money}원</p>'
+                   str += '</div>'
+                   str += '<div class="funding_chart">'
+                   str += '<p id="funding_save_money_percent${i}" class="funding_save_money_percent">${모금금액/목표금액*100}</p>'
+                   str += '<div class="funding_chart-bar" style="background: conic-gradient(rgb(231, 112, 151) 200deg, rgb(200, 200, 200) 200deg);"></div>'
+                      -> deg를 바꾸면 됨. 실제금액/목표금액*360
+                      -> 인자값 :  첫 시작 컬러 00번째  각도까지, 두 번째 컬러 00번째 각도부터 전체 
+                   str += '</div>'
+                   str += '</div>'
+                   str += '</div>'
+                   str += '</div>'
+                   str += '</div>'
+                   str += '</a>'
+                     str += '</div>'
+                  }
+                  $(".fundings").html(str);
+            }-->
+            <div id="funding1" class="funding">
+               
+            </div>
+            <div id="funding2" class="funding">
+               
+            </div>
+            <div id="funding3" class="funding">
+               
+            </div>
+            <div id="funding4" class="funding">
+               
+            </div>
+         </div>
+      </section>
+      <section class="store_box column mt">
+         <!-- 가게 -->
+         <a href="#">
+            <h2># 가게</h2>
+         </a>
+         <div class="stores">
+            <div id="store0" class="store">
+               <a href="#">
+                  <div>
+                     <img loading="lazy"
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVZFfQYwS8zuI99HvDb6BLfrQKm1x4kj748_3Y_wXJfw&s"
+                        width="250px" height="180px">
+                  </div>
+                  <div id="store_info_box0" class="store_info_box">
+                     <a href="#" class="store_profile">
+                        <img loading="lazy" src="https://static.hancomtaja.com/shop/2022/20221122/0f50d9e4-f43f-41f2-9725-d2d5cc793572.png" width="40px" height="40px">
+                        <p class="store_name">가게 이름</p>
+                     </a>
+                     <div class="store_info_footer">
+                        <p id="store_title0" class="store_title">제목 기부금 넣기 단체 펀딩 제목 기부금 넣기 단체 펀딩</p>
+                        <p id="product_price0" class="product_price">50,000원</p>
+                     </div>
+                  </div>
+               </a>
+            </div>
+            <!--   javascript   content에 대괄호 쓰면 오류나서 안 씀. 써야함.
+                  str = '';
+                  for(i=0;i<stores.length;i++){
+                     str += '<div id="store${i}" class="store">'
+                     str += '<a href="#">'
+                   str += '<div>'
+                   str += '<img loading="lazy" src="/img/${물건 사진}" width="250px" height="180px">'
+                   str += '</div>'
+                   str += '<div id="store_info_box0" class="store_info_box">'
+                   str += '<a href="#" class="store_profile">'
+                   str += '<img loading="lazy" src="/img/${가게 사진}" width="40px" height="40px">'
+                   str += '<p class="store_name">stores[i].name</p>'
+                   str += '</a>'
+                   str += '<div class="store_info_footer">'
+                   str += '<p id="store_title${i}" class="store_title">${stores[i].title}</p>'
+                   str += '<p id="product_price0" class="product_price">${products[i].price}</p>'
+                   str += '</div>'
+                   str += '</div>'
+                   str += '</a>'
+                     str += '</div>'
+                  }
+                  $(".stores").html(str);
+            }-->
+            <div id="store1" class="store"></div>
+            <div id="store1" class="store"></div>
+            <div id="store1" class="store"></div>
+            <div id="store1" class="store"></div>
+         </div>
+      </section>
+      <section class="org_box column mt mb">
+         <!-- 단체 자동 롤링 -->
+         <a href="#">
+            <h2># 단체</h2>
+         </a>
+         <div class="org_rolling">
+            <div class="orgs">
+               <a class="org_profile">
+                  <img class="org_img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWxIy2NDo672M6hF2Q59d0NmDBxuLG6W1AZ70eQvNfuQ&s" width="200px" height="200px">
+                  <div class="org_name">자선단체</div>
+               </a>
+               <a class="org_profile .org_profile_down">
+                  <img class="org_img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWxIy2NDo672M6hF2Q59d0NmDBxuLG6W1AZ70eQvNfuQ&s" width="200px" height="200px">
+                  <div class="org_name">자선단체</div>
+               </a>
+               <a class="org_profile">
+                  <img class="org_img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWxIy2NDo672M6hF2Q59d0NmDBxuLG6W1AZ70eQvNfuQ&s" width="200px" height="200px">
+                  <div class="org_name">자선단체</div>
+               </a>
+               <a class="org_profile   .org_profile_down">
+                  <img class="org_img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWxIy2NDo672M6hF2Q59d0NmDBxuLG6W1AZ70eQvNfuQ&s" width="200px" height="200px">
+                  <div class="org_name">자선단체</div>
+               </a>
+               <a class="org_profile">
+                  <img class="org_img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWxIy2NDo672M6hF2Q59d0NmDBxuLG6W1AZ70eQvNfuQ&s" width="200px" height="200px">
+                  <div class="org_name">자선단체</div>
+               </a>
+               <a class="org_profile">
+                  <img class="org_img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWxIy2NDo672M6hF2Q59d0NmDBxuLG6W1AZ70eQvNfuQ&s" width="200px" height="200px">
+                  <div class="org_name">자선단체</div>
+               </a>
+            </div>
+         </div>
+      </section>
+	  <th:block th:replace="~{layout/kakaomap::kakaomap()}"></th:block>
+   </div>
+   <!-- footer -->
+   <th:block th:replace="~{layout/footer::footer()}"></th:block>
+</body>
+<script src="/js/jquery-3.7.1.min.js"></script>
+<script src="/js/index.js"></script>
+<script>
+   $('.logout').on('click', function () {
+      alert("로그아웃되었습니다.")
+   })
+
+   function donation_down_animation(num){
+      $('#donation_info_box'+num).addClass("donation_animation");
+   }
+   function donation_down_animation_remove(num){
+      $('#donation_info_box'+num).removeClass('donation_animation');
+   }
+      
+   
+   
+   // 롤링 배너 복제본 생성
+   let roller = document.querySelector('.orgs');
+   roller.id = 'roller1'; // 아이디 부여
+   
+   let clone = roller.cloneNode(true)
+   // cloneNode : 노드 복제. 기본값은 false. 자식 노드까지 복제를 원하면 true 사용
+   clone.id = 'roller2';
+   document.querySelector('.org_rolling').appendChild(clone); // wrap 하위 자식으로 부착
+   
+   document.querySelector('#roller1').style.left = '0px';
+   document.querySelector('#roller2').style.left = document.querySelector('.orgs').offsetWidth + 'px';
+   // offsetWidth : 요소의 크기 확인(margin을 제외한 padding값, border값까지 계산한 값)
+   
+   roller.classList.add('original');
+   clone.classList.add('clone');
+   $(document).ready(function(){
+	//오늘까지 기부된 사랑 카운팅
+	$.ajax({
+		url:"/index/getTodayCnt",
+		method: 'GET',
+		dataType:'json',
+		contentType:'application/json; charset=utf-8',
+		success: function(response){
+			const counters = document.querySelectorAll(".count");
+			const max = [
+				response.donationTotalPeople,
+				response.donationTotalCost,
+				response.fundingTotalPeople,
+				response.fundingTotalCost
+			];
+
+			for (let i = 0; i < 4; i++) {
+				let $counter = counters[i];
+				let $max = max[i];
+				setTimeout(() => counter($counter, $max), 1318);
+			}
+		},
+		error: function(e){
+			
+		}
+	})
+	
+	
+	
+	//기부 정보 가져오기
+	   $.ajax({
+	   		url: '/index/getDonationInfo',
+	   		method: 'GET',
+			dataType: 'json',
+			contentType: 'application/json; charset=utf-8', 
+			success: function(response) {
+			    console.log(response);
+			
+				// response가 배열이라고 가정하고, 최대 3개까지만 요소 추가
+				            for (let index = 0; index < Math.min(response.length, 5); index++) {
+				                let item = response[index];
+								let dboard = item.dboard;
+				                let dTitle = item.dboard.dtitle;
+				                let targetAmount = item.dboard.targetAmount;
+				                let deadline = item.deadline;
+				                let percentage = item.percentage.toFixed(1); // 소수점 1자리까지 표시
+				                let systemname = item.systemname;
+								console.log(systemname)
+				                let str = '<div id="donation' + index + '" class="donation" onmouseover="donation_down_animation(' + index + ')" onmouseleave="donation_down_animation_remove(' + index + ')">';
+				                str += `<a href="donation/donationView?dBoardnum=${dboard.dboardnum}">`;
+				                str += '<div>';
+				                str += '<div>';
+				                str += `<img loading="lazy" src='${systemname}'" width="250px" height="300px">`;
+				                str += '</div>';
+				                str += `<div id="donation_info_box${index}" class="donation_info_box">`;
+				                str += '<div class="donation_info_header">';
+				                str += '<p id="donation_title' + index + '" class="donation_title">' + dTitle + '</p>';
+				                str += '<p id="donation_D-day' + index + '" class="donation_D-day">D-' + deadline + '</p>';
+				                str += '</div>';
+				                str += '<div class="row_graph_box">';
+				                str += '<div class="row_graph">';
+				                str += '<div style="width:' + percentage + '%" class="donation_amount"></div>';
+				                str += '<div class="donation_save_money_box">';
+				                str += '<p id="donation_save_money' + index + '" class="donation_save_money">목표금액: ' + targetAmount + '원</p>';
+				                str += '<p id="donation_save_money_percent' + index + '">' + percentage + '%</p>';
+				                str += '</div>';
+				                str += '</div>';
+				                str += '</div>';
+				                str += '</div>';
+				                str += '</div>';
+				                str += '</a>';
+				                str += '</div>';
+				                
+				                $(".donations").append(str); // 이전에 생성된 HTML에 새로운 요소 추가
+				            }
+				        },
+	   		error: function(e) {
+				console.log(e);	   		
+			}
+	   	});
+		//펀딩 정보 가져오기
+		$.ajax({
+			url: '/index/getFundingInfo',
+			method: "GET",
+			dataType: 'json',
+			contentType: 'application/json; charset=utf-8',
+			success: function(response) {
+			
+			},
+			error: function(e) {
+				console.log(e);	   		
+			}
+		})
+	});
+</script>
+
+</html>

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gl.givuluv.mapper.BoardMapper">
+	<!-- 기부 게시글 -->
+	<insert id="insertDonation">
+		insert into d_board(d_title, d_content, target_amount,d_enddate, orgid)
+		values(#{dTitle},#{dContent},#{targetAmount},#{dEnddate},#{orgid})
+	</insert>
+	<select id="getList">
+		select * from d_board order by d_boardnum desc;
+	</select>
+	<select id="getDonationByBoardnum">
+		select * from d_board where d_boardnum=#{dBoardnum}
+	</select>
+	<select id="getDonations">
+		select * from d_board order by d_boardnum desc limit #{startrow}, #{amount}
+	</select>
+	<select id="getDonationsByOrgid">
+		select * from d_board where orgid=#{orgid} order by d_boardnum desc limit #{cri.startrow}, #{cri.amount}
+	</select>
+	<select id="getDonationLastBoardnumByOrgid">
+      select max(d_boardnum)
+      from d_board
+      where orgid=#{orgid};
+   </select>
+   <select id="getEnddateByBoardnum">
+	  select d_enddate from d_board where d_boardnum=#{dBoardnum}
+   </select>
+	<!--<select id="getOrgnameBynum">
+		select orgname from org where orgid=#{orgid}
+	</select>-->
+	<!--카테고리 정렬-->
+	<select id="getListByCategory">
+		select d.*, o.orgname
+		from d_board d join org o on d.orgid = o.orgid
+		where o.orgcategory = #{orgcategory}
+		order by d.d_regdate desc;
+	</select>
+	<select id="getFundingLastBoardnumByOrgid">
+      select max(f_boardnum)
+      from f_board
+      where orgid=#{orgid};
+   </select>
+	<update id="updateDonation">
+		update d_board
+		set d_title=#{d_title}, d_content=#{dContent}, target_amount=#{targetAmount}, d_enddate=#{dEnddate}
+		where d_boardnum=#{dBoardnum}
+	</update>
+	<update id="updateDonationOfOrgid">
+		update d_board
+		set orgid=#{orgid}
+		where d_boardnum=#{dBoardnum}
+	</update>
+	<update id="updateSaveMoney">
+		UPDATE d_board b
+		JOIN (SELECT d_boardnum, SUM(d_cost) as total_cost 
+		FROM d_payment
+		WHERE d_boardnum = #{dBoardnum}
+		GROUP BY d_boardnum) p 
+		 ON b.d_boardnum = p.d_boardnum 
+		SET b.save_money = p.total_cost 
+		WHERE b.d_boardnum = #{dBoardnum}
+	</update>
+
+	<delete id="deleteDonationByBoardnum">
+		delete from d_board where d_boardnum=#{dBoardnum}
+	</delete>
+	<delete id="deleteDonationsByOrgid">
+		delete from d_board where orgid=#{orgid}
+	</delete>
+	
+	<!-- 펀딩 게시글 -->
+	<insert id="insertFunding">
+		insert into f_board(f_title, f_content, target_amount, f_enddate, orgid) values 
+		(#{fTitle}, #{fContent}, #{targetAmount}, #{fEnddate}, #{orgid})
+	</insert>
+	<select id="getFundingList">
+		select * from f_board order by f_boardnum desc
+	</select>
+	<select id="getFundingByBoardnum">
+		select * from f_board where f_boardnum=#{f_boardnum}
+	</select>
+	<select id="getFundings">
+		select * from f_board order by f_boardnum desc limit #{startrow}, #{amount}
+	</select>
+	<select id="getFundingsByOrgid"> <!-- limit 0 0 써야함. -->
+		select * from f_board where orgid=#{orgid} order by f_boardnum desc limit #{startrow}, #{amount}
+	</select>
+	<select id="getFundingEndDay">
+		select f_enddate from f_board where f_boardnum=#{FBoardnum}
+	</select>
+	<select id="getTargetMoneyByFBoardnum">
+		select target_amount from f_board where f_boardnum=#{FBoardnum}
+	</select>
+	<select id="getSaveMoneyByFBoardnum">
+		select save_money from f_board where f_boardnum=#{FBoardnum}
+	</select>
+	<select id="getOrgnameByOrgId">
+		select orgname from f_board join org on f_board.orgid = org.orgid 
+		where f_board.orgid=#{orgid}
+	</select>
+	<select id="getOrgIdByFBoardnum">
+		select orgid from f_board where f_boardnum=#{fBoardnum}
+	</select>
+	<update id="updateFunding">
+		update f_board
+		set f_title=#{f_title}, f_content=#{f_content}, target_amount=#{target_amount}, f_enddate=#{f_enddate}
+		where f_boardnum=#{f_boardnum} 
+	</update>
+	<update id="updateFundingOfOrgid">
+		update f_board
+		set orgid=#{orgid}
+		where f_boardnum=#{f_boardnum}
+	</update>
+	
+	<delete id="deleteFundingByBoardnum">
+		delete from f_board where f_boardnum=#{f_boardnum}
+	</delete>
+	<delete id="deleteFundingByOrgid">
+		delete from f_board where orgid=#{orgid}
+	</delete>
+	
+	 <!-- 상점 게시글 -->
+   <insert id="insertStoreBoard">
+      insert into s_board(s_title, s_content, s_num)
+      values(#{sTitle}, #{sContent}, #{sNum})
+   </insert>
+   
+   <select id="getStoreBoardLastNumBySNum">
+      select max(s_boardnum)
+      from s_board
+      where s_num=#{sNum};
+   </select>
+	<select id="getSBoard">
+		select * 
+		from s_board
+		where s_boardnum = #{connectid}
+   </select>
+	
+		<!-- 캠페인 게시글 -->
+	<insert id="insertCampaign">
+		insert into c_board(c_content, connectid, type)
+		values(#{cContent}, #{connectid}, #{type})
+	</insert>
+	<select id="getCampaignLastNumByConnectid">
+		select max(c_boardnum)
+		from c_board
+		where connectid=#{connectid};
+	</select>
+	<select id="getCampaignByCBoardnum">
+		select *
+		from c_board
+		where c_boardnum=#{cBoardnum} 
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</mapper>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>판매자 myQnA</title>
+	<script src="https://kit.fontawesome.com/1924b51539.js" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="/css/header_footer.css">
+	<link rel="stylesheet" href="/css/seller/my/rank.css">
+	<link rel="stylesheet" href="/css/seller/my/qna.css">
+</head>
+
+<body>
+	<!-- header -->
+	<th:block th:replace="~{layout/header::header(loginUser)}"></th:block>
+
+	<!-- 컨텐츠 -->
+	<div class="wrap">
+		<!-- up_area - 프로필 및 랭킹 -->
+		<th:block th:replace="~{layout/sellerMyPageRank::sellerMyPageRank(loginUser)}"></th:block>
+
+		<div class="down_area">
+			<div class="menu_area">
+				<div>
+					<h3>상품</h3>
+					<a href="/seller/my/productNow">현제 재고현황</a>
+					<a>새 물품 등록</a>
+				</div>
+				<div>
+					<h3>스토어</h3>
+					<a href="/seller/my/storeList">내 스토어</a>
+					<a href="/seller/my/storeUpdate">스토어 수정</a>
+				</div>
+				<div>
+					<h3>Q&A</h3>
+					<a href="/seller/my/qna">Q&A 목록 및 관리</a>
+				</div>
+				<div>
+					<h3>리뷰</h3>
+					<a href="/seller/my/reviewList">리뷰 목록 및 관리</a>
+				</div>
+			</div>
+			<div class="contents_area">
+				<div class="button_div">
+					<a href="/seller/my/storeList">
+						<img src="/images/seller/my/스토어.png">
+						<span>apple님 스토어</span>
+					</a>
+					<a href="/seller/my/reviewList">
+						<img src="/images/seller/my/review.png">
+						<span>리뷰</span>
+					</a>
+					<a href="/seller/my/qna">
+						<img src="/images/seller/my/qna.png">
+						<span>Q&A</span>
+					</a>
+					<a>
+						<img src="/images/seller/my/쇼핑.png">
+						<span>다른스토어 보기</span>
+					</a>
+				</div>
+				<!-- ======= -->
+				<!-- 제목, 검색바, 글쓰기 div -->
+				<div class="titie_search">
+					<h1>Q&A 목록 및 관리</h1>
+					<div class="ps_div">
+						<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" style="user-select: auto !important;">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M2.45005 8.74999C2.45005 5.27059 5.27065 2.44999 8.75005 2.44999C12.2294 2.44999 15.05 5.27059 15.05 8.74999C15.05 12.2294 12.2294 15.05 8.75005 15.05C5.27065 15.05 2.45005 12.2294 2.45005 8.74999ZM8.75005 1.04999C4.49746 1.04999 1.05005 4.4974 1.05005 8.74999C1.05005 13.0026 4.49746 16.45 8.75005 16.45C10.6243 16.45 12.3421 15.7804 13.6774 14.6673L18.2551 19.245C18.5284 19.5183 18.9717 19.5183 19.245 19.245C19.5184 18.9716 19.5184 18.5284 19.245 18.255L14.6673 13.6773C15.7804 12.3421 16.45 10.6242 16.45 8.74999C16.45 4.4974 13.0026 1.04999 8.75005 1.04999Z" fill="black" style="user-select: auto !important;"></path>
+                        </svg>
+						<input type="text" placeholder="질문 검색">
+					</div>
+					<a class="writeButton_div">
+						<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path fill-rule="evenodd" clip-rule="evenodd" d="M1.89626 18.2525C1.958 18.2421 2.02711 18.2299 2.10658 18.2159L6.10689 17.51L2.63873 14.0418L1.9328 18.0421C1.91877 18.1216 1.9066 18.1907 1.89626 18.2525ZM2.3325 19.4961L7.56113 18.5734C7.68848 18.5513 7.8105 18.4911 7.90885 18.3927L19.1644 7.13714L19.187 7.1146C19.3338 6.96783 19.4862 6.81553 19.5966 6.67091C19.724 6.50387 19.8548 6.27323 19.8548 5.97041C19.8548 5.6676 19.724 5.43696 19.5966 5.26992C19.4862 5.12533 19.3339 4.97307 19.1871 4.82633L19.187 4.82623L19.1644 4.80369L15.345 0.984233L15.3224 0.961679L15.3223 0.961582C15.1756 0.81475 15.0233 0.662407 14.8787 0.552088C14.7117 0.42464 14.4811 0.293852 14.1782 0.293852C13.8754 0.293852 13.6448 0.424641 13.4777 0.552089C13.3331 0.662432 13.1808 0.814814 13.0341 0.961679L13.0115 0.984233L1.75595 12.2398C1.65547 12.3403 1.59477 12.4654 1.57383 12.5958L0.65258 17.8162L0.646269 17.8519C0.6066 18.0762 0.565303 18.3098 0.559737 18.5049C0.553463 18.7249 0.585846 19.0449 0.844834 19.3039C1.10382 19.5629 1.42383 19.5953 1.6438 19.589C1.83894 19.5834 2.07247 19.5421 2.2968 19.5024L2.3325 19.4961ZM7.44923 17.0138L18.2452 6.2179C18.3302 6.13286 18.3968 6.06623 18.4525 6.00766C18.4652 5.99425 18.4768 5.98187 18.4874 5.97042C18.4768 5.95896 18.4652 5.94658 18.4525 5.93317C18.3968 5.8746 18.3302 5.80797 18.2452 5.72293L16.795 4.27278L8.65644 12.4114C8.4026 12.6652 7.99104 12.6652 7.7372 12.4114C7.48336 12.1575 7.48336 11.746 7.7372 11.4921L15.8758 3.35354L14.4257 1.90347C14.3407 1.81843 14.274 1.75186 14.2155 1.69617C14.2021 1.68342 14.1897 1.67183 14.1782 1.66128C14.1668 1.67183 14.1544 1.68343 14.141 1.69617C14.0824 1.75186 14.0158 1.81843 13.9307 1.90347L3.1348 12.6994L7.44923 17.0138Z" fill="#333236"></path>
+						</svg>
+						<span>질문하기</span>
+					</a>	
+				</div>
+				<!-- qna 필터 div -->
+				<div class="filter_div">
+					<input type="button" value="전체보기" onclick="javascript:total_veiw()">
+					<input type="button" value="답변 대기" onclick="javascript:no_review()" style="color: #757575;">
+					<input type="button" value="최신순">					
+				</div>
+				<!-- qna 내용 div -->
+				<div class="qna_contents_div">
+					<div class="content">
+						<span>
+							qna 내용들을 쓰는 span
+							ㄴㅇㄹ;ㅣㅁ낭ㄹ;ㅣ낭라ㅣ넝림ㄴ얼
+						</span>
+						<div>
+							<div class="cm_check">A</div>
+							<span>답변</span>
+							<div class="profile_info">
+								<img src="/images/default_profile.png">
+								<span>banana</span>
+								<span>2024.05.28</span>
+							</div>
+						</div>
+					</div>
+					<div class="content">
+						<span>qna 내용들을 쓰는 span</span>
+						<div>
+							<div class="cm_check" style="background-color: #2f956b; color: white;">A</div>
+							<span style="color: black;">답변</span>
+							<div class="profile_info">
+								<img src="/images/default_profile.png">
+								<span>apple</span>
+								<span>2024.05.28</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- footer -->
+	<th:block th:replace="~{layout/footer::footer()}"></th:block>
+</body>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+	var total_btn = $(".filter_div input[value='전체보기']")
+	var review_btn = $(".filter_div input[value='답변 대기']")
+	
+	function total_veiw() {
+       	total_btn.css("color", "black");
+        review_btn.css("color", "#757575");
+	}
+	
+    function no_review() {
+        total_btn.css("color", "#757575");
+        review_btn.css("color", "black");
+    }
+</script>
+</html>

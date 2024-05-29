@@ -1,0 +1,283 @@
+@font-face {
+    font-family: 'TTLaundryGothicB';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/TTLaundryGothicB.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'KCC-Hanbit';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/KCC-Hanbit.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+*{ box-sizing: border-box; margin: 0; padding: 0; }
+
+ul, li {
+    list-style: none;
+}
+a{
+    text-decoration: none; /* 링크의 밑줄 제거 */
+    color: black; /* 링크의 텍스트 색상을 투명하게 설정 */
+}
+
+.funding_wrap{
+    margin: 0 auto;
+}
+.funding_cont{
+	width: 1340px;
+	overflow: hidden;
+    margin: 0 auto;
+}
+.fundingBanner_wrap{
+	overflow: hidden;
+    position: relative;
+}
+.banner_box{
+   position: relative;
+}
+
+.prev{
+   position: absolute;
+   top: 45%;
+   left: 3%;
+   width: 20px;height: 20px;
+   padding: 20px;
+   border-radius:50%;
+   cursor: pointer;
+   color: white;
+}
+.next{
+   position: absolute;
+   top: 45%;
+   right: 5%;
+   width: 20px;height: 20px;
+   padding: 20px;
+   border-radius:50%;
+   cursor: pointer;
+   color: white;
+}
+.banner_slide_box{
+   overflow: hidden;
+   height: 400px;
+   margin: 40px;
+   border-radius: 30px;
+}
+.slide_banner{
+   width: 100000000000px;
+   transition: 0.5s;
+   
+}
+.banner{
+   float: left;
+}
+.banner img{
+	width: 2200px;
+	height: 400px;
+}
+.banner:first-child{
+   margin-left:0;
+}
+.banner:last-child{
+   margin-right:0;
+}
+
+
+.slide .previous{
+	position: absolute;
+	top: 40%;
+	left: 5%;
+	font-size: 24px;
+}
+.slide .next{
+	position: absolute;
+	font-size: 24px;
+	top: 40%;
+	right: 5%;
+}
+.funding_filter{
+	text-align: right;
+	margin-right: 20px;
+	padding-bottom: 20px;
+	height: 60px;
+}
+.SelectArea_select_list{
+    overflow-y: auto;
+    position: absolute;
+    right: 16%;
+    text-align: right;
+    z-index: 30;
+   	width: 110px;
+    max-height: 189px;
+    padding: 12px;
+    border-radius: 5%;
+    border: 1px solid #202020;
+    background-color: #fff;
+    text-align: left;
+    color: #333;
+}
+.SelectArea_select_item{
+    display: block;
+    padding: 9px 14px;
+    outline: none;
+    line-height: 17px;
+    text-align: left;
+    cursor: pointer;
+}
+
+[aria-hidden=true]:not(svg) {
+    display: none;
+}
+.SelectArea_select_area{
+	height: 60px;
+}
+
+
+
+.funding_item{
+    width: 1340px;
+    display: flex;
+    flex-wrap: wrap;
+    overflow: hidden;
+}
+
+.funding_item_box{
+	width: 22%;
+    overflow: hidden;
+    margin: 0 20px 40px;
+    border: 1px solid lightgray;
+}
+
+#funding_link{
+    position: relative;
+}
+.funding_thumbnail{
+	width: 100%;
+}
+.funding_thumbnail img{
+    position: relative;
+    width: 100%;
+    height: 200px;
+    background-size: 250px;
+}
+.funding_name{
+	margin-top: 8px;
+    width: 250px;
+    font-size: 18px;
+    margin-bottom: 5px;
+    font-family: 'TTLaundryGothicB';
+}
+
+.tit_cont{
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	flex-wrap: nowrap;
+    text-overflow: ellipsis;
+}
+.f_tit_box{
+	width: 222px;
+	height: 80px;
+    padding: 25px 5px 25px 10px;
+}
+.funding_title{
+	overflow: hidden;
+	text-overflow: ellipsis;
+	width: 207px;
+	height: 38px;
+	display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+.f_percent{
+    width: 55px;
+    height: 55px;
+    border: 1px solid rgb(231, 112, 151);
+    border-radius: 50%;
+    font-family: NanumSquareWebFont, dotum, Sans-serif;
+    font-size: 15px;
+    line-height: 55px;
+    letter-spacing: -.2px;
+    text-align: center;
+    color: rgb(231, 112, 151);
+    font-weight: bold;
+}
+.blind{
+    overflow: hidden;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    clip: rect(0 0 0 0);
+}
+.FundingCard_num{
+    font-size: 17px;
+    letter-spacing: -.6px;
+}
+
+.funding_info_box{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 10px 0;
+}
+.funding_item_box:hover{
+	border: 1px solid #333;
+}
+.fundingDDay{
+	display: flex;
+}
+.priceBox{
+	display: flex;
+	align-items: center;
+	margin: 0;
+}
+.fundingDDay i{
+	margin-right: 8px;
+}
+.funding_price{
+    width: 188px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 16px;
+    color: #333;
+   	text-align: center;
+    font-family: 'KCC-Hanbit';
+}
+
+.f_choice_box{
+    width: 40px;
+    height: 40px;
+    padding: 5px;
+}
+ 
+.funding_choice{
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    background-color: unset;
+    background-image: url('../images/heart1_icon.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: none;
+}
+
+.funding_moreBtn{
+    width: 100px;
+    height: 100px;
+    margin: 20px auto;
+    text-align: center;
+}
+#funding_more{
+    width: 100px;
+    height: 40px;
+	border-radius: 30px;
+	border: 1px solid rgba(0,0,0,0.1);
+	cursor: pointer;
+}
+#funding_more:hover{
+	border: 1px solid rgba(0,0,0,0.7);
+}
+
+

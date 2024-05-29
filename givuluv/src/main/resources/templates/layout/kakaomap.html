@@ -1,0 +1,187 @@
+<th:block th:fragment="kakaomap()">
+	<body>
+	    <div class="map_tit">
+	        <h2>
+	            전국자활기업현황
+	        </h2>
+	        <p>
+	            우리지역 자활기업을 찾아보세요!
+	        </p>
+	    </div>
+	    <div class="map_wrap">
+	        <div class="map_box">
+	            <div class="map_img">
+	                <img src="/images/map.jpg" alt="" id="map_img_box">
+					<div id="map">
+						<div class="map_close">
+							<button type="button" class="close_btn" onclick="mapClose()">&times;</button>			
+						</div>
+					</div>
+	            </div>
+				
+	            <div class="local_box">
+	                <div class="local_keyword_info">
+	                    <div class="local_info">
+	                        자활기업의 지역을 선택해 주세요!
+	                    </div>
+	                </div>
+	                <div class="local_keyword_box">
+	                    <div class="local_keyword">
+	                        <input type="button" value="서울" name="local" onclick="apimap('서울', '서울특별시', '서울중구세종대로110')">
+	                    </div>
+	                    <div class="local_keyword">
+	                        <input type="button" value="경기" name="local" onclick="apimap('경기도', '경기', '경기수원시영통구도청로30')">
+	                    </div>
+	                    <div class="local_keyword">
+	                        <input type="button" value="강원" name="local" onclick="apimap('강원특별자치도', '강원도', '강원특별자치도춘천시중앙로1')">
+	                    </div>
+	                </div>
+	                <div class="local_keyword_box">
+	                    <div class="local_keyword">
+	                        <input type="button" value="충청" name="local" onclick="apimap('충청남도', '충청북도', '충북청주시상당구상당로82')">
+	                    </div>
+	                    <div class="local_keyword local_center">
+	                        <img src="" alt="">
+	                    </div>
+	                    <div class="local_keyword">
+	                        <input type="button" value="세종" name="local" onclick="apimap('세종', '세종특별자치시', '세종특별자치시한누리대로2130')">
+	                    </div>
+	                </div>
+	                <div class="local_keyword_box">
+	                    <div class="local_keyword">
+	                        <input type="button" value="전라" name="local" onclick="apimap('전라남도', '전라북도', '전북특별자치도전주시완산구효자로225')">
+	                    </div>
+	                    <div class="local_keyword">
+	                        <input type="button" value="제주" name="local" onclick="apimap('제주', '제주특별자치도', '제주특별자치도제주시문연로6')">
+	                    </div>
+	                    <div class="local_keyword">
+	                        <input type="button" value="경상" name="local" onclick="apimap('경상남도', '경상북도', '경북안동시풍천면도청대로455')">
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</body>
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ea001b868dee194be97b608c6d21912a&libraries=services"></script>
+	<script>
+		
+		var map; // 전역 변수로 지도를 선언합니다.
+    	var markers = []; // 마커를 담을 배열
+    	var infowindows = []; // 마커를 담을 배열
+		
+		//지도 생성 함수
+		function createMap() {
+		    var mapContainer = document.getElementById('map'); // 지도를 표시할 div
+		    //var geocoder = new kakao.maps.services.Geocoder(); // 주소-좌표 변환 객체를 생성합니다
+		
+		    // 지도의 초기 중심좌표
+		    var mapOption = {
+		        center: new kakao.maps.LatLng(33.450701, 126.570667), 
+		        level: 10 // 지도의 확대 레벨
+		    };
+		
+		    // 지도를 생성합니다
+		    map = new kakao.maps.Map(mapContainer, mapOption);
+		}
+		
+		// 이전에 추가된 마커와 정보창을 삭제하는 함수
+		function removeMarkers() {
+		    // 기존 마커들을 순회하면서 제거합니다.
+		    for (var i = 0; i < markers.length; i++) {
+		        markers[i].setMap(null);
+		    }
+		    // 기존 정보들을 순회하면서 제거합니다.
+		    for (var i = 0; i < infowindows.length; i++) {
+				infowindows[i].setMap(null);
+		    }
+		    // 배열을 비워줍니다.
+		    markers = [];
+			infowindows = [];
+		}
+		
+		//지역 클릭시 호출되는 함수
+		function apimap(local1, local2, local3){
+			//제일 먼저 display 변경해주기
+			var imgBox = document.getElementById('map_img_box');
+			var mapBox = document.getElementById('map');
+						
+			imgBox.style.display = 'none';
+			mapBox.style.display = 'block';
+		    
+			
+			//만약 마커와 정보가 있으면 지우를 함수 호출
+			removeMarkers();
+			
+			//다 지우고 나서 다시 맵 로딩
+			createMap();
+			
+			//주소를 좌표로 바꿔주는 변수 지정
+			var geocoder = new kakao.maps.services.Geocoder();
+			
+			//공공데이터 불러오는 함수
+		    $.ajax({
+		        url:"/api/public",
+		        method:"POST",
+		        success:function(data){
+		            //console.log(data);
+					
+					//불러온 데이터 값들 가져오기
+		            for(let items of data.data){
+						if(items.시도 == local1 || items.시도 == local2){
+							//console.log(items.주소);
+							// 주소로 좌표를 검색합니다
+		                	geocoder.addressSearch(items.주소, function(result, status) {
+		                    
+			                     // 정상적으로 검색이 완료됐으면 
+			                    if (status === kakao.maps.services.Status.OK) {
+			                    
+			                        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+			                    
+			                        // 결과값으로 받은 위치를 마커로 표시합니다
+			                        var marker = new kakao.maps.Marker({
+			                            map: map,
+			                            position: coords
+			                        });
+			                    
+			                        // 인포윈도우로 장소에 대한 설명을 표시합니다
+			                        var infowindow = new kakao.maps.InfoWindow({
+			                            content: `<div style="width:180px;border-radius:5px;text-align:center;padding:6px 0;"><p style="font-weight:bold; margin:3px; font-size:11px;">${items.자활기업}</p><p style="margin:3px;font-size:10px;">${items.업종}</p></div>`
+			                        });
+			                        infowindow.open(map, marker);
+									
+									//다음 지역 클릭시 지울 수 있도록 배열에 담아주기
+									markers.push(marker);									
+									infowindows.push(infowindow);
+			                    }
+							});    	
+						}
+		            }
+					//마커 다찍은 후 초기 지도 중심을 local3(지자체)으로 설정
+					if (local3) {
+						geocoder.addressSearch(local3, function(result, status) {
+							if (status === kakao.maps.services.Status.OK) {
+								var localcenter = new kakao.maps.LatLng(result[0].y, result[0].x);
+								map.setCenter(localcenter);
+							}
+						});
+					}
+		        },
+		        error:function(data){
+					console.error("Error: ", data);
+		        }
+		    });
+			
+			
+		};
+		
+		//버튼 누르면 display 변경해주기
+		function mapClose(){
+			var imgBox = document.getElementById('map_img_box');
+			var mapBox = document.getElementById('map');
+			
+			imgBox.style.display = 'block';
+			mapBox.style.display = 'none';
+		}
+	</script>
+<th:block>

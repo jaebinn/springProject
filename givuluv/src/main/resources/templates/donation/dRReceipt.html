@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <script src="https://kit.fontawesome.com/516da99189.js" crossorigin="anonymous"></script>   
+<link rel="stylesheet" href="/css/header_footer.css">
+<link rel="stylesheet" href="/css/receipt.css">
+</head>
+<body>
+   <!-- header -->
+   <th:block th:replace="~{layout/header::header(loginUser)}"></th:block>
+   <!-- 컨텐츠 -->
+   <div class="wrap receipt">
+		<div class="content">
+			<div class="payementTit">
+				<h2>[[${user.username}]]님</h2>
+				<h2><strong>정기기부 감사합니다.</h2>
+				<h2><strong>기부가 완료</strong>되었습니다.</h2>
+			</div>
+			<div class="paymentInfo">
+				<p>고객님이 <strong>GivuLuv 주식회사</strong>에서 NICEPAY 결제 서비스를 통해 결제하신 내역입니다.</p>
+				<h3>결제정보</h3>
+				<table id="payTbl">
+					<tr>
+						<th>기부자명</th>
+						<td>[[${user.username}]]</td>
+					</tr>
+					<tr>
+						<th>기부한 단체명</th>
+						<td>[[${orgname}]]</td>
+					</tr>
+					<tr>
+						<th>제목</th>
+						<td>[[${dboard.dTitle}]]</td>
+					</tr>
+					<tr>
+						<th>기부번호</th>
+						<td>[[${payment.paymentnum}]]</td>
+					</tr>
+					<tr>
+						<th>결제일시</th>
+						<td>[[${payment.paydate}]]</td>
+					</tr>
+					<tr>
+						<th>정기기부 기간</th>
+						<td>[[${dboard.dEnddate}]]까지입니다. 다음 결제일은[[${nextPayDay}]] (매월 첫째 주 금요일)</td>
+					</tr>
+				</table>
+				<div class="payCost">
+					<h2>결제금액</h2>
+					<span>[[${payment.dCost}]] 원</span>
+				</div>
+				<div class="backtoDontion">
+					<input type="button" value="마이페이지로 돌아가기">
+				</div>
+			</div>
+		</div>
+   </div>
+   <!-- footer -->
+   <th:block th:replace="~{layout/footer::footer()}"></th:block>
+</body>
+<script src="/js/jquery-3.7.1.min.js"></script>
+
+</html>

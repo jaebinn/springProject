@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<script src="https://kit.fontawesome.com/516da99189.js" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="/css/campaignList.css">
+	<link rel="stylesheet" href="/css/header_footer.css">
+</head>
+
+<body>
+	<!-- header -->
+	<th:block th:replace="~{layout/header::header(loginUser)}"></th:block>
+	<!-- 컨텐츠 -->
+	<div class="wrap campaignList mt">
+		<div id="Board(boardnum)" class="orgBoard board">
+			<div class="boardHeader">
+				<div class="mainHeader">
+					<a href="#" class="profile">
+						<img src="/summernoteImage/202405221023256949ed58d39-11cf-4eb5-bab3-0a9a7b59ab73.png">
+						<p>단체 이름</p>
+					</a>
+					<p>2주전</p>
+				</div>
+				<a class="follow follow_${orgid}" href="javascript:follow(orgid)">팔로우</a>
+				<!--if문으로 팔로우 돼있으면 안 보이게 / 팔로우 누르면 DB에 넣고 팔로우 안 보이게-->
+			</div>
+			<a href="javascript:modal('boardnum')">
+				<div class="contents">
+					내용<br>내용<br>내용<br>내용<br>내용<br>내용<br>내용<br>내용<br>내용<br>내용
+				</div>
+			</a>
+			<div class="boardFooter">
+				<div class="hashtag">
+					<p>동물</p>
+				</div>
+				<div class="btn_box like_box">
+					<a href="javascript:addLike(boardnum)" id="addLike(boardnum)" class="addLike"><i
+							class="fa-regular fa-heart"></i></a>
+					<!--<a href="javascript:cancelLike(boardnum)" id="addLike(boardnum)" class="cancelLike"><i style="color:rgb(255, 128, 194)" class="fa-solid fa-heart"></i></a>-->
+					<p>999</p>
+					<a href="javascript:copyLink(boardnum)"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+				</div>
+			</div>
+			<div class="modal_box" style="display: none;">
+				<div class="modal_exit"></div>
+				<div class="modal">
+					<div class="modalBoard">
+						<div class="boardHeader">
+							<div class="mainHeader">
+								<a href="#" class="profile">
+									<img
+										src="/summernoteImage/202405221023256949ed58d39-11cf-4eb5-bab3-0a9a7b59ab73.png">
+									<p>단체 이름</p>
+								</a>
+								<p>2주 전</p>
+							</div>
+							<a class="follow follow_${orgid}" href="javascript:follow(orgid)">팔로우</a>
+							<!--if문으로 팔로우 돼있으면 안 보이게 / 팔로우 누르면 DB에 넣고 팔로우 안 보이게-->
+						</div>
+						<div class="contents">
+							내용<br>내용<br>내용<br>내용<br>내용<br>내용<br>내용<br>내용<br>내용<br>내용
+						</div>
+						<div class="boardFooter">
+							<div class="hashtag">
+								<p>동물</p>
+							</div>
+							<div class="btn_box">
+								<a href="javascript:addLike(boardnum)" id="addLike(boardnum)" class="addLike"><i
+										class="fa-regular fa-heart"></i></a>
+								<!--<a href="javascript:cancelLike(boardnum)" id="addLike(boardnum)" class="cancelLike"><i style="color:rgb(255, 128, 194)" class="fa-solid fa-heart"></i></a>-->
+								<a href="javascript:copyLink(boardnum)"><i
+										class="fa-solid fa-arrow-up-right-from-square"></i></a>
+							</div>
+						</div>
+					</div>
+					<div class="modal_side_box">
+						<div class="commentbox">
+							<div class="comment">
+								<div class="commentHeader">
+									<a href="#" class="commentprofile">
+										<img
+											src="/summernoteImage/202405221023256949ed58d39-11cf-4eb5-bab3-0a9a7b59ab73.png">
+										<p>유저 이름</p>
+									</a>
+									<div class="like_box">
+										<a href="javascript:addcommentLike(commentnum)" id="addcommentLike(commentnum)"
+											class="addLike"><i class="fa-regular fa-heart"></i></a>
+										<!--<a href="javascript:cancelcommentLike(commentnum)" id="addLike(commentnum)" class="cancelLike"><i style="color:rgb(255, 128, 194)" class="fa-solid fa-heart"></i></a>-->
+										<p>999</p> <!-- 1000이상이면 k 달아주기 -->
+									</div>
+								</div>
+								<div class="othercommentdetail">
+									sadfasdfasdfasdfasdfasfsadfasdfasdfas<br>afsdfasdf
+								</div>
+								<div class="commentFooter">
+									<div class="date">
+										<p>2시간 전</p>
+									</div>
+									<div class="commentA_box">
+										<a class="commentA" href="javascript:commentModify(commentnum)">수정</a>
+										<a class="commentA" href="javascript:commentDelete(commentnum)">삭제</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<form class="comment_regist_box" name="comment_regist">
+							<input type="hidden" name="cBoardnum" value=""> <!-- boardnum -->
+							<textarea class="commentdetail" name="commentdetail"></textarea>
+							<a href="commentRegist(cBoardnum)" class="registBtn">등록</a>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="managerBoard board">
+			<a href="javascript:modal('cBoardnum')">
+				<div class="contents">
+					내용<br>내용<br>내용<br>내용<br>내용<br>내용<br>내용<br>내용<br>내용<br>내용
+				</div>
+			</a>
+			<div class="boardFooter">
+				<div class="btn_box like_box">
+					<a href="javascript:addLike(boardnum)" id="addLike(boardnum)" class="addLike"><i
+							class="fa-regular fa-heart"></i></a>
+					<!--<a href="javascript:cancelLike(boardnum)" id="addLike(boardnum)" class="cancelLike"><i style="color:rgb(255, 128, 194)" class="fa-solid fa-heart"></i></a>-->
+					<p>999</p>
+					<a href="javascript:copyLink(boardnum)"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+				</div>
+			</div>
+			<div class="modal_box" style="display: none;">
+				<div class="modal_exit"></div>
+				<div class="modal">
+					<div class="modalBoard">
+						<div class="contents">
+							내용<br>내용<br>내용<br>내용 내용<br>내용<br>내용<br>내용 내용<br>내용<br>내용<br>내용 내용<br>내용<br>내용<br>내용
+							내용<br>내용<br>내용<br>내용 내용<br>내용<br>내용<br>내용
+							내용<br>내용<br>내용<br>내용<br>내용<br>내용<br>내용<br>내용<br>내용<br>내용
+						</div>
+						<div class="boardFooter">
+							<div class="btn_box">
+								<a href="javascript:addLike(boardnum)" id="addLike(boardnum)" class="addLike"><i
+										class="fa-regular fa-heart"></i></a>
+								<!--<a href="javascript:cancelLike(boardnum)" id="addLike(boardnum)" class="cancelLike"><i style="color:rgb(255, 128, 194)" class="fa-solid fa-heart"></i></a>-->
+								<a href="javascript:copyLink(boardnum)"><i
+										class="fa-solid fa-arrow-up-right-from-square"></i></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- footer -->
+	<th:block th:replace="~{layout/footer::footer()}"></th:block>
+</body>
+<script src="/js/jquery-3.7.1.min.js"></script>
+<script th:inline="javascript">
+	$('.h_logout').on('click', function () {
+		alert("로그아웃되었습니다.")
+	})
+
+
+	$(".modal_exit").on('click', function () {
+		$(".modal_box").attr("style", "display:none")
+	})
+
+	function modal(boardnum) {
+		console.log("modal 실행")
+		$(".modal_box").attr("style", "display:flex")
+	}
+
+
+
+
+
+	/*
+	//enter => <br> textarea에 있는 value를 DB에 저장하기 위해서 해야함.
+	var text = $('textarea').val();
+	text = text.replace(/(?:\r\n|\r|\n)/g, '<br>');
+	
+	//<br> => enter 위에서 변환된 DB저장글을 textarea에 다시 써줄 때 사용해야함.
+	var text = $('textarea').val();
+	text = text.split('<br>').join("\r\n");
+	*/
+	$("textarea").on('keyup', function () {
+		console.log($("textarea"))
+		console.log($("textarea").val())
+		var text = $('textarea').val();
+		text = text.replace(/(?:\r\n|\r|\n)/g, '<br>');
+		text = text.replace(/ /g, "&nbsp;")
+
+		console.log(text);
+		$(".modal .contents").html(text);
+		$("textarea").html(text);
+		console.log($(".modal .contents"));
+	})
+</script>
+
+</html>

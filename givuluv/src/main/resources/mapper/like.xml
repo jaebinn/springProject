@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gl.givuluv.mapper.LikeMapper">
+	<insert id="insertLike">
+		insert into `like` (connectid, type, userid)
+		value(#{connectid}, #{type}, #{userid})
+	</insert>
+	<select id="likeCount">
+		select count(*)
+		from `like`
+		where connectid=#{connectid} and type=#{type}
+	</select>
+	<select id="getLike">
+		select *
+		from `like`
+		where connectid=#{connectid} and type=#{type} and userid=#{userid}
+	</select>
+	<delete id="deleteLike">
+		delete
+		from `like`
+		where likenum=#{likenum}
+	</delete>
+</mapper>

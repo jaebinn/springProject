@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>shop</title>
+	<script src="https://kit.fontawesome.com/516da99189.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/css/sBoard.css">
+	<link rel="stylesheet" href="/css/header_footer.css">
+</head>
+<body>
+	<!-- header -->
+	<th:block th:replace="~{layout/header::header(loginUser)}"></th:block>
+	<!-- 컨텐츠 -->
+    <div class="store_wrap">
+        <div class="store_box">
+            <div class="store_category">
+                <ul class="store_category_list">
+                    <li class="store_category_item">
+                        <a href="전체" class="store_product">
+                            <img src="/images/store_icon.png" alt="">
+                            전체
+                        </a>
+                    </li>
+                    <li class="store_category_item">
+                        <a href="식품" class="store_product">
+                            <img src="/images/food_icon.png" alt="">
+                            식품
+                        </a>
+                    </li>
+                    <li class="store_category_item">
+                        <a href="음료/건강" class="store_product">
+                            <img src="/images/tea_icon.png" alt="">
+                            음료/건강
+                        </a>
+                    </li>
+                    <li class="store_category_item">
+                        <a href="문구/문화" class="store_product">
+                            <img src="/images/book_icon.png" alt="">
+                            문구/문화
+                        </a>
+                    </li>
+                    <li class="store_category_item">
+                        <a href="인테리어" class="store_product">
+                            <img src="/images/living-icon.png" alt="">
+                            인테리어
+                        </a>
+                    </li>
+                    <li class="store_category_item">
+                        <a href="생활" class="store_product">
+                            <img src="/images/daily_necessities_icon.png" alt="">
+                            생활
+                        </a>
+                    </li>
+                    <li class="store_category_item">
+                        <a href="미용" class="store_product">
+                            <img src="/images/conmetics_icon.png" alt="">
+                            미용
+                        </a>
+                    </li>
+                    <li class="store_category_item">
+                        <a href="반려동물" class="store_product">
+                            <img src="/images/dog_icon.png" alt="">
+                            반려동물
+                        </a>
+                    </li>
+                    <li class="store_category_item">
+                        <a href="식물/꽃" class="store_product">
+                            <img src="/images/plant_icon.png" alt="">
+                            식물/꽃
+                        </a>
+                    </li>
+                    <li class="store_category_item">
+                        <a href="의류" class="store_product">
+                            <img src="/images/clothes_icon.png" alt="">
+                            의류
+                        </a>
+                    </li>
+                    <li class="store_category_item">
+                        <a href="패션잡화" class="store_product">
+                            <img src="/images/accessories_icon.png" alt="">
+                            패션잡화
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="product_item">
+            	<div class="Product_list">
+					<!--맨처음 가게 눌렀을때-->
+					<!--th 타임리프로 리스트에 값이 비어있는지 확인-->
+					<!--리스트에 값이 없을경우-->
+					
+					<th:block th:if="${sBoardList != null and not #lists.isEmpty(sBoardList)}">
+						<!--for문 돌면서 가져오기-->
+						<th:block th:each="item : ${sBoardList}">
+			                <div class="product_item_box">
+			                    <a th:href="${item.product.productnum}" id="store_link" class="get">
+									<div class="product_thumbnail">
+										<!--물품 썸네일 있을경우 -->
+										<img th:if="${item.productFile == null}" src="/images/product.jpg" alt="">
+										<img th:unless="${item.productFile == null}" th:src="@{'/summernoteImage/' + ${item.productFile.systemname}}" alt="">
+									</div>
+			                        <div class="p_tit_box">
+			                            <p class="product_title" th:text="${item.product.productname}"></p>
+			                        </div>
+			                    </a>
+			                    <div class="p_info_box">
+			                        <p class="product_price" th:text="${item.product.cost}+원"></p>
+			                        <div class="p_choice_box">
+			                            <input type="button" class="product_choice" onclick=""></input>
+			                        </div>
+			                    </div>
+			                    <a href="${list.sboard.sNum}" id="seller_link" class="storeGet">
+			                        <div class="seller_box">
+			                            <div class="seller_thumbnail">
+											<!--스토어 로고가 있는 경우(스토어 로고를 등록할 시 로직 만들기)-->
+											<!-- 
+											<img th:if="${item.storeFile == null}" src="/images/store.jpg" alt="">
+											<img th:unless="${item.storeFile == null}" src="@{'/summernoteImage/' + ${item.storeFile.systemname}}" alt="">
+											-->
+											<img src="/images/store.jpg" alt="">
+			                            </div>
+			                            <div class="seller_info">
+			                                <p class="store_name" th:text="${item.storename}"></p>
+			                                <p class="" th:text="'#'+${item.category}"></p>
+			                            </div>
+			                        </div>
+			                    </a>
+			                </div>
+						</th:block>
+					</th:block>
+					<th:block th:if="${sBoardList == null or #lists.isEmpty(sBoardList)}">
+						<p>등록된 물품이 없습니다.</p>
+					</th:block>
+            	</div>
+            </div>
+            <div class="product_moreBtn">
+                <input type="button" value="더보기" id="product_more" onclick="">
+            </div>
+        </div>
+    </div>
+	<!-- footer -->
+	<th:block th:replace="~{layout/footer::footer()}"></th:block>
+</body>
+<script src="/js/jquery-3.7.1.min.js"></script>
+<script>
+	$('.h_logout').on('click', function(){
+		alert("로그아웃되었습니다.")
+	})
+	
+	$(document).ready(function () {
+		    // 한 번에 표시할 아이템의 개수 설정
+		    var itemsPerPage = 20;
+		
+		    // 아이템의 총 개수
+		    var totalItems = $('.product_item_box').length;
+		
+		    // 초기에는 itemsPerPage 개수까지만 표시되도록 설정
+		    $('.product_item_box:gt(' + (itemsPerPage - 1) + ')').hide();
+		
+		    // 아이템이 itemsPerPage 개수 이하이면 더보기 버튼 숨기기
+		    if (totalItems <= itemsPerPage) {
+		        $('#product_more').hide();
+		    }
+			$(".get").on("click", function (e) {
+				e.preventDefault();
+				let productnum = $(this).attr("href");
+				location.href = "productView?productnum=" +	productnum;
+			})
+			$(".storeGet").on("click", function (e) {
+				e.preventDefault();
+				let storenum = $(this).attr("href");
+				location.href = "storeView?s_num=" + storenum;
+			})
+		    // 더보기 버튼 클릭 시
+		    $('#product_more').on('click', function () {
+		        // itemsPerPage 개수 만큼 추가로 표시
+		        $('.product_item_box:hidden').slice(0, itemsPerPage).slideDown();
+		        // 아직 표시하지 않은 아이템의 개수 갱신
+		        totalItems -= itemsPerPage;
+		        // 남은 아이템이 itemsPerPage 개수 이하이면 더보기 버튼 숨기기
+		        if (totalItems <= itemsPerPage) {
+		            $('#product_more').hide();
+		        }
+		    });
+		});
+	
+		$(document).ready(function () {
+			$(".store_product").on("click", function (e) {
+				e.preventDefault();
+				$('#product_more').hide();
+				let category = $(this).attr("href");
+				productCategoryItems(category);
+			});
+			
+			function productCategoryItems(category){
+				$.ajax({
+					url: '/store/getCategoryItems',
+					type: 'get',
+					data: {category : category},
+					dataType: 'json',
+					success: function(data){
+						$('.Product_list').empty();
+						$('.Product_list').css("text-align", "left");
+						//console.log(data);
+						if(data.length > 0){
+							$.each(data, function(index, item){
+								//console.log(item);
+								let plist = item.product;
+								let slist = item.sboard;
+								let storename = item.storename;
+								let category = item.category;
+								
+								let src = '/summernoteImage/';
+								let productFileSrc = item.productFile ? src+item.productFile.systemname : '/images/product.jpg';
+								
+								//스토어 로고 등록시 작성
+								//let storeFileSrc = item.storeFile ? src+item.storeFile.systemname : '/images/store.jpg';
+								let storeFileSrc = '/images/store.jpg';
+								
+								let categoryItem = `
+								<div class="product_item_box">
+									<a href="productView?productnum=${plist.productnum}" id="store_link" class="get">
+										<div class="product_thumbnail">
+											<img src="${productFileSrc}" alt="">
+										</div>
+										<div class="p_tit_box">
+											<p class="product_title">${plist.productname}</p>
+										</div>
+									</a>
+									<div class="p_info_box">
+										<p class="product_price">${plist.cost}<span>원</span></p>
+									
+										<div class="p_choice_box">
+											<input type="button" class="product_choice" onclick=""></input>
+										</div>
+									</div>
+									<a href="${slist.sNum}" id="seller_link" class="storeGet">
+										<div class="seller_box">
+											<div class="seller_thumbnail">
+												<img src="${storeFileSrc}" alt="">
+											</div>
+											<div class="seller_info">
+											    <p class="store_name">${storename}</p>
+											    <p class="">#${category}</p>
+											</div>
+										</div>
+									</a>
+								</div>`;
+								$('.Product_list').append(categoryItem);
+							});
+						}
+						else{
+							$('.Product_list').append('<p>등록된 물품이 없습니다.</p>');
+							$('.Product_list').css("text-align", "center");
+							$('.Product_list p').css("line-height", "200px");
+						}
+					},
+					error: function (xhr, status, error) {
+						console.error('AJAX Error: ', status, error);
+					}
+				});
+			};
+				
+		});
+</script>
+</html>

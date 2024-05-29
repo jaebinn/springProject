@@ -1,0 +1,193 @@
+/* 폰트 */
+@font-face {
+    font-family: 'TTLaundryGothicB';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/TTLaundryGothicB.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'KCC-Hanbit';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/KCC-Hanbit.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 전체  */
+* table, tr,th,td {
+	box-sizing: border-box;
+	font-family: 'KCC-Hanbit';
+}
+body {
+	background-color: white;
+}
+a, input {
+	cursor: pointer;
+}
+.wrap {
+	
+	width: 1000px;
+	min-height: 800px;
+	margin: 0 auto;
+	margin-top: 20px;
+}
+
+/* 컨텐츠 */
+
+/* down_area - 내용 영역 */
+.down_area {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	gap: 30px;
+}
+	/* menu_area - 메뉴 */
+	.menu_area {
+		background-color: white;
+		width: 250px;  max-height: 300px;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		align-items: center;
+		gap: 30px;
+	}
+	.menu_area > div {
+		width: 100%;
+		padding-bottom: 10px;
+		display: flex;
+		flex-direction: column;
+		gap: 3px;
+		border-bottom: 1px solid #e0e0e0;
+	}
+	
+	/* 버튼 호버 */
+	.menu_area > div > a,
+	.file_btn > a,
+	#checkid:hover,
+	#findzipcode:hover,
+	#joinBtn {
+		transition: all 0.3s;
+	}
+	.menu_area > div > a:hover,
+	.menu_area > :nth-child(2) > :nth-child(3),
+	.file_btn > a:hover,
+	#checkid:hover,
+	#findzipcode:hover {
+		color: #e77097;
+	}
+	#joinBtn:hover {
+		background-color: rgb(0, 166, 0);
+	}
+	
+	/* contents_area - 본문 내용 */
+	.contents_area {
+		background-color: white;
+		border: 1px solid #e0e0e0;
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		gap: 40px;
+		padding: 20px;
+	}
+	#joinBtn {
+		width: 350px; height: 40px;
+		background-color: #2f956b;
+		color: white;
+		border: 1px solid #e0e0e0;
+		margin: auto;
+	}
+		/* button_div - 사용자 버튼 */
+		.button_div {
+			width: 100%;
+			display: flex;
+			justify-content: space-around;
+			
+		}
+		.button_div > a {
+			border-radius: 50%;
+			width: 120px; height: 120px;
+			padding: 10px;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			font-size: 13px;
+			gap: 10px;
+			transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+		}
+		.button_div > a:hover {
+			box-shadow: 0 8px 8px #e77097, 0 5px 5px rgb(255, 255, 255);
+		}
+		.button_div > a > img {
+			width: 60px; height: 60px;
+		}
+		
+		/* update_div - 스토어 업데이트 div */
+		.contents_area > h1 {
+			margin-top: 10px;
+			margin-left: 10px;
+		}
+		.update_div {
+			width: 100%; max-height: 340px;
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+		}
+		table {
+			width: 100%;
+			font-size: 15px;
+			border-spacing: 10px;
+		}
+		.sName_checkBox > td > p {
+			text-align: center;
+		}
+		tbody > tr > th {
+			width: 111px;
+		}
+		tbody > tr > td > input {
+			width: 100%; height: 30px;
+			border: none;
+			border-bottom: 1px solid #e0e0e0;
+		}
+		tbody > tr > td > input:focus {
+			outline: none;
+		}
+		tbody > tr > td > textarea {
+			width: 100%;
+		}
+		.hellpPhoto_div {
+			border: 1px solid #e0e0e0;
+			width: 100%; max-height: 340px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+		.hellpPhoto_div:hover {
+			cursor: pointer;
+		}
+		.hellpPhoto_div > img {
+			width: 100%; height: 100%;
+			object-fit: contain;
+		}
+		.file_cont {
+			border-bottom: 1px solid #e0e0e0;
+			color: #757575;
+		}
+		.file_btn {
+			display: flex;
+			align-items: center;
+			justify-content: space-around;
+		}
+		.file_btn > a{
+			width: 85px; height: 30px;
+			background-color: #e0e0e0;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+		.contents_form > table > tbody > tr > td > .content {
+			padding: 5px;
+			border: 1px solid #e0e0e0;
+			resize: none;
+			outline: none;
+		}
+	
+	
