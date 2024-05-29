@@ -19,8 +19,13 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	@Override
-	public List<ProductDTO> getCategoryList(char pType) {
-		return pmapper.getCategoryList(pType);
+	public List<ProductDTO> getCategoryList(String category) {
+		return pmapper.getCategoryList(category);
+	}
+	
+	@Override
+	public ProductDTO getProduct(int productnum) {
+		return pmapper.getProduct(productnum);
 	}
 	
 	@Override
@@ -37,11 +42,6 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public boolean updateP(ProductDTO product) {
 		return false;
-	}
-	
-	@Override
-	public String[] getProductConnectid() {
-		return pmapper.getProductConnectid();
 	}
 	
 	

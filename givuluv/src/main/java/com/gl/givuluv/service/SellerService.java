@@ -17,4 +17,6 @@ public interface SellerService {
 	String checkPw(String sellerpw);
 //	로그인(아이디 확인)
 	String checkId(String sellerid);
+	
+	String getCategory(String sellerid);
 }

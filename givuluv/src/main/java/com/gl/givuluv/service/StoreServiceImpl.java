@@ -40,7 +40,7 @@ public class StoreServiceImpl implements StoreService {
 	
 
 	@Override
-	public StoreDTO getStoreList(String connectid) {
+	public StoreDTO getStoreList(int connectid) {
 		return smapper.getStoreById(connectid);
 	}
 

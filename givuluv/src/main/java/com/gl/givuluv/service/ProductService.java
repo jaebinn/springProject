@@ -20,8 +20,8 @@ public interface ProductService {
 	//update 하기
 	boolean updateP(ProductDTO product);
 
-	String[] getProductConnectid();
+	List<ProductDTO> getCategoryList(String category);
 
-	List<ProductDTO> getCategoryList(char pType);
+	ProductDTO getProduct(int productnum);
 	
 }

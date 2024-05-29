@@ -17,77 +17,67 @@
             <div class="store_category">
                 <ul class="store_category_list">
                     <li class="store_category_item">
-                        <a href="a" class="store_product">
+                        <a href="전체" class="store_product">
                             <img src="/images/store_icon.png" alt="">
                             전체
                         </a>
                     </li>
                     <li class="store_category_item">
-						<!--food-->
-                        <a href="f" class="store_product">
+                        <a href="식품" class="store_product">
                             <img src="/images/food_icon.png" alt="">
                             식품
                         </a>
                     </li>
                     <li class="store_category_item">
-						<!--drink-->
-                        <a href="d" class="store_product">
+                        <a href="음료/건강" class="store_product">
                             <img src="/images/tea_icon.png" alt="">
                             음료/건강
                         </a>
                     </li>
                     <li class="store_category_item">
-						<!--culture-->
-                        <a href="c" class="store_product">
+                        <a href="문구/문화" class="store_product">
                             <img src="/images/book_icon.png" alt="">
                             문구/문화
                         </a>
                     </li>
                     <li class="store_category_item">
-						<!--interior-->
-                        <a href="i" class="store_product">
+                        <a href="인테리어" class="store_product">
                             <img src="/images/living-icon.png" alt="">
                             인테리어
                         </a>
                     </li>
                     <li class="store_category_item">
-						<!--life-->
-                        <a href="l" class="store_product">
+                        <a href="생활" class="store_product">
                             <img src="/images/daily_necessities_icon.png" alt="">
                             생활
                         </a>
                     </li>
                     <li class="store_category_item">
-						<!--beauty-->
-                        <a href="b" class="store_product">
+                        <a href="미용" class="store_product">
                             <img src="/images/conmetics_icon.png" alt="">
                             미용
                         </a>
                     </li>
                     <li class="store_category_item">
-						<!--pet-->
-                        <a href="p" class="store_product">
+                        <a href="반려동물" class="store_product">
                             <img src="/images/dog_icon.png" alt="">
                             반려동물
                         </a>
                     </li>
                     <li class="store_category_item">
-						<!--plant-->
-                        <a href="t" class="store_product">
+                        <a href="식물/꽃" class="store_product">
                             <img src="/images/plant_icon.png" alt="">
                             식물/꽃
                         </a>
                     </li>
                     <li class="store_category_item">
-						<!--clothes-->
-                        <a href="o" class="store_product">
+                        <a href="의류" class="store_product">
                             <img src="/images/clothes_icon.png" alt="">
                             의류
                         </a>
                     </li>
                     <li class="store_category_item">
-						<!--accessories-->
-                        <a href="s" class="store_product">
+                        <a href="패션잡화" class="store_product">
                             <img src="/images/accessories_icon.png" alt="">
                             패션잡화
                         </a>
@@ -110,7 +100,7 @@
 									<div class="product_thumbnail">
 										<!--물품 썸네일 있을경우 -->
 										<img th:if="${item.productFile == null}" src="/images/product.jpg" alt="">
-										<img th:unless="${item.productFile == null}" th:src="${item.productFile.systemname}" alt="">
+										<img th:unless="${item.productFile == null}" th:src="@{'/summernoteImage/' + ${item.productFile.systemname}}" alt="">
 									</div>
 			                        <div class="p_tit_box">
 			                            <p class="product_title" th:text="${item.product.productname}"></p>
@@ -125,12 +115,13 @@
 			                    <a href="${list.store.sNum}" id="seller_link" class="storeGet">
 			                        <div class="seller_box">
 			                            <div class="seller_thumbnail">
+											<!--스토어 썸네일이 있는 경우-->
 											<img th:if="${item.storeFile == null}" src="/images/store.jpg" alt="">
-											<img th:unless="${item.storeFile == null}" src="${item.storeFile.systemname}" alt="">
+											<img th:unless="${item.storeFile == null}" src="@{'/summernoteImage/' + ${item.storeFile.systemname}}" alt="">
 			                            </div>
 			                            <div class="seller_info">
 			                                <p class="store_name" th:text="${item.store.sName}"></p>
-			                                <p class="">#어르신일자리창출</p>
+			                                <p class="" th:text="'#'+${item.category}"></p>
 			                            </div>
 			                        </div>
 			                    </a>
@@ -192,32 +183,33 @@
 		});
 	
 		$(document).ready(function () {
-			console.log('여기까지 들어왔니?');
 			$(".store_product").on("click", function (e) {
 				e.preventDefault();
-				let pType = $(this).attr("href");
-				productCategoryItems(pType);
+				$('#product_more').hide();
+				let category = $(this).attr("href");
+				productCategoryItems(category);
 			});
 			
-			function productCategoryItems(pType){
+			function productCategoryItems(category){
 				$.ajax({
 					url: '/store/getCategoryItems',
 					type: 'get',
-					data: {pType : pType},
+					data: {category : category},
 					dataType: 'json',
 					success: function(data){
 						$('.Product_list').empty();
 						$('.Product_list').css("text-align", "left");
-						console.log(data);
+						//console.log(data);
 						if(data.length > 0){
 							$.each(data, function(index, item){
-								console.log(item);
+								//console.log(item);
 								let plist = item.product;
-								let pfile = item.productFile;
 								let slist = item.store;
-								let sfile = item.storeFile;
-								let productFileSrc = item.productFile ? item.productFile.systemname : '/images/product.jpg';
-								let storeFileSrc = item.storeFile ? item.storeFile.systemname : '/images/store.jpg';
+								let category = item.category;
+								
+								let src = '/summernoteImage/';
+								let productFileSrc = item.productFile ? src+item.productFile.systemname : '/images/product.jpg';
+								let storeFileSrc = item.storeFile ? src+item.storeFile.systemname : '/images/store.jpg';
 								
 								let categoryItem = `
 								<div class="product_item_box">
@@ -243,7 +235,7 @@
 											</div>
 											<div class="seller_info">
 											    <p class="store_name">${slist.sname}</p>
-											    <p class="">#어르신일자리창출</p>
+											    <p class="">#${category}</p>
 											</div>
 										</div>
 									</a>

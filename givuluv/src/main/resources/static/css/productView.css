@@ -1,0 +1,644 @@
+@font-face {
+    font-family: 'TTLaundryGothicB';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/TTLaundryGothicB.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'KCC-Hanbit';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/KCC-Hanbit.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+}
+*, *:after, *:before {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+ul{
+    list-style: none;
+}
+
+.s_view_wrap{
+    width: 1340px;
+    margin: 0 auto;
+}
+.view_top{
+    width: 1340px;
+    height: 100px;
+    /* background-color: aqua; */
+    position: relative;
+}
+.top_logo{
+    width: 70px;
+    height: 70px;
+    margin: 15px 0;
+    float: left;
+}
+.top_logo a img{
+    width: 80px;
+    height: 70px;
+    background-size: 70px;
+}
+.top_mypage{
+    width: 100px;
+    height: 100px;
+    line-height: 100px;
+    text-align: right;
+    padding-right: 10px;
+    float: right;
+    font-family: 'TTLaundryGothicB';
+}
+
+.store_tit{
+    text-align: center;
+    height: 150px;
+    line-height: 150px;
+    font-size: 30px;
+    font-family: 'TTLaundryGothicB';
+}
+
+.product_box{
+    width: 1000px;
+    margin: 30px auto;
+}
+
+.product_info_box{
+    width: 1000px;
+    height: 500px;
+    display: flex;
+}
+.product_img{
+    width: 500px;
+    height: 500px;
+}
+.product_img img{
+    width: 500px;
+    height: 500px;
+    background-size: cover;
+}
+.product_info{
+    width: 500px;
+    height: 500px;
+    padding: 0 50px;
+}
+.p_name{
+    height: 40px;
+    font-size: 23px;
+    font-family: 'TTLaundryGothicB';
+}
+.p_cost{
+    height: 30px;
+    font-size: 18px;
+    margin-bottom: 40px;
+    text-align: right;
+    font-family: 'KCC-Hanbit';
+}
+.p_bonus{
+    border-top: 1px solid rgb(201, 201, 201);
+    border-bottom: 1px solid rgb(201, 201, 201);
+    height: 100px;
+    padding: 35px 0;
+    font-family: 'KCC-Hanbit';
+    margin-bottom: 10px;
+    display: flex;
+}
+.p_bonus p{
+	font-size: 14px;
+    width: 250px;
+    line-height: 30px;
+}
+.p_bonus p:last-child{
+    width: 150px;
+    text-align: right;
+}
+
+.p_delivery_info{
+    margin: 20px 0 50px;
+    height: 30px;
+    text-align: right;
+    font-size: 12px;
+}
+
+.buy_amount{
+    height: 160px;
+}
+.buy_amount_box{
+    width: 170px;
+    height: 49px;
+    border: 2px solid rgb(175, 175, 175);
+    display: flex;
+    align-items: center;
+}
+input[type="button"]{
+    background-color: lightgray;
+    border: none;
+}
+
+.del_btn, .add_btn{
+    width: 45px;
+    height: 45px;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+input[type="text"]{
+    border: none;
+}
+
+input[type="text"] {
+    border: none;
+    padding: 0;
+    margin: 0; /* 외부 여백 초기화 */
+    box-sizing: border-box;
+}
+
+#amounts{
+    height: 45px;
+    width: 80px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.sumCost{
+    height: 90px;
+    line-height: 90px;
+    display: flex;
+}
+
+.sumCost p:first-child{
+    width: 100px;
+    font-size: 14px;
+    color: rgb(80, 80, 80);
+    font-family: 'KCC-Hanbit';
+}
+
+.sumCost p:last-child{
+    width: 300px;
+    text-align: right;
+    font-size: 14px;
+    color: rgb(80, 80, 80);
+    font-family: 'KCC-Hanbit';
+}
+
+#my_sum{
+    font-size: 25px;
+    font-family: 'TTLaundryGothicB';
+    color: rgb(230, 40, 103);
+}
+
+.buy_btn{
+    width: 400px;
+    height: 50px;
+}
+
+.p_btn p{
+    width: 400px;
+    height: 50px;
+    border-radius: 10px;
+    line-height: 50px;
+    text-align: center;
+    font-size: 20px;
+    background-color: rgb(79, 148, 111);
+    color: white;
+    font-family: 'KCC-Hanbit';
+    cursor: pointer;
+}
+
+
+/* 상세정보 구간 시작 */
+
+.product_detail_info{
+    width: 1000px;
+    margin-top: 150px;
+}
+
+.product_info_tag{
+    width: 1000px;
+    height: 50px;
+    position: relative;
+    background-color: rgb(240,240,240);
+}
+.product_info_tag ul{
+    display: flex;
+}
+.product_info_tag ul li {
+    width: 250px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+    position: relative;
+}
+.product_info_tag ul li a p{
+    font-family: 'KCC-Hanbit';
+    width: 250px;
+    height: 50px;
+    color: #3d3d3d;
+}
+
+.product_info_tag ul li::before{
+    position: absolute;
+    top: 0; left: 0;
+    width: 1px;
+    height: 25px;
+    margin-top: 12.5px;
+    background-color: #acacac;
+    vertical-align: -1px;
+    content: "";
+}
+.product_info_tag ul li:first-child:before {
+    display: none;
+}
+
+.warning{
+    width: 900px;
+    height: 70px;
+    margin: 50px auto;
+    padding: 0 77px;
+    background-color: rgb(252, 244, 234);
+    border: 1px solid rgb(228, 216, 202);
+    display: flex;
+}
+
+.warning div img{
+    width: 20px;
+    height: 20px;
+    margin: 25px 5px ;
+}
+
+.warning p {
+    line-height: 70px;
+    font-weight: bold;
+}
+
+.warning p span{
+    color: rgb(214, 0, 0);
+    font-weight: 1000;
+}
+
+.product_detail{
+    width: 1000px;
+    position: relative;
+}
+.product_detail strong{
+    font-size: 14px;
+}
+.p_detail_info_box, .p_etc_box{
+    width: 1000px;
+    height: 80px;
+    margin: 10px 0;
+}
+table{
+    border-spacing: 0px;
+
+}
+
+th, td{
+    text-align: left;
+    font-size: 12px;
+    height: 20px;
+    padding: 10px 20px;
+    border: solid #ededed;
+    border-width: 1px 0;
+    word-break:break-all;
+    color: #6e6e6e;
+}
+
+th{
+    background-color: #f8f8f8;
+}
+
+
+/* 내용부분 */
+
+.product_detail_img{
+    margin-top: 150px;
+    width: 1000px;
+}
+#p_info_img{
+    width: 1000px;
+    height: 1500px;
+    object-fit: cover;
+    object-position: top;
+}
+
+.more_info_view{
+    width: 1000px;
+    height: 150px;
+    position: relative;
+}
+.white_box{
+	display: block;
+    position: absolute;
+    margin-top: -100px;
+    width: 1000px;
+    height: 100px;
+    z-index: 100;
+    background: linear-gradient(rgba(255, 255, 255, 0), rgb(255,255,255));
+}
+#more_info_view_btn{
+    width: 500px;
+    height: 50px;
+    margin: 100px 250px 0;
+    border-radius: 5px;
+    font-family: 'TTLaundryGothicB';
+    font-size: 18px;
+    cursor: pointer;
+    color: #505050;
+    background-color: rgb(255, 247, 240);
+}
+#more_info_view_btn:hover{
+    box-shadow: 0 0 2px gray;
+}
+
+.buy_info{
+   width: 1000px;
+   margin-top: 100px; 
+}
+.buy_info strong{
+    font-size: 14px;
+}
+.p_buy_info{
+    width: 1000px;
+    margin-top: 10px;
+}
+
+
+/* 상품 리뷰 */
+
+.product_review_box{
+    margin-top: 100px;
+    width: 1000px;
+    overflow: visible;
+}
+
+.p_review_tit{
+    height: 50px;
+    display: flex;
+    border-bottom: 2px solid gray;
+}
+
+.p_review_tit p{
+    font-family: 'TTLaundryGothicB';
+    width: 500px;
+    font-size: 25px;
+    color: #505050;
+}
+.p_review_tit p:last-child{
+    text-align: right;
+    font-size: 16px;
+}
+
+.p_review_view{
+    width: 1000px;
+    padding: 0 30px;
+    margin-top: 10px;
+    border-bottom: 1px solid rgb(228, 228, 228);
+}
+
+.review_info{
+    margin-top: 10px;
+    width: 940px;
+    height: 30px;
+    display: flex;
+}
+.review_info p{
+    width: 100px;
+    height: 30px;
+    font-size: 14px;
+    text-align: right;
+}
+.review_info p:first-child{
+    margin-left: 740px;
+}
+
+.review_moreBtn{
+    width: 100px;
+    height: 100px;
+    margin: 20px auto;
+    text-align: center;
+}
+#review_more{
+    width: 100px;
+    height: 40px;
+	border-radius: 30px;
+	border: 1px solid rgba(0,0,0,0.1);
+	cursor: pointer;
+}
+#review_more:hover{
+	border: 1px solid rgba(0,0,0,0.7);
+}
+
+
+/* 상품 Q&A  */
+
+.product_qna_box{
+    margin-top: 100px;
+    width: 1000px;
+    overflow: visible;
+}
+.qna_tit{
+    width: 1000px;
+    height: 100px;
+    border-bottom: 2px solid gray;
+    /* background-color: antiquewhite; */
+}
+.qna_tit p{
+    font-family: 'TTLaundryGothicB';
+    width: 500px;
+    font-size: 25px;
+    color: #505050;
+    margin-bottom: 15px;
+}
+
+#qnaBtn{
+    width: 150px;
+    height: 40px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: 'KCC-Hanbit';
+}
+#qna_contents{
+	display: none;
+	width: 1000px;
+	height: 200px;
+}
+.qna_contents textarea{
+	width: 1000px;
+	height: 150px;
+	resize: none;
+	padding: 15px;
+	outline: unset;
+}
+.qna_submit_box{
+	width: 100px;
+	height: 30px;
+	margin: 10px auto;
+}
+
+.qna_submit{
+	width: 100px;
+	height: 30px;
+	border-radius: 30px;
+	cursor: pointer;
+}
+.qna_submit:hover{
+	border: 1px solid black;
+}
+
+
+.p_qna_box{
+    width: 1000px;
+    overflow: visible;
+}
+
+.p_qna_tit{
+    height: 40px;
+    background-color: #f7f7f7;
+    display: flex;
+    line-height: 40px;
+    font-size: 13px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+}
+.p_qna_tit div{
+    border-bottom: 1px solid rgb(228, 228, 228);
+    width: 150px;
+}
+.p_qna_tit div:nth-child(2){
+    width: 550px;
+}
+.p_qna_cont_box{
+    border-bottom: 1px solid rgb(228, 228, 228);
+    overflow: visible;
+}
+.p_qna_cont_list{
+    width: 1000px;
+}
+.p_qna_simple{
+    height: 40px;
+    display: flex;
+}
+.p_qna_simple div{
+    width: 150px;
+    line-height: 40px;
+    font-size: 13px;
+    text-align: center;
+}
+.p_qna_simple div span{
+    width: 150px;
+}
+.p_qna_simple div:nth-child(2){
+    width: 550px;
+    text-align: left;
+}
+.p_qna_simple div:nth-child(2) a{
+    width: 550px;
+}
+.p_qna_simple div:nth-child(2) a:hover span{
+    font-size: 12.4px;
+    font-weight: bold;
+}
+.p_qna_simple div:nth-child(2) a span{
+    width: 550px;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+#p_qna_detail_box{
+    display: none;
+}
+.p_qna_detail{
+    padding: 15px 0;
+    display: flex;
+    border-bottom: 1px solid rgb(228, 228, 228);
+    align-items: center;
+    background-color:#f7f7f7;
+}
+.answer{
+    background-color: #ededed;
+}
+.p_qna_detail div{
+    font-size: 13px;
+    width: 150px;
+    text-align: center;
+    position: relative;
+}
+.p_qna_detail div:nth-child(2) {
+    width: 550px;
+    text-align: left;
+}
+.p_qna_detail div span{
+    
+}
+.no_qna{
+    width: 1000px;
+    height: 150px;
+    text-align: center;
+    line-height: 150px;
+    font-family: 'TTLaundryGothicB';
+    font-size: 20px;
+}
+
+.qna_moreBtn{
+    width: 100px;
+    height: 100px;
+    margin: 20px auto;
+    text-align: center;
+}
+#qna_more{
+    width: 100px;
+    height: 40px;
+	border-radius: 30px;
+	border: 1px solid rgba(0,0,0,0.1);
+	cursor: pointer;
+}
+#qna_more:hover{
+	border: 1px solid rgba(0,0,0,0.7);
+}
+
+.p_rturn{
+    width: 1000px;
+    margin-top: 100px; 
+ }
+ .p_return_tit strong{
+     font-size: 14px;
+ }
+ .p_return_guide{
+    width: 1000px;
+    height: 80px;
+    text-align: center;
+    background-color: #f7f7f7;
+    margin-top: 10px;
+ }
+ .p_return_guide p:first-child{
+    padding: 15px;
+    font-weight: bold;
+    color: #505050;
+ }
+ .p_return_guide p:last-child{
+    font-size: 12px;
+    font-weight: bold;
+    color: #505050;
+ }
+ .p_return_guide p:first-child span{
+    color:rgb(79, 148, 111)
+ }
+ .p_return_info{
+     width: 1000px;
+ }
+ 

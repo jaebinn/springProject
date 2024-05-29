@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gl.givuluv.mapper.QnaMapper">
+	<insert id="insertQna">
+		insert into qna(question, productnum, userid)
+		values(#{question},#{productnum},#{userid})
+	</insert>
+	<select id="getLastQna">
+		select * from qna where userid=#{userid} order by qnanum desc limit 1
+	</select>
+</mapper>

@@ -10,16 +10,24 @@
    </insert>
    
    <select id="getList">
-		select * from product order by productnum desc
+		select * from product where p_type='M' order by productnum desc
    </select>
    
    <select id="getCategoryList">
-		select * from product where p_type = #{pType} order by productnum desc
+		SELECT p.*
+		FROM product p
+		JOIN store s ON p.connectid = s.s_num
+		JOIN seller se ON s.sellerid = se.sellerid
+		WHERE se.sellercategory = #{categoty}
+		order by productnum desc
    </select>
    
    <select id="getProductConnectid">
 		select distinct connectid from product
    </select>
    
+   <select id="getProduct">
+		select * from product where productnum = #{productnum}
+   </select>
    
 </mapper>

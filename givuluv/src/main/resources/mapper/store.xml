@@ -12,6 +12,6 @@
 		
 	</select>	-->
 	<select id ="getStoreById">
-	     select * from store where sellerid = #{connectid}
+	     select * from store where s_num = #{connectid}
 	</select>
 </mapper>
