@@ -41,8 +41,13 @@ public class FileServiceImpl implements FileService{
 	}
 	
 	@Override
-	public FileDTO getFileByStorenum(int storenum) {
-		return fmapper.getFileByStorenum(storenum);
+	public FileDTO getSBoardFile(int connectid) {
+		return fmapper.getSBoardFile(connectid);
+	}
+	
+	@Override
+	public FileDTO getFileByStorenum(int snum) {
+		return fmapper.getFileByStorenum(snum);
 	}
 
 }

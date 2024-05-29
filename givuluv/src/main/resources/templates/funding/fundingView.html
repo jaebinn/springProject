@@ -21,7 +21,7 @@
 							<div class="slick-slide slick-current" style="width: 750px;">
 								<div>
 									<div class="FundingDetailCover_thumbnail" tabindex="-1" style="width: 100%; display: inline-block;">
-										<img src="/images/product.jpg" width="" height="" alt="" class="FundingDetailCover_image">
+										<img th:src="${fundingDetail.systemname}"> width="" height="" alt="" class="FundingDetailCover_image">
 									</div>
 								</div>
 							</div>
@@ -30,30 +30,30 @@
 				</div>
 			</div>
 			<div class="fundingSummary">
-				<strong class="FundingDetailSummary_dday">D-38</strong>
-				<h3 class="FundingDetailSummary_title">꿀잠을 위한 안전지대! 항균성 비건 베개 커버</h3>
+				<strong class="FundingDetailSummary_dday">D-[[${fundingDetail.fundingDDay}]]</strong>
+				<h3 class="FundingDetailSummary_title">[[${fundingDetail.fboard.fTitle}]]</h3>
 				<div class="FundingDetailSummary_graph">
 					<div class="FundingDetailSummary_rate">
-						<strong class="FundingDetailSummary_number">19</strong>%
+						<strong class="FundingDetailSummary_number">[[${fundingDetail.percentage}]]</strong>%
 					</div>
 					<div class="FundingDetailSummary_bar">
 						<span class="FundingDetailSummary_current" style="width: 19%;">
 						</span>
 					</div>
 					<span class="FundingDetailSummary_goal">
-						<span class="FundingDetailSummary_number">1,000,000</span>원 목표</span>
+						<span class="FundingDetailSummary_number">[[${fundingDetail.fboard.targetAmount}]]</span>원 목표</span>
 						<span class="FundingDetailSummary_amount">
-							<strong class="FundingDetailSummary_number">194,000</strong>원</span>
+							<strong class="FundingDetailSummary_number">[[${fundingDetail.fboard.saveMoney}]]</strong>원</span>
 					</div>
 			</div>
 			<div class="FundingDetailSummary_profile">
 				<div class="FundingDetailSummary_thumbnail">
-					<div class="FundingDetailSummary_image" style="background-image: url(/images/product.jpg);">
-						
+					<div class="FundingDetailSummary_image" 
+					     th:style="'background-image: url(' + @{${fundingDetail.orgProfile}} + ');'">
 					</div>
 				</div>
 				<div class="FundingDetailSummary_text">
-					<span class="FundingDetailSummary_name">피스하나</span>
+					<span class="FundingDetailSummary_name">[[${fundingDetail.orgname}]]</span>
 					<span class="FundingDetailSummary_introduction">지구를 위하는 라이프 테라피</span>
 				</div>
 				<div class="FundingDetailSummary_page">
@@ -66,31 +66,29 @@
 			<div class="FundingReward_inner">
 				<div class="funding_option">
 					<select id="rewardList">
-						<option value="" disabled selected hidden>펀딩 선택하기</option>
-						<option>베개커버 세트1</option>
-						<option>베개커버 세트2</option>
-						<option>베개커버 세트3</option>
+					     <option value="" disabled selected hidden id="basicOption">펀딩 선택하기</option>
+					     <option th:each="product : ${fundingDetail.products}" th:value="${product.productnum}" th:data-cost="${product.cost}" th:data-pAmount="${product.pAmount}" th:text="${product.productname}"></option>
 					</select>
 				</div>
 				<ul class="FundingDetailSummary_list_cart">
 					<li class="FundingDetailRewardCartItem_wrap">
-						<strong class="FundingDetailRewardCartItem_name">베개 커버 1개 / 딸기(연분홍)</strong>
+						<strong class="FundingDetailRewardCartItem_name" id="selectedOption"></strong>
 						<div class="FundingDetailRewardCartItem_counter">
-							<input id="reward-cart-item-1" type="number" class="FundingDetailRewardCartItem_input_count" value="1">
+							<input id="reward-cart-item-1" type="number" class="FundingDetailRewardCartItem_input_count" value=1>
 							<label for="reward-cart-item-1" class="blind">개수</label>
 							<button type="button" class="FundingDetailRewardCartItem_button_minus" disabled="">
-								<span class="FundingDetailRewardCartItem_icon_minus">
+								<span class="FundingDetailRewardCartItem_icon_minus" id="minus">
 								</span>
 								<span class="blind">-</span>
 							</button>
 							<button type="button" class="FundingDetailRewardCartItem_button_plus">
-								<span class="FundingDetailRewardCartItem_icon_plus">
+								<span class="FundingDetailRewardCartItem_icon_plus" id="plus">
 								</span>
 								<span class="blind"><i class="fa-light fa-plus"></i></span>
 							</button>
 						</div>
-						<span class="FundingDetailRewardCartItem_amount">
-							<strong>35,000</strong>원</span>
+						<span class="FundingDetailRewardCartItem_amount" id="selectedCost">
+							<strong></strong></span>
 							<button class="FundingDetailRewardCartItem_button_delete">
 								<span class="FundingDetailRewardCartItem_icon"></span>
 								<span class="blind">삭제</span>
@@ -98,11 +96,11 @@
 						</li>
 					</ul>
 					<div class="FundingDetailSummary_total">
-						<div class="FundingDetailSummary_count">총 수량<span class="FundingDetailSummary_number">1</span>개</div>
+						<div class="FundingDetailSummary_count">총 수량 <span class="FundingDetailSummary_number" id="FundingNum">0</span>개</div>
 						<div class="FundingDetailSummary_amount">
 							<strong class="FundingDetailSummary_name">총 금액</strong>
 							<strong class="FundingDetailSummary_description">
-							<span class="FundingDetailSummary_number">35,000</span>원</strong>
+							<span class="FundingDetailSummary_number" id="totalFundingCost">0원</span></strong>
 						</div>
 					</div>
 					<div class="FundingDetailSummary_delivery">
@@ -122,8 +120,109 @@
 	</div>
 	</div>
 	<div class="fundingDetail">
-		
+		<div class="f_content" th:utext="${fundingDetail.fboard.fContent}"></div>
 	</div>
+	<div class="p_rturn" id="p_rturn">
+		<div class="p_return_tit">
+			<strong>반품/교환정보</strong>
+		</div>
+		<div class="p_return_guide">
+			<p><span>상점이름</span> 반품/교환 안내</p>
+			<p>반품 시 먼저 판매자와 연락하셔어 반품사유, 택배사, 배송비, 반품지 주소 등을 협의하신 후 반품상품을 발송해 주시기 바랍니다.</p>
+		</div>
+		<table class="p_return_info">
+			<colgroup>
+				<col width="200px">
+				<col>
+			</colgroup>
+			<tbody>
+				<tr>
+					<th scope="row">지정택배사</th>
+					<td colspan="1">OO택배</td>
+				</tr>
+				<tr>
+					<th scope="row">보내실 곳</th>
+					<td colspan="1">주소</td>
+				</tr>
+				<tr>
+					<th scope="row">반품/교환 사유에 따른 요청 가능 기간</th>
+					<td colspan="1">구매자 단순 변심은 상품 수령 후 7일 이내. 또는 표시/광고와 상이, 계약 내용과 다르게 이행된 경우 상품 수령 수 3개월 이내 혹은 표시/광고와 다른
+						사실을 안 날로부터 30일 이내</td>
+				</tr>
+				<tr>
+					<th scope="row" rowspan="7">반품/교환 불가능 사유</th>
+					<td colspan="1">
+						<ul>
+							<li>
+								<span>1. 반품요청기간이 지난 경우</span>
+							</li>
+							<li>
+								<span>2. 구매자의 책임 있는 사유로 상품 등이 멸실 또는 훼손된 경우</span>
+							</li>
+							<li>
+								<span>3. 구매자의 책임있는 사유로 포장이 훼손되어 상품 가치가 현저히 상실된 경우</span>
+							</li>
+							<li>
+								<span>4. 구매자의 사용 또는 일부 소비에 의하여 상품의 가치가 현저히 감소한 경우</span>
+							</li>
+							<li>
+								<span>5. 시간의 경과에 의하여 재판매가 곤란할 정도로 상품 등의 가치가 현저히 감소한 경우</span>
+							</li>
+							<li>
+								<span>6. 고객의 요청사항에 맞춰 제작에 들어가는 맞춤제작상품의 경우</span>
+							</li>
+							<li>
+								<span>7. 복제가 가능한 상품 등의 포장을 훼손한 경우</span>
+							</li>
+						</ul>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<!-- 모달창 -->
+	<div id="myModal" class="modal">
+	       <div class="modal-content">
+	           <span class="close">&times;</span>
+	           <h2>펀딩 참여 전 확인하세요!</h2>
+			   <div class="model-caution">
+				<p>펀딩은 예약 결제 신청 후,
+				100% 달성 시 지정 결제일에 결제됩니다.</p>
+			   </div>
+			   <div class="modal-explain">
+					<p>결제가 진행된 이후에는 단순 변심으로 인한 취소나 환불이 어려울 수 있습니다. 결제 진행 전, 
+						 MY GivuLuv의 활동내역 > 펀딩내역에서 예약 결제를 취소할 수 있습니다.</p>
+			   </div>
+			<div class="dnt_area agree">
+				<div class="agree_area v2">
+					<div class="agree_wrap">
+						<label class="label_all" for="agree_all"><input type="checkbox" id="agree_all" class="input">이용약관, 마케팅 알림
+							수신에 모두
+							동의합니다.
+						</label>
+					</div>
+					<div class="agree_wrap">
+						<label for="agree_term">
+							<input id="agree_term" type="checkbox" class="input jq_temporary_agree terms">
+							(필수) GivuLuv 이용약관에 동의합니다.
+						</label>
+						<!--이용 약관-->
+						<p class="agree_preview">
+							<th:block th:replace="~{layout/agreeInfo::agreeInfo()}"></th:block>
+						</p>
+					</div>
+					<div class="agree_wrap">
+						<label for="agree_alarm"><input type="checkbox" id="agree_alarm" class="input terms">(선택) 해피빈 마케팅 알림 수신에
+							동의합니다.</label>
+						<span class="agree_text">GivuLuv에서 제공하는 이벤트/혜택 등 다양한 정보를 휴대전화(네이버 앱 알림 또는 문자),<br>이메일로 받아보실 수 있습니다.</span>
+					</div>
+					<div class="donation_buttons">
+						<input type="button" class="button_highlight jq_funding" onclick="payBtn()" value="펀딩 참여하기">
+					</div>
+				</div>
+			</div>
+	       </div>
+	   </div>
 	<!-- footer -->
 	<th:block th:replace="~{layout/footer::footer()}"></th:block>
 </body>
@@ -169,7 +268,135 @@
 				       } else {
 				           moveSlide(0);
 				       }
-				}, 2500)
-	        });
+				}, 2500);
+				
+				$('#rewardList').on('change', function () {
+						$('#reward-cart-item-1').val(1);
+						$('#FundingNum').text(1);
+						const selectedOption = $(this).find('option:selected');
+						const selectedOptionText = selectedOption.text();
+						const selectedCost = selectedOption.data('cost');
+						const selectedpAmount = selectedOption.data('pamount');
+						
+						
+						$('#selectedOption').text(selectedOptionText);
+						$('#selectedCost strong').text(selectedCost.toLocaleString() + '원');
+						$('#totalFundingCost').text(selectedCost.toLocaleString() + '원');
+			
+						$('.FundingDetailSummary_list_cart').show();
+			
+						$('.FundingDetailRewardCartItem_icon').on('click', function () {
+							$('#rewardList').val('');
+							$('#basicOption').prop('selected', true);
+							$('.FundingDetailSummary_list_cart').hide();
+							$('#totalFundingCost').text('0원');
+						})
+										
+										
+						$('#reward-cart-item-1').on('change', function() {
+						    let inputNum = parseInt($(this).val());
+							if (!isNaN(inputNum) && inputNum > 0) {
+						        let selectedpAmount = parseInt($('#rewardList option:selected').data('pamount'));
+								$('#totalFundingCost').text((selectedCost * inputNum).toLocaleString() + '원');
+						        if (inputNum > selectedpAmount) {
+						            alert('재고량을 초과하여 더 이상 선택할 수 없습니다.');
+						            $(this).val(selectedpAmount);
+						            $('#FundingNum').text(selectedpAmount);
+						        } else {
+						            $('#FundingNum').text(inputNum);
+						        }
+						    } else{
+						        alert('유효한 숫자를 입력하세요.');
+						        $(this).val(1); 
+						        $('#FundingNum').text(1);
+						    }
+						});
+								
+						let fundingCnt = parseInt($('#reward-cart-item-1').val());
+						$('#plus').on('click', function () {
+							console.log(fundingCnt)
+											
+							$('#reward-cart-item-1').val(fundingCnt);
+							$('#FundingNum').text(fundingCnt);
+							$('#totalFundingCost').text((selectedCost * fundingCnt).toLocaleString() + '원');
+							if (fundingCnt >= selectedpAmount) {
+									alert('재고량을 초과하여 더 이상 선택할 수 없습니다.');
+									$('#reward-cart-item-1').val(selectedpAmount);
+									$('#FundingNum').text(selectedpAmount);
+									fundingCnt=selectedpAmount;
+							}
+							else{
+									fundingCnt++;
+							}
+						});
+						$('#minus').on('click', function () {
+							if (fundingCnt > 1) {
+								fundingCnt--;
+								$('#reward-cart-item-1').val(fundingCnt);
+								console.log(fundingCnt)
+								$('#FundingNum').text(fundingCnt);
+								$('#totalFundingCost').text((selectedCost * fundingCnt).toLocaleString() + '원');
+								}
+							});
+						});
+						$('#f_Btn').click(function () {
+								const selectedOption = $('#rewardList').val();
+								if (selectedOption) {
+								     $('#myModal').css('display', 'block');
+								} else {
+								     alert('펀딩 옵션을 선택해 주세요.');
+								}
+						});
+								  
+						// 모달 닫기 버튼 클릭 시 모달 닫기
+						$('.close').click(function () {
+								 $('#myModal').css('display', 'none');
+						});
+								  
+						// 모달 외부 클릭 시 모달 닫기
+						$(window).click(function (event) {
+								if ($(event.target).is('#myModal')) {
+								     $('#myModal').css('display', 'none');
+								}
+						});
+						function payBtn(){
+									
+						}
+						function checkAgreements() {
+								const allAgreed = $('#agree_term').is(':checked');
+								const donateButton = $('.jq_donate');
+								if (allAgreed) {
+								      donateButton.removeClass('disabled');
+								} else {
+								      donateButton.addClass('disabled');
+								}
+						}
+						$('#agree_term').on('change', function() {
+								 checkAgreements();
+						});
+								
+						// 마케팅 알림 수신 동의 체크박스 변화 감지
+						$('#agree_alarm').on('change', function() {
+								 checkAgreements();
+						});
+								
+						// 전체 동의 체크박스 변화 감지
+						$('#agree_all').on('change', function() {
+								 const isChecked = $(this).is(':checked');
+								 $('#agree_term, #agree_alarm').prop('checked', isChecked);
+								 checkAgreements();
+						});
+								
+						// 초기 상태 설정
+						checkAgreements();
+						$('.jq_funding').on('click', function(e) {
+								const allAgreed = $('#agree_term').is(':checked');
+								console.log(allAgreed)
+								if (!allAgreed) {
+									 alert('필수 약관 동의를 해주세요.');
+									 e.preventDefault();
+								}
+						});
+	    });
 </script>
 </html>

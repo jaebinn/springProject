@@ -17,4 +17,5 @@ public class OrgDTO {
 	private String orgaddr;
 	private String orgaddrdetail;
 	private String orgaddretc;
+	private int orgunqnum;
 }

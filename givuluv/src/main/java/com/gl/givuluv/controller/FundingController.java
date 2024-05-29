@@ -1,21 +1,21 @@
 package com.gl.givuluv.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.gl.givuluv.domain.dto.FBoardDTO;
 import com.gl.givuluv.domain.dto.ProductDTO;
 import com.gl.givuluv.service.FBoardService;
 
-import ch.qos.logback.core.model.Model;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
@@ -27,7 +27,15 @@ public class FundingController {
 	private FBoardService fbservice;
 	
 	@GetMapping("fBoard")
-	public void replace() {}
+	public String getFBoard(Model model) {
+		List<Map<String, Object>> result = fbservice.getFundingList();
+		if(result != null) {
+			model.addAttribute("fundingList", result);
+			return "funding/fBoard";
+		}else {
+			return "funding/fBoard";
+		}
+	}
 	
 	@GetMapping("write")
 	public void write() {}
@@ -59,12 +67,20 @@ public class FundingController {
 				System.out.println("성공");
 			}
 		}
-		System.out.println("실패");
-		return "store/sBoard";
+		List<Map<String, Object>> result = fbservice.getFundingList();
+		if(result != null) {
+			model.addAttribute("fundingList", result);
+			return "funding/fBoard";
+		}else {
+			return "funding/fBoard";
+		}
 	}
 	
 	@GetMapping("fundingView")
-	public String fundingView() {
+	public String fundingView(int fBoardnum, Model model) {
+		Map<String, Object> fundingDetail = fbservice.getFundingDetail(fBoardnum);
+		model.addAttribute("fundingDetail", fundingDetail);
 		return "/funding/fundingView";
 	}
+
 }

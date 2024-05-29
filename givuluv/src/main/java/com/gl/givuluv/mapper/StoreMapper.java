@@ -8,9 +8,11 @@ import com.gl.givuluv.domain.dto.StoreDTO;
 public interface StoreMapper {
 	int insertStore(StoreDTO store);
 	
-	StoreDTO getStoreBySellerId(String selloerId);
+	StoreDTO getStoreBySellerId(String sellerId);
 	StoreDTO getStoreBySBoardnum(int sBoarddnum);
 
-	StoreDTO getStoreById(String connectid);
+	StoreDTO getStoreById(int snum);
+
+	String getStoreName(int snum);
 	
 }

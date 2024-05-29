@@ -86,5 +86,12 @@ public class OrgController {
 	public String logsignup() {
 		return "org/logsignup";
 	}
-	
+	@GetMapping("groupinfo")
+	 public String groupinfo() {
+	    return "org/groupinfo";
+	}
+	 @GetMapping("signupcomplete")
+	 public String signupcomplete() {
+	    return "org/signupcomplete";
+	}
 }

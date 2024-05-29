@@ -108,6 +108,13 @@ function sendit(){
         orgaddrdetail.focus();
         return;
     }
+    
+    const orgunqnum = document.getElementById('orgunqnum').value;
+            // 고유번호가 10자리 숫자인지 확인
+     if (!/^\d{10}$/.test(orgunqnum)) {
+         alert('고유번호는 10자리 숫자여야 합니다.');
+         return;
+            }
     orgjoinForm.submit();
 }
 
@@ -263,4 +270,5 @@ function findAddr() {
             document.getElementById("orgaddrdetail").focus();
         }
     }).open();
-}
+    }
+             

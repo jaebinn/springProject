@@ -214,6 +214,7 @@ a{
     text-align: left;
 }
 .FundingDetailSummary_list_cart {
+	display: none;
     margin-top: 20px;
     border: 1px solid #000;
     border-width: 1px 0;
@@ -474,3 +475,181 @@ FundingDetailSummary_total{
 	width: 1340px;
 	padding: 20px 100px;
 }
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	overflow: auto;
+}
+
+.modal-content {
+	background-color: #ffffff;
+	text-align: center;
+	margin: 5% auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 25%;
+	height: 750px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.modal-content h2{
+	padding: 30px 0;
+}
+.close {
+	color: #aaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+}
+.model-caution p{
+	padding: 15px 0;
+}
+.close:hover,
+.close:focus {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
+.modal-explain p{
+    padding: 16px 0 14px;
+    border: 1px solid #ddd;
+    border-width: 1px 0;
+    font-size: 13px;
+    line-height: 1.4;
+    color: #666;
+    letter-spacing: -.1px;
+    text-align: left;
+}
+.agree_area {
+    padding: 30px 20px;
+    border-bottom: 1px solid #eaeaea;
+    letter-spacing: 0;
+}
+.agree_area label.label_all {
+    font-size: 13px;
+    color: #000;
+}
+.agree_area .input {
+    width: 19px;
+    height: 19px;
+    margin-right: 8px;
+    border-color: #ccc;
+    border-radius: 0;
+}
+.agree_area .agree_wrap {
+    margin-bottom: 20px;
+}
+.agree_area label {
+    display: inline-block;
+    font-size: 14px;
+    line-height: 20px;
+    color: #666;
+}
+.agree_wrap .agree_preview {
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: 390px;
+    height: 192px;
+    margin-top: 12px;
+    padding: 0 0 0 20px;
+    border: 1px solid #e5e5e5;
+    white-space: pre-line;
+}
+.agree_area label {
+    display: inline-block;
+    font-size: 14px;
+    line-height: 20px;
+    color: #666;
+}
+.agree_area .agree_text {
+    display: block;
+    margin-top: 12px;
+    font-size: 13px;
+    color: #666;
+}
+.agree_area .agree_alert {
+    font-weight: 400;
+    color: #ff4b4b;
+}
+.donation_buttons {
+    margin-top: 30px;
+    font-size: 0;
+    text-align: center;
+}
+.donation_buttons .button_highlight {
+    border-color: rgba(0, 0, 0, .1);
+    background-color: rgb(231,112,151);
+    color: #fff;
+}
+.donation_buttons input~a {
+    margin-left: 8px;
+}
+.donation_buttons input{
+    display: inline-block;
+    width: 166px;
+    height: 45px;
+   /* padding: 13px 10px 0;*/
+    border: 1px solid #333;
+    border-radius: 3px;
+    font-size: 15px;
+    color: #000;
+    vertical-align: top;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    text-align: center;
+}
+.jq_funding{
+	cursor: pointer;
+	margin-right: 10px;
+}
+.donation_buttons a{
+	display: inline-block;
+    width: 166px;
+    height: 45px;
+    padding: 13px 10px 0;
+    border: 1px solid #333;
+    border-radius: 3px;
+    font-size: 15px;
+    color: #000;
+    vertical-align: top;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    text-align: center;
+}
+.p_rturn{
+    width: 1140px;
+    margin: 0 auto;
+    padding: 100px 0;
+ }
+ .p_return_tit strong{
+     font-size: 14px;
+ }
+ .p_return_guide{
+    width: 1000px;
+    height: 80px;
+    text-align: center;
+    background-color: #f7f7f7;
+    margin-top: 10px;
+ }
+ .p_return_guide p:first-child{
+    padding: 15px;
+    font-weight: bold;
+    color: #505050;
+ }
+ .p_return_guide p:last-child{
+    font-size: 12px;
+    font-weight: bold;
+    color: #505050;
+ }
+ .p_return_guide p:first-child span{
+    color:rgb(79, 148, 111)
+ }
+ .p_return_info{
+     width: 1000px;
+ }
+ 

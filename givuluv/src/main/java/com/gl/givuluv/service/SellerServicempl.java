@@ -64,4 +64,9 @@ public class SellerServicempl implements SellerService{
 		return null;
 	}
 	
+	@Override
+	public String getCategory(int snum) {
+		return sellmapper.getCategory(snum);
+	}
+	
 }

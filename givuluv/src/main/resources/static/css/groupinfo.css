@@ -1,0 +1,196 @@
+@font-face {
+    font-family: 'TTLaundryGothicB';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/TTLaundryGothicB.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+.gro_wrap{
+    width: 100%;
+}
+.gro_header_inner{
+    background-color: #f1f1f1;
+    margin: 0 auto;
+    width: 100%;
+    height: 100px;
+}
+.gro_header .gro_logobox{
+    display: flex;
+}
+.gro_header .gro_logo{
+    display: inline-block;
+    padding: 22px 0 20px;
+}
+.gro_header img{
+    width: 78px;
+}
+.gro_header .gro_tit{
+   width: 100px;
+   height: 20px;
+   display: inline-block;
+}
+.gro_header .gro_tit {
+    font-family: 'TTLaundryGothicB';
+    line-height: 60px;
+    font-size: 25px;
+    text-align: center;
+    color: rgb(231, 112, 151);
+    margin-top: 22px;
+    text-decoration: none;
+}
+.gro_header .gro_subtitle{
+    font-family: 'TTLaundryGothicB';
+    line-height: 60px;
+    font-size: 15px;
+    text-align: center;
+    color: rgb(231, 112, 151);
+    margin-top: 24px;
+}
+.gro_step_list {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    width: 1140px;
+    margin: 47px auto 32px;
+    justify-content: space-between;
+    align-items: center;
+}
+.gro_step_item {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    position: relative;
+    font-family: Arial, sans-serif;
+    color: #aaa;
+}
+.gro_step_item.active {
+    background-color: rgb(231, 112, 151);
+    color: white;
+}
+.gro_step_item.active .fa-circle-check {
+    color: white;
+}
+.gro_step_item:before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    border-top: 20px solid transparent;
+    border-bottom: 20px solid transparent;
+    border-left: 20px solid #ddd;
+    transform: translateY(-50%);
+}
+.gro_step_item:last-child:before {
+    content: none;
+}
+.gro_step_item.active:before {
+    border-left-color: rgb(231, 112, 151);
+}
+
+ .gro_form_area {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #e5e5e5;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    margin-top: 20px;
+}
+
+ .gro_form_fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+ .gro_form_check {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+ .gro_form_require_check {
+    color: red;
+    font-size: 14px;
+}
+
+.gro_form_content {
+    margin-top: 20px;
+}
+
+.gro_form_row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.gro_form_col_left {
+    flex: 1;
+}
+.gro_form_col_right {
+    flex: 2;
+}
+
+.gro_form_checkname .gro_form_address
+.gro_form_phonenum .gro_form_infoexp{
+    font-weight: bold;
+}
+
+.gro_form_input_text{
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+.gro_step_button{
+    margin: 40px 0 100px;
+    text-align: center;
+    margin-right: 30px;
+}
+.gro_step_button a{
+	text-decoration: none;
+}
+.gro_button_prev{
+    display: inline-block;
+    min-width: 132px;
+    height: 35px;
+    border: 1px solid #e0e5e8; 
+    vertical-align: top;
+    margin-left: 10px;
+    font-size: 16px;
+    line-height: 16px;
+    color: #202020;
+    padding: 14px 15px 0;
+}
+.gro_button_next{
+    display: inline-block;
+    min-width: 132px;
+    height: 35px;
+   	border: 1px solid #e0e5e8;
+    vertical-align: top;
+    margin-left: 10px;
+    font-size: 16px;
+    line-height: 16px;
+    background: rgb(231, 112, 151);
+    color: #fff;
+    padding: 14px 15px 0;
+}
+.gro_footer{
+	position: relative;
+	top: 20px;
+    padding: 19px 0 100px;
+    border-top: 1px solid rgb(#828282);
+    background: #f5f5f5;
+}
+.gro_footer_inner{
+    margin: 0 auto;
+    width: 1140px;
+    text-align: center;
+}
+.gro_footer_inner a{
+    text-decoration: none;
+    font-family: 'TTLaundryGothicB';
+    line-height: 60px;
+    font-size: 20px;
+    color: rgb(231, 112, 151);
+}

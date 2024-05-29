@@ -3,6 +3,7 @@ package com.gl.givuluv.mapper;
 
 import java.util.List;
 
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.gl.givuluv.domain.dto.CommentDTO;
@@ -11,5 +12,7 @@ import com.gl.givuluv.domain.dto.CommentDTO;
 public interface CommentMapper {
 	int insertComment(CommentDTO comment);
 	
-	List<CommentDTO> getCommentsByCBoardnum(int cBoardnum);
+	int getCommentLastNum();
+	
+	List<CommentDTO> getComments(int cBoardnum, int commentnum, int amount);
 }

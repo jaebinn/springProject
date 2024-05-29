@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.gl.givuluv.domain.dto.FollowDTO;
 import com.gl.givuluv.domain.dto.UserDTO;
 
 @Mapper
@@ -49,4 +50,6 @@ public interface UserMapper {
 	List<String> getDonaNameByUserId(UserDTO userid);
 	String getNicknameByUserId(String userid);
 	
+//	유저와 단체의 팔로우
+	FollowDTO getfollow(FollowDTO follow);
 }

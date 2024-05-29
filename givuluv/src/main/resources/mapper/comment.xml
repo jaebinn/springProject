@@ -4,9 +4,16 @@
 	<insert id="insertComment">
 		insert into file values(#{systemname}, #{connectionid}, #{type}, 'N')
 	</insert>
-	<select id="getCommentByCBoardnum">
-		select *
-		from comment
-		where c_boardnum = #{cBoardnum}
+	<select id="getCommentLastNum">
+		select max(commentnum) from comment
+	</select>
+	<select id="getComments">
+		<![CDATA[ 
+			select *
+			from comment
+			where c_boardnum = #{cBoardnum} and commentnum <= #{commentnum}
+			order by commentnum
+			limit #{amount}
+		]]>
 	</select>
 </mapper>

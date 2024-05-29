@@ -35,10 +35,7 @@
                 STEP2 단체정보
             </li>
             <li class="lsu_step_item">
-                STEP3 재정 및 투명성
-            </li>
-            <li class="lsu_step_item">
-                STEP4 가입신청 완료
+                STEP3 가입신청 완료
             </li>
         </ol>
         <div class="lsu_form_area">
@@ -53,15 +50,16 @@
                 <div class="lsu_form_content">
                    <div class="lsu_form_row">
                         <div class="lsu_form_col_left">
-                            <label for="insitutename" class="lsu_form_checkname">
+                            <label for="orgname" id="orgname" class="lsu_form_checkname">
                                 단체명
                             </label>
                         </div>
                         <div class="lsu_form_col_right">
-                            <input id="insitutename" class="lsu_form_input_text" placeholder="1~30자 한글, 영문 숫자 사용가능">
+                            <input id="orgname" class="lsu_form_input_text" placeholder="1~30자 한글, 영문 숫자 사용가능">
                             <p class="lsu_form_input_desc">
                                 고유번호증에 등록된 단체명으로 입력하세요
                             </p>
+							<div id="orgname_error" class="lsu_error"></div>
                         </div>
                    </div> 
                    <div class="lsu_form_row">
@@ -143,14 +141,14 @@
             </div>
             <!--페이지 넘어가는 버튼-->
             <div class="lsu_step_button">
-                <button type="button" id="beforePage" class="lsu_button_prev">이전</button>
-                <button type="button" id="nextPage" class="lsu_button_next">다음</button>
+                <a href="/org/register" id="beforePage" class="lsu_button_prev">이전</a>
+                <a href="/org/groupinfo" id="nextPage" class="lsu_button_next">다음</a>
             </div>
         </div>
     </div>
     <div class="lsu_footer">
 		<div class="lsu_footer_inner">
-			 <p><a href="#">기부러브</a><span>Copyright © GivuLuv Corp. All Rights Reserved.</span></p>
+			 <p><a href="/">기부러브</a><span>Copyright © GivuLuv Corp. All Rights Reserved.</span></p>
 		</div>
 	</div>
 </div>    

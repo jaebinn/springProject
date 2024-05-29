@@ -20,8 +20,12 @@ public interface FileMapper {
 	int deleteFileBySystemname(String systemname);
 	int deleteFilesByBoardnum(long boardnum);
 	List<FileDTO> getFiles();
+	FileDTO getFile(FileDTO file);
 	List<String> getSystemnameByBoardnum(String dBoardnum);
 	FileDTO getFileByProductnum(int productnum);
 	FileDTO getFileByStorenum(int storenum);
+	List<String> getFileByFBoardnum(int fBoardnum);
+	String getOrgProfileByOrgid(String orgid);
+	FileDTO getSBoardFile(int connectid);
 
 }

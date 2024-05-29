@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class FBoardDTO {
-	private String fBoardnum;
+	private int fBoardnum;
 	private String fTitle;
 	private String fContent;
 	private String targetAmount;

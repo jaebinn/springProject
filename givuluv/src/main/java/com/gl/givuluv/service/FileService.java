@@ -11,5 +11,7 @@ public interface FileService {
 	
 	FileDTO getFileByProductnum(int productnum);
 
-	FileDTO getFileByStorenum(int storenum);
+	FileDTO getFileByStorenum(int snum);
+	
+	FileDTO getSBoardFile(int connectid);
 }

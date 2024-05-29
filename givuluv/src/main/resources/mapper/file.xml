@@ -18,8 +18,23 @@
    <select id="getFileByProductnum">
 		select * from file where connectionid = #{productnum} and type = 'M'
 	</select>
+	<select id="getFile">
+		select *
+		from file
+		where type = #{type} and connectionid=#{connectionid}
+   </select>
+    <select id="getFileByFBoardnum">
+		select systemname from file where connectionid=#{FBoardnum} and type='F' and boardthumbnail='Y'
+	</select>
+	<select id="getOrgProfileByOrgid">
+		select systemname from file where connectionid=#{orgid} and type='O' and boardthumbnail='N'
+	</select>
+	
+	<select id="getSBoardFile">
+		select * from file where connectionid = #{connectid} and type = 'M'
+	</select>
    
 	<select id="getFileByStorenum">
-		select * from file where connectionid = #{storenum} and type = 'S'
+		select * from file where connectionid = #{snum} and type = 'S'
 	</select>
 </mapper>

@@ -71,9 +71,12 @@
 	
 	<!-- 펀딩 게시글 -->
 	<insert id="insertFunding">
-		insert into f_board(f_boardnum, f_title, f_content, target_amount, save_money, f_enddate, orgid) values
+		insert into f_board(f_title, f_content, target_amount, f_enddate, orgid) values 
+		(#{fTitle}, #{fContent}, #{targetAmount}, #{fEnddate}, #{orgid})
 	</insert>
-	
+	<select id="getFundingList">
+		select * from f_board order by f_boardnum desc
+	</select>
 	<select id="getFundingByBoardnum">
 		select * from f_board where f_boardnum=#{f_boardnum}
 	</select>
@@ -83,8 +86,22 @@
 	<select id="getFundingsByOrgid"> <!-- limit 0 0 써야함. -->
 		select * from f_board where orgid=#{orgid} order by f_boardnum desc limit #{startrow}, #{amount}
 	</select>
-	
-	
+	<select id="getFundingEndDay">
+		select f_enddate from f_board where f_boardnum=#{FBoardnum}
+	</select>
+	<select id="getTargetMoneyByFBoardnum">
+		select target_amount from f_board where f_boardnum=#{FBoardnum}
+	</select>
+	<select id="getSaveMoneyByFBoardnum">
+		select save_money from f_board where f_boardnum=#{FBoardnum}
+	</select>
+	<select id="getOrgnameByOrgId">
+		select orgname from f_board join org on f_board.orgid = org.orgid 
+		where f_board.orgid=#{orgid}
+	</select>
+	<select id="getOrgIdByFBoardnum">
+		select orgid from f_board where f_boardnum=#{fBoardnum}
+	</select>
 	<update id="updateFunding">
 		update f_board
 		set f_title=#{f_title}, f_content=#{f_content}, target_amount=#{target_amount}, f_enddate=#{f_enddate}
@@ -114,7 +131,11 @@
       from s_board
       where s_num=#{sNum};
    </select>
-	
+	<select id="getSBoard">
+		select * 
+		from s_board
+		where s_boardnum = #{connectid}
+   </select>
 	
 		<!-- 캠페인 게시글 -->
 	<insert id="insertCampaign">

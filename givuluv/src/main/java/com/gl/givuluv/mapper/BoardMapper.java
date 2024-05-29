@@ -63,4 +63,18 @@ public interface BoardMapper {
 	
 	int getCampaignLastNumByConnectid(String connectid);
 	CBoardDTO getCampaignByCBoardnum(int cBoardnum);
+
+	List<FBoardDTO> getFundingList();
+
+	List<String> getFundingEndDay(int fBoardnum);
+
+	List<Integer> getTargetMoneyByFBoardnum(int fBoardnum);
+
+	List<Integer> getSaveMoneyByFBoardnum(int fBoardnum);
+
+	List<String> getOrgnameByOrgId(String orgid);
+
+	String getOrgIdByFBoardnum(int fBoardnum);
+
+	SBoardDTO getSBoard(int connectid);
 }

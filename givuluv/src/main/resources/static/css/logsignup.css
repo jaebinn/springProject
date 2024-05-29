@@ -200,25 +200,35 @@
 .lsu_step_button{
     margin: 40px 0 100px;
     text-align: center;
-    margin-right: 30px;
+    margin-right: 50px;
+}
+.lsu_step_button a{
+	text-decoration: none;
 }
 .lsu_button_prev{
-    width: 160px;
-    height: 46px;
-    border: 1px solid #e0e5e8;
+    display: inline-block;
+    min-width: 132px;
+    height: 35px;
+    border: 1px solid #e0e5e8; 
+    vertical-align: top;
+    margin-left: 10px;
     font-size: 16px;
-    line-height: 20px;
+    line-height: 16px;
     color: #202020;
+    padding: 14px 15px 0;
 }
 .lsu_button_next{
-    width: 160px;
-    height: 46px;
-    border: 1px solid #e0e5e8;
-    font-size: 16px;
-    line-height: 20px;
+    display: inline-block;
+    min-width: 132px;
+    height: 35px;
+   	border: 1px solid #e0e5e8;
+    vertical-align: top;
     margin-left: 10px;
+    font-size: 16px;
+    line-height: 16px;
     background: rgb(231, 112, 151);
     color: #fff;
+    padding: 14px 15px 0;
 }
 .lsu_footer{
     padding: 19px 0 100px;

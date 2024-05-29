@@ -13,9 +13,12 @@ public interface ProductMapper {
 
 	List<ProductDTO> getList();
 	List<ProductDTO> getCategoryList(char pType);
-
+	List<ProductDTO> getCategoryList(String category);
 	int insertSBoardProduct(ProductDTO product);
+	int insertFundingProduct(ProductDTO product);
 
-	
+	ProductDTO getProduct(int productnum);
+
+	List<ProductDTO> getProductByConnectid(int fBoardnum);
 
 }

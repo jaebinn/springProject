@@ -1,25 +1,29 @@
 package com.gl.givuluv.service;
 
 import java.io.File;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.gl.givuluv.domain.dto.FBoardDTO;
 import com.gl.givuluv.domain.dto.FileDTO;
 import com.gl.givuluv.domain.dto.ProductDTO;
 import com.gl.givuluv.mapper.BoardMapper;
-import com.gl.givuluv.mapper.FBoardMapper;
 import com.gl.givuluv.mapper.FileMapper;
 import com.gl.givuluv.mapper.ProductMapper;
 
-import ch.qos.logback.core.model.Model;
 
 @Service
 public class FBoardServiceImpl implements FBoardService{
@@ -35,9 +39,6 @@ public class FBoardServiceImpl implements FBoardService{
 	
 	@Autowired
 	private ProductMapper pmapper;
-	
-	@Autowired
-	private FBoardMapper fdmapper;
 	
 	public boolean regist(Model model, FBoardDTO fBoard, List<ProductDTO> products, String filenames, MultipartFile thumbnail) throws Exception {
 		// s_num 찾기
@@ -88,7 +89,7 @@ public class FBoardServiceImpl implements FBoardService{
 			// product 넣기
 			for (ProductDTO product : products) {
 				product.setConnectid(fBoardnum+"");
-				if(pmapper.insertSBoardProduct(product)==1) {}
+				if(pmapper.insertFundingProduct(product)==1) {}
 				else {
 					//넣은 product들 삭제 / SBoard 삭제 ...
 					return false;
@@ -97,6 +98,79 @@ public class FBoardServiceImpl implements FBoardService{
 		}
 		return true;
 	}
+
+	@Override
+	public List<Map<String, Object>> getFundingList() {
+	    List<FBoardDTO> fundingList = bmapper.getFundingList();
+	    List<Map<String, Object>> result = new ArrayList<>();
+	    String src = "/summernoteImage/";
+	    LocalDate today = LocalDate.now(); // 현재 날짜
+
+	    for(FBoardDTO fboard : fundingList) {
+	        // 펀딩 썸네일 뽑아오기
+	        List<String> files = fmapper.getFileByFBoardnum(fboard.getFBoardnum());
+	        String systemname = src+files.get(0);
+	        // 펀딩 종료일 뽑아오기
+	        List<String> fundingEndDayList = bmapper.getFundingEndDay(fboard.getFBoardnum());
+	        String fundingEndDayStr = fundingEndDayList.isEmpty() ? null : fundingEndDayList.get(0);
+	        long fundingDDay = -1; // 기본값 -1로 설정 (종료일이 없는 경우)
+
+	        if (fundingEndDayStr != null) {
+	            LocalDate fundingEndDay = LocalDate.parse(fundingEndDayStr);
+	            fundingDDay = ChronoUnit.DAYS.between(today, fundingEndDay); // 종료일까지 남은 일 수 계산
+	        }
+	        List<String> orgname = bmapper.getOrgnameByOrgId(fboard.getOrgid());
+	        
+	        List<Integer> targetMoneyList = bmapper.getTargetMoneyByFBoardnum(fboard.getFBoardnum());
+	        List<Integer> saveMoneyList = bmapper.getSaveMoneyByFBoardnum(fboard.getFBoardnum());
+	        List<Double> percentageList = new ArrayList<>();
+
+	        for (int i = 0; i < targetMoneyList.size(); i++) {
+	            int targetMoney = targetMoneyList.get(i);
+	            int saveMoney = saveMoneyList.get(i);
+	            double percentage = 0.0;
+
+	            if (targetMoney > 0) {
+	                percentage = (double) saveMoney / targetMoney * 100;
+	            }
+
+	            percentageList.add(percentage);
+	        }
+	        
+	        
+	        Map<String, Object> map = new HashMap<>();
+	        map.put("fboard", fboard);
+	        map.put("systemname", systemname);
+	        map.put("fundingDDay", fundingDDay);
+	        map.put("percentage", percentageList.get(0));
+	        map.put("orgname",orgname.get(0));
+
+	        result.add(map);
+	    }
+	    return result;
+	}
+
+	@Override
+    public Map<String, Object> getFundingDetail(int fBoardnum) {
+        List<Map<String, Object>> fundingList = getFundingList();
+        List<ProductDTO> products = pmapper.getProductByConnectid(fBoardnum);
+        String orgid = bmapper.getOrgIdByFBoardnum(fBoardnum);
+        String orgProfile = fmapper.getOrgProfileByOrgid(orgid);
+        String src = "/summernoteImage/";
+        
+        Map<String, Object> fundingDetail = new HashMap<>();
+        for (Map<String, Object> funding : fundingList) {
+            FBoardDTO fboard = (FBoardDTO) funding.get("fboard");
+            if (fboard.getFBoardnum() == fBoardnum) {
+                fundingDetail.putAll(funding);
+                fundingDetail.put("products", products);
+                fundingDetail.put("orgProfile", src+orgProfile);
+                break;
+            }
+        }
+        System.out.println(fundingDetail);
+        return fundingDetail;
+    }
 
 	
 

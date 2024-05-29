@@ -439,9 +439,11 @@ function storesubmit() {
 		let productamounttarget = product[j].find(".productamount")
 
 		let productcost = productcosttarget.val().replace(/[^\d]/g, '');
+		console.log(productcost);
 		let productamount = productamounttarget.val().replace(/[^\d]/g, '');
+		console.log(productamount);
 		productcosttarget.val(productcost)
-		productcosttarget.val(productamount)
+		productamounttarget.val(productamount)
 	}
 
 

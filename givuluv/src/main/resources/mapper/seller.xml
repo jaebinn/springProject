@@ -20,7 +20,7 @@
    <select id ="getSellerById">
       select sellerid from seller where sellerid = #{sellerid}
    </select>
-   
+
    <update id ="updateSeller">
       <!--부분 업데이트 또는 전체 업데이트-->
    </update>
@@ -28,5 +28,10 @@
    <delete id ="deleteSeller">
       delete from seller where sellerid = #{sellerid}
    </delete>
-   
+   <select id ="getCategory">
+	  	select s.sellercategory
+		from seller s
+		join store st on s.sellerid = st.sellerid
+		where st.s_num = #{snum}
+   </select>
 </mapper>

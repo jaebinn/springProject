@@ -103,5 +103,8 @@ public class SBoardServiceImpl implements SBoardService{
 	      }
 	      return true;
 	   }
-
+	@Override
+	public SBoardDTO getSBoard(int connectid) {
+		return bmapper.getSBoard(connectid);
+	}
 }

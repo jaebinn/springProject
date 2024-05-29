@@ -135,6 +135,9 @@ public class OrgServiceImpl implements OrgService {
 	public String getOrgidByOrgname(String orgname) {
 		return omapper.getOrgidByOrgname(orgname);
 	}
-
+	@Override
+	public int getOrgByUnqnum(int orgunqnum) {
+		return omapper.getOrgByUnqnum(orgunqnum);
+	}
 
 }

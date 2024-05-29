@@ -14,8 +14,8 @@ import com.gl.givuluv.domain.dto.StoreDTO;
 public interface StoreService {
 	
 	//리스트 가져오기
-	StoreDTO getStoreList(String connectid);
+	StoreDTO getStoreList(int connectid);
 
 	boolean regist(Model model, SBoardDTO sBoard, String sellerId, List<ProductDTO> productList, String filenames, MultipartFile thumbnail) throws Exception;
-	
+	String getStoreName(int snum);
 }
