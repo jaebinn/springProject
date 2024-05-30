@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <script src="https://kit.fontawesome.com/516da99189.js" crossorigin="anonymous"></script>   
+<link rel="stylesheet" href="/css/header_footer.css">
+<link rel="stylesheet" href="/css/fundingPay.css">
+</head>
+<body>
+   <!-- header -->
+   <th:block th:replace="~{layout/header::header(loginUser)}"></th:block>
+   <!-- 컨텐츠 -->
+   <div class="container">
+   		<div class="contents">
+   			<div class="tit">
+   				<a th:href="@{/funding/fundingView(fBoardnum=${fBoardnum})}"><i class="fa-regular fa-less-than"></i></a>
+   				<h2>[[${fboard.fTitle}]]</h2><br>
+   				<span id="orgname">by [[${orgname}]]</span>
+   			</div>
+   		</div>
+   		<div class="payment">
+   			<ul class="dtn_tab">
+   				<li class="on">
+   					<a href="#">
+   						<span class="way2">펀딩결제 신청하기</span>
+   					</a>
+   				</li>
+   			</ul>
+   		</div>
+   		<div class="dtn_section">
+   			<p class="dtn_txt">
+   				<strong>"한정된 기간 동안 목표 도달 시 특별 할인 혜택 제공!"</strong>
+				"수량 한정! 빠르게 구매하세요! 참여하면 참여할수록 환경 보호에 도움이 됩니다!"
+   			</p>
+   			<div class="pay_area">
+   				<ul class="ipt_area">
+   					<li class="num">
+   						<strong class="tit">상품 금액</strong>
+   						<input type="text" class="inp_num d_cost" th:value="${cost}" name="ChargeTotalAmount" readonly
+   							id="ChargeTotalAmount" maxlength="8"><span class="tx_won">원</span>
+   					</li>
+   					<li class="productname num">
+   						<strong class="npay_tit">펀딩 상품</strong>
+   						<span href="#" class="funding_name" th:text="${productname}"></span>
+						(<span th:text="${fundingCnt}"></span>개)
+   					</li>
+   					<li class="donationOrg num">
+   						<strong class="npay_tit">단체 이름</strong>
+   						<span href="#" class="org_name">[[${orgname}]]</span>
+   					</li>
+   					<li class="num npay_do">
+   						<strong class="npay_tit">결제 수단</strong>
+   						<span href="#" class="btn_npay_do payImg">
+   							<img src="/images/네이버페이.png">
+   						</span>
+   						<span href="#" class="btn_kpay_do payImg">
+   							<img src="/images/카카오페이.png">
+   						</span>
+   					</li>
+   				</ul>
+   			</div>
+   			<div class="dnt_area agree">
+   				<div class="order_area">
+   					<strong class="cms_txt tit">주문자 정보</strong>
+					<div id="order_user">
+						<p id="username">[[${user.username}]](집)</p>
+						<p id="userphone">[[${user.userphone}]]</p>
+						<p id="email">[[${user.email}]]</p>
+						<p id="addr">[[${user.addr}]]<span id="addrdetail">[[${user.addretc}]]</span>
+						<span id="addrdetail">[[${user.addrdetail}]]</span></p>
+						<div id="selectMemo">
+							<select id="orderetc">
+								<option value="basic">배송메모를 선택해 주세요. (선택사항)</option>
+								<option value="door">문 앞에 놓아주세요.</option>
+								<option value="missed">부재시 연락 부탁드려요.</option>
+								<option value="advance">배송 전 미리 연락해 주세요.</option>
+							</select>
+						</div>
+					</div>
+   				</div>
+   				<div class="agree_area v2">
+   					<div class="agree_wrap">
+   						<label class="label_all" for="agree_all"><input type="checkbox" id="agree_all" class="input">이용약관, 마케팅 알림 수신에 모두
+   							동의합니다.
+   						</label>
+   					</div>
+   					<div class="agree_wrap">
+   						<label for="agree_term">
+   							<input id="agree_term" type="checkbox" class="input jq_temporary_agree terms">
+   							(필수) GivuLuv 이용약관에 동의합니다.
+   						</label>
+   						<!--이용 약관-->
+   						<p class="agree_preview">
+   							<th:block th:replace="~{layout/agreeInfo::agreeInfo()}"></th:block>
+   						</p>
+   					</div>
+   					<div class="agree_wrap">
+   						<label for="agree_alarm"><input type="checkbox" id="agree_alarm" class="input terms">(선택) 해피빈 마케팅 알림 수신에
+   							동의합니다.</label>
+   						<span class="agree_text">해피빈에서 제공하는 이벤트/혜택 등 다양한 정보를 휴대전화(네이버 앱 알림 또는 문자),<br>이메일로 받아보실 수 있습니다.</span>
+   					</div>
+   				</div>
+				<div class="cost_area">
+					<strong class="cms_txt tit">결제 예정 금액</strong>
+					<div class="period_notice">
+					     <span class="info">[[${fboard.fEnddate}]] 결제예정 (100% 달성 시)</span>
+					     <p class="sub_text">등록된 결제 수단으로 자동결제 됩니다.</p>
+					</div>
+					<div id="totalCostInfo">
+						<table id="CostTbl">
+							<tr id="tr">
+								<th>상품금액</th>
+								<td th:text="${cost} + '원'"></td>
+							</tr>
+							<tr id="tr">
+								<th>배송비</th>
+								<td th:text="${orderCost} + '원'"></td>
+							</tr>
+							<tr id="tr">
+								<th>기부보너스(금액의 3%)</th>
+								<td th:text="${getBonus} + '원'"></td>
+							</tr>
+							<tr id="tr">
+								<th>합계</th>
+								<td id="total" th:text="${cost + orderCost} + '원'"></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+   				<div class="donation_buttons">
+   					<input type="button" class="button_highlight jq_donate" onclick="payBtn()" value="펀딩 결제">
+   					<a th:href="@{/funding/fundingView(fBoardnum=${fBoardnum})}" class="jq_prev_rdona_view">뒤로 가기</a>
+   				</div>
+   			</div>
+   		</div>
+   	</div>
+   <!-- footer -->
+   <th:block th:replace="~{layout/footer::footer()}"></th:block>
+</body>
+<script src="/js/jquery-3.7.1.min.js"></script>
+<script src="/js/donationPay.js"></script>
+<script src="https://js.bootpay.co.kr/bootpay-4.3.4.min.js" type="application/javascript"></script>
+<script th:inline="javascript">
+	$('.h_logout').on('click', function(){
+		alert("로그아웃되었습니다.")
+	})
+	function payBtn(){
+				const allAgreed = $('#agree_term').is(':checked');
+				const totalAmount = parseInt($('#ChargeTotalAmount').val().replace(/,/g, ''));
+				if (!allAgreed) {
+					   alert('필수 약관 동의를 해주세요.');
+					   e.preventDefault();
+					return;
+				}
+				let cost = /*[[${cost}]]*/"";
+				let orderCost = /*[[${orderCost}]]*/"";
+				let totalCost = cost+orderCost;
+				let orgname = /*[[${orgname}]]*/"";
+				let fboard = /*[[${fboard}]]*/"";
+				let productname = /*[[${productname}]]*/"";
+				let fEnddate = /*[[${fboard.fEnddate}]]*/"";
+				let fundingCnt = /*[[${fundingCnt}]]*/"";
+				let user = /*[[${user}]]*/"";
+				let orderetcSelect = $('#orderetc');
+				let ordermemo = orderetcSelect.val();
+				console.log(typeof fEnddate)
+				Bootpay.requestPayment({
+					price: totalCost, 
+				    "application_id": "664d681b2bac039f7bd3d53b",
+				    "order_name": productname, 
+					"order_id": orgname,
+				    "pg": "danal",
+				    "method": "card_rebill",
+					show_agree_window: 0,
+				    "user": {
+				    "id": user.userid,
+				    "username": user.username,
+				    "phone": user.userphone,
+				    "email": user.email,
+					"addr" : user.addr
+						},							
+						"items": [
+							{
+								"id": fboard.fboardnum,
+								"name": productname,
+								"qty": fundingCnt,
+								"price": totalCost
+							}
+						],
+						extra: {
+								start_at: fEnddate, 
+								end_at: fEnddate 
+						}
+
+					}).then(function(data) {
+						if (data.event === 'done') {
+							$.ajax({
+								url: '/payment/confirmFunding',
+								method: "POST",
+								data: {
+								      "cost": totalCost,
+								      "orgname": orgname,
+									  "productname": productname,
+									  "fBoardnum": fboard.fboardnum,
+									  "pAmount": fundingCnt,
+									  "ordermemo": ordermemo
+								},
+								success: function(msg) {
+									alert("펀딩 감사드립니다!")
+								    location.href = "/funding/fReceipt?paymentnum="+msg.paymentnum;
+								},
+								error: function() {
+								    console.error('error');
+								    alert("통신 실패");
+								}
+							});
+						}
+					}).catch(function(e) {
+						alert(e.message);
+						switch (e.event) {
+							case 'cancel':
+								  console.log(e.message);
+								  break;
+							case 'error':
+								  console.log(e.error_code);
+								  break;
+							}
+					});
+		
+			}
+</script>
+</html>

@@ -8,11 +8,18 @@ import com.gl.givuluv.domain.dto.LikeDTO;
 
 public interface CommentService {
 	/**
-	 * 댓글 등록
+	 * 댓글 등록 (반환 : CommentDTO)
 	 * @param comment
 	 * @return
 	 */
-	boolean registComment(CommentDTO comment);
+	CommentDTO registComment(CommentDTO comment);
+	
+	/**
+	 * 공백만 있다면 true 반환
+	 * @param commentdetail
+	 * @return
+	 */
+	boolean commentSpaceCheck(String commentdetail);
 	
 	/**
 	 * 해당 캠페인 번호의 댓글들 찾기 (desc)
@@ -25,6 +32,11 @@ public interface CommentService {
 	 */
 	List<CommentDTO> getComments(int cBoardnum, int commentlastnum, int amount);
 	
+	/**
+	 * 해당 댓글의 좋아요 수
+	 * @param comment
+	 * @return
+	 */
 	int getCommentLikeCount(CommentDTO comment);
 	
 	/**
@@ -57,4 +69,7 @@ public interface CommentService {
 	 * @return
 	 */
 	List<CommentPageDTO> getCommentList(int cBoardnum, int commentlastnum, String loginUser);
+	
+	boolean modify(CommentDTO comment);
+	boolean remove(int commentnum);
 }

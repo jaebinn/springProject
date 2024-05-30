@@ -10,9 +10,13 @@ import com.gl.givuluv.domain.dto.CommentDTO;
 
 @Mapper
 public interface CommentMapper {
-	int insertComment(CommentDTO comment);
+	int insert(CommentDTO comment);
 	
+	CommentDTO getLastComment(CommentDTO comment);
 	int getCommentLastNum();
 	
 	List<CommentDTO> getComments(int cBoardnum, int commentnum, int amount);
+	
+	int update(CommentDTO comment);
+	int delete(int commentnum);
 }

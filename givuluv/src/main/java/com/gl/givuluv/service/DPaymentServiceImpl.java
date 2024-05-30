@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gl.givuluv.domain.dto.DPaymentDTO;
+import com.gl.givuluv.domain.dto.FPaymentDTO;
+import com.gl.givuluv.mapper.BoardMapper;
 import com.gl.givuluv.mapper.PaymentMapper;
 
 @Service
@@ -13,6 +15,8 @@ public class DPaymentServiceImpl implements DPaymentService{
 	
 	@Autowired
 	private PaymentMapper pmapper;
+	@Autowired
+	private BoardMapper fbmapper;
 	@Override
 	public boolean insertPayment(DPaymentDTO payment) {
 		return pmapper.insertPayment(payment);
@@ -61,6 +65,7 @@ public class DPaymentServiceImpl implements DPaymentService{
 	public int getDonationTotalCost() {
 		return pmapper.getDonationTotalCost();
 	}
+	
 	
 	
 }

@@ -92,14 +92,14 @@ ul{
     padding: 0 50px;
 }
 .p_name{
-    height: 40px;
+    height: 60px;
     font-size: 23px;
     font-family: 'TTLaundryGothicB';
 }
 .p_cost{
     height: 30px;
     font-size: 18px;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
     text-align: right;
     font-family: 'KCC-Hanbit';
 }
@@ -329,9 +329,11 @@ th{
 }
 #p_info_img{
     width: 1000px;
-    height: 1500px;
+    height: 500px;
     object-fit: cover;
     object-position: top;
+    font-family: 'TTLaundryGothicB';
+    overflow: hidden;
 }
 
 .more_info_view{
@@ -407,7 +409,9 @@ th{
     margin-top: 10px;
     border-bottom: 1px solid rgb(228, 228, 228);
 }
-
+.review_cont{
+	font-family: 'KCC-Hanbit';
+}
 .review_info{
     margin-top: 10px;
     width: 940px;
@@ -415,15 +419,26 @@ th{
     display: flex;
 }
 .review_info p{
-    width: 100px;
+    width: 120px;
     height: 30px;
     font-size: 14px;
+    line-height: 30px;
     text-align: right;
 }
 .review_info p:first-child{
-    margin-left: 740px;
+    margin-left: 580px;
+    padding-top: 3px;
 }
-
+.review_info p:first-child img{
+	height: 15px;
+	background-size: cover;
+}
+.review_info p:first-child span{
+	margin-left: 5px;
+	font-size: 16px;
+	font-weight: bold;
+	line-height: 10px;
+}
 .review_moreBtn{
     width: 100px;
     height: 100px;
@@ -569,6 +584,13 @@ th{
     align-items: center;
     background-color:#f7f7f7;
 }
+.p_qna_modify a{
+	margin: 0 5px;
+	font-family: 'KCC-Hanbit';
+}
+.p_qna_modify a:hover{
+	color:rgb(231, 112, 151);
+}
 .answer{
     background-color: #ededed;
 }
@@ -582,10 +604,8 @@ th{
     width: 550px;
     text-align: left;
 }
-.p_qna_detail div span{
-    
-}
-.no_qna{
+
+.no_qna, .no_review{
     width: 1000px;
     height: 150px;
     text-align: center;
@@ -640,5 +660,42 @@ th{
  }
  .p_return_info{
      width: 1000px;
+     margin-bottom: 100px;
  }
  
+ .p_return_infoCont li{
+	height: 30px;
+	line-height: 30px;
+ }
+ 
+ 
+ #qna_modify{
+	display: none;
+	width: 1000px;
+	height: 200px;
+}
+.qna_modify textarea{
+	width: 1000px;
+	height: 150px;
+	resize: none;
+	padding: 15px;
+	outline: unset;
+}
+.qna_modify_submit_box{
+	width: 230px;
+	height: 30px;
+	margin: 10px auto;
+	display: flex;
+}
+.qna_modify_submit, .qna_modify_cancel{
+	width: 100px;
+	height: 30px;
+	border-radius: 30px;
+	cursor: pointer;
+}
+.qna_modify_submit{
+	margin-right: 30px;
+}
+.qna_modify_submit:hover, .qna_modify_cancel:hover{
+	border: 1px solid black;
+}

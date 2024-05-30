@@ -10,5 +10,6 @@ public class FPaymentDTO {
 	private int FBoardnum;
 	private int FCost;
 	private String paydate;
+	private String reqetc;
 }
 

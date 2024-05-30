@@ -18,5 +18,5 @@ public interface ReviewService {
 
 	boolean updateReview(int reviewnum, String reviewdetail);
 
-
+	List<ReviewDTO> getProductReviewList(int sBoardnum);
 }

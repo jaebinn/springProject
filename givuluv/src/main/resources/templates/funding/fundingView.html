@@ -53,7 +53,7 @@
 					</div>
 				</div>
 				<div class="FundingDetailSummary_text">
-					<span class="FundingDetailSummary_name">[[${fundingDetail.orgname}]]</span>
+					<span class="FundingDetailSummary_name" id="org_name">[[${fundingDetail.orgname}]]</span>
 					<span class="FundingDetailSummary_introduction">지구를 위하는 라이프 테라피</span>
 				</div>
 				<div class="FundingDetailSummary_page">
@@ -100,16 +100,16 @@
 						<div class="FundingDetailSummary_amount">
 							<strong class="FundingDetailSummary_name">총 금액</strong>
 							<strong class="FundingDetailSummary_description">
-							<span class="FundingDetailSummary_number" id="totalFundingCost">0원</span></strong>
+							<span class="FundingDetailSummary_number" id="totalFundingCost">0</span>원</strong>
 						</div>
 					</div>
 					<div class="FundingDetailSummary_delivery">
 						<span class="FundingDetailSummary_name">배송비</span>
 						<div class="FundingDetailSummary_delivery_fee">
 							<span class="FundingDetailSummary_amount">
-								<strong>4,000</strong>원</span>
-							<span class="FundingDetailSummary_description">(200,000원 이상 구매 시 무료)</span>
-							<span class="FundingDetailSummary_description">도서산간지역 추가 5,500원</span>
+								<strong>3,000</strong>원</span>
+							<span class="FundingDetailSummary_description">(50,000원 이상 구매 시 무료)</span>
+							<span class="FundingDetailSummary_description">제주지역 추가 4,000원</span>
 						</div>
 					</div>
 					<div class="fundingBtn">
@@ -185,9 +185,9 @@
 	       <div class="modal-content">
 	           <span class="close">&times;</span>
 	           <h2>펀딩 참여 전 확인하세요!</h2>
-			   <div class="model-caution">
+			   <div class="modal-caution">
 				<p>펀딩은 예약 결제 신청 후,
-				100% 달성 시 지정 결제일에 결제됩니다.</p>
+				<strong>100% 달성 시</strong> 지정 결제일에 결제됩니다.</p>
 			   </div>
 			   <div class="modal-explain">
 					<p>결제가 진행된 이후에는 단순 변심으로 인한 취소나 환불이 어려울 수 있습니다. 결제 진행 전, 
@@ -217,7 +217,7 @@
 						<span class="agree_text">GivuLuv에서 제공하는 이벤트/혜택 등 다양한 정보를 휴대전화(네이버 앱 알림 또는 문자),<br>이메일로 받아보실 수 있습니다.</span>
 					</div>
 					<div class="donation_buttons">
-						<input type="button" class="button_highlight jq_funding" onclick="payBtn()" value="펀딩 참여하기">
+						<a href="#" class="button_highlight jq_funding" onclick="payBtn()">펀딩 참여하기</a>
 					</div>
 				</div>
 			</div>
@@ -281,7 +281,7 @@
 						
 						$('#selectedOption').text(selectedOptionText);
 						$('#selectedCost strong').text(selectedCost.toLocaleString() + '원');
-						$('#totalFundingCost').text(selectedCost.toLocaleString() + '원');
+						$('#totalFundingCost').text(selectedCost.toLocaleString());
 			
 						$('.FundingDetailSummary_list_cart').show();
 			
@@ -318,7 +318,7 @@
 											
 							$('#reward-cart-item-1').val(fundingCnt);
 							$('#FundingNum').text(fundingCnt);
-							$('#totalFundingCost').text((selectedCost * fundingCnt).toLocaleString() + '원');
+							$('#totalFundingCost').text((selectedCost * fundingCnt).toLocaleString());
 							if (fundingCnt >= selectedpAmount) {
 									alert('재고량을 초과하여 더 이상 선택할 수 없습니다.');
 									$('#reward-cart-item-1').val(selectedpAmount);
@@ -398,5 +398,27 @@
 								}
 						});
 	    });
+		function payBtn(){
+			    
+			let cost = $('#totalFundingCost').text();
+			let funding = $('#selectedOption').text();
+			let fundingCnt = $('#FundingNum').text();
+			let orgname = $('#org_name').text();
+			cost = cost.replace(/,/g, '');
+			console.log(orgname)
+			    
+			const urlParams = new URLSearchParams(window.location.search);
+			const fBoardnum = urlParams.get('fBoardnum');
+			    
+			const newUrl = "/funding/fundingPay?productname=" + encodeURIComponent(funding) + 
+			                   "&cost=" + encodeURIComponent(cost) + 
+			                   "&fundingCnt=" + encodeURIComponent(fundingCnt) + 
+			                   "&orgname=" + encodeURIComponent(orgname) + 
+			                   "&fBoardnum=" + encodeURIComponent(fBoardnum);
+			    
+			document.querySelector('.jq_funding').href = newUrl;
+			    
+			window.location.href = newUrl;
+		}
 </script>
 </html>

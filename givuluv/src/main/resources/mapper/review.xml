@@ -25,4 +25,9 @@
 	<update id="updateReview">
 		update review set reviewdetail=#{reviewdetail}, reviewdate=now() where reviewnum=#{reviewnum}
 	</update>
+	
+	<select id="getProductReviewList">
+		select reviewnum, reviewdetail, userid, DATE_FORMAT(reviewdate, '%Y-%m-%d') as reviewdate, star, connectid, type
+		from review where connectid = #{sBoardnum} and type = 'm' order by reviewnum desc
+	</select>
 </mapper>

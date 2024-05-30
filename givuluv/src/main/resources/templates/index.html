@@ -81,7 +81,6 @@
          </a>
          <div class="donations">
             <!-- #기부 돔 구현 -->
-            </div>
          </div>
       </section>
       <section class="funding_box column mt">
@@ -90,78 +89,7 @@
             <h2># 펀딩</h2>
          </a>
          <div class="fundings">
-            <div id="funding0" class="funding">
-               <a href="#">
-                  <div>
-                     <div>
-                        <img loading="lazy"
-                           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8gVQVDGQNz0Ayv82tfti4gvhjHjqLcEErCnmxP1TYAQ&s"
-                           width="250px" height="180px">
-                     </div>
-                     <div id="funding_info_box0" class="funding_info_box">
-                        <div class="funding_info_header">
-                           <p id="funding_title0" class="funding_title">제목 기부금 넣기 단체 펀딩 제목 기부금 넣기 단체 펀딩</p>
-                           <div class="space-between">
-                              <div class="column">
-                                 <p id="funding_market0" class="funding_market">마켓이름</p>
-                                 <p id="funding_D-day0" class="funding_D-day">D-21</p>
-                                 <p id="funding_save_money0" class="funding_save_money">424,526원</p>
-                              </div>
-                              <div class="funding_chart">
-                                 <p id="funding_save_money_percent0" class="funding_save_money_percent">24%</p>
-                                 <div class="funding_chart-bar" style="background: conic-gradient(rgb(231, 112, 151) 200deg, rgb(200, 200, 200) 50deg);"></div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </a>
-            </div>
-            <!--   javascript   content에 대괄호 쓰면 오류나서 안 씀. 써야함.
-                  str = '';
-                  for(i=0;i<fundings.length;i++){
-                     str += '<div id="funding${i}" class="funding">'
-                     str += '<a href="#">'
-                   str += '<div>'
-                   str += '<div>'
-                   str += '<img loading="lazy" src="/img/${사진}" width="250px" height="180px">'
-                   str += '</div>'
-                   str += '<div id="funding_info_box0" class="funding_info_box">'
-                   str += '<div class="funding_info_header">'
-                   str += '<p id="funding_title${i}" class="funding_title">${fundings[i].title}</p>'
-                   str += '<div class="space-between">'
-                   str += '<div class="column">'
-                   str += '<p id="funding_market${i}" class="funding_market">마켓이름</p>'
-                   str += '<p id="funding_D-day${i}" class="funding_D-day">${fundings[i].regdate-fundings[i].enddate}</p>'
-                   str += '<p id="funding_save_money${i}" class="funding_save_money">${fundings[i].save_money}원</p>'
-                   str += '</div>'
-                   str += '<div class="funding_chart">'
-                   str += '<p id="funding_save_money_percent${i}" class="funding_save_money_percent">${모금금액/목표금액*100}</p>'
-                   str += '<div class="funding_chart-bar" style="background: conic-gradient(rgb(231, 112, 151) 200deg, rgb(200, 200, 200) 200deg);"></div>'
-                      -> deg를 바꾸면 됨. 실제금액/목표금액*360
-                      -> 인자값 :  첫 시작 컬러 00번째  각도까지, 두 번째 컬러 00번째 각도부터 전체 
-                   str += '</div>'
-                   str += '</div>'
-                   str += '</div>'
-                   str += '</div>'
-                   str += '</div>'
-                   str += '</a>'
-                     str += '</div>'
-                  }
-                  $(".fundings").html(str);
-            }-->
-            <div id="funding1" class="funding">
-               
-            </div>
-            <div id="funding2" class="funding">
-               
-            </div>
-            <div id="funding3" class="funding">
-               
-            </div>
-            <div id="funding4" class="funding">
-               
-            </div>
+            <!-- #펀딩 돔 구현 -->
          </div>
       </section>
       <section class="store_box column mt">
@@ -375,12 +303,65 @@
 			dataType: 'json',
 			contentType: 'application/json; charset=utf-8',
 			success: function(response) {
+				console.log(response)
+				str = '';
+				for (let index = 0; index < Math.min(response.length, 5); index++) {
+					let item = response[index];
+					let fboard = item.fboard;
+					let fTitle = item.fboard.ftitle;
+					let saveMoney = item.fboard.saveMoney;
+					let fundingDDay = item.fundingDDay;
+					let percentage = item.percentage.toFixed(1); // 소수점 1자리까지 표시
+					let orgname = item.orgname;
+					let systemname = item.systemname;
+					str += `<div id="funding${index}" class="funding">`
+					str += `<a href="funding/fundingView?fBoardnum=${fboard.fboardnum}">`;
+					str += '<div>'
+					str += '<div>'
+					str += `<img loading="lazy" src='${systemname}'" width="250px" height="180px">`
+					str += '</div>'
+					str += '<div id="funding_info_box0" class="funding_info_box">'
+					str += '<div class="funding_info_header">'
+					str += `<p id="funding_title${index}" class="funding_title">${fTitle}</p>`
+					str += '<div class="space-between">'
+					str += '<div class="column">'
+					str += `<p id="funding_market${index}" class="funding_market">${orgname}</p>`
+					str += `<p id="funding_D-day${index}" class="funding_D-day">D-${fundingDDay}일</p>`
+					str += `<p id="funding_save_money${index}" class="funding_save_money">${saveMoney}원</p>`
+					str += '</div>'
+					str += '<div class="funding_chart">'
+					str += `<p id="funding_save_money_percent${index}" class="funding_save_money_percent">${percentage}%</p>`
+					str += '<div class="funding_chart-bar" style="background: conic-gradient(rgb(231, 112, 151) 200deg, rgb(200, 200, 200) 200deg);"></div>'
+					str += '</div>'
+					str += '</div>'
+					str += '</div>'
+					str += '</div>'
+					str += '</div>'
+					str += '</a>'
+					str += '</div>'
+				}
+				$(".fundings").html(str);
+			},
+			error: function(e) {
+				console.log(e);	   		
+			}
+		})
+		//가게 정보 가져오기
+		$.ajax({
+			url: '/index/getStoreInfo',
+			method: "GET",
+			dataType: 'json',
+			contentType: 'application/json; charset=utf-8',
+			success: function(response) {
+				console.log(response)
+				
 			
 			},
 			error: function(e) {
 				console.log(e);	   		
 			}
 		})
+		
 	});
 </script>
 

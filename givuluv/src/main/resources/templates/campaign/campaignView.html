@@ -8,6 +8,13 @@
 </head>
 
 <body>
+	<th:block th:if="${ session.loginOrg == null && session.loginManager == null && session.loginUser == null }">
+		<script>
+			alert("로그인 후 이용하세요!");
+			location.replace("/");
+		</script>
+	</th:block>
+
 	<!-- header -->
 	<th:block th:replace="~{layout/header::header(loginUser)}"></th:block>
 	<!-- 컨텐츠 -->
@@ -15,68 +22,27 @@
 		<div th:id="${'board'+cboard.cBoardnum}" class="orgBoard board">
 			
 		</div>
-		<div class="managerBoard board">
-			<div class="modal_box" style="display: flex; position: relative;">
-				<div class="modal">
-					<div class="modalBoard">
-						<div class="contents" th:utext="${cboard.cContent}"></div>
-						<div class="boardFooter">
-							<div class="btn_box like_box">
-								<p>999</p>
-								<a href="javascript:addLike(boardnum)" id="addLike(boardnum)" class="addLike"><i
-										class="fa-regular fa-heart"></i></a>
-								<!--<a href="javascript:cancelLike(boardnum)" id="addLike(boardnum)" class="cancelLike"><i style="color:rgb(255, 128, 194)" class="fa-solid fa-heart"></i></a>-->
-								<a href="javascript:copyLink(boardnum)"><i
-										class="fa-solid fa-arrow-up-right-from-square"></i></a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
 	</div>
 	<!-- footer -->
 	<th:block th:replace="~{layout/footer::footer()}"></th:block>
 </body>
 <script src="/js/jquery-3.7.1.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script src="/js/campaign.js"></script>
 <script th:inline="javascript">
 	$('.h_logout').on('click', function () {
 		alert("로그아웃되었습니다.")
 	})
-	/*
-	//enter => <br> textarea에 있는 value를 DB에 저장하기 위해서 해야함.
-	var text = $('textarea').val();
-	text = text.replace(/(?:\r\n|\r|\n)/g, '<br>');
-	
-	//<br> => enter 위에서 변환된 DB저장글을 textarea에 다시 써줄 때 사용해야함.
-	var text = $('textarea').val();
-	text = text.split('<br>').join("\r\n");
-	*/
-	$("textarea").on('keyup', function () {
-		console.log($("textarea"))
-		console.log($("textarea").val())
-		var text = $('textarea').val();
-		text = text.replace(/(?:\r\n|\r|\n)/g, '<br>');
-		text = text.replace(/ /g, "&nbsp;")
-
-		console.log(text);
-		$(".modal .contents").html(text);
-		$("textarea").html(text);
-		console.log($(".modal .contents"));
-	})
-	
 	
 	const boardnum = /*[[${cboard.cBoardnum}]]*/'';
 	let campaignDate = /*[[${cboard.cRegdate}]]*/'';
 	const campaignDateDiff = date(campaignDate);
 	let session_loginUser = /*[[${session.loginUser}]]*/'';
+	let session_loginOrg = /*[[${session.loginOrg}]]*/'';
 	
 	window.onload = function () {
 		console.log("시작")
-		
 		const campaignType = /*[[${cboard.type}]]*/'';
-
 		firstPrint(campaignType);
 	}
 
@@ -90,9 +56,8 @@
 			str = managerCampaignPrint();
 		}
 		$(".campaignView").html(str);
-		console.log(str)
 		side_box_Print();
-		replyList();
+		replyList(boardnum);
 	}
 
 	function orgCampaignPrint() {
@@ -103,7 +68,6 @@
 		let	campaign_likecount = /*[[${campaign_likecount}]]*/'';
 		let category = /*[[${category}]]*/'';
 		let campaignWriterName = /*[[${campaignWriterName}]]*/'';
-		console.log(session_loginUser, campaignProfileFileLink , orgid , boardnum , content , campaign_likecount)
 		
 		str += `<div id="board${boardnum}" class="orgBoard board">
 	<div class="modal_box" style="display: flex; position: relative;">
@@ -166,9 +130,9 @@
 	</div>
 	<div class="comment_regist_box">
 		<input type="hidden" name="cBoardnum" value="${boardnum}">
-		<input type="hidden" id=commentlastnum${boardnum} name="commentlastnum" value='0'>
-		<textarea class="commentdetail" name="commentdetail"></textarea>
-		<a href="commentRegist(${boardnum})" class="registBtn">등록</a>
+		<input type="hidden" id="commentlastnum${boardnum}" value='0'>
+		<textarea class="regist_commentdetail" id="commentdetail${boardnum}"></textarea>
+		<a href="javascript:commentRegist(${boardnum})" class="registBtn">등록</a>
 	</div>
 </div>`;
 		$("#board"+boardnum+" .modal_box .modal").append(str);
@@ -220,95 +184,6 @@
 		return str;
 	}
 	
-	function replyList() {
-		console.log("replyList 실행")
-		let commentlastnum = $("#commentlastnum"+boardnum).val();
-		$.ajax({
-				url: '/comment/commentList',
-				type: 'Get',
-				data: {cBoardnum: boardnum,
-						commentlastnum : commentlastnum},
-				dataType: 'json',
-				success: function (data) {
-					console.log(data);
-					if (data.length > 0) {
-						$("#no_comment"+boardnum).attr("style","display:none");
-						let str = '';
-						$.each(data, function (index, item) {// data의 크기만큼 for문 , index=index, item=data의 index번째 방
-							console.log(item);
-							console.log(index);
-							let commentnum = item.comment.commentnum;
-							let commentdate = date(item.comment.commentregdate);
-							
-							
-							str +=`
-		<div class="comment">
-			<div class="commentHeader">`
-							if(item.comment.type === 'O'){
-								console.log('org')
-								str +=`
-				<a href="#" class="commentprofile">
-					<img src="/summernoteImage/202405221023256949ed58d39-11cf-4eb5-bab3-0a9a7b59ab73.png">
-					<p>${item.commentWriterName}</p>
-				</a>`
-							}
-							else{
-								console.log('user')
-								str +=`
-				<div class="commentprofile">
-					<p>${item.commentWriterName}(${item.comment.connectid})</p>
-				</div>`
-							}
-							str+=`
-				<div class="like_box">
-					<p>${item.commentLikeCount}</p> <!-- 1000이상이면 k 달아주기 -->`
-							if(session_loginUser !== null){
-								str+=`
-						<a href="javascript:addcommentLike(${commentnum})" id="addcommentLike(${commentnum})"
-							class="addLike"><i class="fa-regular fa-heart"></i></a>
-						<!--<a href="javascript:cancelcommentLike(${commentnum})" id="addLike(${commentnum})"
-							class="cancelLike"><i style="color:rgb(255, 128, 194)" class="fa-solid fa-heart"></i></a>-->
-						`
-							}else{
-								str+=`좋아요`
-							}
-							str+=`
-				</div>
-			</div>
-			<div class="othercommentdetail">
-				${item.comment.commentdetail}
-			</div>
-			<div class="commentFooter">
-				<div class="date">`
-							if(item.comment.commentupdatedate != null){
-								str +=`<p>수정됨</p>`
-							}
-							str+=`
-					<p>${commentdate}</p>
-				</div>`
-							if(item.comment.connectid ===1){
-								str+=`							
-				<div class="commentA_box">
-					<a class="commentA" href="javascript:commentModify(commentnum)">수정</a>
-					<a class="commentA" href="javascript:commentDelete(commentnum)">삭제</a>
-				</div>`
-							}
-							str+=`
-			</div>
-		</div>`
-						});
-						console.log(str)
-						$("#board"+boardnum+" .commentbox").append(str);
-					} else {
-						console.log("없음");
-					}
-				},
-				error: function (xhr, status, error) {
-					console.error('AJAX Error: ', status, error);
-				}
-			});
-	}
-
 	// 날짜 계산
 	function date(date) {
 		date = moment(date);
@@ -327,15 +202,13 @@
 		const year = month * 12;
 
 		var today = moment();
-		console.log(today)
 		var elapsedTime = today.diff(date) / 1000;
-		console.log(elapsedTime)
 
 		var elapsedText = "";
 		if (elapsedTime < seconds * 10) {
 			elapsedText = "방금 전";
 		} else if (elapsedTime < minute) {
-			elapsedText = elapsedTime + "초 전";
+			elapsedText = Math.trunc(elapsedTime) + "초 전";
 		} else if (elapsedTime < hour) {
 			elapsedText = Math.trunc(elapsedTime / minute) + "분 전";
 		} else if (elapsedTime < day) {

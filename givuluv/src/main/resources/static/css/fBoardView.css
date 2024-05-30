@@ -74,7 +74,7 @@ a{
     border-radius: 13px;
     font-size: 15px;
     font-weight: 700;
-    line-height: 1.33;
+    line-height: 20px;
     color: #fff;
     letter-spacing: -.4px;
     text-align: center;
@@ -506,8 +506,11 @@ FundingDetailSummary_total{
 	font-size: 28px;
 	font-weight: bold;
 }
-.model-caution p{
+.modal-caution{
 	padding: 15px 0;
+}
+.modal-caution strong{
+	color: red;
 }
 .close:hover,
 .close:focus {

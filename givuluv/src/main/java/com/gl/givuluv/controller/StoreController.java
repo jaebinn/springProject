@@ -2,6 +2,7 @@ package com.gl.givuluv.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,12 +17,14 @@ import org.springframework.web.multipart.MultipartFile;
 import com.gl.givuluv.domain.dto.FileDTO;
 import com.gl.givuluv.domain.dto.ProductDTO;
 import com.gl.givuluv.domain.dto.QnaDTO;
+import com.gl.givuluv.domain.dto.ReviewDTO;
 import com.gl.givuluv.domain.dto.SBoardDTO;
 import com.gl.givuluv.domain.dto.SBoardwithFileDTO;
 import com.gl.givuluv.domain.dto.StoreDTO;
 import com.gl.givuluv.service.FileService;
 import com.gl.givuluv.service.ProductService;
 import com.gl.givuluv.service.QnaService;
+import com.gl.givuluv.service.ReviewService;
 import com.gl.givuluv.service.SBoardService;
 import com.gl.givuluv.service.SellerService;
 import com.gl.givuluv.service.StoreService;
@@ -46,6 +49,8 @@ public class StoreController {
 	private SellerService sellservice;
 	@Autowired
 	private QnaService qservice;
+	@Autowired
+	private ReviewService rservice;
 	
 	
 	
@@ -115,7 +120,6 @@ public class StoreController {
 		model.addAttribute("sBoardList", sBoardList);
 		model.addAttribute("loginUser", loginUser);
 		model.addAttribute("loginSeller", loginSeller);
-		
 		
 		return "store/sBoard";
 	}
@@ -263,10 +267,66 @@ public class StoreController {
        if (sessionSellerId.equals(sellerId)) {
           if (sservice.regist(model, sBoard, sellerId, products, filenames, thumbnail)) {
              System.out.println("성공");
+             
+             List<ProductDTO> plists = pservice.getList();
+             List<SBoardwithFileDTO> sBoardList = new ArrayList<>();
+             
+             for (ProductDTO product : plists) {
+            	 // 물품번호로 물품관련(스토어, 이미지, 정보들 가져오기)
+            	 int connectid = Integer.parseInt(product.getConnectid());
+            	 
+            	 // 물품 이미지파일 가져오기
+            	 FileDTO productFile = fservice.getSBoardFile(connectid);
+            	 
+            	 if (productFile != null) {
+            		 // 물품등록한 스토어정보 가져오기
+            		 // 커넥트 아이디로 sboard 가져오기
+            		 SBoardDTO sboard = sBservice.getSBoard(connectid);
+            		 if (sboard != null) {
+            			 int snum = sboard.getSNum();
+            			 
+            			 // 스토어 정보 가져오기
+            			 StoreDTO store = sservice.getStoreList(snum);
+            			 
+            			 if (store != null) {
+            				 // 스토어 로고파일 가져오기(스토어 등록할때 이미지 넣으면 구현)
+            				 // FileDTO storeFile = fservice.getFileByStorenum(store.getSNum());
+            				 
+            				 // 스토어 이름 가져오기
+            				 String storeName = store.getSName();
+            				 
+            				 // 카테고리 가져오기
+            				 String category = sellservice.getCategory(snum);
+            				 
+            				 SBoardwithFileDTO sboarddto = new SBoardwithFileDTO();
+            				 
+            				 sboarddto.setProduct(product);
+            				 sboarddto.setProductFile(productFile);
+            				 sboarddto.setSBoard(sboard);
+            				 // sboarddto.setStoreFile(storeFile);
+            				 sboarddto.setStorename(storeName);
+            				 sboarddto.setCategory(category);
+            				 
+            				 sBoardList.add(sboarddto);
+            			 } else {
+            				 System.out.println("스토어 정보를 가져올 수 없음");
+            			 }
+            		 } else {
+            			 System.out.println("물품은 있지만 sBoard가 없음");
+            		 }
+            	 } else {
+            		 System.out.println("파일 정보를 가져올 수 없음");
+            	 }
+             }
+             if(sBoardList != null) {
+            	 model.addAttribute("sBoardList", sBoardList);
+            	 return "store/sBoard";
+             } 
           }
-
        }
-       System.out.println("실패");
+       else {
+    	   System.out.println("실패");
+       }
        return "store/sBoard";
     }
 	   
@@ -285,13 +345,13 @@ public class StoreController {
 		//커넥트 아이디로 s_board 가져오기
 		SBoardDTO sboard = sBservice.getSBoard(connectid);
 		
-		
-		
+		//물품 가격 가져오기
 		StoreDTO store = sservice.getStoreList(sboard.getSNum());
 		int cost = product.getCost();
 		
 		//리뷰량 Q&A 가져오기
 		List<QnaDTO> qnaList = qservice.getQnaList(productnum);
+		List<ReviewDTO> reviewList = rservice.getProductReviewList(sboard.getSBoardnum());
 		
 		model.addAttribute("product", product);
 		model.addAttribute("imgFile", imgFile);
@@ -300,12 +360,8 @@ public class StoreController {
 		model.addAttribute("cost", cost);
 		model.addAttribute("loginUser", loginUser);
 		
-		
 		model.addAttribute("qnaList", qnaList);
-		
-		
-		
-		
+		model.addAttribute("reviewList", reviewList);
 		
 		return "store/productView";
 		

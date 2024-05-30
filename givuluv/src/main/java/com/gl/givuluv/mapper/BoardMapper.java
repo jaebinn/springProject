@@ -1,6 +1,7 @@
 package com.gl.givuluv.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -11,6 +12,7 @@ import com.gl.givuluv.domain.dto.DBoardDTO;
 import com.gl.givuluv.domain.dto.FBoardDTO;
 import com.gl.givuluv.domain.dto.OrgDTO;
 import com.gl.givuluv.domain.dto.SBoardDTO;
+import com.gl.givuluv.domain.dto.UserDTO;
 
 @Mapper
 public interface BoardMapper {
@@ -77,4 +79,16 @@ public interface BoardMapper {
 	String getOrgIdByFBoardnum(int fBoardnum);
 
 	SBoardDTO getSBoard(int connectid);
+
+	List<FBoardDTO> fundingParticipationRateList();
+
+	List<FBoardDTO> fundingParticipationCostList();
+
+	List<FBoardDTO> fundingEnddateList();
+
+	FBoardDTO getFundingByFBoardnum(int fBoardnum);
+
+	boolean updateFSaveMoney(int fCost);
+	
+
 }

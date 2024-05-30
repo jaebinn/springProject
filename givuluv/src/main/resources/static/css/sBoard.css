@@ -90,7 +90,26 @@ a{
     height: 250px;
     background-size: 250px;
 }
-
+.soldout_box{
+	width: 228px;
+    height: 250px;
+    z-index: 10;
+    background-color: rgba(0,0,0,0.5);
+    position: absolute;
+    top: 0; left: 0;
+}
+.soldout{
+	width: 70px;
+	height: 30px;
+	position: absolute;
+	top: 20px; right: 10px;
+	text-align: center;
+	font-family: 'TTLaundryGothicB';
+	font-size: 30px;
+	color: white;
+	line-height: 30px;
+	/*background-color: antiquewhite;*/
+}
 .product_title{
     width: 228px;
     height: 60px;

@@ -12,6 +12,10 @@ public interface QnaService {
 	QnaDTO regist(QnaDTO qna);
 
 	List<QnaDTO> getQnaList(int productnum);
+
+	boolean deleteQna(int qnanum);
+
+	QnaDTO modify(QnaDTO qna);
 	
 
 

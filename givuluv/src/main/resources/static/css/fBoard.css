@@ -104,7 +104,7 @@ a{
 .SelectArea_select_list{
     overflow-y: auto;
     position: absolute;
-    right: 16%;
+    right: 20%;
     text-align: right;
     z-index: 30;
    	width: 110px;
@@ -131,8 +131,6 @@ a{
 .SelectArea_select_area{
 	height: 60px;
 }
-
-
 
 .funding_item{
     width: 1340px;

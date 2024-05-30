@@ -4,6 +4,7 @@ import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,5 +107,10 @@ public class SBoardServiceImpl implements SBoardService{
 	@Override
 	public SBoardDTO getSBoard(int connectid) {
 		return bmapper.getSBoard(connectid);
+	}
+	@Override
+	public List<Map<String, Object>> getStoreList() {
+		
+		return null;
 	}
 }

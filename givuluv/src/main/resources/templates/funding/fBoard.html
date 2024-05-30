@@ -42,11 +42,11 @@
 				<div class="funding_filter">
 					<div class="fundingContent_select_wrap">
 						<div class="SelectArea_select_area" style="visibility: visible;">
-							<select class="SelectArea_select_list" aria-haspopup="listbox" aria-expanded="false">
-								<option value="LATEST" selected>최신 순</option>
-								<option value="PARTICIPATION_AMOUNT">참여금액 순</option>
-								<option value="PARTICIPATION_RATE">참여율 순</option>
-								<option value="END_APPROACH">종료 임박 순</option>
+							<select class="SelectArea_select_list" id="sortOptions" aria-haspopup="listbox" aria-expanded="false">
+								<option value="최신순" selected>최신 순</option>
+								<option value="참여금액순">참여금액 순</option>
+								<option value="참여율순">참여율 순</option>
+								<option value="종료임박순">종료 임박 순</option>
 							</select>
 						</div>
 					</div>
@@ -132,6 +132,64 @@
 				           moveSlide(0);
 				       }
 				}, 2500)
+				
 	        });
+				    function loadFundingItems(sortType) {
+						console.log("정렬: "+sortType)
+				        $.ajax({
+				            url: '/funding/sortedFundingList', // 실제 엔드포인트로 업데이트
+				            type: 'GET',
+				            data: { sortType: sortType },
+				            success: function(data) {
+								console.log(data)
+				                let fundingContainer = $('.funding_item');
+				                fundingContainer.empty(); // 기존 내용 제거
+				                data.forEach(function(funding) {
+				                    var fundingItem = `
+				                        <div class="funding_item_box">
+				                            <a href="/funding/fundingView?fBoardnum=${funding.fboard.fboardnum}" id="funding_link">
+				                                <div class="funding_thumbnail">
+				                                    <img src="${funding.systemname}" alt="Thumbnail">
+				                                </div>
+				                                <div class="tit_cont">
+				                                    <div class="f_tit_box">
+				                                        <p class="funding_title">${funding.fboard.ftitle}</p>
+				                                        <p class="funding_name">${funding.orgname}</p>
+				                                    </div>
+				                                    <div class="f_percent">
+				                                        <span class="blind">달성률</span>
+				                                        <span class="FundingCard_num">${funding.percentage}</span>%
+				                                    </div>
+				                                </div>
+				                            </a>
+				                            <div class="funding_info_box">
+				                                <div class="fundingDDay">
+				                                    <i class="fa-solid fa-calendar-days"></i>
+				                                    <p id="dday">D-${funding.fundingDDay}</p>
+				                                </div>
+				                                <div class="priceBox">
+				                                    <p class="funding_price">₩ ${funding.fboard.saveMoney}원</p>
+				                                </div>
+				                            </div>
+				                        </div>
+				                    `;
+				                    fundingContainer.append(fundingItem); // 새로운 내용 추가
+				                });
+				            },
+				            error: function(error) {
+				                console.log('Error fetching sorted data:', error);
+				            }
+				        });
+				    }
+				
+				    // 드롭다운 변경 이벤트 리스너
+				    $('#sortOptions').change(function() {
+				        var selectedSort = $(this).val();
+						console.log(selectedSort)
+				        loadFundingItems(selectedSort);
+				    });
+				
+				    // 초기 로드
+				    loadFundingItems($('#sortOptions').val());
 </script>
 </html>

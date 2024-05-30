@@ -41,13 +41,18 @@
 		select coalesce(sum(d_cost),0) from d_payment;
 	</select>
 	<!-- *펀딩결제* -->
+	<insert id="insertFPayment">
+		insert into f_payment(userid, orgid, f_boardnum, f_cost, reqetc) values(#{userid},#{orgid},#{FBoardnum},#{FCost},#{reqetc})
+	</insert>
 	<select id="getFundingTotalPeople">
 		select count(distinct userid) from f_payment;
 	</select>
 	<select id="getFundingTotalCost">
 		select coalesce(sum(f_cost),0) from f_payment;
 	</select>
-	
+	<select id="getLastFPaymentById">
+		select * from f_payment where userid=#{userid} order by paymentnum desc limit 1;
+	</select>
 	
 	
 	

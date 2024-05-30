@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.gl.givuluv.domain.dto.FBoardDTO;
 import com.gl.givuluv.domain.dto.ProductDTO;
+import com.gl.givuluv.domain.dto.UserDTO;
 
 
 public interface FBoardService {
@@ -16,6 +17,16 @@ public interface FBoardService {
 	List<Map<String, Object>> getFundingList();
 
 	Map<String, Object> getFundingDetail(int fBoardnum);
+
+	List<Map<String, Object>> getParticipationRate();
+
+	List<Map<String, Object>> getParticipationCost();
+
+	List<Map<String, Object>> getFundingEnddateList();
+
+	FBoardDTO getFundingByFBoardnum(int fBoardnum);
+
+	UserDTO getUserById(String userid);
 
 	
 }

@@ -29,7 +29,6 @@ public class QnaController {
 	
 	@PostMapping(value="regist", consumes = "application/json", produces = "application/json;charset=utf-8")
 	public ResponseEntity<QnaDTO> regist(@RequestBody QnaDTO qna){
-        System.out.println(qna);
         QnaDTO result = qservice.regist(qna);
         
         if(result == null) {
@@ -39,5 +38,30 @@ public class QnaController {
 			return new ResponseEntity<QnaDTO>(result,HttpStatus.OK);
         }
     }
+	
+	@PostMapping(value="modify", consumes = "application/json", produces = "application/json;charset=utf-8")
+	public ResponseEntity<QnaDTO> modify(@RequestBody QnaDTO qna){
+		QnaDTO result = qservice.modify(qna);
+		
+		if(result == null) {
+			return new ResponseEntity<QnaDTO>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		else {
+			return new ResponseEntity<QnaDTO>(result,HttpStatus.OK);
+		}
+	}
+	
+	@GetMapping("delete")
+	public String deleteQna(@RequestParam int qnanum, @RequestParam int productnum) {
+		if(qservice.deleteQna(qnanum)) {
+			System.out.println(qnanum+"번 Q&A 삭제");
+		}
+		else {
+			System.out.println(qnanum+"번 Q&A 삭제 실패");
+		}
+		
+		return "redirect:/store/productView?productnum="+productnum;
+	}
+	
 
 }

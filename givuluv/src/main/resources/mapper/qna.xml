@@ -19,4 +19,17 @@
 		where productnum = #{productnum} 
 		order by qnanum desc
 	</select>
+	<delete id="deleteQna">
+		delete from qna where qnanum = #{qnanum}
+	</delete>
+	
+	<update id="updateQna">
+		update qna set question = #{question} where qnanum = #{qnanum}
+	</update>
+	
+	<select id="getModifyQna">
+		select * 
+		from qna 
+		where qnanum = #{qnanum} 
+	</select>
 </mapper>

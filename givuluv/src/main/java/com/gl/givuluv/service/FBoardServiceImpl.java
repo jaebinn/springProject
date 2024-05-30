@@ -20,9 +20,11 @@ import org.springframework.web.multipart.MultipartFile;
 import com.gl.givuluv.domain.dto.FBoardDTO;
 import com.gl.givuluv.domain.dto.FileDTO;
 import com.gl.givuluv.domain.dto.ProductDTO;
+import com.gl.givuluv.domain.dto.UserDTO;
 import com.gl.givuluv.mapper.BoardMapper;
 import com.gl.givuluv.mapper.FileMapper;
 import com.gl.givuluv.mapper.ProductMapper;
+import com.gl.givuluv.mapper.UserMapper;
 
 
 @Service
@@ -39,6 +41,8 @@ public class FBoardServiceImpl implements FBoardService{
 	
 	@Autowired
 	private ProductMapper pmapper;
+	@Autowired
+	private UserMapper umapper;
 	
 	public boolean regist(Model model, FBoardDTO fBoard, List<ProductDTO> products, String filenames, MultipartFile thumbnail) throws Exception {
 		// s_num 찾기
@@ -172,6 +176,167 @@ public class FBoardServiceImpl implements FBoardService{
         return fundingDetail;
     }
 
-	
+	@Override
+	public List<Map<String, Object>> getParticipationRate() {
+		List<FBoardDTO> fundingList = bmapper.fundingParticipationRateList();
+		List<Map<String, Object>> result = new ArrayList<>();
+	    String src = "/summernoteImage/";
+	    LocalDate today = LocalDate.now(); // 현재 날짜
 
+	    for(FBoardDTO fboard : fundingList) {
+	        // 펀딩 썸네일 뽑아오기
+	        List<String> files = fmapper.getFileByFBoardnum(fboard.getFBoardnum());
+	        String systemname = src+files.get(0);
+	        // 펀딩 종료일 뽑아오기
+	        List<String> fundingEndDayList = bmapper.getFundingEndDay(fboard.getFBoardnum());
+	        String fundingEndDayStr = fundingEndDayList.isEmpty() ? null : fundingEndDayList.get(0);
+	        long fundingDDay = -1; // 기본값 -1로 설정 (종료일이 없는 경우)
+
+	        if (fundingEndDayStr != null) {
+	            LocalDate fundingEndDay = LocalDate.parse(fundingEndDayStr);
+	            fundingDDay = ChronoUnit.DAYS.between(today, fundingEndDay); // 종료일까지 남은 일 수 계산
+	        }
+	        List<String> orgname = bmapper.getOrgnameByOrgId(fboard.getOrgid());
+	        
+	        List<Integer> targetMoneyList = bmapper.getTargetMoneyByFBoardnum(fboard.getFBoardnum());
+	        List<Integer> saveMoneyList = bmapper.getSaveMoneyByFBoardnum(fboard.getFBoardnum());
+	        List<Double> percentageList = new ArrayList<>();
+
+	        for (int i = 0; i < targetMoneyList.size(); i++) {
+	            int targetMoney = targetMoneyList.get(i);
+	            int saveMoney = saveMoneyList.get(i);
+	            double percentage = 0.0;
+
+	            if (targetMoney > 0) {
+	                percentage = (double) saveMoney / targetMoney * 100;
+	            }
+
+	            percentageList.add(percentage);
+	        }
+	        
+	        Map<String, Object> map = new HashMap<>();
+	        map.put("fboard", fboard);
+	        map.put("systemname", systemname);
+	        map.put("fundingDDay", fundingDDay);
+	        map.put("percentage", percentageList.get(0));
+	        map.put("orgname",orgname.get(0));
+
+	        result.add(map);
+	    }
+	    System.out.println(result);
+	    return result;
+	}
+
+	@Override
+	public List<Map<String, Object>> getParticipationCost() {
+		List<FBoardDTO> fundingList = bmapper.fundingParticipationCostList();
+		List<Map<String, Object>> result = new ArrayList<>();
+	    String src = "/summernoteImage/";
+	    LocalDate today = LocalDate.now(); // 현재 날짜
+
+	    for(FBoardDTO fboard : fundingList) {
+	        // 펀딩 썸네일 뽑아오기
+	        List<String> files = fmapper.getFileByFBoardnum(fboard.getFBoardnum());
+	        String systemname = src+files.get(0);
+	        // 펀딩 종료일 뽑아오기
+	        List<String> fundingEndDayList = bmapper.getFundingEndDay(fboard.getFBoardnum());
+	        String fundingEndDayStr = fundingEndDayList.isEmpty() ? null : fundingEndDayList.get(0);
+	        long fundingDDay = -1; // 기본값 -1로 설정 (종료일이 없는 경우)
+
+	        if (fundingEndDayStr != null) {
+	            LocalDate fundingEndDay = LocalDate.parse(fundingEndDayStr);
+	            fundingDDay = ChronoUnit.DAYS.between(today, fundingEndDay); // 종료일까지 남은 일 수 계산
+	        }
+	        List<String> orgname = bmapper.getOrgnameByOrgId(fboard.getOrgid());
+	        
+	        List<Integer> targetMoneyList = bmapper.getTargetMoneyByFBoardnum(fboard.getFBoardnum());
+	        List<Integer> saveMoneyList = bmapper.getSaveMoneyByFBoardnum(fboard.getFBoardnum());
+	        List<Double> percentageList = new ArrayList<>();
+
+	        for (int i = 0; i < targetMoneyList.size(); i++) {
+	            int targetMoney = targetMoneyList.get(i);
+	            int saveMoney = saveMoneyList.get(i);
+	            double percentage = 0.0;
+
+	            if (targetMoney > 0) {
+	                percentage = (double) saveMoney / targetMoney * 100;
+	            }
+
+	            percentageList.add(percentage);
+	        }
+	        
+	        Map<String, Object> map = new HashMap<>();
+	        map.put("fboard", fboard);
+	        map.put("systemname", systemname);
+	        map.put("fundingDDay", fundingDDay);
+	        map.put("percentage", percentageList.get(0));
+	        map.put("orgname",orgname.get(0));
+
+	        result.add(map);
+	    }
+	    System.out.println(result);
+	    return result;
+	}
+
+	@Override
+	public List<Map<String, Object>> getFundingEnddateList() {
+		List<FBoardDTO> fundingList = bmapper.fundingEnddateList();
+		List<Map<String, Object>> result = new ArrayList<>();
+	    String src = "/summernoteImage/";
+	    LocalDate today = LocalDate.now(); // 현재 날짜
+
+	    for(FBoardDTO fboard : fundingList) {
+	        // 펀딩 썸네일 뽑아오기
+	        List<String> files = fmapper.getFileByFBoardnum(fboard.getFBoardnum());
+	        String systemname = src+files.get(0);
+	        // 펀딩 종료일 뽑아오기
+	        List<String> fundingEndDayList = bmapper.getFundingEndDay(fboard.getFBoardnum());
+	        String fundingEndDayStr = fundingEndDayList.isEmpty() ? null : fundingEndDayList.get(0);
+	        long fundingDDay = -1; // 기본값 -1로 설정 (종료일이 없는 경우)
+
+	        if (fundingEndDayStr != null) {
+	            LocalDate fundingEndDay = LocalDate.parse(fundingEndDayStr);
+	            fundingDDay = ChronoUnit.DAYS.between(today, fundingEndDay); // 종료일까지 남은 일 수 계산
+	        }
+	        List<String> orgname = bmapper.getOrgnameByOrgId(fboard.getOrgid());
+	        
+	        List<Integer> targetMoneyList = bmapper.getTargetMoneyByFBoardnum(fboard.getFBoardnum());
+	        List<Integer> saveMoneyList = bmapper.getSaveMoneyByFBoardnum(fboard.getFBoardnum());
+	        List<Double> percentageList = new ArrayList<>();
+
+	        for (int i = 0; i < targetMoneyList.size(); i++) {
+	            int targetMoney = targetMoneyList.get(i);
+	            int saveMoney = saveMoneyList.get(i);
+	            double percentage = 0.0;
+
+	            if (targetMoney > 0) {
+	                percentage = (double) saveMoney / targetMoney * 100;
+	            }
+
+	            percentageList.add(percentage);
+	        }
+	        
+	        Map<String, Object> map = new HashMap<>();
+	        map.put("fboard", fboard);
+	        map.put("systemname", systemname);
+	        map.put("fundingDDay", fundingDDay);
+	        map.put("percentage", percentageList.get(0));
+	        map.put("orgname",orgname.get(0));
+
+	        result.add(map);
+	    }
+	    System.out.println(result);
+	    return result;
+	}
+
+	@Override
+	public FBoardDTO getFundingByFBoardnum(int fBoardnum) {
+		return bmapper.getFundingByFBoardnum(fBoardnum);
+	}
+
+	@Override
+	public UserDTO getUserById(String userid) {
+		return umapper.getUserById(userid);
+	}
+	
 }

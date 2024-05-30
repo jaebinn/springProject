@@ -3,6 +3,7 @@ package com.gl.givuluv.service;
 import java.util.List;
 
 import com.gl.givuluv.domain.dto.DPaymentDTO;
+import com.gl.givuluv.domain.dto.FPaymentDTO;
 
 public interface DPaymentService {
 	//일반결제 db삽입
@@ -24,6 +25,8 @@ public interface DPaymentService {
 	int getTodayDonationPeople();
 	int getDonationTotalPeople();
 	int getDonationTotalCost();
+	
+	
 	
 
 }

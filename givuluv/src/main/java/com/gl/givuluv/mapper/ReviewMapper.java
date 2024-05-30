@@ -22,4 +22,6 @@ public interface ReviewMapper {
 
 	List<ReviewDTO> getDReviewThree();
 	
+	List<ReviewDTO> getProductReviewList(int sBoardnum);
+	
 }

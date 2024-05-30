@@ -179,8 +179,8 @@
 								}
 
 							}).then(function(data) {
-							if (data.event === 'done') {
 								  console.log(data);
+							if (data.event === 'done') {
 								  $.ajax({
 								      url: '/payment/RconfirmPay',
 								      method: "POST",
@@ -201,7 +201,7 @@
 								  });
 							}
 							}).catch(function(e) {
-								console.log(e.message);
+								alert(e.message);
 								switch (e.event) {
 								     case 'cancel':
 								           console.log(e.message);

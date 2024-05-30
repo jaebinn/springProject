@@ -12,16 +12,6 @@
 	<!-- header -->
 	<th:block th:replace="~{layout/header::header(loginUser)}"></th:block>
     <div class="s_view_wrap">
-<!--        <div class="view_top">
-            <div class="top_logo">
-                <a href="/">
-                    <img src="/images/GivuLuv_logo.png" alt="">
-                </a>
-            </div>
-            <div class="top_mypage">
-                <a href="/user/mypage">마이페이지</a>
-            </div>
-        </div>-->
         <div class="store_tit">
             <div class="store_name">
                 <h1 th:text="${store.sName}"></h1>
@@ -83,12 +73,12 @@
                         </li>
                         <li class="product_review">
                             <a href="#product_review_box">
-                                <p>리뷰(리뷰수)</p>
+                                <p>리뷰(<span>[[${reviewList.size()}]]</span>)</p>
                             </a>
                         </li>
                         <li class="product_qna">
                             <a href="#product_qna_box">
-                                <p>Q&A(qna수)</p>
+                                <p>Q&A(<span>[[${qnaList.size()}]]</span>)</p>
                             </a>
                         </li>
                         <li class="product_back">
@@ -149,11 +139,10 @@
                         </table>
                     </div>
                     <div class="product_detail_img">
-                        <!-- 내용이 들어가야하는데 일단 이미지로 채움 -->
-                        <img src="/images/product_info.png" alt="" id="p_info_img">
+						<div class="p_info_img" id="p_info_img" th:utext="${sboard.sContent}"></div>
                     </div>
                     <div class="more_info_view">
-                        <div class="white_box"></div>
+                        <div class="white_box" id="white_box"></div>
                         <!-- 자바스크립트로 화면 늘리기 -->
                         <input type="button" value="상세정보 펼쳐보기" id="more_info_view_btn" onclick="infoMoreview()"/>
                     </div>
@@ -208,64 +197,45 @@
                 <div class="product_review_box" id="product_review_box">
                     <div class="p_review_tit">
                         <p>상품리뷰</p>
-                        <p>리뷰 (몇)건</p>
+                        <p>리뷰 ([[${	reviewList.size()}]])건</p>
                     </div>
-                    <div>
+                    <div class="p_review_list">
                         <!-- 리뷰가 있을경우 -->
-                        <div class="p_review_view">
-                            <div class="review_cont">
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse voluptates inventore veritatis modi. Perspiciatis voluptatibus adipisci voluptatum debitis ab quasi qui ullam dolorum, at quae, dicta provident illum, blanditiis id.
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque magni nulla delectus quis possimus accusantium, magnam, culpa nam omnis autem maiores a ducimus obcaecati? Aliquid nostrum placeat dignissimos qui laboriosam.</p>
-                            </div>
-                            <div class="review_info">
-                                <p>userid(apple)</p>
-                                <p>2024.00.00</p>
-                            </div>
-                            <!-- 작성자와 로그인유저가 같은경우 수정 삭제 버튼 생성 -->
-                        </div>
-                        <div class="p_review_view">
-                            <div class="review_cont">
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse voluptates inventore veritatis modi. Perspiciatis voluptatibus adipisci voluptatum debitis ab quasi qui ullam dolorum, at quae, dicta provident illum, blanditiis id.
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque magni nulla delectus quis possimus accusantium, magnam, culpa nam omnis autem maiores a ducimus obcaecati? Aliquid nostrum placeat dignissimos qui laboriosam.</p>
-                            </div>
-                            <div class="review_info">
-                                <p>userid(apple)</p>
-                                <p>2024.00.00</p>
-                            </div>
-                            <!-- 작성자와 로그인유저가 같은경우 수정 삭제 버튼 생성 -->
-                        </div>
-                        <div class="p_review_view">
-                            <div class="review_cont">
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse voluptates inventore veritatis modi. Perspiciatis voluptatibus adipisci voluptatum debitis ab quasi qui ullam dolorum, at quae, dicta provident illum, blanditiis id.
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque magni nulla delectus quis possimus accusantium, magnam, culpa nam omnis autem maiores a ducimus obcaecati? Aliquid nostrum placeat dignissimos qui laboriosam.</p>
-                            </div>
-                            <div class="review_info">
-                                <p>userid(apple)</p>
-                                <p>2024.00.00</p>
-                            </div>
-                            <!-- 작성자와 로그인유저가 같은경우 수정 삭제 버튼 생성 -->
-                        </div>
-                        <div class="p_review_view">
-                            <div class="review_cont">
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse voluptates inventore veritatis modi. Perspiciatis voluptatibus adipisci voluptatum debitis ab quasi qui ullam dolorum, at quae, dicta provident illum, blanditiis id.
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque magni nulla delectus quis possimus accusantium, magnam, culpa nam omnis autem maiores a ducimus obcaecati? Aliquid nostrum placeat dignissimos qui laboriosam.</p>
-                            </div>
-                            <div class="review_info">
-                                <p>userid(apple)</p>
-                                <p>2024.00.00</p>
-                            </div>
-                            <!-- 작성자와 로그인유저가 같은경우 수정 삭제 버튼 생성 -->
-                        </div>
+						<div th:if="${reviewList.size() > 0}">
+							<th:block th:each="review : ${reviewList}">
+								<div class="p_review_box">
+			                        <div class="p_review_view">
+			                            <div class="review_cont">
+			                                <p th:text="${review.reviewdetail}"></p>
+			                            </div>
+			                            <div class="review_info">
+			                                <p>
+												<img th:if="${review.star == 5}" src="/images/seller/my/5점.png">
+												<img th:if="${review.star == 4}" src="/images/seller/my/4점.png">
+												<img th:if="${review.star == 3}" src="/images/seller/my/3점.png">
+												<img th:if="${review.star == 2}" src="/images/seller/my/2점.png">
+												<img th:if="${review.star == 1}" src="/images/seller/my/1점.png">
+												<span th:text="${review.star}"></span>
+											</p>
+			                                <p th:text="${review.userid}"></p>
+			                                <p th:text="${review.reviewdate}"></p>
+			                            </div>
+			                        </div>
+								</div>
+							</th:block>
+						</div>
                         <!-- 리뷰가 없을경우 -->
-                        <!-- <div class="no_review">
+                        <div th:if="${reviewList.size() == 0}" class="no_review">
                             <p>아직 작성된 리뷰가 없습니다.</p>
-                        </div> -->
+                        </div>
                     </div>
                     <!-- 리뷰갯수가 더 남았을때 표시 -->
                     <div class="review_moreBtn">
                         <input type="button" value="더보기" id="review_more" onclick="">
                     </div>
                 </div>
+				
+				<!--Q&A 시작-->
                 <div class="product_qna_box" id="product_qna_box">
                     <div class="qna_tit">
                         <p>Q&A</p>
@@ -279,8 +249,8 @@
 							<input type="button" value="등록" class="qna_submit" id="qna_submit" onclick="qnaSubmit()">
 						</div>
 					</div>
-					
-                    <!-- qna가 있으면 작성 -->
+                    
+					<!-- qna가 있으면 작성 -->
                     <div class="p_qna_box">
                         <div class="p_qna_tit">
                             <div><span>답변상태</span></div>
@@ -288,50 +258,65 @@
                             <div><span>작성자</span></div>
                             <div><span>작성일</span></div>
                         </div>
-                        <th:block th:if="${qnaList != null and not #lists.isEmpty(qnaList)}">
-							<th:block th:each="qna : ${qnaList}">
-		                        <div class="p_qna_cont_box">
-		                            <ul class="p_qna_cont">
-		                                <li class="p_qna_cont_list">
-		                                    <div class="p_qna_simple">
-		                                        <div th:if="${qna.answer == null}"><span>답변미완료</span></div>
-		                                        <div th:unless="${qna.answer == null}"><span>답변완료</span></div>
-		                                        <div>
-		                                            <a href="javascript:void(0);" onclick="toggleDetail(this);">
-		                                                <span th:text="${qna.question}"></span>
-		                                            </a>
-		                                        </div>
-		                                        <div><span th:text="${qna.userid}"></span></div>
-		                                        <div><span th:text="${qna.qnaregdate}"></span></div>
-		                                    </div>
-		                                    <!-- 내용 클릭시 질문 자세히 보기 -->
-		                                    <div id="p_qna_detail_box">
-		                                        <div class="p_qna_detail">
-		                                            <div></div>
-		                                            <div><span th:text="${qna.question}"></span></div>
+						<div class="p_qna_list">
+	                        <th:block th:if="${qnaList != null and not #lists.isEmpty(qnaList)}">
+								<th:block th:each="qna : ${qnaList}">
+			                        <div class="p_qna_cont_box">
+			                            <ul class="p_qna_cont">
+			                                <li class="p_qna_cont_list">
+			                                    <div class="p_qna_simple">
+			                                        <div th:if="${qna.answer == null}"><span>답변미완료</span></div>
+			                                        <div th:unless="${qna.answer == null}"><span>답변완료</span></div>
+			                                        <div>
+			                                            <a href="javascript:void(0);" onclick="toggleDetail(this);">
+			                                                <span th:text="${qna.question}"></span>
+			                                            </a>
+			                                        </div>
 			                                        <div><span th:text="${qna.userid}"></span></div>
 			                                        <div><span th:text="${qna.qnaregdate}"></span></div>
-		                                        </div>
-		                                        <div class="p_qna_detail answer">
-													<th:block th:if="${qna.answer == null}">
-			                                            <div><span></span></div>
-			                                            <div style="text-align: center"><span style="font-weight: bold;">아직 답변이 작성되지 않았습니다.</span></div>
-			                                            <div><span></span></div>
-														<div><span></span></div>
-													</th:block>
-													<th:block th:unless="${qna.answer == null}">
-			                                            <div><span>판매자 답변</span></div>
-			                                            <div><span th:text="${qna.answer}"></span></div>
-			                                            <div><span>판매자</span></div>
-														<div><span></span></div>
-													</th:block>
-		                                        </div>
-		                                    </div>
-		                                </li>
-		                            </ul>
-		                        </div>
+			                                    </div>
+			                                    <!-- 내용 클릭시 질문 자세히 보기 -->
+			                                    <div id="p_qna_detail_box">
+			                                        <div class="p_qna_detail">
+			                                            <div></div>
+			                                            <div><span th:text="${qna.question}"></span></div>
+				                                        <div><span th:text="${qna.userid}"></span></div>
+														<th:block th:if="${session.loginUser == qna.userid}">
+															<div class="p_qna_modify">
+																<a href="#" class="modifyQna" id="modifyQna" >수정</a>
+																<a th:href="@{/qna/delete(qnanum=${qna.qnanum}, productnum=${product.productnum})}" id="deleteQna">삭제</a>
+															</div>
+														</th:block>
+			                                        </div>
+			                                        <div class="p_qna_detail answer">
+														<th:block th:if="${qna.answer == null}">
+				                                            <div><span></span></div>
+				                                            <div style="text-align: center"><span style="font-weight: bold;">아직 답변이 작성되지 않았습니다.</span></div>
+				                                            <div><span></span></div>
+															<div><span></span></div>
+														</th:block>
+														<th:block th:unless="${qna.answer == null}">
+				                                            <div><span>판매자 답변</span></div>
+				                                            <div><span th:text="${qna.answer}"></span></div>
+				                                            <div><span>판매자</span></div>
+															<div><span></span></div>
+														</th:block>
+			                                        </div>
+												</div>
+												<div class="qna_modify" id="qna_modify">
+													<input type="hidden" name="qnanum" id="qnanum" th:value="${qna.qnanum}">
+													<textarea th:placeholder="${qna.question}" class="qna_modify_content" id="qna_modify_content"></textarea>
+													<div class="qna_modify_submit_box">
+														<input type="button" value="수정완료" class="qna_modify_submit" id="qna_modify_submit" onclick="qnaModifySubmit()">
+														<input type="button" value="수정취소" class="qna_modify_cancel" id="qna_modify_cancel" onclick="qnaModifyCnacel()">
+													</div>
+												</div>
+			                                </li>
+			                            </ul>
+			                        </div>
+								</th:block>
 							</th:block>
-						</th:block>
+						</div>
                     </div>
                     <!-- qna가 없을경우 -->
 					<th:block th:if="${qnaList == null or #lists.isEmpty(qnaList)}">
@@ -373,7 +358,7 @@
                             <tr>
                                 <th scope="row" rowspan="7">반품/교환 불가능 사유</th>
                                 <td colspan="1">
-                                    <ul>
+                                    <ul class="p_return_infoCont">
                                         <li>
                                             <span>1. 반품요청기간이 지난 경우</span>
                                         </li>
@@ -412,6 +397,62 @@
 	$('.h_logout').on('click', function(){
 		alert("로그아웃되었습니다.")
 	})
+	
+	$(document).ready(function () {
+			    // 한 번에 표시할 아이템의 개수 설정
+			    var itemsPerPage = 5;
+			
+			    // 아이템의 총 개수
+			    var totalItems = $('.p_qna_cont_box').length;
+			
+			    // 초기에는 itemsPerPage 개수까지만 표시되도록 설정
+			    $('.p_qna_cont_box:gt(' + (itemsPerPage - 1) + ')').hide();
+			
+			    // 아이템이 itemsPerPage 개수 이하이면 더보기 버튼 숨기기
+			    if (totalItems <= itemsPerPage) {
+			        $('#qna_more').hide();
+			    }
+			    // 더보기 버튼 클릭 시
+			    $('#qna_more').on('click', function () {
+			        // itemsPerPage 개수 만큼 추가로 표시
+			        $('.p_qna_cont_box:hidden').slice(0, itemsPerPage).slideDown();
+			        // 아직 표시하지 않은 아이템의 개수 갱신
+			        totalItems -= itemsPerPage;
+			        // 남은 아이템이 itemsPerPage 개수 이하이면 더보기 버튼 숨기기
+			        if (totalItems <= itemsPerPage) {
+			            $('#qna_more').hide();
+			        }
+			    });
+		});
+		
+		
+	$(document).ready(function () {
+			    // 한 번에 표시할 아이템의 개수 설정
+			    var itemsPerPage = 5;
+			
+			    // 아이템의 총 개수
+			    var totalItems = $('.p_review_box').length;
+			
+			    // 초기에는 itemsPerPage 개수까지만 표시되도록 설정
+			    $('.p_review_box:gt(' + (itemsPerPage - 1) + ')').hide();
+			
+			    // 아이템이 itemsPerPage 개수 이하이면 더보기 버튼 숨기기
+			    if (totalItems <= itemsPerPage) {
+			        $('#review_more').hide();
+			    }
+			    // 더보기 버튼 클릭 시
+			    $('#review_more').on('click', function () {
+			        // itemsPerPage 개수 만큼 추가로 표시
+			        $('.p_review_box:hidden').slice(0, itemsPerPage).slideDown();
+			        // 아직 표시하지 않은 아이템의 개수 갱신
+			        totalItems -= itemsPerPage;
+			        // 남은 아이템이 itemsPerPage 개수 이하이면 더보기 버튼 숨기기
+			        if (totalItems <= itemsPerPage) {
+			            $('#review_more').hide();
+			        }
+			    });
+		});
+	
     function add() {
 		hm = document.getElementById('amounts');// id가 amounts인 요소
 		sell_price = document.getElementById('sell_price');// id가 sell_price인 요소
@@ -431,17 +472,36 @@
 	}
 
     function sendit(){
-		const pBuyForm = document.pBuyForm;
-		pBuyForm.submit();
+		let userid = document.getElementById('userid').value;
+		
+		if (!userid) {
+		    alert("로그인 후 이용해 주세요.");
+		    return;
+		}
+		
+		let totalCost = document.getElementById('my_sum').innerText;
+		let totalAmount = document.getElementById('amounts').value;
+		let productnum = document.getElementById('productnum');
+		
+		console.log(totalCost);
+		console.log(totalAmount);
+		//pBuyForm.submit();
 	}
 	
 	//Q&A를 디테일하게 보기위한 함수
     function toggleDetail(element) {
+		let qnaModify = document.getElementById('qna_modify');
         var detailBox = element.closest('.p_qna_cont_list').querySelector('#p_qna_detail_box');
         if (detailBox.style.display == 'block') {
+			qnaModify.style.display = 'none';
             detailBox.style.display = 'none';
         } else {
-            detailBox.style.display = 'block';
+			if(qnaModify.style.display == 'block'){
+				qnaModify.style.display = 'none';
+			}
+			else{
+				detailBox.style.display = 'block';
+			}
         }
     }
 	
@@ -450,6 +510,7 @@
     function infoMoreview(){
         let moreView = document.getElementById('p_info_img');
         let infoBtn = document.getElementById('more_info_view_btn');
+        let whiteBox = document.getElementById('white_box');
 		
 		
 		// getComputedStyle을 사용하여 현재 요소의 모든 CSS 속성을 가져옴
@@ -458,12 +519,14 @@
 		let computedStyle = getComputedStyle(moreView);
 		// 현재 높이를 가져옴
 		let currentHeight = computedStyle.height;
-		if(currentHeight == '1500px'){
+		if(currentHeight == '500px'){
             moreView.style.height = '100%';
+			whiteBox.style.display = 'none';
             infoBtn.value = '상세정보 접기';
         }
         else{
-            moreView.style.height = '1500px';
+            moreView.style.height = '500px';
+			whiteBox.style.display = 'block';
             infoBtn.value = '상세정보 펼쳐보기';
         }
     }
@@ -491,7 +554,6 @@
 	}
 	
 	function qnaSubmit(){
-							
 		let productnum = document.getElementById('productnum').value;
 		let userid = document.getElementById('userid').value;
 		let question = document.getElementById('qna_content').value;
@@ -515,67 +577,142 @@
 			contentType: "application/json;charset=utf-8",
 			success: function(result, status, xhr){
 				console.log(result);
+				console.log(result.qnaregdate);
 				//성공했을때 돔으로 qna만들어 주기
 				alert("Q&A 등록에 성공하셨습니다.");
 				document.getElementById('qna_content').value = '';
 				qnaTextarea.style.display = 'none';
+				let productnum = result.productnum;
+				let loginUser = document.getElementById('userid').value;
+				let qnanum = result.qnanum;
 				let question = result.question;
-				let qnaregdate = result.qnaregdate == 'null' ? '지금' :	 result.qnaregdate;
-				let answer = result.answer == 'null' ? '아직 답변이 작성되지 않았습니다.' : result.answer;
+				let qnaregdate = result.qnaregdate == null ? '지금' :	 result.qnaregdate;
+				let answer = result.answer == null ? '아직 답변이 작성되지 않았습니다.' : result.answer;
+				let answerCheck = result.answer == null ? '답변미완료' : '답변완료';
 				let userid = result.userid;
 				
-				let qnarsult = `
+				let qnaresult = `
 				<div class="p_qna_cont_box">
 					<ul class="p_qna_cont">
 						<li class="p_qna_cont_list">
 							<div class="p_qna_simple">
-								<div th:if="${qna.answer == null}"><span>답변미완료</span></div>
-								<div th:unless="${qna.answer == null}"><span>답변완료</span></div>
+								<div><span>${answerCheck}</span></div>
 								<div>
 									<a href="javascript:void(0);" onclick="toggleDetail(this);">
-										<span th:text="${qna.question}"></span>
+										<span>${question}</span>
 									</a>
 								</div>
-								<div><span th:text="${qna.userid}"></span></div>
-								<div><span th:text="${qna.qnaregdate}"></span></div>
+								<div><span>${userid}</span></div>
+								<div><span>${qnaregdate}</span></div>
 							</div>
-							<!-- 내용 클릭시 질문 자세히 보기 -->
 							<div id="p_qna_detail_box">
 								<div class="p_qna_detail">
 									<div></div>
-									<div><span th:text="${qna.question}"></span></div>
-									<div><span th:text="${qna.userid}"></span></div>
-									<div><span th:text="${qna.qnaregdate}"></span></div>
+									<div><span>${question}</span></div>
+									<div><span>${userid}</span></div>
+									${loginUser == userid ? `
+									<div class="p_qna_modify">
+										<a href="#" class="modifyQna" id="modifyQna" >수정</a>
+										<a href="/qna/delete?qnanum=${qnanum}&productnum=${productnum}" id="deleteQna">삭제</a>
+									</div>` : `
+									<div></div>`}
 								</div>
 								<div class="p_qna_detail answer">
-									<th:block th:if="${qna.answer == null}">
-										<div><span></span></div>
-										<div style="text-align: center"><span style="font-weight: bold;">아직 답변이 작성되지 않았습니다.</span></div>
-										<div><span></span></div>
-										<div><span></span></div>
-									</th:block>
-									<th:block th:unless="${qna.answer == null}">
-										<div><span>판매자 답변</span></div>
-										<div><span th:text="${qna.answer}"></span></div>
-										<div><span>판매자</span></div>
-										<div><span></span></div>
-									</th:block>
+									${result.answer == null ? `
+									<div><span></span></div>
+									<div style="text-align: center"><span style="font-weight: bold;">아직 답변이 작성되지 않았습니다.</span></div>
+									<div><span></span></div>
+									<div><span></span></div>` : `
+									<div><span>판매자 답변</span></div>
+									<div><span>${answer}</span></div>
+									<div><span>판매자</span></div>
+									<div><span></span></div>`}
+								</div>
+							</div>
+							<div class="qna_modify" id="qna_modify">
+								<input type="hidden" name="qnanum" id="qnanum" value="${qnanum}">
+								<textarea placeholder="${question}" class="qna_modify_content" id="qna_modify_content"></textarea>
+								<div class="qna_modify_submit_box">
+									<input type="button" value="수정완료" class="qna_modify_submit" id="qna_modify_submit" onclick="qnaModifySubmit()">
+									<input type="button" value="수정취소" class="qna_modify_cancel" id="qna_modify_cancel" onclick="qnaModifyCnacel()">
 								</div>
 							</div>
 						</li>
 					</ul>
 				</div>
-			</div>`
+			</div>`;
 			
-				
-				
+			$('.p_qna_list').prepend(qnaresult);
 			},
 			error: function(xhr, status, xhr){
 				console.log("실패");			
 			}
 		});
-		
-		
 	}
+	
+	//Q&A 삭제 눌렀을 때
+	$(document).on('click', '#deleteQna', function(e) {
+	    e.preventDefault();
+	    const url = $(this).attr('href');
+		console.log(url)
+	    if (confirm("Q&A를 삭제하시겠습니까?")) {
+	        window.location.href = url;
+	    }
+	});
+	
+	//Q&A 수정 눌렀을때
+	$(document).on('click', '#modifyQna', function(e){
+		e.preventDefault();
+		let qnaDetail = document.getElementById('p_qna_detail_box');
+		let qnaModify = document.getElementById('qna_modify');
+		
+		qnaDetail.style.display = 'none';
+		qnaModify.style.display = 'block';
+	});
+	
+	//Q&A 수정완료 눌렀을때
+	$(document).on('click', '#qna_modify_submit', function(e){
+		//수정완료시 수정 text 내용 비워주고 display=none 해주기
+		let qnaModify = document.getElementById('qna_modify');
+		let qnaTextarea = document.getElementById('qna_modify_content');
+		
+		let qnanum = document.getElementById('qnanum').value;
+		let question = document.getElementById('qna_modify_content').value;
+		
+		
+		if(question == ""){
+			alert("내용을 입력해주세요.");
+			document.getElementById('qna_modify_content').focus;
+			return;			
+		}
+		
+		let data = {
+			qnanum: qnanum,
+			question: question
+		};
+
+		$.ajax({
+			type: "POST",
+			url:"/qna/modify",
+			data: JSON.stringify(data),
+			contentType: "application/json;charset=utf-8",
+			success: function(result, status, xhr){
+				console.log(result);
+				//성공했을때 돔으로 qna만들어 주기
+				alert("Q&A 수정에 성공하셨습니다.");
+				let productnum = document.getElementById('productnum').value;
+				document.getElementById('qna_modify_content').value = '';
+				qnaModify.style.display = 'none';
+				window.location.href = `/store/productView?productnum=${productnum}`;
+			},
+			error: function(xhr, status, xhr){
+				alert("Q&A 수정에 실패하셨습니다.");		
+			}
+		});				
+		
+	});
+	
+	
+	
 </script>
 </html>

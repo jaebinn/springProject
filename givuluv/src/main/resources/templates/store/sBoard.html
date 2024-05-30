@@ -100,6 +100,9 @@
 										<img th:if="${item.productFile == null}" src="/images/product.jpg" alt="">
 										<img th:unless="${item.productFile == null}" th:src="@{'/summernoteImage/' + ${item.productFile.systemname}}" alt="">
 									</div>
+									<div th:if="${item.product.pAmount == 0}" class="soldout_box">
+										<div class="soldout">품절</div>
+									</div>
 			                        <div class="p_tit_box">
 			                            <p class="product_title" th:text="${item.product.productname}"></p>
 			                        </div>
@@ -205,7 +208,7 @@
 						//console.log(data);
 						if(data.length > 0){
 							$.each(data, function(index, item){
-								//console.log(item);
+								console.log(item);
 								let plist = item.product;
 								let slist = item.sboard;
 								let storename = item.storename;
@@ -218,12 +221,23 @@
 								//let storeFileSrc = item.storeFile ? src+item.storeFile.systemname : '/images/store.jpg';
 								let storeFileSrc = '/images/store.jpg';
 								
+								//수량이 0개인지 체크
+								//console.log(plist);
+								let amount = plist.pamount;
+								//console.log(amount);
+								let soldOutHTML = amount == 0 ? `
+								    <div class="soldout_box">
+								        <div class="soldout">품절</div>
+								    </div>
+								` : '';
+								
 								let categoryItem = `
 								<div class="product_item_box">
 									<a href="productView?productnum=${plist.productnum}" id="store_link" class="get">
 										<div class="product_thumbnail">
 											<img src="${productFileSrc}" alt="">
 										</div>
+										${soldOutHTML}
 										<div class="p_tit_box">
 											<p class="product_title">${plist.productname}</p>
 										</div>

@@ -26,4 +26,17 @@ public class QnaServiceImpl implements QnaService {
 	public List<QnaDTO> getQnaList(int productnum) {
 		return qmapper.getQnaList(productnum);
 	}
+	
+	@Override
+	public boolean deleteQna(int qnanum) {
+		return qmapper.deleteQna(qnanum);
+	}
+	
+	@Override
+	public QnaDTO modify(QnaDTO qna) {
+		if(qmapper.updateQna(qna) == 1) {
+			return qmapper.getModifyQna(qna.getQnanum());
+		}
+		return null;
+	}
 }

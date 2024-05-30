@@ -74,6 +74,9 @@
 		insert into f_board(f_title, f_content, target_amount, f_enddate, orgid) values 
 		(#{fTitle}, #{fContent}, #{targetAmount}, #{fEnddate}, #{orgid})
 	</insert>
+	<select id="getFundingByFBoardnum">
+		select * from f_board where f_boardnum=#{fBoardnum}
+	</select>
 	<select id="getFundingList">
 		select * from f_board order by f_boardnum desc
 	</select>
@@ -101,6 +104,40 @@
 	</select>
 	<select id="getOrgIdByFBoardnum">
 		select orgid from f_board where f_boardnum=#{fBoardnum}
+	</select>
+	<update id="updateFSaveMoney">
+		UPDATE f_board b
+		JOIN (SELECT f_boardnum, SUM(f_cost) as total_cost 
+		FROM f_payment
+		WHERE f_boardnum = #{fBoardnum}
+		GROUP BY f_boardnum) p 
+		 ON b.f_boardnum = p.f_boardnum 
+		SET b.save_money = p.total_cost 
+		WHERE b.f_boardnum = #{fBoardnum}
+	</update>
+	<!-- 참여율 정렬 -->
+	<select id="fundingParticipationRateList">
+		SELECT 
+	    f_boardnum, 
+	    f_title, 
+	    f_content, 
+	    target_amount, 
+	    save_money, 
+	    f_regdate, 
+	    f_enddate, 
+	    orgid, 
+	    (save_money / target_amount) * 100 AS participationRate
+		FROM 
+		    f_board
+		ORDER BY 
+		    participationRate DESC,
+		    f_boardnum DESC;
+	</select>
+	<select id="fundingParticipationCostList">
+		SELECT * FROM f_board ORDER BY save_money DESC, f_boardnum DESC;
+	</select>
+	<select id="fundingEnddateList">
+		SELECT * FROM f_board ORDER BY f_enddate ASC, f_boardnum DESC;
 	</select>
 	<update id="updateFunding">
 		update f_board

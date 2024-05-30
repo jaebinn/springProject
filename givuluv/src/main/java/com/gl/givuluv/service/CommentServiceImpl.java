@@ -2,6 +2,7 @@ package com.gl.givuluv.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,10 +36,26 @@ public class CommentServiceImpl implements CommentService{
 	private UserMapper umapper;
 	
 	@Override
-	public boolean registComment(CommentDTO comment) {
-		return cmmapper.insertComment(comment) == 1;
+	public CommentDTO registComment(CommentDTO comment) {
+		if(cmmapper.insert(comment) == 1) {
+			return cmmapper.getLastComment(comment);
+		}
+		return null;
 	}
 
+	@Override
+	public boolean commentSpaceCheck(String commentdetail) {
+		String newStr = commentdetail.replaceAll("\\s", "");
+		if(newStr.equals("")) {
+			//아무것도 없으면 true
+			System.err.println("아무것도 없음");
+			return true;
+		}
+		return false;
+		
+		
+	}
+	
 	@Override
 	public List<CommentDTO> getComments(int cBoardnum, int commentlastnum, int amount) {
 		if(commentlastnum == 0 ) {
@@ -125,5 +142,15 @@ public class CommentServiceImpl implements CommentService{
 			commentPageList.add(cp);
 		}
 		return commentPageList;
+	}
+
+	@Override
+	public boolean modify(CommentDTO comment) {
+		return cmmapper.update(comment) == 1;
+	}
+
+	@Override
+	public boolean remove(int commentnum) {
+		return cmmapper.delete(commentnum) == 1;
 	}
 }

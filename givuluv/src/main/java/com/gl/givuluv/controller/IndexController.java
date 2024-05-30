@@ -18,6 +18,7 @@ import com.gl.givuluv.domain.dto.DBoardDTO;
 import com.gl.givuluv.domain.dto.DBoardWithFile;
 import com.gl.givuluv.domain.dto.DBoardWithOrgNameDTO;
 import com.gl.givuluv.domain.dto.DPaymentDTO;
+import com.gl.givuluv.domain.dto.FBoardWithFile;
 import com.gl.givuluv.service.DBoardService;
 import com.gl.givuluv.service.DPaymentService;
 import com.gl.givuluv.service.FBoardService;
@@ -32,11 +33,11 @@ public class IndexController {
 	@Autowired
 	private DBoardService dbservice;
 	@Autowired
-	private OrgService oservice;
-	@Autowired
-	private SBoardService sservice;
+	private FBoardService fbservice;
 	@Autowired
 	private FileService fservice;
+	@Autowired
+	private SBoardService sbservice;
 	@Autowired
 	private DPaymentService pservice;
 	@Autowired
@@ -63,13 +64,6 @@ public class IndexController {
 		
 		return result;
 	}
-	
-	
-	
-	
-	
-	
-	
 	
 	@GetMapping("getDonationInfo")
 	@ResponseBody
@@ -101,9 +95,20 @@ public class IndexController {
 		return resultList;
 	}
 	
-	/*
-	 * @GetMapping("getFundingInfo") public List<FBoardWithFile> getDonationInfo(){
-	 * 
-	 * }
-	 */
+	
+	@GetMapping("getFundingInfo") 
+	@ResponseBody
+	public List<Map<String, Object>> getFundingInfo(){
+		List<Map<String, Object>> result = fbservice.getFundingList();
+		System.out.println(result);
+		return result;
+	}
+	@GetMapping("getStoreInfo") 
+	@ResponseBody
+	public List<Map<String, Object>> getStoreInfo(){
+		List<Map<String, Object>> result = sbservice.getStoreList();
+		System.out.println(result);
+		return result;
+	}
+	
 }

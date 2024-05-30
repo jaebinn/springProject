@@ -120,6 +120,18 @@
 	})
 	
 		function payBtn(){
+			const allAgreed = $('#agree_term').is(':checked');
+			const totalAmount = parseInt($('#ChargeTotalAmount').val().replace(/,/g, ''));
+			if (!allAgreed) {
+			      alert('필수 약관 동의를 해주세요.');
+			      e.preventDefault();
+				  return;
+			} else if (totalAmount < 1000) {
+			      alert('최소 1000원이상 입력해주세요.');
+			      e.preventDefault();
+				  return;
+			}
+			
 			let cost = parseInt($(".d_cost").val().replace(/,/g, ''));
 			console.log(cost);
 			let orgname = /*[[${orgname}]]*/"";
@@ -184,7 +196,7 @@
 							  });
 						}
 						}).catch(function(e) {
-							console.log(e.message);
+							alert(e.message);
 							switch (e.event) {
 							     case 'cancel':
 							           console.log(e.message);

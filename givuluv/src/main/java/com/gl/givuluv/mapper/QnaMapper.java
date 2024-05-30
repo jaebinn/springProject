@@ -14,4 +14,10 @@ public interface QnaMapper {
 	QnaDTO getLastQna(String userid);
 	
 	List<QnaDTO> getQnaList(int productnum);
+
+	boolean deleteQna(int qnanum);
+
+	int updateQna(QnaDTO qna);
+
+	QnaDTO getModifyQna(int qnanum);
 }

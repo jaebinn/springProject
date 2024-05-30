@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.gl.givuluv.domain.dto.DPaymentDTO;
+import com.gl.givuluv.domain.dto.FPaymentDTO;
 
 @Mapper
 public interface PaymentMapper {
@@ -35,5 +36,9 @@ public interface PaymentMapper {
 	int getFundingTotalPeople();
 
 	int getFundingTotalCost();
+
+	boolean insertFPayment(FPaymentDTO payment);
+
+	FPaymentDTO getLastFPaymentById(String userid);
 
 }

@@ -78,16 +78,4 @@ $(document).ready(function() {
     // 초기 상태 설정
     checkAgreements();
 
-    // 기부하기 버튼 클릭 시 필수 동의 여부 확인
-    $('.jq_donate').on('click', function(e) {
-        const allAgreed = $('#agree_term').is(':checked');
-        const totalAmount = parseInt($('#ChargeTotalAmount').val().replace(/,/g, ''));
-        if (!allAgreed) {
-            alert('필수 약관 동의를 해주세요.');
-            e.preventDefault();
-        } else if (totalAmount < 1000) {
-            alert('최소 1000원이상 입력해주세요.');
-            e.preventDefault();
-        }
-    });
 });
