@@ -4,6 +4,9 @@
 	<insert id="insert">
 		insert into comment(commentdetail, c_boardnum, connectid, type) values(#{commentdetail}, #{cBoardnum}, #{connectid}, #{type})
 	</insert>
+	<select id="getCommentByCommentnum">
+		select * from comment where commentnum=#{commentnum}
+	</select>
 	<select id="getLastComment">
 		select * from comment
 		where connectid=#{connectid} and type=#{type}
@@ -25,7 +28,7 @@
 	<update id="update">
 		update comment
 		set commentdetail=#{commentdetail}, commentupdatedate=now()
-		where commentnum=#{commentnum}
+		where commentnum=#{commentnum} and type=#{type} and connectid=#{connectid}
 	</update>
 	<delete id="delete">
 		delete from comment where commentnum = #{commentnum}

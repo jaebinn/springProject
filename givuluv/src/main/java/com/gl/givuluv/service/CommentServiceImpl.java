@@ -145,8 +145,11 @@ public class CommentServiceImpl implements CommentService{
 	}
 
 	@Override
-	public boolean modify(CommentDTO comment) {
-		return cmmapper.update(comment) == 1;
+	public CommentDTO modify(CommentDTO comment) {
+		if(cmmapper.update(comment) == 1) {
+			return cmmapper.getCommentByCommentnum(comment.getCommentnum());
+		}
+		return null;
 	}
 
 	@Override

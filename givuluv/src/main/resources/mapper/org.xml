@@ -22,6 +22,9 @@
 	<select id="getOrgidByOrgname">
 		select orgid from org where orgname=#{orgname}
 	</select>
+	<select id="getOrgnameListByOrgid">
+		select orgname from org where orgid=#{connectionid}
+	</select>
 	<update id="updateOrg">
 		
 	</update>

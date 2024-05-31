@@ -78,42 +78,50 @@ a{
     margin: 0 20px 40px;
     float: left;
 }
-
-#store_link{
+#store_link,
+#store_soldout {
     width: 228px;
     height: 300px;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-.product_thumbnail img{
+.product_thumbnail img {
     width: 228px;
     height: 250px;
-    background-size: 250px;
+    object-fit: cover;
 }
-.soldout_box{
-	width: 228px;
+
+.soldout_box {
+    width: 100%;
     height: 250px;
     z-index: 10;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0, 0, 0, 0.5);
     position: absolute;
-    top: 0; left: 0;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-.soldout{
-	width: 70px;
-	height: 30px;
-	position: absolute;
-	top: 20px; right: 10px;
-	text-align: center;
-	font-family: 'TTLaundryGothicB';
-	font-size: 30px;
-	color: white;
-	line-height: 30px;
-	/*background-color: antiquewhite;*/
+
+.soldout {
+    width: 70px;
+    height: 30px;
+    text-align: center;
+    font-family: 'TTLaundryGothicB';
+    font-size: 30px;
+    color: white;
+    line-height: 30px;
+    /*background-color: antiquewhite;*/
 }
-.product_title{
-    width: 228px;
+
+.product_title {
+    width: 100%;
     height: 60px;
-    padding: 20px 0 ;
+    padding: 20px 0;
     font-size: 18px;
     overflow: hidden;
     white-space: normal;
@@ -208,4 +216,24 @@ a{
 	border: 1px solid rgba(0,0,0,0.7);
 }
 
+/* 탑버튼 */
 
+.btn_gotop { 
+    display: none; 
+    position: fixed; 
+    bottom: 50px;
+    right: 70px;
+    z-index: 999; 
+    outline: none; 
+    cursor: pointer; 
+    width: 50px;
+    height: 50px;
+    border-radius: 100%; 
+}
+
+.btn_gotop > img {
+	width: 50px;
+    height: 50px;
+    border-radius: 100%;
+	object-fit: cover;
+}

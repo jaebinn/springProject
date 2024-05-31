@@ -40,11 +40,28 @@
 	let session_loginUser = /*[[${session.loginUser}]]*/'';
 	let session_loginOrg = /*[[${session.loginOrg}]]*/'';
 	
-	window.onload = function () {
+	$(document).ready(function () {
 		console.log("시작")
 		const campaignType = /*[[${cboard.type}]]*/'';
 		firstPrint(campaignType);
-	}
+		
+		$(".commentbox").on("scroll", function(){
+			var scrollTop = $(this).scrollTop();
+			// 요소의 전체 높이
+			var scrollHeight = $(this).prop('scrollHeight');
+			// 요소의 보여지는 높이
+			var boxHeight = $(this).height();
+			// 스크롤바의 높이
+			var scrollbarHeight = scrollHeight - boxHeight;
+
+			// 만약 스크롤바의 높이와 스크롤된 위치의 합이 요소의 전체 높이와 거의 같아진다면
+			if (scrollTop + boxHeight >= scrollbarHeight - 5) { // 5는 여유를 두는 값입니다.
+				console.log(				scrollTop + boxHeight)
+				let cBoardnum = $(this).next().find("#cBoardnum").val();
+				replyList(cBoardnum);
+			}
+		})
+	})
 
 	function firstPrint(campaignType) {
 		console.log("firstPrint")
@@ -129,10 +146,19 @@
 		<p id="no_comment${boardnum}" class="no_comment">댓글이 없습니다.</p>
 	</div>
 	<div class="comment_regist_box">
-		<input type="hidden" name="cBoardnum" value="${boardnum}">
+		<input type="hidden" id="cBoardnum" value="${boardnum}">
+		
+		<input type="hidden" id="modifyflag${boardnum}" value="false">
+		<input type="hidden" id="replyflag${boardnum}" value="false">
+		<input type="hidden" id="replyprint${boardnum}" value="false">
+		
 		<input type="hidden" id="commentlastnum${boardnum}" value='0'>
 		<textarea class="regist_commentdetail" id="commentdetail${boardnum}"></textarea>
 		<a href="javascript:commentRegist(${boardnum})" class="registBtn">등록</a>
+		<div style="display:none" class="modifyBtn_box">
+			<a class="modifyBtn">수정</a>
+			<a class="modifyCancelBtn">취소</a>
+		</div>
 	</div>
 </div>`;
 		$("#board"+boardnum+" .modal_box .modal").append(str);
@@ -143,15 +169,13 @@
 		let str = '';
 		let content = /*[[${cboard.cContent}]]*/'';
 		let	campaign_likecount = /*[[${campaign_likecount}]]*/'';
-		console.log(session_loginUser, campaignProfileFileLink , orgid , boardnum , content , campaign_likecount)
 		
 		str += `
-		
 		<div class="managerBoard board">
 			<div class="modal_box" style="display: flex; position: relative;">
 				<div class="modal">
 					<div class="modalBoard">
-						<div class="contents" th: utext="${content}"></div>
+						<div class="contents">${content}</div>
 						<div class="boardFooter">
 							<div class="btn_box like_box">
 								<p>${campaign_likecount}</p>`

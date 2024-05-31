@@ -61,14 +61,14 @@
 				</div>
 				<h1>스토어 정보 수정</h1>
 				<div class="update_div">
-					<form action="/seller/storeUpdate" class="info_form" method="post" name="storeInfoForm"
+					<form action="/store/storeUpdate" class="info_form" method="post" name="storeInfoForm"
 						enctype="multipart/form-data">
 						<table class="su_table">
 							<tbody>
 								<tr>
-									<th><label for="s_name">스토어 이름</label></th>
+									<th><label for="sName">스토어 이름</label></th>
 									<td>
-										<input type="text" name="s_name" id="s_name" placeholder="이름">
+										<input type="text" name="sName" id="sName" placeholder="이름">
 									</td>
 									<td id="btns">
 										<input type="button" value="중복검사" onclick="check_sName()" id="checkid">
@@ -80,15 +80,15 @@
 									</td>
 								</tr>
 								<tr>
-									<th><label for="s_phone">스토어 전화번호</label></th>
+									<th><label for="sPhone">스토어 전화번호</label></th>
 									<td>
-										<input type="text" name="s_phone" id="s_phone" placeholder="ex) 010-1234-5678">
+										<input type="text" name="sPhone" id="sPhone" placeholder="ex) 010-1234-5678">
 									</td>
 								</tr>
 								<tr>
-									<th><label for="s_zipcode">우편번호</label></th>
+									<th><label for="sZipcode">우편번호</label></th>
 									<td>
-										<input type="text" name="s_zipcode" id="s_zipcode" onclick="findAddr()"
+										<input type="text" name="sZipcode" id="sZipcode" onclick="findAddr()"
 											placeholder="우편번호" readonly>
 									</td>
 									<td id="btns">
@@ -96,33 +96,33 @@
 									</td>
 								</tr>
 								<tr>
-									<th><label for="s_addr">주소</label></th>
+									<th><label for="sAddr">주소</label></th>
 									<td>
-										<input type="text" name="s_addr" id="s_addr" placeholder="주소" readonly>
+										<input type="text" name="sAddr" id="sAddr" placeholder="주소" readonly>
 									</td>
 								</tr>
 								<tr>
-									<th><label for="s_addrdetail">상세주소</label></th>
+									<th><label for="sAddrdetail">상세주소</label></th>
 									<td>
-										<input type="text" name="s_addrdetail" id="s_addrdetail" placeholder="상세주소">
+										<input type="text" name="sAddrdetail" id="sAddrdetail" placeholder="상세주소">
 									</td>
 								</tr>
 								<tr>
-									<th><label for="s_addretc">참고항목</label></th>
+									<th><label for="sAddretc">참고항목</label></th>
 									<td>
-										<input type="text" name="s_addretc" id="s_addretc" placeholder="참고항목">
+										<input type="text" name="sAddretc" id="sAddretc" placeholder="참고항목">
 									</td>
 								</tr>
 								<tr>
-									<th><label for="s_opendate">오픈 날짜</label></th>
+									<th><label for="sOpendate">오픈 날짜</label></th>
 									<td>
-										<input type="date" name="s_opendate" id="s_opendate">
+										<input type="date" name="sOpendate" id="sOpendate">
 									</td>
 								</tr>
 								<tr>
-									<th><label for="s_leader">대표자 이름</label></th>
+									<th><label for="sLeader">대표자 이름</label></th>
 									<td>
-										<input type="text" name="s_leader" id="s_leader" placeholder="대표자이름">
+										<input type="text" name="sLeader" id="sLeader" placeholder="대표자이름">
 									</td>
 								</tr>
 							</tbody>
@@ -188,8 +188,8 @@
 		else{
 			//파일을 업로드를 한 경우(없었다가 업로드, 있었는데 다른 파일로 업로드)
 			//#file0name 찾아서 내부 텍스트 변경(파일의 이름으로)
-			$("#"+fileTag.id+"name").text(file.name);
-			$("#"+fileTag.id+"name").attr("style","color:black");
+			$("#filename").text(file.name);
+			$("#filename").attr("style","color:black");
 			
 			//업로드 된 파일의 확장자명			
 			let ext = file.name.split(".").pop();

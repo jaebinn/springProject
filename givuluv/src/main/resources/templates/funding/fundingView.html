@@ -297,7 +297,7 @@
 						    let inputNum = parseInt($(this).val());
 							if (!isNaN(inputNum) && inputNum > 0) {
 						        let selectedpAmount = parseInt($('#rewardList option:selected').data('pamount'));
-								$('#totalFundingCost').text((selectedCost * inputNum).toLocaleString() + '원');
+								$('#totalFundingCost').text((selectedCost * inputNum).toLocaleString());
 						        if (inputNum > selectedpAmount) {
 						            alert('재고량을 초과하여 더 이상 선택할 수 없습니다.');
 						            $(this).val(selectedpAmount);
@@ -335,7 +335,7 @@
 								$('#reward-cart-item-1').val(fundingCnt);
 								console.log(fundingCnt)
 								$('#FundingNum').text(fundingCnt);
-								$('#totalFundingCost').text((selectedCost * fundingCnt).toLocaleString() + '원');
+								$('#totalFundingCost').text((selectedCost * fundingCnt).toLocaleString());
 								}
 							});
 						});

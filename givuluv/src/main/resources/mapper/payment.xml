@@ -42,7 +42,7 @@
 	</select>
 	<!-- *펀딩결제* -->
 	<insert id="insertFPayment">
-		insert into f_payment(userid, orgid, f_boardnum, f_cost, reqetc) values(#{userid},#{orgid},#{FBoardnum},#{FCost},#{reqetc})
+		insert into f_payment(userid, orgid, f_boardnum, f_cost, amount, productnum, reqetc) values(#{userid},#{orgid},#{FBoardnum},#{FCost},#{amount},#{productnum},#{reqetc})
 	</insert>
 	<select id="getFundingTotalPeople">
 		select count(distinct userid) from f_payment;
@@ -53,8 +53,19 @@
 	<select id="getLastFPaymentById">
 		select * from f_payment where userid=#{userid} order by paymentnum desc limit 1;
 	</select>
-	
-	
-	
-	
+	<select id="getFPaymentByPaymentnum">
+		select * from f_payment where paymentnum=#{paymentnum}
+	</select>
+	<select id="getUserByPaymentnum">
+		select u.* from f_payment p join user u on p.userid = u.userid where paymentnum=#{paymentnum}
+	</select>
+	<select id="getProductByProductnum">
+		select pr.* from f_payment p join product pr on p.productnum = pr.productnum where p.productnum=#{productnum} order by paymentnum desc limit 1;
+	</select>
+	<select id="getFBoardByFBoardnum">
+		select f.* from f_payment p join f_board f on p.f_boardnum = f.f_boardnum where p.f_boardnum=#{fBoardnum} order by paymentnum desc limit 1;
+	</select>
+	<select id="getOrgnameByOrgid">
+		select o.orgname from f_payment p join org o on p.orgid = o.orgid = p.orgid=#{ordig} order by paymentnum desc limit 1
+	</select>
 </mapper>

@@ -1,6 +1,13 @@
 package com.gl.givuluv.service;
 
+import java.util.List;
+
+import com.gl.givuluv.domain.dto.ProductDTO;
+import com.gl.givuluv.domain.dto.QnaDTO;
+import com.gl.givuluv.domain.dto.ReviewDTO;
+import com.gl.givuluv.domain.dto.SBoardDTO;
 import com.gl.givuluv.domain.dto.SellerDTO;
+import com.gl.givuluv.domain.dto.StoreDTO;
 
 public interface SellerService {
 
@@ -19,4 +26,19 @@ public interface SellerService {
 	String checkId(String sellerid);
 	
 	String getCategory(int snum);
+	
+	List<ProductDTO> getProductListBySellerid(String sBoardnum);
+
+	List<QnaDTO> getQnaListBySellerid(String sellerid);
+
+	List<QnaDTO> getNoAnswerList(String sellerid);
+
+	List<SBoardDTO> getSBoardListBySellerid(String sellerid);
+
+	List<ProductDTO> getProductListBySelleridType(String sellerid, char type);
+
+	List<ReviewDTO> getReviewListBySellerid(String sellerid);
+	
+	StoreDTO getStoreBySellerid(String sellerid);
+
 }

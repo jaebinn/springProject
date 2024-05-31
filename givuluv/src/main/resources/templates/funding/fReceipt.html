@@ -11,7 +11,52 @@
    <!-- 컨텐츠 -->
    <div class="wrap receipt">
 		<div class="content">
-			[[${payment}]]
+			<div class="payementTit">
+				<h2>[[${user.username}]]님</h2>
+				<h2><strong>펀딩 감사합니다.</h2>
+				<h2><strong>펀딩 예약 완료</strong>되었습니다.</h2>
+			</div>
+			<div class="paymentInfo">
+				<p>고객님이 <strong>GivuLuv 주식회사</strong>에서 danal 결제 서비스를 통해 펀딩결제하신 내역입니다.</p>
+				<h3>결제정보</h3>
+				<table id="payTbl">
+					<tr>
+						<th>펀딩자명</th>
+						<td>[[${user.username}]]</td>
+					</tr>
+					<tr>
+						<th>사회단체</th>
+						<td>[[${orgname}]]</td>
+					</tr>
+					<tr>
+						<th>펀딩상품</th>
+						<td>[[${product.productname}]]</td>
+					</tr>
+					<tr>
+						<th>주문갯수</th>
+						<td>[[${fpayment.amount}]]개</td>
+					</tr>
+					<tr>
+						<th>기부번호</th>
+						<td>[[${fpayment.paymentnum}]]</td>
+					</tr>
+					<tr>
+						<th>결제일시</th>
+						<td>[[${fpayment.paydate}]]</td>
+					</tr>
+					<tr>
+						<th>펀딩 기간</th>
+						<td>([[${fboard.fEnddate}]]) 100% 달성시 자동으로 결제됩니다.</td>
+					</tr>
+				</table>
+				<div class="payCost">
+					<h2>결제예정 금액</h2>
+					<span>[[${fpayment.fCost}]] 원</span>
+				</div>
+				<div class="backtoDontion">
+					<input type="button" value="마이페이지로 돌아가기">
+				</div>
+			</div>
 		</div>
    </div>
    <!-- footer -->

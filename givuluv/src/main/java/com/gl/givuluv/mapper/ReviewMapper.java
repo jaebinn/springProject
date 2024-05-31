@@ -24,4 +24,7 @@ public interface ReviewMapper {
 	
 	List<ReviewDTO> getProductReviewList(int sBoardnum);
 	
+	 List<ReviewDTO> getReviewListByConnectid(String connectid);
+
+
 }

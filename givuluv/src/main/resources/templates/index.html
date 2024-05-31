@@ -98,52 +98,7 @@
             <h2># 가게</h2>
          </a>
          <div class="stores">
-            <div id="store0" class="store">
-               <a href="#">
-                  <div>
-                     <img loading="lazy"
-                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVZFfQYwS8zuI99HvDb6BLfrQKm1x4kj748_3Y_wXJfw&s"
-                        width="250px" height="180px">
-                  </div>
-                  <div id="store_info_box0" class="store_info_box">
-                     <a href="#" class="store_profile">
-                        <img loading="lazy" src="https://static.hancomtaja.com/shop/2022/20221122/0f50d9e4-f43f-41f2-9725-d2d5cc793572.png" width="40px" height="40px">
-                        <p class="store_name">가게 이름</p>
-                     </a>
-                     <div class="store_info_footer">
-                        <p id="store_title0" class="store_title">제목 기부금 넣기 단체 펀딩 제목 기부금 넣기 단체 펀딩</p>
-                        <p id="product_price0" class="product_price">50,000원</p>
-                     </div>
-                  </div>
-               </a>
-            </div>
-            <!--   javascript   content에 대괄호 쓰면 오류나서 안 씀. 써야함.
-                  str = '';
-                  for(i=0;i<stores.length;i++){
-                     str += '<div id="store${i}" class="store">'
-                     str += '<a href="#">'
-                   str += '<div>'
-                   str += '<img loading="lazy" src="/img/${물건 사진}" width="250px" height="180px">'
-                   str += '</div>'
-                   str += '<div id="store_info_box0" class="store_info_box">'
-                   str += '<a href="#" class="store_profile">'
-                   str += '<img loading="lazy" src="/img/${가게 사진}" width="40px" height="40px">'
-                   str += '<p class="store_name">stores[i].name</p>'
-                   str += '</a>'
-                   str += '<div class="store_info_footer">'
-                   str += '<p id="store_title${i}" class="store_title">${stores[i].title}</p>'
-                   str += '<p id="product_price0" class="product_price">${products[i].price}</p>'
-                   str += '</div>'
-                   str += '</div>'
-                   str += '</a>'
-                     str += '</div>'
-                  }
-                  $(".stores").html(str);
-            }-->
-            <div id="store1" class="store"></div>
-            <div id="store1" class="store"></div>
-            <div id="store1" class="store"></div>
-            <div id="store1" class="store"></div>
+
          </div>
       </section>
       <section class="org_box column mt mb">
@@ -153,30 +108,7 @@
          </a>
          <div class="org_rolling">
             <div class="orgs">
-               <a class="org_profile">
-                  <img class="org_img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWxIy2NDo672M6hF2Q59d0NmDBxuLG6W1AZ70eQvNfuQ&s" width="200px" height="200px">
-                  <div class="org_name">자선단체</div>
-               </a>
-               <a class="org_profile .org_profile_down">
-                  <img class="org_img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWxIy2NDo672M6hF2Q59d0NmDBxuLG6W1AZ70eQvNfuQ&s" width="200px" height="200px">
-                  <div class="org_name">자선단체</div>
-               </a>
-               <a class="org_profile">
-                  <img class="org_img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWxIy2NDo672M6hF2Q59d0NmDBxuLG6W1AZ70eQvNfuQ&s" width="200px" height="200px">
-                  <div class="org_name">자선단체</div>
-               </a>
-               <a class="org_profile   .org_profile_down">
-                  <img class="org_img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWxIy2NDo672M6hF2Q59d0NmDBxuLG6W1AZ70eQvNfuQ&s" width="200px" height="200px">
-                  <div class="org_name">자선단체</div>
-               </a>
-               <a class="org_profile">
-                  <img class="org_img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWxIy2NDo672M6hF2Q59d0NmDBxuLG6W1AZ70eQvNfuQ&s" width="200px" height="200px">
-                  <div class="org_name">자선단체</div>
-               </a>
-               <a class="org_profile">
-                  <img class="org_img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWxIy2NDo672M6hF2Q59d0NmDBxuLG6W1AZ70eQvNfuQ&s" width="200px" height="200px">
-                  <div class="org_name">자선단체</div>
-               </a>
+               
             </div>
          </div>
       </section>
@@ -303,7 +235,6 @@
 			dataType: 'json',
 			contentType: 'application/json; charset=utf-8',
 			success: function(response) {
-				console.log(response)
 				str = '';
 				for (let index = 0; index < Math.min(response.length, 5); index++) {
 					let item = response[index];
@@ -353,7 +284,35 @@
 			dataType: 'json',
 			contentType: 'application/json; charset=utf-8',
 			success: function(response) {
-				console.log(response)
+				console.log("가게; "+response)
+				str = '';
+				for (let index = 0; index < Math.min(response.length, 5); index++) {
+					let item = response[index];
+					console.log(item)
+					let product = item.product;
+					let productname = item.product.productname;
+					let storename = item.store.sname;
+					let price = item.product.cost;
+					let systemname = item.systemname;
+					str += `<div id="store${index}" class="store">`
+					str += `<a href="store/productView?productnum=${product.productnum}">`
+					str += '<div>'
+					str += `<img loading="lazy" src='${systemname}'" width="250px" height="180px">`
+					str += '</div>'
+					str += '<div id="store_info_box0" class="store_info_box">'
+					str += '<a href="#" class="store_profile">'
+					str += `<img loading="lazy" src='${systemname}'" width="40px" height="40px">`
+					str += `<p class="store_name">${storename}</p>`
+					str += '</a>'
+					str += '<div class="store_info_footer">'
+					str += `<p id="store_title${index}" class="store_title">${productname}</p>`
+					str += `<p id="product_price0" class="product_price">${price}원</p>`
+					str += '</div>'
+					str += '</div>'
+					str += '</a>'
+					str += '</div>'
+				}
+				$(".stores").html(str);
 				
 			
 			},
@@ -361,7 +320,27 @@
 				console.log(e);	   		
 			}
 		})
-		
+		$.ajax({
+				url:"/org/getOrgProfile",
+				method: 'GET',
+				dataType:'json',
+				contentType:'application/json; charset=utf-8',
+				success: function(response){
+					console.log(response)
+					let str = '';
+					        for (let index = 0; index < response.length; index++) {
+					            let file = response[index];
+					            str += `<a class="org_profile">
+					                        <img class="org_img" src='${file.file}'" width="200px" height="200px">
+					                        <div class="org_name">${file.orgname}</div>
+					                    </a>`;
+					        }
+					        $(".orgs").html(str);
+				},
+				error: function(e){
+					
+				}
+			})
 	});
 </script>
 

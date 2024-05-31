@@ -94,19 +94,35 @@
 						<!--for문 돌면서 가져오기-->
 						<th:block th:each="item : ${sBoardList}">
 			                <div class="product_item_box">
-			                    <a th:href="${item.product.productnum}" id="store_link" class="get">
-									<div class="product_thumbnail">
-										<!--물품 썸네일 있을경우 -->
-										<img th:if="${item.productFile == null}" src="/images/product.jpg" alt="">
-										<img th:unless="${item.productFile == null}" th:src="@{'/summernoteImage/' + ${item.productFile.systemname}}" alt="">
-									</div>
-									<div th:if="${item.product.pAmount == 0}" class="soldout_box">
-										<div class="soldout">품절</div>
-									</div>
-			                        <div class="p_tit_box">
-			                            <p class="product_title" th:text="${item.product.productname}"></p>
-			                        </div>
-			                    </a>
+								<!-- 수량이 있을 때 -->
+								<div th:if="${item.product.pAmount != 0}" class="item_box">
+								    <a th:href="${item.product.productnum}" id="store_link" class="get">
+								        <div class="product_thumbnail">
+								            <!-- 물품 썸네일 있을 경우 -->
+								            <img th:if="${item.productFile == null}" src="/images/product.jpg" alt="">
+								            <img th:unless="${item.productFile == null}" th:src="@{'/summernoteImage/' + ${item.productFile.systemname}}" alt="">
+								        </div>
+								        <div class="p_tit_box">
+								            <p class="product_title" th:text="${item.sBoard.sTitle}"></p>
+								        </div>
+								    </a>
+								</div>
+								<!-- 수량이 없을 때 -->
+								<div th:if="${item.product.pAmount == 0}" class="item_box">
+								    <div id="store_soldout" class="store_soldout">
+								        <div class="product_thumbnail">
+								            <!-- 물품 썸네일 있을 경우 -->
+								            <img th:if="${item.productFile == null}" src="/images/product.jpg" alt="">
+								            <img th:unless="${item.productFile == null}" th:src="@{'/summernoteImage/' + ${item.productFile.systemname}}" alt="">
+								        </div>
+								        <div class="soldout_box">
+								            <div class="soldout">품절</div>
+								        </div>
+								        <div class="p_tit_box">
+								            <p class="product_title" th:text="${item.sBoard.sTitle}"></p>
+								        </div>
+								    </div>
+								</div>
 			                    <div class="p_info_box">
 			                        <p class="product_price" th:text="${item.product.cost}+원"></p>
 			                        <div class="p_choice_box">
@@ -145,6 +161,11 @@
 	<!-- footer -->
 	<th:block th:replace="~{layout/footer::footer()}"></th:block>
 </body>
+<footer>
+    <a href="#" class="btn_gotop" id="click">
+        <img src="/images/top_img.png" > 
+    </a>
+</footer>
 <script src="/js/jquery-3.7.1.min.js"></script>
 <script>
 	$('.h_logout').on('click', function(){
@@ -165,18 +186,19 @@
 		    if (totalItems <= itemsPerPage) {
 		        $('#product_more').hide();
 		    }
-			$(".get").on("click", function (e) {
+			$(document).on("click", ".get", function (e) {
 				e.preventDefault();
 				let productnum = $(this).attr("href");
-				location.href = "productView?productnum=" +	productnum;
+				console.log(productnum);
+				location.href = "/store/productView?productnum=" +	productnum;
 			})
-			$(".storeGet").on("click", function (e) {
+			$(document).on("click", ".storeGet", function (e) {
 				e.preventDefault();
 				let storenum = $(this).attr("href");
-				location.href = "storeView?s_num=" + storenum;
+				location.href = "/store/storeView?s_num=" + storenum;
 			})
 		    // 더보기 버튼 클릭 시
-		    $('#product_more').on('click', function () {
+		    $(document).on('click', "#product_more", function () {
 		        // itemsPerPage 개수 만큼 추가로 표시
 		        $('.product_item_box:hidden').slice(0, itemsPerPage).slideDown();
 		        // 아직 표시하지 않은 아이템의 개수 갱신
@@ -208,7 +230,7 @@
 						//console.log(data);
 						if(data.length > 0){
 							$.each(data, function(index, item){
-								console.log(item);
+								//console.log(item);
 								let plist = item.product;
 								let slist = item.sboard;
 								let storename = item.storename;
@@ -223,25 +245,44 @@
 								
 								//수량이 0개인지 체크
 								//console.log(plist);
+								//console.log(slist);
 								let amount = plist.pamount;
+								let pname = plist.productname;
+								let pnum = plist.productnum;
+								let sboardtit = slist.stitle;
 								//console.log(amount);
-								let soldOutHTML = amount == 0 ? `
-								    <div class="soldout_box">
-								        <div class="soldout">품절</div>
-								    </div>
-								` : '';
-								
-								let categoryItem = `
-								<div class="product_item_box">
-									<a href="productView?productnum=${plist.productnum}" id="store_link" class="get">
+								//console.log(pname);
+								//console.log(pnum);
+								//console.log(slist.stitle);
+								let soldOutHTML = amount != 0 ? `
+								<div  class="item_box">
+									<a href="${pnum}" id="store_link" class="get">
 										<div class="product_thumbnail">
 											<img src="${productFileSrc}" alt="">
 										</div>
-										${soldOutHTML}
 										<div class="p_tit_box">
-											<p class="product_title">${plist.productname}</p>
+											<p class="product_title">${sboardtit}</p>
 										</div>
 									</a>
+								</div>` : `
+								<div class="item_box">
+									<div id="store_soldout" class="store_soldout">
+										<div class="product_thumbnail">
+											<img src="${productFileSrc}" alt="">
+										</div>
+										<div class="soldout_box">
+											<div class="soldout">품절</div>
+										</div>
+										<div class="p_tit_box">
+											<p class="product_title">${sboardtit}</p>
+										</div>
+									</div>
+								</div>`;
+								
+								
+								let categoryItem = `
+								<div class="product_item_box">
+									${soldOutHTML}
 									<div class="p_info_box">
 										<p class="product_price">${plist.cost}<span>원</span></p>
 									
@@ -276,6 +317,22 @@
 				});
 			};
 				
+		});
+		
+		window.addEventListener('scroll', function(){
+		    var btn_gotop = document.querySelector('.btn_gotop'); // btn_gotop 요소를 선택
+		    if(this.scrollY > 200) {
+		        btn_gotop.style.display = 'block'; // 스크롤 위치에 따라 보이게 설정
+		    }
+		    else{
+		        btn_gotop.style.display = 'none'; // 스크롤 위치에 따라 숨김
+		    }
+		});
+		
+		var Top = document.getElementById('click'); // click 요소를 선택
+		Top.addEventListener('click', function(e){
+		    e.preventDefault();
+		    window.scrollTo({top:0, behavior:"smooth"});
 		});
 </script>
 </html>

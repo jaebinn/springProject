@@ -372,6 +372,7 @@ section > a> h2{
 }
 
 .store_info_box{
+   width: 100%;
    position: absolute;
    bottom: 0px;
    height: 140px;

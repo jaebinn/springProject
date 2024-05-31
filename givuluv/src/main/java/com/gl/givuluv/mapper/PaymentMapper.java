@@ -5,7 +5,10 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.gl.givuluv.domain.dto.DPaymentDTO;
+import com.gl.givuluv.domain.dto.FBoardDTO;
 import com.gl.givuluv.domain.dto.FPaymentDTO;
+import com.gl.givuluv.domain.dto.ProductDTO;
+import com.gl.givuluv.domain.dto.UserDTO;
 
 @Mapper
 public interface PaymentMapper {
@@ -40,5 +43,15 @@ public interface PaymentMapper {
 	boolean insertFPayment(FPaymentDTO payment);
 
 	FPaymentDTO getLastFPaymentById(String userid);
+
+	FPaymentDTO getFPaymentByPaymentnum(int paymentnum);
+
+	UserDTO getUserByPaymentnum(int paymentnum);
+
+	ProductDTO getProductByProductnum(int productnum);
+
+	FBoardDTO getFBoardByFBoardnum(int fBoardnum);
+
+	String getOrgnameByOrgid(String orgid);
 
 }

@@ -1,5 +1,7 @@
 package com.gl.givuluv.service;
 
+import java.util.List;
+
 import com.gl.givuluv.domain.dto.CBoardDTO;
 import com.gl.givuluv.domain.dto.FollowDTO;
 import com.gl.givuluv.domain.dto.LikeDTO;
@@ -26,6 +28,8 @@ public interface CBoardService {
 	 * @return
 	 */
 	CBoardDTO getCampaign(int cBoardnum);
+	
+	List<CBoardDTO> getCampaignBoardListOfUser(String loginUser);
 	
 	/**
 	 * 캠페인에 해당하는 단체의 프로필 링크 찾기

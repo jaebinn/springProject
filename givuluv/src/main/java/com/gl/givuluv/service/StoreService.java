@@ -1,6 +1,7 @@
 package com.gl.givuluv.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -18,4 +19,5 @@ public interface StoreService {
 
 	boolean regist(Model model, SBoardDTO sBoard, String sellerId, List<ProductDTO> productList, String filenames, MultipartFile thumbnail) throws Exception;
 	String getStoreName(int snum);
+	
 }

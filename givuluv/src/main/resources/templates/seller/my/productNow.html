@@ -23,7 +23,7 @@
 			<div class="menu_area">
 				<div>
 					<h3>상품</h3>
-					<a href="/seller/my/productNow">현제 재고현황</a>
+					<a href="/seller/my/productNow">현재 재고현황</a>
 					<a>새 물품 등록</a>
 				</div>
 				<div>
@@ -60,7 +60,7 @@
 					</a>
 				</div>
 				<!-- ======= -->
-				<h1>현제 제고현황</h1>
+				<h1>현재 재고현황</h1>
 				<div class="ps_line">
 					<div class="ps_div">
 						<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" style="user-select: auto !important;">
@@ -78,36 +78,12 @@
 							<th>가격</th>
 						</tr>
 					</thead>
-					<tbody>
+					<tbody th:if="${productList != null and productList.size() > 0}" th:each="product:${productList}">
 						<tr>
-							<td>1</td>
-							<td>바디로션</td>
-							<td>30개</td>
-							<td>2,000원</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>로션</td>
-							<td>30개</td>
-							<td>2,000원</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>로션</td>
-							<td>30개</td>
-							<td>2,000원</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>로션</td>
-							<td>30개</td>
-							<td>2,000원</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>로션</td>
-							<td>30개</td>
-							<td>2,000원</td>
+							<td>[[${product.productnum}]]</td>
+							<td>[[${product.productname}]]</td>
+							<td>[[${product.pAmount}]]개</td>
+							<td>[[${product.cost}]]원</td>
 						</tr>
 					</tbody>
 				</table>

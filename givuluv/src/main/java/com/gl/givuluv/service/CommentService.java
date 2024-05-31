@@ -70,6 +70,17 @@ public interface CommentService {
 	 */
 	List<CommentPageDTO> getCommentList(int cBoardnum, int commentlastnum, String loginUser);
 	
-	boolean modify(CommentDTO comment);
+	/**
+	 * 해당 comment의 내용 수정 후, 수정된 comment 객체 반환
+	 * @param comment
+	 * @return
+	 */
+	CommentDTO modify(CommentDTO comment);
+	
+	/**
+	 * 해당 comment 삭제
+	 * @param commentnum
+	 * @return
+	 */
 	boolean remove(int commentnum);
 }

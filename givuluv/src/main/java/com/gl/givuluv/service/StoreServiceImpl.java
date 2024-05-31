@@ -3,7 +3,9 @@ package com.gl.givuluv.service;
 import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +45,7 @@ public class StoreServiceImpl implements StoreService {
 	public StoreDTO getStoreList(int connectid) {
 		return smapper.getStoreById(connectid);
 	}
-
+	
 
 	@Override
 	   public boolean regist(Model model, SBoardDTO sBoard, String sellerId, List<ProductDTO> products, String filenames, MultipartFile thumbnail) throws Exception {

@@ -136,6 +136,8 @@ public class FBoardServiceImpl implements FBoardService{
 
 	            if (targetMoney > 0) {
 	                percentage = (double) saveMoney / targetMoney * 100;
+	                percentage = Math.round(percentage * 10.0) / 10.0;
+
 	            }
 
 	            percentageList.add(percentage);
@@ -307,12 +309,12 @@ public class FBoardServiceImpl implements FBoardService{
 	        for (int i = 0; i < targetMoneyList.size(); i++) {
 	            int targetMoney = targetMoneyList.get(i);
 	            int saveMoney = saveMoneyList.get(i);
-	            double percentage = 0.0;
+	            double percentage = 0;
 
 	            if (targetMoney > 0) {
 	                percentage = (double) saveMoney / targetMoney * 100;
 	            }
-
+	            System.out.println("퍼센트: "+percentage);
 	            percentageList.add(percentage);
 	        }
 	        

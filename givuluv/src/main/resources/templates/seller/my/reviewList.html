@@ -63,76 +63,29 @@
 				<!--  div -->
 				<h1>리뷰 목록 및 관리</h1>
 				<div class="reviewList_div">
-					<div class="review">
+					<div th:if="${reviewList != null and reviewList.size() > 0}" th:each="review:${reviewList}" class="review">
 						<div class="profile">
 							<img src="/images/default_profile.png">
 						</div>
 						<div class="contents_div">
-							<div class="star">
-								<img src="/images/seller/my/5점.png">
-								<span>5점</span>
+							<div th:switch="${review.star}" class="star">
+								<img th:case="'5'" src="/images/seller/my/5점.png">
+								<img th:case="'4'" src="/images/seller/my/4점.png">
+								<img th:case="'3'" src="/images/seller/my/3점.png">
+								<img th:case="'2'" src="/images/seller/my/2점.png">
+								<img th:case="'1'" src="/images/seller/my/1점.png">
+								<span>[[${review.star}]]점</span>
 							</div>
 							<div class="contents">
-								<p>apple / 24.05.28</p>
-								<p>분쇄 선택:원두콩(홀빈) / 증류 선택:베트남&블랜드 / 원두 선택:다크 블랜드</p>
-								<p>
-									사진과 동영상에 향을 다 담을 수 없어서 아쉽네요!
-									박스를 열자마자 나는 고소한 커피향에 아찔할 정도인데 ㅎㅎ
-									이번에도 너무 신선한 원두에 꼼꼼한 포장 만족스러워요!
-									산미보단 고소한 커피를 좋아하는 커피 유목민이던 제가 완전 정착해서 n번째 구매를 이어가고 있는 오롯이 블렌드 왕 추전해요!
-								</p>
+								<p>[[${review.userid}]] / [[${review.reviewdate}]]</p>
+								<div th:if="${sBoardList != null and sBoardList.size() > 0}" th:each="sBoard:${sBoardList}">
+									<p th:text="${sBoard.sBoardnum} == ${review.connectid} ? '게시판 제목 : '+${sBoard.sTitle} :''"></p>									
+								</div>
+								<p class="reviewdetail">[[${review.reviewdetail}]]</p>
 							</div>
 						</div>
 						<div class="poto_div">
 							<img src="/images/default_profile.png">
-						</div>
-					</div>
-					<div class="review">
-						<div class="profile">
-							<img src="/images/default_profile.png">
-						</div>
-						<div class="contents_div">
-							<div class="star">
-								<img src="/images/seller/my/1점.png">
-								<span>1점</span>
-							</div>
-							<div class="contents">
-								<p>apple / 24.05.28</p>
-								<p>분쇄 선택:원두콩(홀빈) / 증류 선택:베트남&블랜드 / 원두 선택:다크 블랜드</p>
-								<p>
-									사진과 동영상에 향을 다 담을 수 없어서 아쉽네요!
-									박스를 열자마자 나는 고소한 커피향에 아찔할 정도인데 ㅎㅎ
-									이번에도 너무 신선한 원두에 꼼꼼한 포장 만족스러워요!
-									산미보단 고소한 커피를 좋아하는 커피 유목민이던 제가 완전 정착해서 n번째 구매를 이어가고 있는 오롯이 블렌드 왕 추전해요!
-								</p>
-							</div>
-						</div>
-						<div class="poto_div">
-							<img src="/images/default_profile.png">
-						</div>
-					</div>
-					<div class="review">
-						<div class="profile">
-							<img src="/images/default_profile.png">
-						</div>
-						<div class="contents_div">
-							<div class="star">
-								<img src="/images/seller/my/3점.png">
-								<span>3점</span>
-							</div>
-							<div class="contents">
-								<p>apple / 24.05.28</p>
-								<p>분쇄 선택:원두콩(홀빈) / 증류 선택:베트남&블랜드 / 원두 선택:다크 블랜드</p>
-								<p>
-									사진과 동영상에 향을 다 담을 수 없어서 아쉽네요!
-									박스를 열자마자 나는 고소한 커피향에 아찔할 정도인데 ㅎㅎ
-									이번에도 너무 신선한 원두에 꼼꼼한 포장 만족스러워요!
-									산미보단 고소한 커피를 좋아하는 커피 유목민이던 제가 완전 정착해서 n번째 구매를 이어가고 있는 오롯이 블렌드 왕 추전해요!
-								</p>
-							</div>
-						</div>
-						<div class="poto_div">
-							<img>
 						</div>
 					</div>
 				</div>

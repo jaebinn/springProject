@@ -170,30 +170,6 @@
 	}
 
 
-
-
-
-	/*
-	//enter => <br> textarea에 있는 value를 DB에 저장하기 위해서 해야함.
-	var text = $('textarea').val();
-	text = text.replace(/(?:\r\n|\r|\n)/g, '<br>');
-	
-	//<br> => enter 위에서 변환된 DB저장글을 textarea에 다시 써줄 때 사용해야함.
-	var text = $('textarea').val();
-	text = text.split('<br>').join("\r\n");
-	*/
-	$("textarea").on('keyup', function () {
-		console.log($("textarea"))
-		console.log($("textarea").val())
-		var text = $('textarea').val();
-		text = text.replace(/(?:\r\n|\r|\n)/g, '<br>');
-		text = text.replace(/ /g, "&nbsp;")
-
-		console.log(text);
-		$(".modal .contents").html(text);
-		$("textarea").html(text);
-		console.log($(".modal .contents"));
-	})
 </script>
 
 </html>

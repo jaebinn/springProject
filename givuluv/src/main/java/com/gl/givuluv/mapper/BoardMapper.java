@@ -89,6 +89,9 @@ public interface BoardMapper {
 	FBoardDTO getFundingByFBoardnum(int fBoardnum);
 
 	boolean updateFSaveMoney(int fCost);
-	
+
+	List<SBoardDTO> getStoreList();
+
+	List<SBoardDTO> getSBoardListBySNum(int sNum);
 
 }

@@ -20,4 +20,7 @@ public interface QnaMapper {
 	int updateQna(QnaDTO qna);
 
 	QnaDTO getModifyQna(int qnanum);
+	
+	List<QnaDTO> getNoAnswerList(String productnum);
+
 }

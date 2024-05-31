@@ -8,7 +8,9 @@ public class FPaymentDTO {
 	private String userid;
 	private String orgid;
 	private int FBoardnum;
+	private int amount;
 	private int FCost;
+	private int productnum;
 	private String paydate;
 	private String reqetc;
 }

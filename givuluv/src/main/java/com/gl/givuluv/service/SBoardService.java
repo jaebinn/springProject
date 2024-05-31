@@ -14,5 +14,5 @@ import ch.qos.logback.core.model.Model;
 public interface SBoardService {
 	boolean regist(Model model, SBoardDTO sBoard, String sellerId, List<ProductDTO> productList, String filenames, MultipartFile thumbnail) throws Exception;
 	SBoardDTO getSBoard(int connectid);
-	List<Map<String, Object>> getStoreList();
+	
 }

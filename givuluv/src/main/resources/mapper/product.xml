@@ -15,25 +15,46 @@
    <select id="getList">
 		select * from product where p_type='M' order by productnum desc
    </select>
-   
-   <select id="getCategoryList">
-		SELECT p.*
+   <select id="getSList">
+		select * from product where connectid = #{connectid} order by cost asc limit 1
+   </select>
+   <select id="getProductListBySBoardnum">
+		select * from product where p_type='M' order by connectid=#{sBoardnum}
+   </select>
+    <select id="getMConnectidByCategory">
+		SELECT distinct p.connectid
 		FROM product p
 		JOIN s_board sb ON p.connectid = sb.s_boardnum
 		JOIN store st ON sb.s_num = st.s_num
 		JOIN seller s ON st.sellerid = s.sellerid
 		WHERE s.sellercategory = #{categoty}
-		order by productnum desc
+		order by p.connectid desc
    </select>
-   
+    <select id="getMConnectid">
+		select distinct connectid from product where p_type = 'm' order by connectid desc
+   </select>
    <select id="getProductConnectid">
 		select distinct connectid from product
    </select>
    <select id="getProductByConnectid">
 		select * from product where connectid=#{fBoardnum} and p_type='F'
    </select>
-   <select id="getProduct">
-		select * from product where productnum = #{productnum}
+   <select id="getMProductList">
+		select * from product where p_type='M';
    </select>
-   
+   <select id="getProductnumByNameAndConnectid">
+		select productnum from product where productname=#{productname} and connectid=#{fBoardnum} and p_type='F'
+   </select>
+   <update id="decreaseAmount">
+		update product set p_amount=p_amount-#{amount} where productnum=#{productnum}
+   </update>
+   <select id="getListBySBoardnum">
+      select * from product where connectid = #{sBoardnum}
+      </select>
+      <select id="getListBySBoardnumType">
+      select * from product where connectid = #{sBoardnum} and p_type = #{type}
+      </select>
+	 <select id="getProduct">
+		select * from product where connectid = (select connectid from product where productnum = #{productnum})
+   </select>
 </mapper>

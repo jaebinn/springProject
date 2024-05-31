@@ -65,6 +65,14 @@ public class CBoardServiceImpl implements CBoardService {
 	public CBoardDTO getCampaign(int cBoardnum) {
 		return bmapper.getCampaignByCBoardnum(cBoardnum);
 	}
+	
+	@Override
+	public List<CBoardDTO> getCampaignBoardListOfUser(String loginUser){
+		List<CBoardDTO> campaigns = new ArrayList<>(); 
+		
+		
+		return campaigns;
+	}
 
 	@Override
 	public int getlikeCount(int cBoardnum) {

@@ -1,82 +1,102 @@
+//공백 정규식
+var blank_pattern = /^\s+|\s+$/g;
+
 const replaceString = {
-	toDiv : function(data){
+	toDiv: function(data) {
 		//DB에 있는 값을 div에 보여주기
 		let result = "";
 		result = data.split("//givuluv<enter>givuluv//").join('<br>');
 		result = result.split("//givuluv<space>givuluv//").join('&nbsp;');
-		
+
 		return result;
 	},
-	toDB : function(data){
+	toDB: function(data) {
 		//textarea에 있는 value를 DB에 저장하기
-		
+
 		let result = "";
 		result = data.replace(/(?:\r\n|\r|\n)/g, "//givuluv<enter>givuluv//");
-		console.log(result)
 		result = result.replace(/ /g, "//givuluv<space>givuluv//")
 		return result;
 	},
-	toTextarea : function(data){
-		//DB에 있는 값을 textarea에 보여주기
+	toTextarea: function(data) {
+		//div에 있는 값을 textarea에 보여주기
 		let result = "";
-		result = data.split("//givuluv<enter>givuluv//").join('\r\n');
-		result = result.split("//givuluv<space>givuluv//").join('\s');
-		
+		result = data.split("<br>").join('\r\n');
+		result = result.split("&nbsp;").join('\ ');
+
 		return result;
 	}
 }
 
-
 function replyList(cBoardnum) {
-	console.log("replyList 실행")
-	let commentlastnum = $("#commentlastnum"+cBoardnum).val();
+	console.log("replyList 실행");
+	console.log(cBoardnum);
+
+	if($("#replyprint"+cBoardnum).val() === 'true'){
+		return;
+	}
+	$("#replyprint"+cBoardnum).val('true');	
+
+	let commentlastnum = $("#commentlastnum" + cBoardnum).val();
+	
+	if(commentlastnum!=0){
+		commentlastnum--;
+	}
+	console.log(commentlastnum)
 	$.ajax({
-			url: '/comment/commentList',
-			type: 'Get',
-			data: {cBoardnum: cBoardnum,
-					commentlastnum : commentlastnum},
-			dataType: 'json',
-			success: function (data) {
-				console.log(data);
-				if (data.length > 0) {
-					$("#no_comment"+cBoardnum).attr("style","display:none");
-					let str = '';
-					$.each(data, function (index, item) {// data의 크기만큼 for문 , index=index, item=data의 index번째 방
-						let commentnum = item.comment.commentnum;
-						let commentdate = date(item.comment.commentregdate);
-						str +=`
+		url: '/comment/commentList',
+		type: 'Get',
+		data: {
+			cBoardnum: cBoardnum,
+			commentlastnum: commentlastnum
+		},
+		dataType: 'json',
+		success: function(data) {
+			if($("#replyflag"+cBoardnum).val() != 'true'){
+				if(commentlastnum === data[data.length-1].comment.commentnum){
+					$("#replyflag"+cBoardnum).val('true');
+				}
+			}else{
+				return;
+			}
+			console.log(data);
+			if (data.length > 0) {
+				$("#no_comment" + cBoardnum).attr("style", "display:none");
+				let str = '';
+				$.each(data, function(index, item) {// data의 크기만큼 for문 , index=index, item=data의 index번째 방
+					let commentnum = item.comment.commentnum;
+					let commentdate = date(item.comment.commentregdate);
+					str += `
 	<div class="comment" id="comment${commentnum}">
 		<div class="commentHeader">`
-						if(item.comment.type === 'O'){
-							str +=`
+					if (item.comment.type === 'O') {
+						str += `
 			<a href="#" class="commentprofile">
 				<img src="/summernoteImage/202405221023256949ed58d39-11cf-4eb5-bab3-0a9a7b59ab73.png">
 				<p>${item.commentWriterName}</p>
 			</a>`
-						}
-						else{
-							str +=`
+					}
+					else {
+						str += `
 			<div class="commentprofile">
 				<p>${item.commentWriterName}<span>${item.comment.connectid}</span></p>
 			</div>`
-						}
-						str+=`
+					}
+					str += `
 			<div class="like_box">
 				<p>${item.commentLikeCount}</p> <!-- 1000이상이면 k 달아주기 -->`
-						if(session_loginUser !== null){
-							str+=`
+					if (session_loginUser !== null) {
+						str += `
 					<a href="javascript:addcommentLike(${commentnum})" id="addcommentLike(${commentnum})"
 						class="addLike"><i style="color: #666" class="fa-regular fa-heart"></i></a>
 					<!--<a href="javascript:cancelcommentLike(${commentnum})" id="addLike(${commentnum})"
 						class="cancelLike"><i style="color:rgb(255, 128, 194)" class="fa-solid fa-heart"></i></a>-->
 					`
-						}else{
-							str+=`좋아요`
-						}
-						console.log(item.comment.commentdetail)
-						let commentdetail = replaceString.toDiv(item.comment.commentdetail);
-						console.log(commentdetail)
-						str+=`
+					} else {
+						str += `좋아요`
+					}
+					let commentdetail = replaceString.toDiv(item.comment.commentdetail);
+					str += `
 			</div>
 		</div>
 		<div class="commentdetail">
@@ -84,138 +104,216 @@ function replyList(cBoardnum) {
 		</div>
 		<div class="commentFooter">
 			<div class="date">`
-						if(item.comment.commentupdatedate != null){
-							str +=`<p>수정됨</p>`
-						}
-						str+=`
+					if (item.comment.commentupdatedate != null) {
+						str += `<p>수정됨</p>`
+					}
+					str += `
 				<p>${commentdate}</p>
 			</div>`
-						if(item.comment.connectid === session_loginUser){
-							if(item.comment.type === 'U')
-							str+=`
+					if (item.comment.connectid === session_loginUser) {
+						if (item.comment.type === 'U')
+							str += `
 			<div class="commentA_box">
-				<a class="commentA" href="javascript:commentModifyBox(${commentnum})">수정</a>
-				<a class="commentA" href="javascript:commentDelete(${commentnum})">삭제</a>
+				<a class="commentA" href="javascript:commentModifyBox(${commentnum}, ${cBoardnum})">수정</a>
+				<a class="commentA" href="javascript:commentDelete(${commentnum}, ${cBoardnum})">삭제</a>
 			</div>`
-						}
-						if(item.comment.connectid === session_loginOrg){
-							if(item.comment.type === 'O')
-							str+=`
+					}
+					if (item.comment.connectid === session_loginOrg) {
+						if (item.comment.type === 'O')
+							str += `
 			<div class="commentA_box">
-				<a class="commentA" href="javascript:commentModifyBox(${commentnum})">수정</a>
-				<a class="commentA" href="javascript:commentDelete(${commentnum})">삭제</a>
+				<a class="commentA" href="javascript:commentModifyBox(${commentnum}, ${cBoardnum})">수정</a>
+				<a class="commentA" href="javascript:commentDelete(${commentnum}, ${cBoardnum})">삭제</a>
 			</div>`
-						}
-						str+=`
+					}
+					str += `
 		</div>
 	</div>`
-					});
-					$("#board"+cBoardnum+" .commentbox").append(str);
-				} else {
-					console.log("없음");
-				}
-			},
-			error: function (xhr, status, error) {
-				console.error('AJAX Error: ', status, error);
+					$("#commentlastnum"+cBoardnum).val(commentnum);
+				});
+				$("#board" + cBoardnum + " .commentbox").append(str);
+			} else {
+				console.log("없음");
 			}
-		});
+			$("#replyprint"+cBoardnum).val('false');
+		},
+		error: function(xhr, status, error) {
+			console.error('AJAX Error: 댓글없음 ', status, error);
+			replyprint = false;
+		}
+	});
 }
 
-function commentRegist(cBoardnum){
-	console.log("commentRegist : "+cBoardnum)
-	let commentdetail = $("#commentdetail"+cBoardnum).val();
-	console.log("댓글 : "+commentdetail);
+function commentRegist(cBoardnum) {
+	console.log("commentRegist : " + cBoardnum)
+	let commentdetail = $("#commentdetail" + cBoardnum).val();
+	console.log("댓글 : " + commentdetail);
 
-	var blank_pattern = /^\s+|\s+$/g;
-	if(commentdetail.replace(blank_pattern, '' ) == ""){
+	if (commentdetail.replace(blank_pattern, '') == "") {
 		console.log("공백")
-    	$("#commentdetail"+cBoardnum).val('');
-    	$("#commentdetail"+cBoardnum).focus();
-    	alert('작성된 글이 없습니다!');
-    	return false;
+		$("#commentdetail" + cBoardnum).val('');
+		$("#commentdetail" + cBoardnum).focus();
+		alert('작성된 글이 없습니다!');
+		return false;
 	}
 
 	commentdetail = replaceString.toDB(commentdetail);
-	console.log("변환 댓글 : "+commentdetail);
-		
+	console.log("변환 댓글 : " + commentdetail);
+
 	commentService.insert(
-		{commentdetail : commentdetail, cboardnum : cBoardnum},
-		function(result){
-			console.log(result)
-			$("#commentdetail"+cBoardnum).val('');
-			$("#commentlastnum"+cBoardnum).val('0');
-			$("#board"+cBoardnum+" .commentbox").html('');
+		{ commentdetail: commentdetail, cboardnum: cBoardnum },
+		function() {
+			$("#commentdetail" + cBoardnum).val('');
+			$("#commentlastnum" + cBoardnum).val('0');
+
+			$("#replyprint"+cBoardnum).val('false');
+			
+			$("#board" + cBoardnum + " .commentbox").html(`<p id="no_comment${cBoardnum}" style="display:none" class="no_comment">댓글이 없습니다.</p>`);
+			
 			replyList(cBoardnum);
 		}
 	)
 }
-function commentModifyBox(commentnum){
+function commentModifyBox(commentnum, cBoardnum) {
+	if($("#modifyflag"+cBoardnum).val()==true){
+		return;
+	}
+	$("#modifyflag"+cBoardnum).val('true');
+	
+	
+	let board = $("#board"+cBoardnum);
+	// 수정을 위한 내용을 textarea에 출력하기위한 변환
+	let commentdetail = board.find("#comment"+commentnum+" .commentdetail").html();
+	commentdetail = commentdetail.replace(/(?:\r\n|\r|\n|\t)/g, "");
+	commentdetail = commentdetail.replace(/ /g, "")
+	commentdetail = replaceString.toTextarea(commentdetail);
+	// 수정을 위한 내용을 textarea에 출력
+	board.find(".regist_commentdetail").val(commentdetail);
+	board.find(".regist_commentdetail").focus();
+	// 기존 댓글박스 숨기기
+	board.find("#comment"+commentnum).attr("style","display:none");
+	// 수정버튼에 href 달아주기
+	board.find(".comment_regist_box .modifyBtn_box .modifyBtn").attr("href", `javascript:commentModify(${commentnum},${cBoardnum})`);
+	board.find(".comment_regist_box .modifyBtn_box .modifyCancelBtn").attr("href", `javascript:commentModifyCancel(${commentnum},${cBoardnum})`);
+	// 버튼 바꿔주기
+	board.find(".registBtn").attr("style","display:none");
+	board.find(".modifyBtn_box").attr("style", "display:flex");
 	
 }
-function commentModify(commentnum){
-	commentService.update
+function commentModify(commentnum, cBoardnum) {
+	let board = $("#board"+cBoardnum);
+	let commentdetail_temp = $("#commentdetail"+cBoardnum).val();
+		
+	if (commentdetail_temp.replace(blank_pattern, '') == "") {
+		console.log("공백")
+		$("#commentdetail" + cBoardnum).val('');
+		$("#commentdetail" + cBoardnum).focus();
+		
+		if(confirm("삭제하시겠습니까?")){
+			commentDelete(commentnum, cBoardnum);
+			commentModifyCancel(commentnum, cBoardnum)
+			board.find("#comment"+commentnum).remove();
+			return;
+		}
+	}
+	let commentdetail = replaceString.toDB(commentdetail_temp);
+	commentService.update(
+		{ commentnum : commentnum, commentdetail : commentdetail },
+		function(result){
+			// 기존 댓글박스에 DB 글 변환해서 넣어주기
+			console.log(result.commentdetail)
+			let result_commentdetail = replaceString.toDiv(result.commentdetail);
+			board.find("#comment"+commentnum+" .commentdetail").html(result_commentdetail);
+		}
+	)
+	commentModifyCancel(commentnum, cBoardnum);
 }
-function commentDelete(commentnum){
+function commentModifyCancel(commentnum, cBoardnum) {
+	let board = $("#board"+cBoardnum);
+	// textarea의 value 없애기
+	board.find(".regist_commentdetail").val('');
+	// 기존 댓글박스 보여주기
+	board.find("#comment"+commentnum).attr("style","display:block");
+	// 수정버튼에 href 지우기
+	board.find(".comment_regist_box .modifyBtn_box .modifyBtn").removeAttr("href");
+	board.find(".comment_regist_box .modifyBtn_box .modifyCancelBtn").removeAttr("href");
+	// 버튼 바꿔주기
+	board.find(".registBtn").attr("style","display:flex");
+	board.find(".modifyBtn_box").attr("style", "display:none");
+
+	$("#modifyflag"+cBoardnum).val('false');
+}
+function commentDelete(commentnum, cBoardnum) {
 	commentService.delete(
-		{commentnum : commentnum},
-		function(){
-			console.log($("#comment"+commentnum));
-			console.log("삭제")
-			$("#comment"+commentnum).remove();
+		{ commentnum: commentnum },
+		function() {
+			$("#comment" + commentnum).remove();
+			
+			let board = $("#board"+cBoardnum);
+			let commentbox = board.find(".commentbox");
+			let commentbox_child_length = commentbox.children().length;
+			if(commentbox_child_length < 2){
+				board.find(".commentbox .no_comment").attr("style", "display:flex")
+				return;
+			}
+			
+			$("#board" + cBoardnum + " .commentbox").html(`<p id="no_comment${cBoardnum}" style="display:none" class="no_comment">댓글이 없습니다.</p>`);
+			$("#commentlastnum"+cBoardnum).val('0');
+			$("#replyprint"+cBoardnum).val('false');
+			replyList(cBoardnum);
 		});
 }
 
-
-
 const commentService = {
-	insert:function(data,callback){
-		console.log("전송 :",data);
+	insert: function(data, callback) {
+		console.log("전송 :", data);
 		$.ajax({
-			type:"POST",
-			url:"/comment/regist",
-			data:JSON.stringify(data),
-			contentType:"application/json;charset=utf-8",
-			success:function(result,status,xhr){
+			type: "POST",
+			url: "/comment/regist",
+			data: JSON.stringify(data),
+			contentType: "application/json;charset=utf-8",
+			success: function(result, status, xhr) {
 				callback()
 			},
-			error:function(xhr ,status, error){
-					alert("댓글 등록에 실패했습니다.");
-					console.error('AJAX Error: ', status, error);
+			error: function(xhr, status, error) {
+				alert("댓글 등록에 실패했습니다.");
+				console.error('AJAX Error: ', status, error);
 			}
 		})
 	},
-/*	selectAll:function(data,callback){
-		let boardnum = data.boardnum;
-		let pagenum = data.pagenum;
-		
-		$.getJSON(
-			`/reply/list/${boardnum}/${pagenum}`,
-			function(data){
-				//data : 응답되는 JSON ({ replyCnt:댓글갯수, list:[...] })
-				console.log
-				callback(data);
-			}
-		)
-	},*/
-	delete:function(data,callback,error){
+	/*	selectAll:function(data,callback){
+			let boardnum = data.boardnum;
+			let pagenum = data.pagenum;
+			
+			$.getJSON(
+				`/reply/list/${boardnum}/${pagenum}`,
+				function(data){
+					//data : 응답되는 JSON ({ replyCnt:댓글갯수, list:[...] })
+					console.log
+					callback(data);
+				}
+			)
+		},*/
+	delete: function(data, callback, error) {
 		$.ajax({
-			type:"DELETE",
-			url:`/comment/${data.commentnum}`,
-			success:function(result){
+			type: "DELETE",
+			url: `/comment/${data.commentnum}`,
+			success: function(result) {
 				callback(result);
 			},
-			error:function(result){
+			error: function(result) {
 				error(result);
 			}
 		})
 	},
-	update:function(data,callback){
+	update: function(data, callback) {
 		$.ajax({
-			type:"PATCH",
-			url:"/comment/"+data.commentnum,
-			data:JSON.stringify(data),
-			contentType:"application/json;charset=utf-8",
-			success:function(result){
+			type: "PATCH",
+			url: "/comment/" + data.commentnum,
+			data: JSON.stringify(data),
+			contentType: "application/json;charset=utf-8",
+			success: function(result) {
+				console.log(result)
 				callback(result);
 			}
 		})

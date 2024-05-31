@@ -25,7 +25,9 @@ import com.gl.givuluv.service.FBoardService;
 import com.gl.givuluv.service.FPaymentService;
 import com.gl.givuluv.service.FileService;
 import com.gl.givuluv.service.OrgService;
+import com.gl.givuluv.service.ProductService;
 import com.gl.givuluv.service.SBoardService;
+import com.gl.givuluv.service.StoreService;
 
 @Controller
 @RequestMapping("/index/*")
@@ -37,11 +39,11 @@ public class IndexController {
 	@Autowired
 	private FileService fservice;
 	@Autowired
-	private SBoardService sbservice;
-	@Autowired
 	private DPaymentService pservice;
 	@Autowired
 	private FPaymentService fpservice;
+	@Autowired
+	private ProductService prservice;
 	
 	@GetMapping("getTodayCnt")
 	@ResponseBody
@@ -91,7 +93,6 @@ public class IndexController {
 				System.out.println("없을리가");
 			}
 		}
-		System.out.println(resultList);
 		return resultList;
 	}
 	
@@ -100,15 +101,16 @@ public class IndexController {
 	@ResponseBody
 	public List<Map<String, Object>> getFundingInfo(){
 		List<Map<String, Object>> result = fbservice.getFundingList();
-		System.out.println(result);
+		System.out.println("펀딩: "+result);
 		return result;
 	}
 	@GetMapping("getStoreInfo") 
 	@ResponseBody
 	public List<Map<String, Object>> getStoreInfo(){
-		List<Map<String, Object>> result = sbservice.getStoreList();
-		System.out.println(result);
+		List<Map<String, Object>> result = prservice.getMProductList();
 		return result;
 	}
+	
+
 	
 }

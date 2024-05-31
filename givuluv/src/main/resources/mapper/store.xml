@@ -18,4 +18,10 @@
 	<select id ="getStoreName">
 	     select s_name from store where s_num = #{snum}
 	</select>
+	<select id="getMStoreList">
+		select * from store where p_type='M';
+	</select>
+	<select id="getStoreBySBoardnum">
+		select st.* from s_board s join store st on s.s_num = st.s_num where s.s_boardnum=#{sBoardnum};
+	</select>
 </mapper>

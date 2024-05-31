@@ -13,6 +13,7 @@ import com.gl.givuluv.service.DBoardService;
 import com.gl.givuluv.service.DPaymentService;
 import com.gl.givuluv.service.FPaymentService;
 import com.gl.givuluv.service.OrgService;
+import com.gl.givuluv.service.ProductService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -26,6 +27,8 @@ public class PaymentController {
 	private DPaymentService pservice;
 	@Autowired
 	private FPaymentService fpservice;
+	@Autowired
+	private ProductService prservice;
 	@Autowired
 	private OrgService oservice;
 	@Autowired
@@ -77,9 +80,8 @@ public class PaymentController {
 	@PostMapping("confirmFunding")
 	@ResponseBody
 	public FPaymentDTO successFunding(@RequestParam int cost, @RequestParam String orgname,
-			@RequestParam int fBoardnum, @RequestParam String productname, @RequestParam int pAmount, 
+			@RequestParam int fBoardnum, @RequestParam String productname, @RequestParam int amount,
 			@RequestParam String ordermemo, HttpServletRequest req) {
-		System.out.println("여기옴");
 		FPaymentDTO payment = new FPaymentDTO();
 		HttpSession session = req.getSession();
 		String userid = (String)session.getAttribute("loginUser");
@@ -99,7 +101,9 @@ public class PaymentController {
 		payment.setOrgid(oservice.getOrgidByOrgname(orgname));
 		payment.setUserid(userid);
 		payment.setFCost(cost);
+		payment.setAmount(amount);
 		payment.setReqetc(ordermemo);
+		payment.setProductnum(prservice.getProductnumByNameAndConnectid(productname, fBoardnum));
 		if(fpservice.insertFPayment(payment)) {
 			FPaymentDTO fpayment = fpservice.getLastFPaymentById(userid);
 			System.out.println(fpayment);
@@ -107,6 +111,8 @@ public class PaymentController {
 		}
 		return null;
 	}
+	
+	
 }
 	
 

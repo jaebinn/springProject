@@ -23,7 +23,7 @@
 			<div class="menu_area">
 				<div>
 					<h3>상품</h3>
-					<a href="/seller/my/productNow">현제 재고현황</a>
+					<a href="/seller/my/productNow">현재 재고현황</a>
 					<a>새 물품 등록</a>
 				</div>
 				<div>
@@ -83,31 +83,16 @@
 					<input type="button" value="최신순">					
 				</div>
 				<!-- qna 내용 div -->
-				<div class="qna_contents_div">
+				<div th:if="${qnaList != null and qnaList.size() > 0}" th:each="qna:${qnaList}" class="qna_contents_div">
 					<div class="content">
-						<span>
-							qna 내용들을 쓰는 span
-							ㄴㅇㄹ;ㅣㅁ낭ㄹ;ㅣ낭라ㅣ넝림ㄴ얼
-						</span>
+						<span>[[${qna.question}]]</span>
 						<div>
-							<div class="cm_check">A</div>
-							<span>답변</span>
+							<div class="cm_check" th:style="${qna.answer} != null ? 'background-color: #2f956b; color: white' : ''">A</div>
+							<span th:text="${qna.answer} != null ? '답변 완료' : '답변 대기' "></span>
 							<div class="profile_info">
 								<img src="/images/default_profile.png">
-								<span>banana</span>
-								<span>2024.05.28</span>
-							</div>
-						</div>
-					</div>
-					<div class="content">
-						<span>qna 내용들을 쓰는 span</span>
-						<div>
-							<div class="cm_check" style="background-color: #2f956b; color: white;">A</div>
-							<span style="color: black;">답변</span>
-							<div class="profile_info">
-								<img src="/images/default_profile.png">
-								<span>apple</span>
-								<span>2024.05.28</span>
+								<span>[[${qna.userid}]]</span>
+								<span>[[${qna.qnaregdate}]]</span>
 							</div>
 						</div>
 					</div>
@@ -127,11 +112,27 @@
 	function total_veiw() {
        	total_btn.css("color", "black");
         review_btn.css("color", "#757575");
+		loadQnAList(false);
 	}
 	
     function no_review() {
         total_btn.css("color", "#757575");
         review_btn.css("color", "black");
+		loadQnAList(true);
     }
+	
+	function loadQnAList(onlyUnanswered) {
+	    $.ajax({
+	        url: '/seller/my/qnaNoAnswer',  // 서버 엔드포인트
+	        type: 'GET',
+	        data: { onlyUnanswered: onlyUnanswered },
+	        success: function(data) {
+	            $('#qna_contents_div').html(data);  // 서버로부터 받은 HTML을 대체
+	        },
+	        error: function(err) {
+	            console.log(err);
+	        }
+	    });
+	}
 </script>
 </html>

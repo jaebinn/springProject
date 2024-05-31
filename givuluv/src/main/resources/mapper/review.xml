@@ -30,4 +30,8 @@
 		select reviewnum, reviewdetail, userid, DATE_FORMAT(reviewdate, '%Y-%m-%d') as reviewdate, star, connectid, type
 		from review where connectid = #{sBoardnum} and type = 'm' order by reviewnum desc
 	</select>
+	<select id="getReviewListByConnectid">
+      select * from review where connectid=#{connectid} order by reviewnum desc
+   </select>
+
 </mapper>

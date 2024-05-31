@@ -116,7 +116,7 @@
 								<td th:text="${orderCost} + '원'"></td>
 							</tr>
 							<tr id="tr">
-								<th>기부보너스(금액의 3%)</th>
+								<th>기부보너스(금액의 10%)</th>
 								<td th:text="${getBonus} + '원'"></td>
 							</tr>
 							<tr id="tr">
@@ -158,11 +158,14 @@
 				let fboard = /*[[${fboard}]]*/"";
 				let productname = /*[[${productname}]]*/"";
 				let fEnddate = /*[[${fboard.fEnddate}]]*/"";
+				const date = new Date(fEnddate).toISOString();
+				console.log(date)
+				console.log(typeof date)
 				let fundingCnt = /*[[${fundingCnt}]]*/"";
 				let user = /*[[${user}]]*/"";
+				let selectedCost = /*[{${selectedCost}}]*/"";
 				let orderetcSelect = $('#orderetc');
 				let ordermemo = orderetcSelect.val();
-				console.log(typeof fEnddate)
 				Bootpay.requestPayment({
 					price: totalCost, 
 				    "application_id": "664d681b2bac039f7bd3d53b",
@@ -178,17 +181,10 @@
 				    "email": user.email,
 					"addr" : user.addr
 						},							
-						"items": [
-							{
-								"id": fboard.fboardnum,
-								"name": productname,
-								"qty": fundingCnt,
-								"price": totalCost
-							}
-						],
+						
 						extra: {
-								start_at: fEnddate, 
-								end_at: fEnddate 
+								start_at: date, 
+								end_at: date
 						}
 
 					}).then(function(data) {
@@ -201,7 +197,7 @@
 								      "orgname": orgname,
 									  "productname": productname,
 									  "fBoardnum": fboard.fboardnum,
-									  "pAmount": fundingCnt,
+									  "amount": fundingCnt,
 									  "ordermemo": ordermemo
 								},
 								success: function(msg) {

@@ -21,4 +21,5 @@ public interface OrgMapper {
 		String getCategoryByOrgid(String orgid);
 		String getOrgidByOrgname(String orgname);
 		int getOrgByUnqnum(int orgunqnum);
+		List<String> getOrgnameListByOrgid(String connectionid);
 }

@@ -1,5 +1,8 @@
 package com.gl.givuluv.controller;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -93,5 +96,12 @@ public class OrgController {
 	 @GetMapping("signupcomplete")
 	 public String signupcomplete() {
 	    return "org/signupcomplete";
+	}
+	//인덱스 org프로필
+	@GetMapping("getOrgProfile")
+	@ResponseBody
+	public List<Map<String, String>> getOrgProfile(){
+		List<Map<String, String>> orgprofile = service.getOrgProfile();
+		return orgprofile;
 	}
 }

@@ -4,7 +4,9 @@ import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -138,6 +140,25 @@ public class OrgServiceImpl implements OrgService {
 	@Override
 	public int getOrgByUnqnum(int orgunqnum) {
 		return omapper.getOrgByUnqnum(orgunqnum);
+	}
+
+	@Override
+	public List<Map<String, String>> getOrgProfile() {
+	    List<FileDTO> fileList = fmapper.getOrgProfile();
+	    String src = "/summernoteImage/";
+	    List<Map<String, String>> files = new ArrayList<>();
+	    
+	    for(FileDTO file : fileList) {
+	        List<String> orgnameList = omapper.getOrgnameListByOrgid(file.getConnectionid());
+	        String orgname = orgnameList.isEmpty() ? "Unknown" : orgnameList.get(0); // Assume the first name if multiple names exist
+	        System.out.println("파일이름:     "+file.getSystemname());
+	        Map<String, String> fileMap = new HashMap<>();
+	        fileMap.put("file", src + file.getSystemname());
+	        fileMap.put("orgname", orgname);
+	        files.add(fileMap);
+	    }
+	    System.out.println(files);
+	    return files;
 	}
 
 }

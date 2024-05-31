@@ -12,6 +12,7 @@ import com.gl.givuluv.domain.dto.CommentDTO;
 public interface CommentMapper {
 	int insert(CommentDTO comment);
 	
+	CommentDTO getCommentByCommentnum(int commentnum);
 	CommentDTO getLastComment(CommentDTO comment);
 	int getCommentLastNum();
 	

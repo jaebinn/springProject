@@ -32,4 +32,8 @@
 		from qna 
 		where qnanum = #{qnanum} 
 	</select>
+   <select id="getNoAnswerList">
+           select * from qna where productnum = #{productnum} and answer is null 
+           order by qnanum desc
+      </select>
 </mapper>

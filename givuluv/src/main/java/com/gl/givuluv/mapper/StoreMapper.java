@@ -1,5 +1,7 @@
 package com.gl.givuluv.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.gl.givuluv.domain.dto.StoreDTO;
@@ -14,5 +16,10 @@ public interface StoreMapper {
 	StoreDTO getStoreById(int snum);
 
 	String getStoreName(int snum);
+
+	List<StoreDTO> getMStoreList();
+
+	StoreDTO getStoreBySBoardnum(String connectid);
 	
+
 }

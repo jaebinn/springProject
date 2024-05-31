@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.gl.givuluv.domain.dto.FBoardDTO;
+import com.gl.givuluv.domain.dto.FPaymentDTO;
 import com.gl.givuluv.domain.dto.ProductDTO;
 import com.gl.givuluv.domain.dto.UserDTO;
 import com.gl.givuluv.service.FBoardService;
+import com.gl.givuluv.service.FPaymentService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -28,6 +30,8 @@ public class FundingController {
 	
 	@Autowired
 	private FBoardService fbservice;
+	@Autowired
+	private FPaymentService fpservice;
 	
 	@GetMapping("fBoard")
 	public String getFBoard(Model model) {
@@ -121,7 +125,7 @@ public class FundingController {
 		else if(cost < 50000) {
 			orderCost += 3000;
 		}
-		getBonus = (int) ((cost+orderCost)*0.03);
+		getBonus = (int) ((cost+orderCost)*0.1);
 		 
 		model.addAttribute("fboard", fboard);
 		model.addAttribute("cost", cost);
@@ -135,8 +139,23 @@ public class FundingController {
 	}
 	
 	@GetMapping("fReceipt")
-	public String fReceipt(int paymentnum) {
-		System.out.println(paymentnum);
+	public String fReceipt(int paymentnum, Model model) {
+		FPaymentDTO fpayment = fpservice.getFPaymentByPaymentnum(paymentnum);
+		UserDTO user = fpservice.getUserByPaymentnum(fpayment.getPaymentnum());
+		ProductDTO product = fpservice.getProductByProductnum(fpayment.getProductnum());
+		FBoardDTO fboard = fpservice.getFBoardByFBoardnum(fpayment.getFBoardnum());
+		String orgname = fpservice.getOrgnameByOrgid(fpayment.getOrgid());
+		System.out.println(fpayment);
+		System.out.println(fboard);
+		System.out.println(product);
+		System.out.println(user);
+		System.out.println(orgname);
+		
+		model.addAttribute("fpayment", fpayment);
+		model.addAttribute("product", product);
+		model.addAttribute("user", user);
+		model.addAttribute("fboard", fboard);
+		model.addAttribute("orgname", orgname);
 		return "funding/fReceipt";
 	}
 }

@@ -3,6 +3,7 @@ package com.gl.givuluv.service;
 import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.gl.givuluv.domain.dto.FBoardDTO;
 import com.gl.givuluv.domain.dto.FileDTO;
 import com.gl.givuluv.domain.dto.ProductDTO;
 import com.gl.givuluv.domain.dto.SBoardDTO;
@@ -108,9 +110,5 @@ public class SBoardServiceImpl implements SBoardService{
 	public SBoardDTO getSBoard(int connectid) {
 		return bmapper.getSBoard(connectid);
 	}
-	@Override
-	public List<Map<String, Object>> getStoreList() {
-		
-		return null;
-	}
+	
 }

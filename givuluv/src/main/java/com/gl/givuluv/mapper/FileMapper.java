@@ -27,5 +27,8 @@ public interface FileMapper {
 	List<String> getFileByFBoardnum(int fBoardnum);
 	String getOrgProfileByOrgid(String orgid);
 	FileDTO getSBoardFile(int connectid);
+	List<String> getFileBySBoardnum(int sBoardnum);
+	List<String> getFileBySBoardnum(String connectid);
+	List<FileDTO> getOrgProfile();
 
 }

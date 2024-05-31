@@ -1,15 +1,23 @@
 package com.gl.givuluv.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.gl.givuluv.domain.dto.ProductDTO;
+import com.gl.givuluv.domain.dto.QnaDTO;
+import com.gl.givuluv.domain.dto.ReviewDTO;
+import com.gl.givuluv.domain.dto.SBoardDTO;
 import com.gl.givuluv.domain.dto.SellerDTO;
 
 import com.gl.givuluv.service.MailSendService;
@@ -124,34 +132,57 @@ public class SellerController {
 	         return "seller/my/home";
 	      }
 	      
-	      @GetMapping("my/storeList")
-	      public String SellerMyStoreList(String sellerid, HttpServletRequest req) {
-	         HttpSession session = req.getSession();
-	         return "seller/my/storeList";
-	      }
-	      
-	      @GetMapping("my/storeUpdate")
-	      public String SellerMyStoreUpdate(String sellerid, HttpServletRequest req) {
-	         HttpSession session = req.getSession();
-	         return "seller/my/storeUpdate";
-	      }
-	      
-	      @GetMapping("my/productNow")
-	      public String SellerMyProductNow(String sellerid, HttpServletRequest req) {
-	    	  HttpSession session = req.getSession();
-	    	  return "seller/my/productNow";
-	      }
-	      
-	      @GetMapping("my/qna")
-	      public String SellerMyQnA(String sellerid, HttpServletRequest req) {
-	    	  HttpSession session = req.getSession();
-	    	  return "seller/my/qna";
-	      }
-	      
-	      @GetMapping("my/reviewList")
-	      public String SellerMyReviewList(String sellerid, HttpServletRequest req) {
-	    	  HttpSession session = req.getSession();
-	    	  return "seller/my/reviewList";
-	      }
+	  
 	//로그인 끝 ====================================================================
+	      // 현재 재고현황 페이지
+	      @GetMapping("my/productNow")
+	      public String SellerMyProductNow(HttpServletRequest req, Model model) {
+	         HttpSession session = req.getSession();
+	         List<ProductDTO> productList = service.getProductListBySellerid((String)session.getAttribute("loginSeller"));
+	         
+	         model.addAttribute("productList", productList);
+	         return "seller/my/productNow";
+	      }
+	      @GetMapping("my/qna")
+	      public String SellerMyQnA(HttpServletRequest req, Model model) {
+	         HttpSession session = req.getSession();
+	         List<QnaDTO> qnaList = new ArrayList<>();
+	         qnaList = service.getQnaListBySellerid((String)session.getAttribute("loginSeller"));
+	         //qnaList = service.getNoAnswerList((String) session.getAttribute("loginSeller"));
+
+	         System.out.println(qnaList);
+	         model.addAttribute("qnaList", qnaList);
+	         return "seller/my/qna";
+	      }
+	      @GetMapping("my/qnaNoAnswer")
+	      public String SellerMyQnANoAnswer(HttpServletRequest req, Model model) {
+	         HttpSession session = req.getSession();
+	         List<QnaDTO> qnaList = new ArrayList<>();
+	         // qnaList = service.getQnaListBySellerid((String)session.getAttribute("loginSeller"));
+	         qnaList = service.getNoAnswerList((String) session.getAttribute("loginSeller"));
+
+	         System.out.println(qnaList);
+	         model.addAttribute("qnaList", qnaList);
+	         return "redirect:/seller/my/qna";
+	      }
+	       
+
+	      @GetMapping("my/reviewList")
+	      public String SellerMyReviewList(HttpServletRequest req, Model model) {
+	         HttpSession session = req.getSession();
+	         String sellerid = (String)session.getAttribute("loginSeller");
+	         char type = 'm';
+	         
+	         List<SBoardDTO> sBoardList = service.getSBoardListBySellerid(sellerid);
+	         List<ProductDTO> productList = service.getProductListBySelleridType(sellerid, type);
+	         List<ReviewDTO> reviewList = service.getReviewListBySellerid(sellerid);
+	         
+	         System.out.println("sBoardList"+sBoardList);
+	         model.addAttribute("sBoardList", sBoardList);
+	         model.addAttribute("productList", productList);
+	         model.addAttribute("reviewList", reviewList);
+	         
+	         return "seller/my/reviewList";
+	      }
+
 }
