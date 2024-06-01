@@ -104,7 +104,7 @@ a{
 .SelectArea_select_list{
     overflow-y: auto;
     position: absolute;
-    right: 20%;
+    right: 16%;
     text-align: right;
     z-index: 30;
    	width: 110px;

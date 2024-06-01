@@ -99,11 +99,16 @@ a{
     color: rgb(231, 112, 151);
 }
 .FundingDetailSummary_graph .FundingDetailSummary_bar {
-    position: relative;
     width: 100%;
-    height: 3px;
-    margin-top: 7px;
-    background-color: #eee;
+    height: 4px;
+    margin-top: 3px;
+    background: #ebebeb;
+}
+#bar {
+    display: inline-block;
+    height: 4px;
+    background: rgb(231, 112, 151);
+    vertical-align: top;
 }
 .FundingDetailSummary_graph .FundingDetailSummary_goal {
     float: left;

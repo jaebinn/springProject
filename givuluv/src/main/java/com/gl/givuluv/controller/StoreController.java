@@ -220,7 +220,7 @@ public class StoreController {
 
 				// 가져온 connectid로 정보들 가져오기
 				for (int connectid : cid) {
-					ProductDTO product = pservice.getList(connectid);
+					ProductDTO product = pservice.getSList(connectid);
 
 					// 물품번호로 물품관련(스토어, 이미지, 정보들 가져오기)
 					System.out.println(connectid);

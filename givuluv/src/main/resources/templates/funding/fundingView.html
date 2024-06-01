@@ -36,9 +36,8 @@
 					<div class="FundingDetailSummary_rate">
 						<strong class="FundingDetailSummary_number">[[${fundingDetail.percentage}]]</strong>%
 					</div>
-					<div class="FundingDetailSummary_bar">
-						<span class="FundingDetailSummary_current" style="width: 19%;">
-						</span>
+					<div class="FundingDetailSummary_bar graph_bar">
+						<span class="FundingDetailSummary_current" id="bar"></span>
 					</div>
 					<span class="FundingDetailSummary_goal">
 						<span class="FundingDetailSummary_number">[[${fundingDetail.fboard.targetAmount}]]</span>원 목표</span>
@@ -229,6 +228,10 @@
 <script src="/js/jquery-3.7.1.min.js"></script>
 <script th:inline="javascript">
 	$(document).ready(function() {
+				const percentage = /*[[${fundingDetail.percentage}]]*/"";
+			    const graphBarSpan = document.querySelector('#bar');
+			    graphBarSpan.style.width = percentage + '%';
+					
 	            const itemsPerPage = 20;
 	            const totalItems = $('.funding_item_box').length;
 	            $('.funding_item_box').slice(itemsPerPage).hide();
@@ -399,7 +402,11 @@
 						});
 	    });
 		function payBtn(){
-			    
+			let NotUserMessage = /*[[${loginMessage != null}]]*/ true;
+			console.log(NotUserMessage)
+				if (NotUserMessage) {
+					  alert("사용자로 로그인 후 이용해주세요");
+				}
 			let cost = $('#totalFundingCost').text();
 			let funding = $('#selectedOption').text();
 			let fundingCnt = $('#FundingNum').text();

@@ -116,6 +116,18 @@ public class FundingController {
 		FBoardDTO fboard = fbservice.getFundingByFBoardnum(fBoardnum);
 		int orderCost = 0;
 		int getBonus = 0;
+		String loginSeller = (String)session.getAttribute("loginSeller");
+		String loginOrg = (String)session.getAttribute("loginOrg");
+		if(userid == null && loginSeller == null && loginOrg == null) {
+			model.addAttribute("loginMessage", "로그인 후 이용해주세요");
+	        return "user/login";
+		}
+		else if(userid == null && (loginSeller != null || loginOrg != null)) {
+			model.addAttribute("NotUserMessage", "사용자로 로그인 후 이용해주세요");
+	        return "redirect:/funding/fundingView?fBoardnum="+fBoardnum;
+		}
+		getBonus = (int) ((cost + orderCost) * 0.1);
+
 		if(cost < 50000 && user.getAddr().contains("제주")) {
 			orderCost += 7000;
 		}
@@ -125,8 +137,6 @@ public class FundingController {
 		else if(cost < 50000) {
 			orderCost += 3000;
 		}
-		getBonus = (int) ((cost+orderCost)*0.1);
-		 
 		model.addAttribute("fboard", fboard);
 		model.addAttribute("cost", cost);
 		model.addAttribute("orderCost", orderCost);
@@ -136,6 +146,7 @@ public class FundingController {
 		model.addAttribute("orgname", orgname);
 		model.addAttribute("user", user);
 		return "funding/fundingPay";
+		
 	}
 	
 	@GetMapping("fReceipt")
