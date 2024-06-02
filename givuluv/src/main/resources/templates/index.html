@@ -7,6 +7,7 @@
    <link rel="stylesheet" href="/css/login.css">
    <link rel="stylesheet" href="/css/header_footer.css">   
    <link rel="stylesheet" href="/css/kakaomap.css">
+   <link rel="stylesheet" href="/css/faqChatbot.css">
    
 </head>
 
@@ -116,6 +117,8 @@
    </div>
    <!-- footer -->
    <th:block th:replace="~{layout/footer::footer()}"></th:block>
+   <!-- FAQ ChatBot -->
+   <th:block th:replace="~{layout/faqChatbot::faqChatbot()}"></th:block>
 </body>
 <script src="/js/jquery-3.7.1.min.js"></script>
 <script src="/js/index.js"></script>
@@ -342,6 +345,120 @@
 					
 				}
 			})
+			let isFaqLoaded = false;
+			let loginUser = /*[[${session.loginUser}]]*/"";
+			$(document).ready(function () {
+			    $("#chat-circle").click(function () {
+			        $(".chat-box").toggle('scale', function () {
+			            if ($(".chat-box").is(":visible") && !isFaqLoaded) {
+			                loadQuestions();
+			            }
+			        });
+			    });
+			
+			    $(".chat-box-toggle").click(function () {
+			        $(".chat-box").toggle('scale');
+					
+			    });
+			
+			    $("#chat-form").submit(function (e) {
+			        e.preventDefault();
+			        const messageInput = $("#chat-input");
+			        if (!isNaN(messageInput.val()) && messageInput.val().trim() !== '') {
+			            // 만약 입력된 메시지가 숫자이고 비어있지 않다면, 질문 번호로 간주하여 답변을 가져옴
+			            getAnswer(parseInt(messageInput.val()));
+			        } else {
+			            // 숫자가 아니거나 비어있다면, 일반 메시지로 간주하여 전송
+						myMessage(messageInput.val());
+						const chatLogs = $(".chat-logs");
+						const newMessage = `<div class="chat-msg"><span class="cm-msg-text errormsg">보기에 있는 질문의 번호를 입력하세요.</span></div>`;
+						chatLogs.append(newMessage);
+						chatLogs.scrollTop(chatLogs.prop("scrollHeight"));
+						
+			            messageInput.val("");
+			            messageInput.focus();
+						loadQuestions()
+			            return;
+			        }
+			        messageInput.val('');
+			    });
+			});
+			
+			function loadQuestions() {
+			    $.ajax({
+			        url: "/chatbot/questions",
+			        type: "POST",
+			        success: function (data) {
+			            let messages = data.map((faq, index) => `${index + 1}. ${faq.question}`).join('\n');
+			            addMessage(messages, 'bot');
+			            isFaqLoaded = true;
+			        }
+			    });
+			}
+			
+			function sendMessage(message) {
+			    addMessage(message, 'user');
+			
+			    $.ajax({
+			        url: "/chatbot",
+			        type: "POST",
+			        contentType: "application/json",
+			        data: JSON.stringify({message: message}),
+			        success: function (response) {
+			            console.log(response);
+			            addMessage(response, 'bot');
+			        }
+			    });
+			}
+			
+			function getAnswer(questionNumber) {
+			    $.ajax({
+			        url: "/chatbot/answer",
+			        type: "POST",
+			        contentType: "application/json",
+			        data: JSON.stringify({questionNumber: questionNumber}),
+			        success: function (response) {
+			            console.log(response);
+						myMessage(questionNumber);
+			            addMessage(response, 'bot');
+						loadQuestions();
+			        },
+					error: function (xhr, status, error) {
+						myMessage(questionNumber);
+						if (xhr.status === 404) {
+							const chatLogs = $(".chat-logs");
+							const newMessage = `<div class="chat-msg"><span class="cm-msg-text errormsg">질문 번호를 찾을 수 없습니다.</span></div>`;
+							chatLogs.append(newMessage);
+							chatLogs.scrollTop(chatLogs.prop("scrollHeight"));
+							loadQuestions()
+						}
+					}
+			    });
+			}
+			
+			function addMessage(message, sender) {
+				const regex = /\d+\./g;
+				
+				message = message.replace(regex, (match, index) => {
+				    if (index !== 0) {
+				        return '<br>' + match;
+				    } else {
+				        return match;
+				    }
+				});
+			   const chatLogs = $(".chat-logs");
+			   const newMessage = `<div class="chat-msg ${sender}"><span class="cm-msg-text">${message}</span></div>`;
+			   chatLogs.append(newMessage);
+			   chatLogs.scrollTop(chatLogs.prop("scrollHeight"));
+			   
+			   
+			}
+			function myMessage(questionNumber) {
+			    const chatLogs = $(".chat-logs");
+			    const newMessage = `<div class="chat-msg user right"><span class="cm-msg-text">${questionNumber}</span></div>`;
+			    chatLogs.append(newMessage);
+			    chatLogs.scrollTop(chatLogs.prop("scrollHeight"));
+			}
 	});
 </script>
 
