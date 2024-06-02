@@ -24,7 +24,7 @@
 	</select>
 	
 	<select id="getUserD_costById">
-		select d_cost from d_payment where userid = #{userid}
+		select sum(d_cost) from d_payment where userid = #{userid}
 	</select>
 	
 	<select id="getUserDonationById">
@@ -52,10 +52,130 @@
 	<select id="getDonaNameByUserId">
 		select d_title from d_board join d_payment on d_payment.userid = #{userid}
 	</select>
-	<update id="updateUser">
+	<select id="getFundNameByUserId">
+		select distinct productname from product join f_detail on f_detail.userid = #{userid}
+		<!--select f_title from f_board join d_payment on d_payment.userid=#{userid}-->
+	</select>
+	<!---->
+	<select id="getFundUserNameById">
+		select DISTINCT f_board.orgid from f_board join d_payment on d_payment.userid =#{userid} order by f_board.orgid desc LIMIT 1
+	</select>
+	
+	<select id="getFundTimeById">
+		select f_regdate from f_board join d_payment on d_payment.userid =#{userid} LIMIT 1
+	</select>
+	
+	<select id="getFundingNameById">
+		select f_title from f_board join d_payment on d_payment.userid=#{userid} LIMIT 3
+	</select>
+	
+	
+	<select id="getUserNameById">
+		select username from user where userid = #{userid}
+	</select>
+	
+	<select id="getUserEmailById">
+		select email from user where userid = #{userid}
+	</select>
+	
+	<select id="getUserPhoneById">
+		select userphone from user where userid = #{userid}
+	</select>
+	<!--/////////////////////////////////////////////////////////////////////-->
+	<select id="getd_keyword_reBykeyword">
+		select d_title from d_board where d_title like concat ('%', #{keyword}, '%')
+	</select>
+	
+	<select id ="getf_keyword_reBykeyword">
+		select f_title from f_board where f_title like concat ('%', #{keyword}, '%')
+	</select>
+	<!--/////////////////////////////////////////////////////////////////////-->
+	
+	<select id="getUserNickNameById">
+		select nickname from user where userid = #{userid}
+	</select>
+	
+	<select id="getD_boardNumByKeyword_re" parameterType="java.util.List" resultType="String">
+		select d_boardnum from d_board where d_title in
+		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+	
+	<!--<select id="getSystemNamebyBoardNum">
+		select systemname from file where connectionid in  (#{d_boardNum})
+	</select>-->
+	
+	
+	<select id="getSystemNameByBoardNum" parameterType="java.util.List" resultType="String">
+        SELECT systemname 
+        FROM file 
+        WHERE connectionid IN 
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+    
+	<select id="getD_boardTitleBynum" parameterType="java.util.List" resultType="String">
+       select d_title from d_board where d_boardnum in
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+    
+	<select id="getD_boardOrgidBynum" parameterType="java.util.List" resultType="String">
+       select orgid from d_board where d_boardnum in 
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+	
+	
+	<!--<select id="getD_boardTitleBynum">
+		select d_title from d_board where d_boardnum in  (#{d_boardNum})
+	</select>
+	
+	<select id="getD_boardOrgidBynum">
+		select orgid from d_board where d_boardnum in  (#{d_boardNum})
+	</select>-->
+	
+	<select id="getF_boardNumByKeyword_re" parameterType="java.util.List" resultType="String">
+		select DISTINCT f_boardnum from f_board join d_payment on d_payment.userid = #{userid}
 		
+	</select> 
+	
+	<select id ="getF_boardTitleByNum" parameterType="java.util.List" resultType="String">
+		select f_title from f_board where f_boardnum in 
+		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+	
+	<select id="getF_boardOrgidBynum" parameterType="java.util.List" resultType="String">
+		select orgid from f_board where f_boardnum in
+		<foreach  item="item" index="index" collection="list" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+	
+	<select id="getF_boardNumBynum" parameterType="java.util.List" resultType="String">
+		select systemname from file where connectionid in 
+		<foreach  item="item" index="index" collection="list" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+	
+	<select id="getSystemNameByUserid">
+		select DISTINCT systemname from file join d_payment on d_payment.userid = #{userid};
+	</select>
+	
+	<update id="UpdateUserInfo">
+		update user set username = #{user.username}, nickname = #{user.nickname}, email = #{user.email}, userphone = #{user.userphone}
+			where userid = #{loginUser}
 	</update>
 	<delete id="deleteUser">
 		delete from user where userid=#{userid}
 	</delete>
+	
+	
 </mapper>

@@ -9,6 +9,7 @@ public interface UserService {
 	boolean join(UserDTO user);
 	boolean login(String userid, String userpw);
 	boolean checkId(String userid);
+	boolean UpdateUserInfo(UserDTO user, String loginUser);
 	boolean checkNickname(String nickname);
 	boolean checkNickAndEmail(String nickname, String email);
 	UserDTO getUseridByEmail(String email);
@@ -31,5 +32,43 @@ public interface UserService {
 	String getDoneTimeById(UserDTO userid);
 //	유저가 기부한 프로젝트명을 전부 뽑아옴
 	List<String> getDonaNameByUserid(UserDTO userid);
+//	우저가 펀딩한 펀딩명을 전부 뽐아옴
+	List<String> getFundNameByUserId(UserDTO userid);
+//	유저가 펀딩한 프로젝트의 작성자를 불러옴
+	List<String> getFundUserNameById(UserDTO userid);
+//	유저가 펀딩한 프로젝트의 설립일 불러옴
+	List<String> getFundTimeById(UserDTO userid);
+//	펀딩제목 가져오기
+	List<String> getFundingNameById(UserDTO userid);
+	
+	String getUserNickNameById(UserDTO userid);
+	
+	String getUserNameById(UserDTO userid);
+	
+	String getUserEmailById(UserDTO userid);
+	
+	String getUserPhoneById(UserDTO userid);
+	
+	List<String> getd_keyword_reBykeyword(UserDTO keyword);
+	
+	List<String> getD_boardNumByKeyword_re(List<String> keyword_re);
+	
+	List<String> getSystemNameByBoardNum(List<String> d_boardNum);
+	
+	List<String> getD_boardTitleBynum(List<String> d_boardNum);
+	
+	List<String> getD_boardOrgidBynum(List<String> d_boardNum);
+	
+	List<String> getF_boardNumByKeyword_re(UserDTO userid);
+	
+	List<String> getF_boardTitleByNum(List<String> f_boardNum);
+	
+	List<String> getF_boardOrgidBynum(List<String> f_boardNum);
+	
+	List<String> getF_boardNumBynum(List<String> f_boardNum);
+	
+	List<String> getf_keyword_reBykeyword(UserDTO keyword);
+	
+	List<String> getSystemNameByUserid(UserDTO userid);	
 	
 }

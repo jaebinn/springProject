@@ -52,4 +52,49 @@ public interface UserMapper {
 	
 //	유저와 단체의 팔로우
 	FollowDTO getfollow(FollowDTO follow);
+
+//	유저가 펀딩한 펀딩명을 전부 뽑아옴
+	List<String> getFundNameByUserId(UserDTO userid);
+	
+	List<String> getFundUserNameById(UserDTO userid);
+	
+	List<String> getFundTimeById(UserDTO userid);
+	
+	List<String> getFundingNameById(UserDTO userid);
+	
+	String getUserNickNameById(UserDTO userid);
+	
+	String getUserNameById(UserDTO userid);
+	
+	String getUserEmailById(UserDTO userid);
+	
+	String getUserPhoneById(UserDTO userid);
+	//    
+	
+	int UpdateUserInfo(UserDTO user, String loginUser);
+	
+	List<String> getSearch_reBykeyword(UserDTO keyword);
+	
+	List<String> getd_keyword_reBykeyword(UserDTO keyword);
+	
+	List<String> getD_boardNumByKeyword_re(List<String> keyword_re);
+	
+	List<String> getSystemNameByBoardNum(List<String> d_boardNum);
+	
+	List<String> getD_boardTitleBynum(List<String> d_boardNum);
+	
+	List<String> getD_boardOrgidBynum(List<String> d_boardNum);
+	
+	List<String> getF_boardNumByKeyword_re(UserDTO userid);
+	
+	List<String> getF_boardTitleByNum(List<String> f_boardNum);
+	
+	List<String> getF_boardOrgidBynum(List<String> f_boardNum);
+	
+	List<String> getF_boardNumBynum(List<String> f_boardNum);
+	
+	List<String> getf_keyword_reBykeyword(UserDTO keyword);
+	
+	List<String> getSystemNameByUserid(UserDTO userid);
+
 }

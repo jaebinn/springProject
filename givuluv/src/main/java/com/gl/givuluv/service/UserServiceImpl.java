@@ -131,5 +131,124 @@ public class UserServiceImpl implements UserService{
 	public String getNicknameByUserId(String userid) {
 		return umapper.getNicknameByUserId(userid);
 	}
+//	펀드제목을 불러오기
+	@Override
+	public List<String> getFundNameByUserId(UserDTO userid) {
+		
+		return umapper.getFundNameByUserId(userid);
+	}
+//	펀드 게시판의 글쓴ㅇ이를 불러옴
+	@Override
+	public List<String> getFundUserNameById(UserDTO userid) {
+		
+		return umapper.getFundUserNameById(userid);
+	}
+//	펀드 게시글이 올라온 시간을 불러옴
+	@Override
+	public List<String> getFundTimeById(UserDTO userid) {
+		
+		return umapper.getFundTimeById(userid);
+	}
 
+	@Override
+	public List<String> getFundingNameById(UserDTO userid) {
+		
+		return umapper.getFundingNameById(userid);
+	}
+
+	@Override
+	public String getUserNickNameById(UserDTO userid) {
+		
+		return umapper.getUserNickNameById(userid);
+	}
+
+	@Override
+	public String getUserNameById(UserDTO userid) {
+		
+		return umapper.getUserNameById(userid);
+	}
+
+	@Override
+	public String getUserEmailById(UserDTO userid) {
+		
+		return umapper.getUserEmailById(userid);
+	}
+
+	@Override
+	public String getUserPhoneById(UserDTO userid) {
+		
+		return umapper.getUserPhoneById(userid);
+	}
+
+	@Override
+	public boolean UpdateUserInfo(UserDTO user, String loginUser) {
+		
+		return  umapper.UpdateUserInfo(user, loginUser) == 1;
+	}
+
+	@Override
+	public List<String> getd_keyword_reBykeyword(UserDTO keyword) {
+
+		return umapper.getd_keyword_reBykeyword(keyword);
+	}
+
+	@Override
+	public List<String> getD_boardNumByKeyword_re(List<String> keyword_re) {
+		
+		return umapper.getD_boardNumByKeyword_re(keyword_re);
+	}
+
+	@Override
+	public List<String> getSystemNameByBoardNum(List<String> d_boardNum) {
+		
+		return umapper.getSystemNameByBoardNum(d_boardNum);
+	}
+
+	@Override
+	public List<String> getD_boardTitleBynum(List<String> d_boardNum) {
+		
+		return umapper.getD_boardTitleBynum(d_boardNum);
+	}
+
+	@Override
+	public List<String> getD_boardOrgidBynum(List<String> d_boardNum) {
+		
+		return umapper.getD_boardOrgidBynum(d_boardNum);
+	}
+
+	@Override
+	public List<String> getF_boardNumByKeyword_re(UserDTO userid) {
+		
+		return umapper.getF_boardNumByKeyword_re(userid);
+	}
+
+	@Override
+	public List<String> getF_boardTitleByNum(List<String> f_boardNum) {
+		
+		return umapper.getF_boardTitleByNum(f_boardNum);
+	}
+
+	@Override
+	public List<String> getF_boardOrgidBynum(List<String> f_boardNum) {
+		
+		return umapper.getF_boardOrgidBynum(f_boardNum);
+	}
+
+	@Override
+	public List<String> getF_boardNumBynum(List<String> f_boardNum) {
+		
+		return umapper.getF_boardNumBynum(f_boardNum);
+	}
+
+	@Override
+	public List<String> getf_keyword_reBykeyword(UserDTO keyword) {
+		
+		return umapper.getf_keyword_reBykeyword(keyword);
+	}
+
+	@Override
+	public List<String> getSystemNameByUserid(UserDTO userid) {
+		
+		return umapper.getSystemNameByUserid(userid);
+	}
 }

@@ -97,11 +97,23 @@ public class OrgController {
 	 public String signupcomplete() {
 	    return "org/signupcomplete";
 	}
+	 @GetMapping("checkunqnumber")
+		@ResponseBody
+		public String checkunqnum(int orgunqnum) {
+		 System.out.println(service.checkUnqnumber(orgunqnum));
+		 	if(service.checkUnqnumber(orgunqnum)) {
+	            return "X";
+	        }
+	        else {
+	            return "O";
+	        }
+		}
 	//인덱스 org프로필
 	@GetMapping("getOrgProfile")
 	@ResponseBody
 	public List<Map<String, String>> getOrgProfile(){
 		List<Map<String, String>> orgprofile = service.getOrgProfile();
+		System.out.println("뭐야 "+orgprofile);
 		return orgprofile;
 	}
 }

@@ -107,7 +107,21 @@
 									<td>
 										<input type="text" name="ceoname" id="ceoname">										
 									</td>	
-								</tr>		
+								</tr>	
+								<th><label for="orgunqnum">고유번호</label><span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
+								<tr>
+									<td>
+										<input type="text" name="orgunqnum" id="orgunqnum" placeholder="고유번호">
+									</td>
+									<td id="btns">
+										<input type="button" value="중복확인" id="checkunqnum" placeholder="고유번호">
+									</td>
+								</tr>
+								<tr class="unq_checkBox">
+									<td>
+										<p id="unq_check"></p>
+									</td>
+								</tr>
 								<th><label for="orgzipcode">우편번호</label><span id="necessary"><i class="fa-solid fa-star star"></i></span></th>
 								<tr>
 									<td>
@@ -134,7 +148,7 @@
 									<td>
 										<input type="text" name="orgaddretc" id="orgaddretc" placeholder="참고항목">										
 									</td>							
-								</tr>																			
+								</tr>
 							</tbody>
 						</table>
                         <button type="button" id="joinBtn" onclick="sendit()">가입완료</button>                        
@@ -160,8 +174,6 @@
 	        }
 	    });
 	});
-</script>
-<script>
 	function upload(){
 		$("#file").click();
 	}
@@ -209,6 +221,8 @@
 		$("#filename").text("로고 사진을 업로드하세요.");
 		return;
 	}
+	
+
 </script>
 </body>
 </html>

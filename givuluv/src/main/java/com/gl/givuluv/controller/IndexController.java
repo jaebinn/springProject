@@ -81,7 +81,7 @@ public class IndexController {
 			List<String> systemnameList = fservice.getSystemnameByBoardnum(dboard.getDBoardnum() + "");
 			if (systemnameList != null && !systemnameList.isEmpty()) {
 				double percentage = (double)dboard.getSaveMoney() / (double)dboard.getTargetAmount() * 100;
-				String systemname = src + systemnameList.get(1);
+				String systemname = src + systemnameList.get(0);
 				LocalDate currentDate = LocalDate.now();
 			    LocalDate endDate = LocalDate.parse(dboard.getDEnddate(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 			    int deadline = (int) ChronoUnit.DAYS.between(currentDate, endDate);
@@ -90,7 +90,7 @@ public class IndexController {
 				System.out.println("파일이름: " + systemname);
 				resultList.add(new DBoardWithFile(dboard, deadline, percentage, systemname));
 			} else {
-				System.out.println("없을리가");
+				
 			}
 		}
 		return resultList;

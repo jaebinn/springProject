@@ -72,7 +72,7 @@ public class OrgServiceImpl implements OrgService {
 				FileDTO fdto = new FileDTO();
 				fdto.setSystemname(systemname);
 				fdto.setConnectionid(org.getOrgid());
-				fdto.setType('s');
+				fdto.setType('O');
 				System.out.println("fdto 잘 포장함."+fdto);
 				
 				flag = fmapper.insertFile(fdto) == 1;
@@ -150,15 +150,19 @@ public class OrgServiceImpl implements OrgService {
 	    
 	    for(FileDTO file : fileList) {
 	        List<String> orgnameList = omapper.getOrgnameListByOrgid(file.getConnectionid());
-	        String orgname = orgnameList.isEmpty() ? "Unknown" : orgnameList.get(0); // Assume the first name if multiple names exist
-	        System.out.println("파일이름:     "+file.getSystemname());
+	        String orgname = orgnameList.isEmpty() ? "Unknown" : orgnameList.get(0); 
 	        Map<String, String> fileMap = new HashMap<>();
 	        fileMap.put("file", src + file.getSystemname());
 	        fileMap.put("orgname", orgname);
 	        files.add(fileMap);
 	    }
-	    System.out.println(files);
+	    System.out.println("너뭐야 "+files);
 	    return files;
 	}
+
+	@Override
+	 public boolean checkUnqnumber(int orgunqnum) {
+       return omapper.checkUnqnumber(orgunqnum);
+    }
 
 }

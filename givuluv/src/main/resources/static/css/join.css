@@ -247,4 +247,13 @@ select:focus {
 	border-color: #555;
 	box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
-
+#checkunqnum{
+	border: none;
+    border-radius: 5px;
+    background-color: rgb(231, 112, 151);
+    color: #f1f1f1;
+    font-weight: bold;
+    padding: 5px 0;
+    font-size: 13px;
+    cursor: pointer;
+}

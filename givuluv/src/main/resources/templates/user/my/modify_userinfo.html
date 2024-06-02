@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<!--유저 정보 수정 페이지 입니다.-->
+<html>
+<header>
+	<meta charset="UTF-8">
+	<title>일반유저 myhome</title>
+	<link rel="stylesheet" href="/css/userMyPageMenu.css">
+	<link rel="stylesheet" href="/css/userMyHome.css">
+	<link rel="stylesheet" href="/css/header_footer.css">
+	<link rel="stylesheet" href="/css/userModify.css">
+	<script src="https://kit.fontawesome.com/516da99189.js" crossorigin="anonymous"></script>
+</header>
+
+<body>
+	<!-- header -->
+	<th:block th:replace="~{layout/header::header(loginUser)}"></th:block>
+
+	<!-- 컨텐츠 -->
+	<form action="/user/modify" method="post" name="modifyForm">
+	<div class="wrap">
+		<!-- 왼쪽 메뉴바 -->
+		<th:block th:replace="~{layout/userMyPageMenu::userMyPageMenu(loginUser)}"></th:block>
+		<!-- 오른쪽 내용 -->
+		
+		<div class="left_div">
+			<div id="usernickname"><h2 id="old_nickname">[[${NickName}]]</h2> 님의 회원정보 </div>
+			<div id="content_wrap">
+			<div id="modi_username">
+				<div class="old">
+					<a class="old_content">기존 이름 :		<h2 id="old_username">[[${UserName}]]</h2></a> 
+				</div>
+				<div class="new">
+					<input type="text" id="username" name="username" placeholder="새로운 이름">
+				</div>
+			</div>
+			<div id="modi_nickname">
+				<div class="old">
+					<a class="old_content">기존 닉네임 :	<h2 id="old_user_nickname">[[${NickName}]]</h2></a>
+				</div>
+				<div class="new">
+					<input type="text" id="nickname" name="nickname" placeholder="새로운 닉네임">
+				</div>
+			</div>
+			<div id="modi_email">
+				<div class="old">
+					<a class="old_content">기존 이메일 :	<h2 id="old_useremail">[[${UserEmail}]]</h2></a>
+				</div>
+				<div class="new">
+					<input type="text" id="email" name="email" placeholder="새로운 이메일">
+				</div>
+			</div>
+			<div id="modi_userphone">
+				<div class="old">
+					<a class="old_content">기존 핸드폰번호 :	<h2 id="old_userphone">[[${UserPhone}]]</h2></a>
+				</div>
+				<div class="new">
+					<input type="text" id="userphone" name="userphone" placeholder="새로운 핸드폰번호">
+				</div>
+			</div>
+			<div id="submit_btn_wrap">
+				<input type="button" id="submit_btn" value="수정하기" onclick="checkNick()">
+			</div>
+			</div>
+		</div>
+	</div>
+	</form>
+	<!-- footer -->
+	<th:block th:replace="~{layout/footer::footer()}"></th:block>
+</body>
+<script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+<script>
+	function checkNick(){
+		const username = document.getElementById('username')
+		const nickname = document.getElementById('nickname')
+		const email = document.getElementById('email')
+		const userphone = document.getElementById('userphone')
+		if(nickname.value == ""){
+			alert("새로운 닉네임을 입력하세요")
+			
+			if(username.value == ""){
+						alert("새로운 이름을 입력하세요")
+					}
+					
+					if(email.value == ""){
+						alert("새로운 이메일을 입력해 주세요")
+					}
+						if(userphone.value == ""){
+								alert("새로운 핸드폰 번호를 입력하세요")
+							}
+		}
+		else{
+			alert("회원정보가 변경되었습니다.")
+			modifyForm.submit();
+		}
+		
+		
+		// 미완성 닉네임 중복검사 진행해야 함
+	}
+	
+</script>
+
+
+</html>

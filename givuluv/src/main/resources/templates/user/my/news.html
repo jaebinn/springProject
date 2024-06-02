@@ -1,13 +1,20 @@
 <!DOCTYPE html>
 <html>
-<header>
+<head>
 	<meta charset="UTF-8">
 	<title>일반유저 myNews</title>
 	<link rel="stylesheet" href="/css/userMyPageMenu.css">
 	<link rel="stylesheet" href="/css/userMyNews.css">
 	<link rel="stylesheet" href="/css/header_footer.css">
 	<script src="https://kit.fontawesome.com/516da99189.js" crossorigin="anonymous"></script>
-</header>
+	<!--<style>
+	        .hidden {
+	            display: none;
+	        }
+	</style>-->
+</head>
+
+
 <body>
 	<!-- header -->
 	<th:block th:replace="~{layout/header::header(loginUser)}"></th:block>
@@ -21,29 +28,57 @@
 				<div>
 					<div>
 						<h3>내소식</h3>
-						<span>총 ?건</span>
-						<p>※결제 알림은 마케팅 알림 수신 동의 여부와 관계없이 발송됩니다.</p>						
+						<span>총 기부[[${UserDonate}]] / 펀딩[[${UserFunding}]] 건</span>
+						<p>※최근 기부/펀딩 내역이 표시됩니다</p>
+						<div id="done_fund_btn">
+						<input type="button" id="Dona_btn" value="기부목록">
+						<input type="button" id="Fund_btn" value="펀딩목록">
+						</div>
+						<div id="shipStateBtn">
+						<input type="button" id="shipState_btn" value="배송목록보기">
+						</div>
 					</div>
 				</div>
 				<div>
-					<div>
-						<span>해피빈 마케팅 정보 수신에 동의하였습니다.</span>
-						<p>닉네임 | 2024.05.14</p>
+					
+					<div class="Dona_List" th:if="${not #lists.isEmpty(Donation_List)}" th:each="donationItem : ${Donation_List}">
+						<a id="Dona_Red">[기부활동]</a><span th:text="${donationItem}">Donation List Name</span>
+						<p id="Name_Time">[[${DoneUserName}]] &nbsp; [[${DoneTime}]]</p>
 					</div>
-					<div>
-						<span>해피빈 마케팅 정보 수신에 동의하였습니다.</span>
-						<p>닉네임 | 위에 DB날짜 그대로 가져오기</p>
+					<div class="Fund_List" th:if="${not #lists.isEmpty(Funding_List)}" th:each="fundingItem : ${Funding_List}">
+						<a id="Fund_Blue">[펀딩활동]</a><span th:text="${fundingItem}">Funding List Name</span>
+						<p>[[${FundUserName}]] &nbsp; [[${FundTime}]]</p>
 					</div>
-					<div>
-						<span>해피빈 마케팅 정보 수신에 동의하였습니다.</span>
-						<p>닉네임 | 위에 DB날짜 그대로 가져오기</p>
+				<!--최초 첫div 만 script가 적용되는 이수가 있었지만 div의 id를 class로 바꿔주어 해결함 / id값이 겹치면 안되는 부분을 까먹음-->	
+					
+					
+					<div th:if="${#lists.isEmpty(Donation_List) and #lists.isEmpty(Funding_List)}">
+						<p>내역이 존재하지 않습니다.</p>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	
+
 	<!-- footer -->
 	<th:block th:replace="~{layout/footer::footer()}"></th:block>
 </body>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+       
+	$(document).ready(function(){
+	
+	           $("#Dona_btn").on("click", function(){
+	               $(".Fund_List").attr("style", "display : none");
+	               $(".Dona_List").removeAttr("style");
+	           });
+	
+	           $("#Fund_btn").on("click", function(){
+				$(".Dona_List").attr("style", "display : none");
+				$(".Fund_List").removeAttr("style");
+	           });
+			});
+	       
+   </script>
+
 </html>

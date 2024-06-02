@@ -243,6 +243,7 @@
 					let saveMoney = item.fboard.saveMoney;
 					let fundingDDay = item.fundingDDay;
 					let percentage = item.percentage.toFixed(1); // 소수점 1자리까지 표시
+					let percentageBar = item.percentageBar;
 					let orgname = item.orgname;
 					let systemname = item.systemname;
 					str += `<div id="funding${index}" class="funding">`
@@ -262,7 +263,7 @@
 					str += '</div>'
 					str += '<div class="funding_chart">'
 					str += `<p id="funding_save_money_percent${index}" class="funding_save_money_percent">${percentage}%</p>`
-					str += '<div class="funding_chart-bar" style="background: conic-gradient(rgb(231, 112, 151) 200deg, rgb(200, 200, 200) 200deg);"></div>'
+					str += `<div class="funding_chart-bar" style="background: conic-gradient(rgb(231, 112, 151) ${percentageBar}deg, rgb(200, 200, 200) ${percentageBar}deg);"></div>`
 					str += '</div>'
 					str += '</div>'
 					str += '</div>'

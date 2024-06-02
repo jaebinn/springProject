@@ -78,7 +78,7 @@ public class DonationController {
 			// 파일의 systemname 가져오기
 			List<String> systemnameList = fservice.getSystemnameByBoardnum(dBoard.getDBoardnum() + "");
 			if (systemnameList != null && !systemnameList.isEmpty()) {
-				String systemname = src + systemnameList.get(1);
+				String systemname = src + systemnameList.get(0);
 				//System.out.println("파일이름: " + systemname);
 				resultList.add(new DBoardWithOrgNameDTO(dBoard, orgname, systemname));
 			} else {
@@ -93,7 +93,7 @@ public class DonationController {
 			String boardtitle = dbservice.getDonation(rboardnum).getDTitle();
 			List<String> systemnameList = fservice.getSystemnameByBoardnum(rboardnum + "");
 			if (systemnameList != null && !systemnameList.isEmpty()) {
-				String systemname = src + systemnameList.get(1);
+				String systemname = src + systemnameList.get(0);
 				Map<String, Object> reviewDetail = new HashMap<>();
 		        reviewDetail.put("review", review);
 		        reviewDetail.put("boardtitle", boardtitle);
@@ -106,7 +106,6 @@ public class DonationController {
 		int todayCost = pservice.getTodayDonationCost(); 
 		//오늘날 기부한 사람들 
 		int todayDonationPeople = pservice.getTodayDonationPeople();
-		System.out.println(reviewWithTitle);
 		
 		/* List<FileDTO> dfile = fservice.getFileByTypeisD(); */
 		model.addAttribute("list", resultList);
@@ -224,7 +223,7 @@ public class DonationController {
                 // 파일의 systemname 가져오기
                 List<String> systemnameList = fservice.getSystemnameByBoardnum(dBoard.getDBoardnum()+"");
                 if (systemnameList != null && !systemnameList.isEmpty()) {
-                    String systemname = src + systemnameList.get(1); 
+                    String systemname = src + systemnameList.get(0); 
                     System.out.println("파일이름: "+systemname);
                     resultList.add(new DBoardWithOrgNameDTO(dBoard, orgname, systemname));
                 } else {
@@ -240,7 +239,7 @@ public class DonationController {
                 String orgname = oservice.getOrgnameByOrgid(dBoard.getOrgid());
                 List<String> systemnameList = fservice.getSystemnameByBoardnum(dBoard.getDBoardnum()+"");
                 if (systemnameList != null && !systemnameList.isEmpty()) {
-                    String systemname = src + systemnameList.get(1); 
+                    String systemname = src + systemnameList.get(0); 
                     System.out.println("파일이름: "+systemname);
                     resultList.add(new DBoardWithOrgNameDTO(dBoard, orgname, systemname));
                 } else {

@@ -1,5 +1,6 @@
 let resultid = document.querySelector("#id_check");
 let resultNick = document.querySelector("#nickname_check");
+let resultunq = document.querySelector("#unq_check");
 
 function sendit(){
     const orgjoinForm = document.orgjoinForm;
@@ -118,7 +119,7 @@ function sendit(){
     orgjoinForm.submit();
 }
 
-
+      
 function checkId(){
    const xhr = new XMLHttpRequest();
    const orgid = document.orgjoinForm.orgid;
@@ -159,9 +160,8 @@ function checkId(){
    xhr.send();
 }
 
-
 function pwcheck() {
-    const orgpw = document.orgjoinForm.orgpw;
+   const orgpw = document.orgjoinForm.orgpw;
    const orgpw_re = document.orgjoinForm.orgpw_re;
    const pw_checkText = document.querySelector("#pw_checkText");
    const reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[~?!@-]).{4,}$/;
@@ -271,4 +271,38 @@ function findAddr() {
         }
     }).open();
     }
-             
+document.getElementById('checkunqnum').addEventListener('click', function() {
+	   const xhr = new XMLHttpRequest();
+	   const orgunqnum = document.orgjoinForm.orgunqnum;
+	   if(orgunqnum.value == ""){
+	      alert("고유번호를 입력하세요!");
+	      orgunqnum.focus();
+	      return;
+	   }
+	   if (!/^\d{10}$/.test(orgunqnum.value)) {
+	         alert('고유번호는 10자리 숫자여야 합니다.');
+	         orgunqnum.focus();
+	         return;
+	    }
+	   // AJAX 통신
+	   xhr.onreadystatechange = function(){
+	      if(xhr.readyState == 4){
+	         if(xhr.status == 200){
+	            let txt = xhr.responseText.trim();
+	            if(txt == "O"){
+	               resultunq.classList.add("visible");
+	               resultunq.style.color = "rgb(79,148,111)";
+	               resultunq.innerHTML = "사용할 수 있는 고유번호입니다!";
+	            }
+	            else{
+	               resultunq.classList.add("visible");
+	               resultunq.style.color = "red";
+	               resultunq.innerHTML = "중복된 고유번호가 있습니다!";
+	            }
+	         }
+	      }
+	   }
+	   
+	   xhr.open("GET","/org/checkunqnumber?orgunqnum="+orgunqnum.value);
+	   xhr.send();
+	});                      

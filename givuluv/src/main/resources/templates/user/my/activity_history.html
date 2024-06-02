@@ -19,81 +19,69 @@
 		<!-- 오른쪽 내용 -->
 		<div class="left_div">
 			<h2>활동내역</h2>
-			<div class="button_div">
-				<input type="button" value="게시글 내역">
-				<input type="button" value="기부 내역">
-				<input type="button" value="펀딩 내역">
-				<input type="button" value="가게 내역">
-			</div>
+			<!--<div class="button_div">
+				페이지 이동???
+				<a href="#"><input type="button" value="게시글 내역"></a>
+				<a href="#"><input type="button" value="기부 내역"></a>
+				<a href="#"><input type="button" value="펀딩 내역"></a>
+				<a href="#"><input type="button" value="가게 내역"></a>
+			</div>-->
 			<div class="search_div">
-				<input type="text" placeholder="검색어를 입력하세요">
-				<input type="button" value="검색">
+			<form name="searchForm" id="searchForm" action="/user/search" method="post">
+				<input type="search" id="keyword" name="keyword" placeholder="검색어를 입력하세요">
+				<input type="button" value="검색" id="search_btn" onclick="search()">
+			</form>
 			</div>
 			<div class="contents_div">
-				<div class="contents">
-					<img src="/images/pig.png">
+				<!--history에 최초로 들어 왔을떄 뜨는 List-->
+				<div class="contents Dona_List" id="Dona_content" th:if="${not #lists.isEmpty(Donation_List)}" th:each="donationItem : ${Donation_List}">
+					<img th:src="@{/images/{d_systemnameItem}(d_systemnameItem=${d_systemname[4]})}">
 					<div>
-						<p>지하철 택배기사 남규에게 여름 여행을 선물해주세요.</p>
-						<p>청소년행복제단</p>
+						[기부]<p th:text="${donationItem}"></p>
+						
+						<!--<p>[[${DoneUserName}]]</p>-->
 					</div>
 				</div>
-				<div class="contents">
-					<img src="/images/pig.png">
+				<div class="contents Fund_List" id="Fund_content" th:if="${not #lists.isEmpty(Funding_List)}" th:each="fundingItem : ${Funding_List}">
+					<img th:src="@{/images/{f_systemnameItem}(f_systemnameItem=${f_systemname[0]})}">
 					<div>
-						<p>지하철 택배기사 남규에게 여름 여행을 선물해주세요.</p>
-						<p>청소년행복제단</p>
+						[펀드]<p th:text="${fundingItem}"></p>
+						
+						<!--<p>[[${FundUserName}]]</p>-->
 					</div>
 				</div>
-				<div class="contents">
-					<img src="/images/pig.png">
+				<!--=================================-->
+				<!--사용자가 search를 행했을때 뜨는 list -->
+				<!--기부 리스트-->
+				<div class="contents" id="d_request" th:if="${not #lists.isEmpty(d_boardtitle)}" th:each="d_boardtitleItem : ${d_boardtitle}">
+					
+					<img th:src="@{/images/{d_systemnameItem}(d_systemnameItem=${d_systemname[0]})}">
 					<div>
-						<p>지하철 택배기사 남규에게 여름 여행을 선물해주세요.</p>
-						<p>청소년행복제단</p>
+						[기부]<p  th:text="${d_boardtitleItem}"></p>
+						
+						<!--<p  th:text="${d_boardOrgid}"></p>-->
 					</div>
 				</div>
-				<div class="contents">
-					<img src="/images/pig.png">
-					<div>
-						<p>지하철 택배기사 남규에게 여름 여행을 선물해주세요.</p>
-						<p>청소년행복제단</p>
-					</div>
-				</div>
-				<div class="contents">
-					<img src="/images/pig.png">
-					<div>
-						<p>지하철 택배기사 남규에게 여름 여행을 선물해주세요.</p>
-						<p>청소년행복제단</p>
-					</div>
-				</div>
-				<div class="contents">
-					<img src="/images/pig.png">
-					<div>
-						<p>지하철 택배기사 남규에게 여름 여행을 선물해주세요.</p>
-						<p>청소년행복제단</p>
-					</div>
-				</div>
-				<div class="contents">
-					<img src="/images/pig.png">
-					<div>
-						<p>지하철 택배기사 남규에게 여름 여행을 선물해주세요.</p>
-						<p>청소년행복제단</p>
-					</div>
-				</div>
-				<div class="contents">
-					<img src="/images/pig.png">
-					<div>
-						<p>지하철 택배기사 남규에게 여름 여행을 선물해주세요.</p>
-						<p>청소년행복제단</p>
-					</div>
-				</div>
-				<div class="contents">
-					<img src="/images/pig.png">
-					<div>
-						<p>지하철 택배기사 남규에게 여름 여행을 선물해주세요.</p>
-						<p>청소년행복제단</p>
-					</div>
-				</div>
+				<!--====================-->
 				
+				<!--펀드 리스트-->
+				<div class="contents" id="f_request" th:if="${not #lists.isEmpty(f_boardtitle)}" th:each="f_boardtitleItem : ${f_boardtitle}">
+					
+					<img th:src="@{/images/{f_systemnameItem}(f_systemnameItem=${f_systemname[0]})}">
+					<div>
+						[펀드]<p th:text="${f_boardtitleItem}"></p>
+						
+						<!--<p th:each="f_boardOrgidItem : ${f_boardOrgid}" th:text="${f_boardOrgidItem}"></p>-->
+					</div>
+				</div>
+				<!--========================-->
+				<!--========================================-->
+				
+				<!--<div th:if="${#lists.isEmpty(Donation_List) and #lists.isEmpty(Funding_List)}">
+					<p>내역이 존재하지 않습니다.</p>
+				</div>-->
+				
+				<!--1page => 총 n개 -->
 				
 			</div>
 		</div>
@@ -102,4 +90,30 @@
 	<!-- footer -->
 	<th:block th:replace="~{layout/footer::footer()}"></th:block>
 </body>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<script>
+	function search(){
+		const keyword = document.getElementById("keyword")
+		
+		if(keyword.value == ""){
+			alert("검색어를 입력해주세요")
+			focus.keyword
+		}
+		else{
+		$(".Dona_List").attr("style", "display : none");
+		$(".Fund_List").attr("style", "display : none");
+			
+			
+		searchForm.submit();
+		$(".Dona_List").attr("style", "display : none");
+		$(".Fund_List").attr("style", "display : none");
+		
+		}
+		
+	}
+	
+	
+</script>
+
 </html>

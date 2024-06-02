@@ -128,27 +128,29 @@ public class FBoardServiceImpl implements FBoardService{
 	        List<Integer> targetMoneyList = bmapper.getTargetMoneyByFBoardnum(fboard.getFBoardnum());
 	        List<Integer> saveMoneyList = bmapper.getSaveMoneyByFBoardnum(fboard.getFBoardnum());
 	        List<Double> percentageList = new ArrayList<>();
-
+	        List<Double> percentageBarList = new ArrayList<>();
+	        
 	        for (int i = 0; i < targetMoneyList.size(); i++) {
 	            int targetMoney = targetMoneyList.get(i);
 	            int saveMoney = saveMoneyList.get(i);
 	            double percentage = 0.0;
-
+	            double percentageBar = 0.0;
 	            if (targetMoney > 0) {
 	                percentage = (double) saveMoney / targetMoney * 100;
 	                percentage = Math.round(percentage * 10.0) / 10.0;
-
+	                percentageBar = (percentage*360) / 100.0;
+	                
 	            }
-
+	            percentageBarList.add(percentageBar);
 	            percentageList.add(percentage);
 	        }
-	        
 	        
 	        Map<String, Object> map = new HashMap<>();
 	        map.put("fboard", fboard);
 	        map.put("systemname", systemname);
 	        map.put("fundingDDay", fundingDDay);
 	        map.put("percentage", percentageList.get(0));
+	        map.put("percentageBar", percentageBarList.get(0));
 	        map.put("orgname",orgname.get(0));
 
 	        result.add(map);
@@ -307,30 +309,30 @@ public class FBoardServiceImpl implements FBoardService{
 	        List<Integer> targetMoneyList = bmapper.getTargetMoneyByFBoardnum(fboard.getFBoardnum());
 	        List<Integer> saveMoneyList = bmapper.getSaveMoneyByFBoardnum(fboard.getFBoardnum());
 	        List<Double> percentageList = new ArrayList<>();
+	        
 
 	        for (int i = 0; i < targetMoneyList.size(); i++) {
 	            int targetMoney = targetMoneyList.get(i);
 	            int saveMoney = saveMoneyList.get(i);
 	            double percentage = 0;
+	            double percentageBar = 0;
 
 	            if (targetMoney > 0) {
 	                percentage = (double) saveMoney / targetMoney * 100;
 	                percentage = Math.round(percentage * 10.0) / 10.0;
+	                
 	            }
-	            System.out.println("퍼센트: "+percentage);
 	            percentageList.add(percentage);
+	            
 	        }
-	        
 	        Map<String, Object> map = new HashMap<>();
 	        map.put("fboard", fboard);
 	        map.put("systemname", systemname);
 	        map.put("fundingDDay", fundingDDay);
 	        map.put("percentage", percentageList.get(0));
 	        map.put("orgname",orgname.get(0));
-
 	        result.add(map);
 	    }
-	    System.out.println(result);
 	    return result;
 	}
 

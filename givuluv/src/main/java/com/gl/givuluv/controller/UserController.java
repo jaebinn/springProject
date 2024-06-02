@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.gl.givuluv.domain.dto.Criteria;
 import com.gl.givuluv.domain.dto.UserDTO;
 import com.gl.givuluv.service.DBoardService;
 import com.gl.givuluv.service.MailSendService;
@@ -287,4 +288,124 @@ public class UserController {
 		// 영수증을 다운로드 할 수 있는 페이지
 		return "/user/my/electronic_receipt";
     }
+//  유저 정보를 수정하는 수정페이지 
+	@GetMapping("my/modify_userinfo")
+	public String my_modify_userinfo(HttpServletRequest req, Model model) {
+		HttpSession session = req.getSession();
+		String loginUser = (String) session.getAttribute("loginUser");
+
+		UserDTO userid = service.getUserById(loginUser);
+		String UserNickName = service.getUserNickNameById(userid);
+		String UserName = service.getUserNameById(userid);
+		String UserEmail = service.getUserEmailById(userid);
+		String UserPhone = service.getUserPhoneById(userid);
+
+		model.addAttribute("NickName", UserNickName);
+		model.addAttribute("UserName", UserName);
+		model.addAttribute("UserEmail", UserEmail);
+		model.addAttribute("UserPhone", UserPhone);
+		return "/user/my/modify_userinfo";
+	}
+
+	@PostMapping("modify")
+	public String modify(UserDTO user, HttpServletRequest req) {
+		// 회원정보 업데이트(수정)
+		HttpSession session = req.getSession();
+		String loginUser = (String) session.getAttribute("loginUser");
+
+		System.out.println("세션의 userid값 :: " + loginUser);
+		System.out.println("입력된 이름 :: " + user.getUsername());
+		System.out.println("입력된 이메일 :: " + user.getEmail());
+		System.out.println("입력된 닉네임 :: " + user.getNickname());
+		System.out.println("입력된 전화번호 ::" + user.getUserphone());
+
+		System.out.println();
+
+		if (service.UpdateUserInfo(user, loginUser)) {
+			System.out.println("업데이트 성공");
+		} else {
+			System.out.println("업데이트 실패");
+		}
+
+		return "redirect:my/home";
+	}
+
+
+
+	@PostMapping("search")
+	public String search(UserDTO keyword, Model model, HttpServletRequest req, Criteria cri) {
+		String src = "/summernoteImage/";
+		   HttpSession session = req.getSession(); String loginUser = (String)
+		  session.getAttribute("loginUser");
+		  
+		  UserDTO userid = service.getUserById(loginUser); // 키워드로 select한 결과를 리스트에 담아옴
+		  List<String> d_keyword_re = service.getd_keyword_reBykeyword(keyword); 
+//		  System.out.println("1. d_keyword_re :: "+d_keyword_re);
+		  
+		  if(d_keyword_re.isEmpty()) {
+//			  System.out.println("첫번째 if들어옴(d_board에 keyword가 없음)");
+//			  System.out.println("해당하는 기부 게시글이 없음 ");
+			  List<String> f_keyword_re = service.getf_keyword_reBykeyword(keyword);
+//			  System.out.println("f_keyword_re :: "+f_keyword_re);
+			  
+			  if(f_keyword_re.isEmpty()) {
+//				  System.out.println("해당하는 펀드 게시글이 없음");
+//				  System.out.println("두번째 if문 들어옴(f_board에 keyword가 없음) ");
+				  return"user/my/activity_history";
+			  }
+			  else {
+//				  System.out.println("f_board에 keyword가 있음 (f_board의 else시작)");
+				  List<String> F_boardNum = service.getF_boardNumByKeyword_re(userid);
+//				  System.out.println("F_boardNum :: "+F_boardNum);
+//				  게시판 번호로 펀딩 보드 제목을 불러옴
+				  List<String> F_boardTitle = service.getF_boardTitleByNum(F_boardNum);
+//				  System.out.println("F_boardTitle :: "+F_boardTitle);
+				  List<String> F_boardOrgid = service.getF_boardOrgidBynum(F_boardNum);
+//				  System.out.println("F_boardOrgid :: "+F_boardOrgid);
+				  List<String> f_systemName = service.getF_boardNumBynum(F_boardNum);
+//				  System.out.println("f_systemName :: "+f_systemName);
+				  
+				  model.addAttribute("f_systemname", f_systemName);
+				  model.addAttribute("f_boardnum", F_boardNum);
+				  model.addAttribute("f_boardtitle", F_boardTitle);
+				  
+				  model.addAttribute("f_boardOrgid", F_boardOrgid);
+//				  System.out.println("View딴으로 model전달됨");
+				  return "user/my/activity_history";
+				 
+			  }
+			  
+		  }
+		  else {
+//			  System.out.println("d_board에 keyword가 있음 (d_board의 else시작)");
+			  List<String> d_boardNum = service.getD_boardNumByKeyword_re(d_keyword_re);
+//			  System.out.println("d_boardNum :: "+d_boardNum);
+			  List<String> d_boardTitle = service.getD_boardTitleBynum(d_boardNum);
+//			  System.out.println("d_boardTitle :: "+d_boardTitle);
+			  List<String> d_boardOrgid = service.getD_boardOrgidBynum(d_boardNum);
+//			  System.out.println("d_boardOrgid :: "+d_boardOrgid);
+			  List<String> d_systemName = service.getSystemNameByBoardNum(d_boardNum);
+//			  System.out.println("d_systemName :: "+d_systemName);
+			  model.addAttribute("d_boardnum", d_boardNum);
+			  model.addAttribute("keyword_re_list", d_keyword_re);
+			  model.addAttribute("d_boardtitle", d_boardTitle);
+			  model.addAttribute("d_boardOrgid", d_boardOrgid);
+			  model.addAttribute("d_systemname", d_systemName);
+//			  System.out.println("View딴으로 model전달됨");
+			  return "user/my/activity_history";
+		  }
+		  
+//		
+		
+	}
+
+	// 커밋테스트
+
+
+
+    
+    
 }
+
+    
+
