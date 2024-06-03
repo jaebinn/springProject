@@ -15,11 +15,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.gl.givuluv.domain.dto.FileDTO;
+import com.gl.givuluv.domain.dto.LikeDTO;
 import com.gl.givuluv.domain.dto.ProductDTO;
 import com.gl.givuluv.domain.dto.SBoardDTO;
 import com.gl.givuluv.domain.dto.StoreDTO;
 import com.gl.givuluv.mapper.BoardMapper;
 import com.gl.givuluv.mapper.FileMapper;
+import com.gl.givuluv.mapper.LikeMapper;
 import com.gl.givuluv.mapper.ProductMapper;
 import com.gl.givuluv.mapper.StoreMapper;
 
@@ -38,7 +40,11 @@ public class StoreServiceImpl implements StoreService {
 	@Autowired
 	private ProductMapper pmapper;
 	
-	@Autowired FileMapper fmapper;
+	@Autowired 
+	private FileMapper fmapper;
+	
+	@Autowired
+	private LikeMapper lmapper;
 	
 
 	@Override
@@ -115,4 +121,22 @@ public class StoreServiceImpl implements StoreService {
 	public String getStoreName(int snum) {
 		return smapper.getStoreName(snum);
 	}
+	
+	//MDM
+		@Override
+		public boolean insertLikeSBoard(LikeDTO likedto) {
+			return lmapper.insertLike(likedto) == 1;
+		}
+		
+		//MDM
+		@Override
+		public boolean deleteLikeSBoard(int sboardnum, String userid) {
+			return lmapper.deleteSLike(sboardnum, userid);
+		}
+		
+		//MDM
+		@Override
+		public LikeDTO getSBoardLike(int connectid, String loginUser) {
+			return lmapper.getSBoardLike(connectid, loginUser);
+		}
 }

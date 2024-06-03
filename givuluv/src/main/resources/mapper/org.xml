@@ -28,6 +28,9 @@
 	<select id="checkUnqnumber">
 		select count(*) > 0 from org where orgunqnum=#{orgunqnum}
 	</select>
+	<select id="checkPw">
+		select * from org where orgpw=#{orgpw}
+	</select>
 	<update id="updateOrg">
 		
 	</update>

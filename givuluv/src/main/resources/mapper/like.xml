@@ -20,4 +20,23 @@
 		from `like`
 		where likenum=#{likenum}
 	</delete>
+	
+	<!--MDM-->
+	<delete id="deleteSLike">
+		delete
+		from `like`
+		where connectid=#{sboardnum} and type='s' and userid=#{userid}
+	</delete>
+	
+	<!--MDM-->
+	<select id="getSBoardLike">
+		select *
+		from `like`
+		where connectid=#{connectid} and type='s' and userid=#{loginUser}
+	</select>
+	<delete id="deleteByLikeDTO">
+      delete
+      from `like`
+      where connectid=#{connectid} and type=#{type} and userid=#{userid}
+   </delete>
 </mapper>

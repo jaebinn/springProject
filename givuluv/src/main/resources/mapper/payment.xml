@@ -68,4 +68,24 @@
 	<select id="getOrgnameByOrgid">
 		select o.orgname from f_payment p join org o on p.orgid = o.orgid = p.orgid=#{ordig} order by paymentnum desc limit 1
 	</select>
+	
+	<insert id="insertSPayment">
+		insert into s_payment(userid, sellerid, s_boardnum, s_cost, amount, productnum, reqetc) 
+		values(#{userid},#{sellerid},#{SBoardnum},#{SCost},#{amount},#{productnum},#{reqetc})
+	</insert>
+	<select id="getLastSPaymentById">
+		select * from s_payment where userid=#{userid} order by paymentnum desc limit 1;
+	</select>
+	<select id="getSPaymentByPaymentnum">
+		select * from s_payment where paymentnum = #{paymentnum}
+	</select>
+	<select id="getUserBySPaymentnum">
+		select u.* from s_payment p join user u on p.userid = u.userid where paymentnum=#{paymentnum}
+	</select>
+	<select id="getSBoardBySBoardnum">
+		select * from s_board where s_boardnum = #{sBoardnum}
+	</select>
+	<select id="getSProductByProductnum">
+		select pr.* from s_payment p join product pr on p.productnum = pr.productnum where p.productnum=#{productnum} order by paymentnum desc limit 1;
+	</select>
 </mapper>

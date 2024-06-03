@@ -28,7 +28,8 @@
 					<input type="button" id="verificationBtn" value="본인인증">	
 				</div>
 			</div>
-			<p id="verificationTxt"></p>			
+			<p id="verificationTxt"></p>
+			<p id="countdown"></p>
 			<input type="button" name="userBtn" id="userBtn" value="아이디찾기" onclick="sendit()">						
 		</form>
 														
@@ -94,7 +95,7 @@
 		    return;
 		}
 		if(nicknametxt.html() === "없는 닉네임입니다."){
-		    alert("넥네임 확인 통과 후 아이디 찾기가 가능합니다!");
+		    alert("닉네임 확인 통과 후 아이디 찾기가 가능합니다!");
 		    nickname.focus();
 		    return;
 		}
@@ -111,11 +112,12 @@
 	    $.ajax({
 	        type: 'get',
 	        url: '/user/mailCheck',
-	        data: {nickname:nickname, email: email,}, // 데이터를 객체로 전달
-	        success: function(data) {
-	            console.log("data : " +  data);
+	        data: {nickname:nickname, email: email}, // 데이터를 객체로 전달
+	        success: function(response) {
+	            console.log("data : " +  response);
 	            checkInput.attr('disabled', false);
-	            code = data;
+	            code = response.authCode;
+	            validityPeriod = response.validityPeriod;
 	            alert('인증번호가 전송되었습니다.');
 				$('.emailBox #email').hide();
 				$('#verificationNum').show().css({
@@ -126,7 +128,8 @@
 					'font-size': '18px',
 				});
 						
-				$('#verificationBtn').val("인증 재전송")
+				$('#verificationBtn').val("인증 재전송");
+				startCountdown(validityPeriod);
 	        },
 	        error: function(xhr, status, error) {
 				if (xhr.status === 404) { // 예를 들어 404 에러인 경우
@@ -138,6 +141,27 @@
 	    }); 
 	});
 	
+	function startCountdown(duration) {
+	    var timer = duration, minutes, seconds;
+	    var countdownElement = $("#countdown");
+
+	    var countdownInterval = setInterval(function () {
+	        minutes = parseInt(timer / 60, 10);
+	        seconds = parseInt(timer % 60, 10);
+
+	        minutes = minutes < 10 ? "0" + minutes : minutes;
+	        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+	        countdownElement.text("유효 시간: " + minutes + ":" + seconds);
+			countdownElement.css("color","red");
+
+	        if (--timer < 0) {
+	            clearInterval(countdownInterval);
+	            countdownElement.text("인증번호가 만료되었습니다.");
+	        }
+	    }, 1000);
+	}
+
 	$("#verificationNum").blur(function(){
 		const inputCode = $(this).val();
 		const resultMsg = $('#verificationTxt');
@@ -155,7 +179,8 @@
 			$('#verificationNum').val('');
 			$('#verificationNum').focus();
 		}
-	})
+	});
+	
 	function checkNickname(){
 		const xhr = new XMLHttpRequest();
 		const nicknametxt = $('#nickname_check');

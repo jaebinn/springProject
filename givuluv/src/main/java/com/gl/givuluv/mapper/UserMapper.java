@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.gl.givuluv.domain.dto.FollowDTO;
+import com.gl.givuluv.domain.dto.SPaymentDTO;
 import com.gl.givuluv.domain.dto.UserDTO;
 
 @Mapper
@@ -96,5 +97,17 @@ public interface UserMapper {
 	List<String> getf_keyword_reBykeyword(UserDTO keyword);
 	
 	List<String> getSystemNameByUserid(UserDTO userid);
+	
+	void updateBonus(String userid, int bonus);
+	
+	boolean giveBonus(SPaymentDTO s_payment);
+	
+	UserDTO getUserInfo(UserDTO userid);
+	//  유저와 단체 follow 삽입
+	int insertFollow(FollowDTO follow);
+	  
+	//  유저의 카테고리
+	String getUserCategoryById(String userid);
+
 
 }

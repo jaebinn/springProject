@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.gl.givuluv.domain.dto.FPaymentDTO;
 import com.gl.givuluv.domain.dto.ProductDTO;
+import com.gl.givuluv.domain.dto.SPaymentDTO;
 
 @Mapper
 public interface ProductMapper {
@@ -36,7 +37,17 @@ public interface ProductMapper {
 
 	List<ProductDTO> getProductByConnectid(int fBoardnum);
 	
-	//MDM수정
+	// MDM수정
 	int[] getMConnectid();
+
 	int[] getMConnectidByCategory(String category);
+
+	// MDM
+	boolean decreaseAmount(SPaymentDTO s_payment);
+
+	// MDM
+	int getProductnumBySBoardnum(int sBoardnum);
+
+	// MDM
+	int getSProductnumByNameAndConnectid(String productname, int sBoardnum);
 }

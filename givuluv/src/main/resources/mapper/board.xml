@@ -195,8 +195,33 @@
 		where c_boardnum=#{cBoardnum} 
 	</select>
 	
-	
-	
+	<select id="getSboardByProductnum">
+      select * from s_board where s_boardnum = 
+	  (select connectid from product where productnum = #{productnum})
+    </select>  
+	<select id="getCampaignListByCategories">
+          select * from c_board
+          where (type = 'O'
+           and connectid in
+           <foreach item="category" index="index" collection="categoryList" open="(" separator="," close=")">
+               (select orgid from org where orgcategory=#{category})
+           </foreach>
+          or type = 'M')
+          <![CDATA[ 
+          and c_boardnum <= #{cBoardnum}
+          ]]>
+          order by c_boardnum desc
+          limit #{amount}
+   </select>
+   <select id="getCampaignList">
+      select * from c_board
+      <![CDATA[ 
+      where c_boardnum <= #{boardlastnum}
+      ]]>
+      order by c_boardnum desc
+      limit #{amount}
+   </select>
+
 	
 	
 	

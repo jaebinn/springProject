@@ -90,7 +90,7 @@
 											<input type="file" name="files" id="file" style="display:none">
 											<span id="filename">로고 사진을 업로드하세요.</span>
 										</div>
-										<div>
+										<div id="fileBtn">
 											<a class="btn" href="javascript:upload()">파일 선택</a>
 											<a class="btn" href="javascript:cancelFile()">첨부 삭제</a>
 										</div>
@@ -207,6 +207,7 @@
 					const img = document.createElement("img");
 					img.setAttribute("src",ie.target.result);
 					img.setAttribute("class","thumbnail");
+					img.setAttribute("style","max-width:300px; margin:10px");
 					document.querySelector("."+fileTag.id+"_cont").appendChild(img);
 				}
 				reader.readAsDataURL(file);

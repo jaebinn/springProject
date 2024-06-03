@@ -24,4 +24,15 @@
 	<select id="getStoreBySBoardnum">
 		select st.* from s_board s join store st on s.s_num = st.s_num where s.s_boardnum=#{sBoardnum};
 	</select>
+	<select id ="getStoreBySName">
+        select * from store where s_name = #{sName}
+   </select>
+   
+   <update id="updateStore">
+      update store
+      set s_name=#{store.sName}, s_phone=#{store.sPhone}, s_zipcode=#{store.sZipcode},
+      s_addr=#{store.sAddr}, s_addrdetail=#{store.sAddrdetail}, s_addretc=#{store.sAddretc},
+      s_opendate=#{store.sOpendate}, s_leader=#{store.sLeader}
+      where sellerid = #{sellerid};
+   </update>
 </mapper>

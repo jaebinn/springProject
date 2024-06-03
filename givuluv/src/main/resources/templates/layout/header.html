@@ -41,9 +41,11 @@
 						<th:block th:if="${session.loginSeller == null}">
 							<!-- loginOrg가 null일 경우 -->
 							<th:block th:if="${session.loginOrg == null}">
+								<th:block th:if="${session.loginManager == null}">
 								<div class="h_user">
 									<a href="/user/login" class="h_login">로그인</a>
 								</div>
+								</th:block>
 							</th:block>
 						</th:block>
 					</th:block>
@@ -95,6 +97,20 @@
 								<li>									
 									<a class="items" href="/org/register">단체 승인</a>
 								</li>
+								<li>
+									<a class="items logout" href="/user/logout">로그아웃</a>									
+								</li>
+							</ul>
+						</div>
+					</th:block>
+					<th:block th:if="${session.loginManager != null}">
+						<div class="h_user menu">
+							<i class="fa-regular fa-bell bell"></i>
+							<div id="approveCnt">5</div>
+							<a href="#" class="h_login manager" data-toggle="dropdown">
+								[[${session.loginManager}]]
+							</a>
+							<ul class="dropdown-menu">
 								<li>
 									<a class="items logout" href="/user/logout">로그아웃</a>									
 								</li>

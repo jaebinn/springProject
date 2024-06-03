@@ -125,8 +125,10 @@
 								</div>
 			                    <div class="p_info_box">
 			                        <p class="product_price" th:text="${item.product.cost}+원"></p>
+									<!--찜(좋아요) 버튼 만들기-->
 			                        <div class="p_choice_box">
-			                            <input type="button" class="product_choice" onclick=""></input>
+										<input th:if="${item.like == null}" type="button" class="product_choice likeimg1" th:id="'product_choice'+${item.sBoard.sBoardnum}" th:onclick="'likeChoice(' + ${item.sBoard.sBoardnum} + ')'">
+										<input th:unless="${item.like == null}"type="button" class="product_choice likeimg2" th:id="'product_choice'+${item.sBoard.sBoardnum}" th:onclick="'likeChoice(' + ${item.sBoard.sBoardnum} + ')'">
 			                        </div>
 			                    </div>
 			                    <a href="${list.sboard.sNum}" id="seller_link" class="storeGet">
@@ -167,7 +169,7 @@
     </a>
 </footer>
 <script src="/js/jquery-3.7.1.min.js"></script>
-<script>
+<script th:inline="javascript">
 	$('.h_logout').on('click', function(){
 		alert("로그아웃되었습니다.")
 	})
@@ -235,6 +237,7 @@
 								let slist = item.sboard;
 								let storename = item.storename;
 								let category = item.category;
+								let slike = item.like;
 								
 								let src = '/summernoteImage/';
 								let productFileSrc = item.productFile ? src+item.productFile.systemname : '/images/product.jpg';
@@ -250,6 +253,7 @@
 								let pname = plist.productname;
 								let pnum = plist.productnum;
 								let sboardtit = slist.stitle;
+								let sBoardnum= slist.sboardnum;
 								//console.log(amount);
 								//console.log(pname);
 								//console.log(pnum);
@@ -280,14 +284,17 @@
 								</div>`;
 								
 								
+								let likeInput = slike == null ? `
+								<input type="button" class="product_choice likeimg1" id="product_choice${sBoardnum}" onclick="likeChoice(${sBoardnum})">`:`
+								<input type="button" class="product_choice likeimg2" id="product_choice${sBoardnum}" onclick="likeChoice(${sBoardnum})">`;
+								
 								let categoryItem = `
 								<div class="product_item_box">
 									${soldOutHTML}
 									<div class="p_info_box">
 										<p class="product_price">${plist.cost}<span>원</span></p>
-									
 										<div class="p_choice_box">
-											<input type="button" class="product_choice" onclick=""></input>
+											${likeInput}
 										</div>
 									</div>
 									<a href="${slist.sNum}" id="seller_link" class="storeGet">
@@ -334,5 +341,75 @@
 		    e.preventDefault();
 		    window.scrollTo({top:0, behavior:"smooth"});
 		});
+		
+
+		//like 만들기
+		function likeChoice(sBoardnum) {
+			
+			let loginUser = /*[[${loginUser}]]*/ '';
+			let loginSeller = /*[[${loginSeller}]]*/ '';
+			let loginOrg = /*[[${loginOrg}]]*/ '';
+			let loginManager = /*[[${loginManager}]]*/ '';
+			
+			if (!loginUser) {
+				if(!loginSeller && !loginOrg && !loginManager){
+				    alert("로그인 후 이용해 주세요.");
+					
+				}
+				else{
+				    alert("사용자로 로그인 후 이용해주세요");
+				}
+				
+				const loginUrl = "/user/login";
+				window.location.href = loginUrl; 
+				return;
+			}
+			
+			
+			let like = document.getElementById('product_choice'+sBoardnum);
+			
+			if (like.classList.contains('likeimg1')) {
+				//좋아요 누르면 insert 보내기
+				$.ajax({
+				    url: '/store/likeChoice',
+				    type: 'get',
+				    data: { sBoardnum: sBoardnum },
+				    dataType: 'text',
+				    success: function(data) {
+				        if (data === "O") {
+				            like.classList.remove('likeimg1');
+				            like.classList.add('likeimg2');
+				        } else {
+				            alert("다시시도해주세요.");
+				        }
+				    },
+				    error: function(xhr, status, error) {
+				        console.error('AJAX Error: ', status, error);
+				        console.log(xhr.responseText); // 추가 로그
+				    }
+				});
+			} 
+			else if(like.classList.contains('likeimg2')) {
+				//좋아요 다시 누르면 delete 보내기
+				$.ajax({
+					url: '/store/likeDelete',
+					type: 'get',
+					data: { sBoardnum: sBoardnum },
+					dataType: 'text',
+					success: function(data){
+						if(data == "O"){
+							like.classList.add('likeimg1');
+							like.classList.remove('likeimg2');
+						} else {
+							alert("다시시도해주세요.");
+						}
+					},
+					error: function (xhr, status, error) {
+						console.error('AJAX Error: ', status, error);
+						console.log(xhr.responseText); // 추가 로그
+					}
+				});
+			};
+		}				
 </script>
 </html>

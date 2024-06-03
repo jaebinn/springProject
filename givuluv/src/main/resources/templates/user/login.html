@@ -68,6 +68,24 @@
 	<div class="h_logo">
 		<img src="/images/GivuLuv_logo.png" alt="GivuLuv">
 	</div>
+	<div id="managerArea" style="text-align: center;">
+		<input type="button" value="관리자 로그인" id="managerLogin">
+	</div>
+	<div id="mangerModal" class="modal">
+		<div class="modal-content">
+			<span class="close">&times;</span>
+			<div class="login-input">
+				<h1>GivuLuv [관리자] 로그인</h1>
+				<form action="/manager/login" method="post" name="loginForm">
+					<div class="login-input-wrap">
+						<input type="text" name="managerid" id="managerid" placeholder="아이디"><br>
+						<input type="password" name="managerpw" id="managerpw" placeholder="비밀번호"><br>
+						<button type="submit" id="loginBtn">로그인</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 	<th:block th:if="${joinid != null}">
 		<script th:inline="javascript">
 			window.onload = function () {
@@ -83,10 +101,16 @@
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 	<script th:inline="javascript">
 		document.addEventListener("DOMContentLoaded", function() {
-		            let loginMessage = /*[[${loginMessage != null}]]*/ false;
-		            if (loginMessage) {
-		                alert("로그인 후 이용해주세요");
-		            }
+			// 페이지가 로드될 때 로컬 스토리지에서 저장된 값 읽어오기
+			let selectedLoginMenu = localStorage.getItem("selectedLoginMenu");
+			if (selectedLoginMenu) {
+			     $(selectedLoginMenu).addClass("selected");
+			    }
+			let loginMessage = /*[[${loginMessage != null}]]*/ false;
+			if (loginMessage) {
+				alert("로그인 후 이용해주세요");
+			}
+					
 		        });
 		$(document).ready(function () {
 			$("#loginBtn").on("click", function () {
@@ -145,7 +169,20 @@
 		            $("#userpw, #sellerpw").attr("name", "orgpw").attr("id", "orgpw");
 		         $(".content > h1").text("GivuLuv [사회단체] 로그인");
 		        });
-		
+				//관리자 모달 로그인
+				$('#managerArea').on("click", function(){
+					$('.modal').css("display","block");
+				})
+				$('.close').click(function () {
+						$('.modal').css('display', 'none');
+					});
+
+					// 모달 외부 클릭 시 모달 닫기
+					$(window).click(function (event) {
+						if ($(event.target).is('.modal')) {
+							$('.modal').css('display', 'none');
+						}
+					});
 	</script>
 </body>
 

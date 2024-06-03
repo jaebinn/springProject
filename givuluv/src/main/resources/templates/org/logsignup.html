@@ -50,28 +50,28 @@
                 <div class="lsu_form_content">
                    <div class="lsu_form_row">
                         <div class="lsu_form_col_left">
-                            <label for="orgname" id="orgname" class="lsu_form_checkname">
+                            <label for="orgname" id="org_name" class="lsu_form_checkname">
                                 단체명
                             </label>
                         </div>
                         <div class="lsu_form_col_right">
                             <input id="orgname" class="lsu_form_input_text" placeholder="1~30자 한글, 영문 숫자 사용가능">
                             <p class="lsu_form_input_desc">
-                                고유번호증에 등록된 단체명으로 입력하세요
+                                단체 회원등록 할 때 등록한 단체명으로 입력하세요.
                             </p>
 							<div id="orgname_error" class="lsu_error"></div>
                         </div>
                    </div> 
                    <div class="lsu_form_row">
                         <div class="lsu_form_col_left">
-                            <label for="uniquenumber" class="lsu_form_uniquenum">
+                            <label for="orgunqnum" class="lsu_form_uniquenum">
                                 고유번호
                             </label>
                         </div>
                         <div class="lsu_form_right">
-                            <input id="uniquenumber" class="lsu_form_input_text"
+                            <input id="orgunqnum" class="lsu_form_input_text"
                             placeholder="고유 번호 10자리를 '-'없이 입력">
-                            <button type="button" id="uniquenumberbtn" class="lsu_button_unique">중복확인</button>
+                            <button type="button" id="orgunqnumbtn" class="lsu_button_unique">중복확인</button>
                         </div>
                         <div id="uniquenumber_result"></div>
                    </div>
@@ -98,8 +98,10 @@
                         <div class="lsu_form_col_right">
                             <input id="managername" class="lsu_form_input_text"
                             placeholder="1~15자 한글, 영문 사용가능">
+							<button type="button" id="managernamebtn" class="lsu_button_mname">확인하기</button>
                         </div>
                     </div>
+					<div id="managerNameResult" class="validationResult"></div>
                     <div class="lsu_form_row">
                         <div class="lsu_form_col_left">
                             <label for="managerid" class="isu_form_managerid">
@@ -110,8 +112,10 @@
                             <input id="managerid"
                             class="lsu_form_input_text"
                             placeholder="담당자 아이디를 입력해주세요">
+							<button type="button" id="managerIdbtn" class="lsu_button_mId">확인하기</button>
                         </div>
                     </div>
+					<div id="managerIdResult" class="validationResult"></div>
                     <div class="lsu_form_row">
                         <div class="lsu_form_col_left">
                             <label for="password" class="lsu_form_password">
@@ -121,7 +125,10 @@
                         <div class="lsu_form_col_right">
                             <input type="password" id="password"
                             class="lsu_form_input_text"
-                            placeholder=" 6~10자 영문,숫자 사용가능">
+                            placeholder="설정하신 비밀번호를 입력해주세요.">
+							<p class="lsu_form_input_desc">
+							 단체 회원등록 할 때 등록한 비밀번호를 입력해주세요.
+							</p>
                         </div>
                     </div>
                     <div class="lsu_form_row">
@@ -135,6 +142,7 @@
                             <input type="password" id="passwordcheck"
                             class="lsu_form_input_text"
                             placeholder="설정하신 비밀번호를 입력해주세요.">
+							<button class="lsu_button_pw" onclick="Password()">확인하기</button>
                         </div>
                     </div>
                 </div>
@@ -153,44 +161,6 @@
 	</div>
 </div>    
 </body>
-<script>
-document.getElementById('uniquenumberbtn').addEventListener('click', function() {
-    var uniquenumber = document.getElementById('uniquenumber').value;
-    var resultDiv = document.getElementById('uniquenumber_result');
-
-    // 고유 번호 길이 확인
-    if (uniquenumber.length !== 10) {
-        resultDiv.textContent = '고유 번호는 10자리여야 합니다.';
-        return;
-    }
-
-    // AJAX 요청 생성
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', '/check_uniquenumber', true);
-    xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-
-    // 응답 처리
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-            if (xhr.status === 200) {
-                var response = JSON.parse(xhr.responseText);
-                if (response.exists) {
-                    resultDiv.textContent = '고유 번호가 중복됩니다.';
-                    resultDiv.style.color = 'red';
-                } else {
-                    resultDiv.textContent = '고유 번호를 사용할 수 있습니다.';
-                    resultDiv.style.color = 'green';
-                }
-            } else {
-                resultDiv.textContent = '중복 확인 중 오류가 발생했습니다.';
-                resultDiv.style.color = 'red';
-            }
-        }
-    };
-
-    // 요청 전송
-    xhr.send(JSON.stringify({ uniquenumber: uniquenumber }));
-});
-</script>
-   
+<script src="/js/logsignup.js"></script>
+<script src="/js/jquery-3.7.1.min.js"></script>
 </html>

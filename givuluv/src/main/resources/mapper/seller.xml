@@ -34,4 +34,11 @@
 		join store st on s.sellerid = st.sellerid
 		where st.s_num = #{snum}
    </select>
+   <select id="getSelleridByStorename">
+		select s.sellerid
+		from seller s
+		join store st on s.sellerid = st.sellerid
+		where st.s_name = #{storename}
+   </select>
+   
 </mapper>

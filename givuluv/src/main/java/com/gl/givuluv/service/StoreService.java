@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.gl.givuluv.domain.dto.LikeDTO;
 import com.gl.givuluv.domain.dto.ProductDTO;
 import com.gl.givuluv.domain.dto.SBoardDTO;
 import com.gl.givuluv.domain.dto.StoreDTO;
@@ -19,5 +20,11 @@ public interface StoreService {
 
 	boolean regist(Model model, SBoardDTO sBoard, String sellerId, List<ProductDTO> productList, String filenames, MultipartFile thumbnail) throws Exception;
 	String getStoreName(int snum);
+	
+	boolean insertLikeSBoard(LikeDTO likedto);
+	
+	boolean deleteLikeSBoard(int sboardnum, String userid);
+	
+	LikeDTO getSBoardLike(int connectid, String loginUser);
 	
 }

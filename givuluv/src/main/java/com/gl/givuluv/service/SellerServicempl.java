@@ -1,19 +1,24 @@
 package com.gl.givuluv.service;
 
+import java.io.File;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
-import org.apache.catalina.StoreManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.gl.givuluv.domain.dto.FileDTO;
 import com.gl.givuluv.domain.dto.ProductDTO;
 import com.gl.givuluv.domain.dto.QnaDTO;
 import com.gl.givuluv.domain.dto.ReviewDTO;
 import com.gl.givuluv.domain.dto.SBoardDTO;
 import com.gl.givuluv.domain.dto.SellerDTO;
 import com.gl.givuluv.domain.dto.StoreDTO;
-import com.gl.givuluv.domain.dto.UserDTO;
 import com.gl.givuluv.mapper.BoardMapper;
 import com.gl.givuluv.mapper.FileMapper;
 import com.gl.givuluv.mapper.ProductMapper;
@@ -24,6 +29,8 @@ import com.gl.givuluv.mapper.StoreMapper;
 
 @Service
 public class SellerServicempl implements SellerService{
+	@Value("${file.dir}")
+	private String saveFolder;
 	
 	@Autowired
 	private SellerMapper sellmapper;
@@ -211,5 +218,80 @@ public class SellerServicempl implements SellerService{
 	      
 	      return reviewList;
 	   }
+	   
+	   @Override
+	   public String getSelleridByStorename(String storename) {
+		   return sellmapper.getSelleridByStorename(storename);
+	   }
+	   @Override
+	   public boolean checkSName(String sName) {
+	      return storeMapper.getStoreBySName(sName) == null;
+	   }
 
+	   @Override
+	   public boolean updateStore(StoreDTO store, String sellerid) {
+	      return storeMapper.updateStore(store, sellerid) == 1;
+	   }
+
+	   @Override
+	   public boolean updateStoreBackgroundPicture(MultipartFile[] files, String sellerid) throws Exception {
+	      StoreDTO store = getStoreBySellerid(sellerid);
+	      String s_num = store.getSNum()+"";
+	      
+	      if(files == null || files.length == 0) {
+	         return true;
+	      }
+	      else {
+	         //방금 등록한 게시글 번호
+	         boolean flag = false;
+	         System.out.println("파일 개수 : "+files.length);
+	         
+	         for(int i=0;i<files.length;i++) {
+	            System.out.println("for문 잘 들어옴.");
+	            MultipartFile file = files[i];
+	            System.out.println(file.getOriginalFilename());
+	            
+	            //apple.png
+	            String orgname = file.getOriginalFilename();
+	            //5
+	            int lastIdx = orgname.lastIndexOf(".");
+	            //.png
+	            String extension = orgname.substring(lastIdx);
+	            
+	            LocalDateTime now = LocalDateTime.now();
+	            String time = now.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS"));
+
+	            //20240502162130141랜덤문자열.png
+	            String systemname = time+UUID.randomUUID().toString()+extension;
+	            
+	            //실제 생성될 파일의 경로
+	            //D:/0900_GB_JDS/7_spring/file/20240502162130141랜덤문자열.png
+	            String path = saveFolder+systemname;
+	            
+	            //File DB 저장
+	            FileDTO fdto = new FileDTO();
+	            fdto.setSystemname(systemname);
+	            fdto.setConnectionid(s_num);
+	            fdto.setType('S');
+	            System.out.println("fdto 잘 포장함."+fdto);
+	            
+	            flag = fileMapper.insertThumbnail(fdto) == 1;
+	            System.out.println("DB에 fdto 잘 넣음.");
+	            
+	            //실제 파일 업로드
+	            file.transferTo(new File(path));
+	            System.out.println("실제 파일을 업로드 잘함.");
+	            
+	            if(!flag) {
+	               //업로드했던 파일 삭제, 게시글 데이터 삭제, 파일 data 삭제, ...
+	               System.out.println("flag false:업로드 실패");
+	               return false;
+	            }
+	         }
+	         System.out.println("flag ture:업로드 성공");
+	         return true;
+	      }
+	   }
 }
+
+

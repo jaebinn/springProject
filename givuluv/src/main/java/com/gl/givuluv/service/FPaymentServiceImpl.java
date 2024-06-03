@@ -13,6 +13,7 @@ import com.gl.givuluv.domain.dto.UserDTO;
 import com.gl.givuluv.mapper.BoardMapper;
 import com.gl.givuluv.mapper.PaymentMapper;
 import com.gl.givuluv.mapper.ProductMapper;
+import com.gl.givuluv.mapper.UserMapper;
 
 @Service
 public class FPaymentServiceImpl implements FPaymentService{
@@ -23,6 +24,8 @@ public class FPaymentServiceImpl implements FPaymentService{
 	private BoardMapper fbmapper;
 	@Autowired
 	private ProductMapper prmapper;
+	@Autowired
+	private UserMapper umapper;
 	
 	@Override
 	public int getFundingTotalPeople() {
@@ -38,6 +41,7 @@ public class FPaymentServiceImpl implements FPaymentService{
 		if(pmapper.insertFPayment(payment)) {
 			prmapper.decreaseAmount(payment);
 			fbmapper.updateFSaveMoney(payment.getFBoardnum());
+			umapper.updateBonus(payment.getUserid(), (int)(payment.getFCost()*0.1));
 			return true;
 		}
 		return false;

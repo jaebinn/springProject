@@ -213,6 +213,7 @@
 		if(reviewdetail.val().length == 0){
 			alert("댓글이 비어있습니다!")
 			reviewdetail.focus();
+			return;
 		}
 		reviewService.insert(
 			{"reviewdetail":reviewdetail.val(),"connectid":boardnum,"userid":loginUser},

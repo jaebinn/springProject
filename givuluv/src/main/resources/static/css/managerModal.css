@@ -1,0 +1,155 @@
+/* 관리자 승인창 */
+#menu{
+	position: relative;
+}
+.bell{
+	position: absolute;
+	z-index: 99;
+	top: 3px;
+	left: 70px;
+	font-size: 36px;
+}
+#approveCnt{
+	z-index: 999;
+	position: absolute;
+	top: -3px;
+	left: 80px;
+	max-width: 50px;
+	box-sizing: border-box;
+	background-color: #f4361e;
+	padding: 3px 8px;
+	border-radius: 10px;
+	border: 1px solid rgba(0, 0, 0, .04);
+	color: white;
+}
+
+#managerArea input{
+	padding: 10px 20px;	
+}
+#managerLogin{
+	padding: 10px 20px;
+	border-radius: 5px;
+}
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	overflow: auto;
+}
+
+.modal-content {
+	background-color: #ffffff;
+	text-align: center;
+	margin: 5% auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 25%;
+	height: 850px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.close {
+	color: #aaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+	cursor: pointer;
+}
+.modal-approve{
+	padding: 20px;
+	width: 100%;
+	height: 100%;
+}
+.seller_isApprove{
+	height: 50%;
+}
+.org_isApprove{
+	height: 50%;
+}
+.modal-approve h1{
+	margin-bottom: 20px;
+}
+.approve_menu{
+	display: flex;
+	justify-content: space-around;
+	padding-bottom: 50px;
+}
+
+.approve_menu .sellerApprove,
+.approve_menu .orgApprove{
+	height: 50px;
+    width: 100px;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    line-height: 50px;
+    font-family: 'TTLaundryGothicB';
+    color: rgb(231,112,151);
+    font-size: 15px;
+    border-radius: 10px;
+    box-shadow: 4px 4px 2px rgb(24, 46, 34);
+}
+.approve_menu .sellerApprove:hover,
+.approve_menu .orgApprove:hover
+{
+	font-size: 18px !important;
+	text-shadow: none;
+	background-color: white;
+	color: rgb(231,112,151);
+}
+.approve_menu .selected{
+	background-color: rgb(231,112,151);
+	color: white;
+}
+.approveList{
+	text-align: left;
+}
+.sellerApproveTabContent{
+	display: none;
+}
+.orgApproveTabContent{
+	display: none;
+}
+.sellerList{
+	display: none;
+	padding: 10px 0;
+}
+.orgList{
+	display: none;
+	padding: 10px 0;
+}
+.sellername,
+.orgname{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10px 0;
+}
+.sellername a,
+.orgname a{
+	border: 3px solid rgb(231, 112 , 151);
+	background-color: rgb(231, 112, 151);
+	color: white;
+	padding: 3px 5px;
+	border-radius: 5px;
+	font-size: 14px;
+}
+.sellerList li{
+	
+}
+.approveBtn{
+	text-align: center;
+	padding: 5px 10px;
+	color: rgb(231, 112, 151);
+	font-weight: bold;
+	border: 3px solid rgb(231, 112, 151);
+	cursor: pointer;
+}
+.approveBtn:hover{
+	background-color: rgb(231, 112, 151);
+	color: white;
+}

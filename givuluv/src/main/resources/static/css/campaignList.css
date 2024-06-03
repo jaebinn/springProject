@@ -135,8 +135,7 @@ img {
 	max-width: 630px !important;
 }
 
-.contents p,
-.contents span {
+.contents *{
 	font-family: sans-serif;
 }
 

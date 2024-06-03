@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gl.givuluv.domain.dto.CommentDTO;
 import com.gl.givuluv.domain.dto.CommentPageDTO;
+import com.gl.givuluv.domain.dto.LikeDTO;
 import com.gl.givuluv.service.CommentService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -30,8 +31,7 @@ public class CommentController {
 	private CommentService service;
 
 	@GetMapping("commentList")
-	public ResponseEntity<List<CommentPageDTO>> commentList(int cBoardnum, int commentlastnum,
-			HttpServletRequest req) {
+	public ResponseEntity<List<CommentPageDTO>> commentList(int cBoardnum, int commentlastnum, HttpServletRequest req) {
 		System.out.println("Get : /comment/commentList");
 		HttpSession session = req.getSession();
 		Object loginUser_temp = session.getAttribute("loginUser");
@@ -39,23 +39,20 @@ public class CommentController {
 		return new ResponseEntity<List<CommentPageDTO>>(service.getCommentList(cBoardnum, commentlastnum, loginUser),
 				HttpStatus.OK);
 	}
-	
+
 	@GetMapping("cBoard")
-	public ResponseEntity<Map<String, Object>> getCBoard(int cboardlastnum, HttpServletRequest req){
+	public ResponseEntity<Map<String, Object>> getCBoard(int cboardlastnum, HttpServletRequest req) {
 		System.out.println("Get : /comment/cBoard");
 		HttpSession session = req.getSession();
 		Object loginUser_temp = session.getAttribute("loginUser");
-		if(loginUser_temp != null) {
-			// User	// 카테고리로 board 거르기 + manager 글
-			
-		}
-		else {
+		if (loginUser_temp != null) {
+			// User // 카테고리로 board 거르기 + manager 글
+
+		} else {
 			// User 제외 나머지 // 모든 게시글 보이기
-			
+
 		}
-		
-		
-		
+
 		return new ResponseEntity<Map<String, Object>>(HttpStatus.OK);
 	}
 
@@ -65,7 +62,7 @@ public class CommentController {
 		if (service.commentSpaceCheck(comment.getCommentdetail())) {
 			return new ResponseEntity<CommentDTO>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		//세션 검사
+		// 세션 검사
 		HttpSession session = req.getSession();
 		Object loginUser_temp = session.getAttribute("loginUser");
 		Object loginOrg_temp = session.getAttribute("loginOrg");
@@ -87,9 +84,8 @@ public class CommentController {
 
 		CommentDTO result = service.registComment(comment);
 		System.out.println("댓글 등록 완료 : " + result);
-		return result != null ?
-				new ResponseEntity<CommentDTO>(result, HttpStatus.OK) :
-				new ResponseEntity<CommentDTO>(HttpStatus.INTERNAL_SERVER_ERROR);
+		return result != null ? new ResponseEntity<CommentDTO>(result, HttpStatus.OK)
+				: new ResponseEntity<CommentDTO>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 	@PatchMapping(value = "{commentnum}", consumes = "application/json")
@@ -98,12 +94,12 @@ public class CommentController {
 		if (service.commentSpaceCheck(comment.getCommentdetail())) {
 			return new ResponseEntity<CommentDTO>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		
+
 		HttpSession session = req.getSession();
 		Object loginUser_temp = session.getAttribute("loginUser");
 		Object loginOrg_temp = session.getAttribute("loginOrg");
-		
-		//세션 검사
+
+		// 세션 검사
 		if (loginUser_temp != null) {
 			System.out.println("로그인 user : " + loginUser_temp);
 			comment.setType('U');
@@ -118,19 +114,59 @@ public class CommentController {
 			System.out.println("로그인 org : " + loginUser_temp);
 			return new ResponseEntity<CommentDTO>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		
+
 		CommentDTO result = service.modify(comment);
-		return result != null ?
-				new ResponseEntity<CommentDTO>(result, HttpStatus.OK) :
-				new ResponseEntity<CommentDTO>(HttpStatus.INTERNAL_SERVER_ERROR);
+		return result != null ? new ResponseEntity<CommentDTO>(result, HttpStatus.OK)
+				: new ResponseEntity<CommentDTO>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 	@DeleteMapping(value = "{commentnum}")
 	public ResponseEntity<String> remove(@PathVariable("commentnum") int commentnum) {
 		System.out.println("Delete : /comment/" + commentnum);
-		return service.remove(commentnum) ?
-				new ResponseEntity<String>(HttpStatus.OK) :
-				new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+		return service.remove(commentnum) ? new ResponseEntity<String>(HttpStatus.OK)
+				: new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
+	@PostMapping("likeregist")
+	public ResponseEntity<String> likeregist(@RequestBody LikeDTO like, HttpServletRequest req) {
+		System.out.println("/comment/likeregist");
+		System.out.println(like);
+
+		HttpSession session = req.getSession();
+		Object loginUser_temp = session.getAttribute("loginUser");
+		String loginUser = loginUser_temp == null ? null : loginUser_temp.toString();
+		if (loginUser != null) {
+			like.setUserid(loginUser);
+
+			CommentDTO comment = new CommentDTO();
+			comment.setCommentnum(like.getConnectid());
+			if (service.getCommentLike(comment, loginUser) == null) {
+				if (service.insertLike(like)) {
+					String result = service.getCommentLikeCount(comment)+"";
+					return new ResponseEntity<String>(result, HttpStatus.OK);
+				}
+			}
+		}
+		return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
+	@DeleteMapping("likecancel")
+	public ResponseEntity<String> likecancel(@RequestBody LikeDTO like, HttpServletRequest req) {
+		System.out.println("/comment/likecancel");
+		System.out.println(like);
+		HttpSession session = req.getSession();
+		Object loginUser_temp = session.getAttribute("loginUser");
+		String loginUser = loginUser_temp == null ? null : loginUser_temp.toString();
+		if (loginUser != null) {
+			like.setUserid(loginUser);
+			like.setType('R');
+			if (service.cancelLike(like)) {
+				CommentDTO comment = new CommentDTO();
+				comment.setCommentnum(like.getConnectid());
+				String result = service.getCommentLikeCount(comment)+"";
+				return new ResponseEntity<String>(result, HttpStatus.OK);
+			}
+		}
+		return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+	}
 }

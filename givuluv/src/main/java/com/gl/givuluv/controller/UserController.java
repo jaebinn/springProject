@@ -2,6 +2,7 @@ package com.gl.givuluv.controller;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gl.givuluv.domain.dto.Criteria;
+import com.gl.givuluv.domain.dto.FollowDTO;
 import com.gl.givuluv.domain.dto.UserDTO;
 import com.gl.givuluv.service.DBoardService;
 import com.gl.givuluv.service.MailSendService;
@@ -67,6 +70,7 @@ public class UserController {
             return "redirect:/";
         } else {
             System.out.println("로그인 실패");
+            model.addAttribute("loginFailed", "로그인실패");
             return "user/login";
         }
     }
@@ -136,16 +140,21 @@ public class UserController {
     //이메일 인증
   	@GetMapping("mailCheck")
   	@ResponseBody
-  	public ResponseEntity<String> mailCheck(@RequestParam String nickname, @RequestParam String email) {
+  	public ResponseEntity<Map<String, Object>> mailCheck(@RequestParam String nickname, @RequestParam String email) {
+  		Map<String, Object> response = new HashMap<>();
   		if(service.checkNickAndEmail(nickname, email)) {
   			System.out.println("이메일 인증 요청이 들어옴!");
   			System.out.println("이메일 인증 이메일 : " + email);
-  			String result = mailService.joinEmail(email);
-              return ResponseEntity.ok(result);			
+  			String authCode = mailService.joinEmail(email);
+
+  			int validityPeriod = 3 * 60; 
+  	        response.put("authCode", authCode);
+  	        response.put("validityPeriod", validityPeriod);
+            return ResponseEntity.ok(response);			
   		} 
   		else {
   			System.out.println("일치하는 회원이 없습니다.");
-              return ResponseEntity.status(HttpStatus.NOT_FOUND).body("일치하는 회원이 없습니다.");		
+  			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Collections.singletonMap("error", "일치하는 회원이 없습니다."));		
   		}
   	}
     @GetMapping("nickAndIdCheck")
@@ -289,23 +298,26 @@ public class UserController {
 		return "/user/my/electronic_receipt";
     }
 //  유저 정보를 수정하는 수정페이지 
-	@GetMapping("my/modify_userinfo")
-	public String my_modify_userinfo(HttpServletRequest req, Model model) {
-		HttpSession session = req.getSession();
-		String loginUser = (String) session.getAttribute("loginUser");
+//  유저 정보를 수정하는 수정페이지 
+   @GetMapping("my/modify_userinfo")
+   public String my_modify_userinfo(HttpServletRequest req, Model model) {
+      HttpSession session = req.getSession();
+      String loginUser = (String) session.getAttribute("loginUser");
 
-		UserDTO userid = service.getUserById(loginUser);
-		String UserNickName = service.getUserNickNameById(userid);
-		String UserName = service.getUserNameById(userid);
-		String UserEmail = service.getUserEmailById(userid);
-		String UserPhone = service.getUserPhoneById(userid);
+      UserDTO userid = service.getUserById(loginUser);
+      UserDTO userinfo = service.getUserInfo(userid);
+      String UserNickName = service.getUserNickNameById(userid);
+      String UserName = service.getUserNameById(userid);
+      String UserEmail = service.getUserEmailById(userid);
+      String UserPhone = service.getUserPhoneById(userid);
 
-		model.addAttribute("NickName", UserNickName);
-		model.addAttribute("UserName", UserName);
-		model.addAttribute("UserEmail", UserEmail);
-		model.addAttribute("UserPhone", UserPhone);
-		return "/user/my/modify_userinfo";
-	}
+      model.addAttribute("NickName", UserNickName);
+      model.addAttribute("UserName", UserName);
+      model.addAttribute("UserEmail", UserEmail);
+      model.addAttribute("UserPhone", UserPhone);
+      model.addAttribute("userinfo", userinfo);
+      return "/user/my/modify_userinfo";
+   }
 
 	@PostMapping("modify")
 	public String modify(UserDTO user, HttpServletRequest req) {
@@ -394,12 +406,25 @@ public class UserController {
 //			  System.out.println("View딴으로 model전달됨");
 			  return "user/my/activity_history";
 		  }
-		  
-//		
+		}
+
+		@PostMapping("addFollow")
+		public ResponseEntity<String> addFollow(@RequestBody FollowDTO follow, HttpServletRequest req) {
+			System.out.println("user/addFollow");
+			HttpSession session = req.getSession();
+			Object loginUser_temp = session.getAttribute("loginUser");
+			if (loginUser_temp != null) {
+				String loginUser = loginUser_temp.toString();
+				follow.setUserid(loginUser);
+				if (service.addFollow(follow)) {
+					return new ResponseEntity<String>(HttpStatus.OK);
+				}
+			}
+			return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);        
+
 		
 	}
 
-	// 커밋테스트
 
 
 

@@ -15,17 +15,21 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.gl.givuluv.domain.dto.FileDTO;
+import com.gl.givuluv.domain.dto.LikeDTO;
 import com.gl.givuluv.domain.dto.ProductDTO;
 import com.gl.givuluv.domain.dto.QnaDTO;
 import com.gl.givuluv.domain.dto.ReviewDTO;
 import com.gl.givuluv.domain.dto.SBoardDTO;
 import com.gl.givuluv.domain.dto.SBoardwithFileDTO;
+import com.gl.givuluv.domain.dto.SPaymentDTO;
 import com.gl.givuluv.domain.dto.StoreDTO;
+import com.gl.givuluv.domain.dto.UserDTO;
 import com.gl.givuluv.service.FileService;
 import com.gl.givuluv.service.ProductService;
 import com.gl.givuluv.service.QnaService;
 import com.gl.givuluv.service.ReviewService;
 import com.gl.givuluv.service.SBoardService;
+import com.gl.givuluv.service.SPaymentService;
 import com.gl.givuluv.service.SellerService;
 import com.gl.givuluv.service.StoreService;
 
@@ -51,6 +55,8 @@ public class StoreController {
 	private QnaService qservice;
 	@Autowired
 	private ReviewService rservice;
+	@Autowired
+	private SPaymentService spservice;
 	
 	
 	
@@ -60,6 +66,8 @@ public class StoreController {
 		HttpSession session = req.getSession();
 		String loginUser = (String)session.getAttribute("loginUser");
 		String loginSeller = (String)session.getAttribute("loginSeller");
+		String loginOrg = (String)session.getAttribute("loginOrg");
+		String loginManager = (String)session.getAttribute("loginManager");
 		
 		//중복되는 connectid 제외하고 가져오기
 		int[] cid = pservice.getMConnectid();
@@ -72,6 +80,9 @@ public class StoreController {
 			// 물품번호로 물품관련(스토어, 이미지, 정보들 가져오기)
 			// 물품 이미지파일 가져오기
 			FileDTO productFile = fservice.getSBoardFile(connectid);
+			
+			//로그인유저 좋아요 가져오기
+			LikeDTO like = sservice.getSBoardLike(connectid, loginUser);
 			
 			if (productFile != null) {
 				// 물품등록한 스토어정보 가져오기
@@ -102,6 +113,8 @@ public class StoreController {
 						// sboarddto.setStoreFile(storeFile);
 						sboarddto.setStorename(storeName);
 						sboarddto.setCategory(category);
+						sboarddto.setLike(like);
+						
 						
 						sBoardList.add(sboarddto);
 					} else {
@@ -118,14 +131,19 @@ public class StoreController {
 		model.addAttribute("sBoardList", sBoardList);
 		model.addAttribute("loginUser", loginUser);
 		model.addAttribute("loginSeller", loginSeller);
+		model.addAttribute("loginOrg", loginOrg);
+		model.addAttribute("loginManager", loginManager);
 		
 		return "store/sBoard";
 	}
 	
 	@GetMapping("getCategoryItems")
-	public @ResponseBody List<SBoardwithFileDTO> getCategoryItems(@RequestParam String category) {
+	public @ResponseBody List<SBoardwithFileDTO> getCategoryItems(@RequestParam String category, HttpServletRequest req) {
 		List<SBoardwithFileDTO> resultList = new ArrayList<>();
 		int[] cid;
+		
+		HttpSession session = req.getSession();
+		String loginUser = (String)session.getAttribute("loginUser");
 		
 		if(category.equals("전체")) {
 			//중복되는 connectid 제외하고 가져오기
@@ -141,6 +159,9 @@ public class StoreController {
 			// 물품번호로 물품관련(스토어, 이미지, 정보들 가져오기)
 			// 물품 이미지파일 가져오기
 			FileDTO productFile = fservice.getSBoardFile(connectid);
+			
+			//로그인유저 좋아요 가져오기
+			LikeDTO like = sservice.getSBoardLike(connectid, loginUser);
 			
 			if (productFile != null) {
 				// 물품등록한 스토어정보 가져오기
@@ -171,6 +192,7 @@ public class StoreController {
 						// sboarddto.setStoreFile(storeFile);
 						sboarddto.setStorename(storeName);
 						sboarddto.setCategory(p_category);
+						sboarddto.setLike(like);
 						
 						resultList.add(sboarddto);
 					} else {
@@ -285,6 +307,9 @@ public class StoreController {
 	public String getProduct(@RequestParam int productnum, Model model, HttpServletRequest req) {
 		HttpSession session = req.getSession();
 		String loginUser = (String)session.getAttribute("loginUser");
+		String loginSeller = (String)session.getAttribute("loginSeller");
+		String loginOrg = (String)session.getAttribute("loginOrg");
+		String loginManager = (String)session.getAttribute("loginManager");
 		
 		//등록된 물품 목록 가져오기
 		List<ProductDTO> products = pservice.getProduct(productnum);
@@ -310,14 +335,118 @@ public class StoreController {
 		model.addAttribute("sboard", sboard);
 		model.addAttribute("store", store);
 		model.addAttribute("loginUser", loginUser);
+		model.addAttribute("loginSeller", loginSeller);
+		model.addAttribute("loginOrg", loginOrg);
+		model.addAttribute("loginManager", loginManager);
 		
 		model.addAttribute("qnaList", qnaList);
 		model.addAttribute("reviewList", reviewList);
 		
 		return "store/productView";
+	}
+		@GetMapping("productPay")
+		public String productPay(
+		        @RequestParam("productnum") int productnum, 
+		        @RequestParam("cost") int cost, 
+		        @RequestParam("productCnt") int productCnt, 
+		        @RequestParam("productname") String productname, 
+		        @RequestParam("storename") String storename, 
+		        HttpServletRequest req, Model model) {
+		    
+		    HttpSession session = req.getSession();
+		    String userid = (String)session.getAttribute("loginUser");
+		    UserDTO user = sBservice.getUserById(userid);
+		    SBoardDTO sboard = sBservice.getSboardByProductnum(productnum);
+		    int orderCost = 0;
+		    int getBonus = 0;
+		    
+		    if(cost < 50000 && user.getAddr().contains("제주")) {
+		        orderCost += 7000;
+		    }
+		    else if(cost >= 50000 && user.getAddr().contains("제주")) {
+		        orderCost += 4000;  
+		    }
+		    else if(cost < 50000) {
+		        orderCost += 3000;
+		    }
+		    
+		    getBonus = (int) ((cost + orderCost) * 0.1);
+		     
+		    model.addAttribute("sboard", sboard);
+		    model.addAttribute("sBoardnum", sboard.getSBoardnum());
+		    model.addAttribute("cost", cost);
+		    model.addAttribute("orderCost", orderCost);
+		    model.addAttribute("getBonus", getBonus);
+		    model.addAttribute("productname", productname);
+		    model.addAttribute("productCnt", productCnt);
+		    model.addAttribute("storename", storename);
+		    model.addAttribute("user", user);
+		    model.addAttribute("productnum", productnum);
+		    
+		    return "store/productPay";
+		}
+		
+		@GetMapping("sReceipt")
+		public String fReceipt(int paymentnum, Model model) {
+			SPaymentDTO spayment = spservice.getSPaymentByPaymentnum(paymentnum);
+			UserDTO user = spservice.getUserBySPaymentnum(spayment.getPaymentnum());
+			ProductDTO product = spservice.getSProductByProductnum(spayment.getProductnum());
+			SBoardDTO sboard = spservice.getSBoardBySBoardnum(spayment.getSBoardnum());
+			System.out.println(spayment);
+			System.out.println(sboard);
+			System.out.println(product);
+			System.out.println(user);
+			
+			model.addAttribute("spayment", spayment);
+			model.addAttribute("product", product);
+			model.addAttribute("user", user);
+			model.addAttribute("sboard", sboard);
+			return "store/sReceipt";
+		}
+		
+		
+		//MDM
+		@GetMapping("likeChoice")
+		@ResponseBody
+		public String likeChoice(@RequestParam int sBoardnum, HttpServletRequest req) {
+		    HttpSession session = req.getSession();
+		    String userid = (String)session.getAttribute("loginUser");
+		    
+		    LikeDTO likedto = new LikeDTO();
+		    likedto.setConnectid(sBoardnum);
+		    likedto.setUserid(userid);
+		    likedto.setType('s');
+		    
+		    if (sservice.insertLikeSBoard(likedto)) {
+		        System.out.println("O");
+		        return "O";
+		    } else {
+		        System.out.println("X");
+		        return "X";
+		    }
+		}
+		
+		
+		//MDM
+		@GetMapping("likeDelete")
+		@ResponseBody
+		public String likeDelete(@RequestParam int sBoardnum, HttpServletRequest req) {
+			HttpSession session = req.getSession();
+			String userid = (String)session.getAttribute("loginUser");
+			
+			
+			if(sservice.deleteLikeSBoard(sBoardnum, userid)) {
+				System.out.println("O");
+				return "O";
+			}
+			else {
+				System.out.println("X");
+				return "X";
+			}
+		}
+		
 		
 	}
-}
 
 
 

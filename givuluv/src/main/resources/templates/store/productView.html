@@ -14,7 +14,7 @@
     <div class="s_view_wrap">
         <div class="store_tit">
             <div class="store_name">
-                <h1 th:text="${store.sName}"></h1>
+                <h1 id="storeName" th:text="${store.sName}"></h1>
             </div>
         </div>
         <div class="product_box">
@@ -34,10 +34,6 @@
                         <p>상품을 구매하는 고객님을 위한 기부포인트</p>
                         <p><span th:text="${#numbers.formatInteger((products.get(0).cost) * 0.1,3)}"></span>포인트</p>
                     </div>
-<!--                    <div class="p_delivery_info">
-                        <p>택배배송 3000원(주문시 결제)</p>
-                        <p>제주 / 도서산간 5000원</p>
-                    </div>-->
 					<div class="ProductReward">
 						<div class="ProductReward_inner">
 							<div class="product_option">
@@ -53,7 +49,7 @@
 										<input id="p_reward-cart-item-1" type="number" class="ProductDetailRewardCartItem_input_count" value=1>
 										<label for="p_reward-cart-item-1" class="p_blind">개수</label>
 										<button type="button" class="ProductDetailRewardCartItem_button_minus" disabled="">
-											<span class="ProductDetailRewardCartItem_icon_minus" id="minus">
+											<span class="ProductDetailRewardCartItem_icon_minus" id="p_minus">
 											</span>
 											<span class="p_blind">-</span>
 										</button>
@@ -89,33 +85,10 @@
 									</div>
 								</div>
 								<div class="productBtn">
-									<input type="button" id="p_Btn" value="구입하기">
+									<input type="button" id="p_payBtn" value="구입하기">
 								</div>
 						</div>
 					</div>
-                    <!--<div class="buy_amount">
-                        <form action="/store/buy" method="post" id="pBuyForm" name="pBuyForm">
-                            <div class="buy_amount_box">
-                                 버튼, 클릭시 del 실행 
-                                <input type="button" value=" - " onclick="del();" class="del_btn">
-                                <input type="hidden" name="sell_price" id="sell_price" style="width:30px;" th:value="${cost}" >
-                                 기본 수량 1로 설정 
-                                <input type="text" name="amounts" id="amounts" value="1" size="3">
-                                 +버튼, 클릭시 add 실행 
-                                <input type="button" value=" + " onclick="add();" class="add_btn">
-                                <input type="hidden" name="sum" size="11" readonly>
-                            </div>
-                            <div class="sumCost">
-                                <p>총 상품 금액 : </p>
-                                <p><span id="my_sum">[[${cost}]]</span> 원</p>
-                            </div>	
-                        </form>
-                        <div class="buy_btn">
-                            <a class="p_btn" href="javascript:sendit();">
-                                <p>구매하기</p>
-                            </a>
-                        </div>
-                    </div>-->
                 </div>
             </div>
             <div class="product_detail_info">
@@ -513,41 +486,6 @@
 			    });
 		});
 	
-    function add() {
-		hm = document.getElementById('amounts');// id가 amounts인 요소
-		sell_price = document.getElementById('sell_price');// id가 sell_price인 요소
-		hm.value++;// hm 값을 1 증가
-		var sum_ = parseInt(hm.value) * sell_price.value;// hm 문자값을 정수로 변환 * sell_price	해서 금액 계산
-		document.getElementById("my_sum").innerHTML = sum_.toLocaleString('ko-KR');// id가 my_sum인 요소를 찾아 값을 위에서 계산한 sum_ 값으로 설정, 각 나라 표시방식에 맞게 설정해줌
-	}
-
-	function del() {
-		hm = document.getElementById('amounts');
-		sell_price = document.getElementById('sell_price');// name이 sell_price인 요소
-		if (hm.value > 1) {// hm(amounts에서 가져온 값)가 1보다 크면
-			hm.value--;// hm 값 1 감소
-			var sum_ = parseInt(hm.value) * sell_price.value;
-			document.getElementById("my_sum").innerHTML = sum_.toLocaleString('ko-KR');		
-		}
-	}
-
-    function sendit(){
-		let userid = document.getElementById('userid').value;
-		
-		if (!userid) {
-		    alert("로그인 후 이용해 주세요.");
-		    return;
-		}
-		
-		let totalCost = document.getElementById('my_sum').innerText;
-		let totalAmount = document.getElementById('amounts').value;
-		let productnum = document.getElementById('productnum');
-		
-		console.log(totalCost);
-		console.log(totalAmount);
-		//pBuyForm.submit();
-	}
-	
 	//Q&A를 디테일하게 보기위한 함수
     function toggleDetail(element) {
 		let qnaModify = document.getElementById('qna_modify');
@@ -608,11 +546,23 @@
 	
 	function qnaBtn(){
 		
-		let userid = document.getElementById('userid').value;
+		let loginUser = /*[[${loginUser}]]*/ '';
+		let loginSeller = /*[[${loginSeller}]]*/ '';
+		let loginOrg = /*[[${loginOrg}]]*/ '';
+		let loginManager = /*[[${loginManager}]]*/ '';
 		
-		if (!userid) {
-		    alert("로그인 후 이용해 주세요.(일반회원만 작성 가능합니다.)");
-		    return;
+		if (!loginUser) {
+			if(!loginSeller && !loginOrg && !loginManager){
+			    alert("로그인 후 이용해 주세요.");
+				
+			}
+			else{
+			    alert("사용자로 로그인 후 이용해주세요");
+			}
+			
+			const loginUrl = "/user/login";
+			window.location.href = loginUrl; 
+			return;
 		}
 		
 		let qnaTextarea = document.getElementById('qna_contents');
@@ -773,7 +723,6 @@
 			contentType: "application/json;charset=utf-8",
 			success: function(result, status, xhr){
 				console.log(result);
-				//성공했을때 돔으로 qna만들어 주기
 				alert("Q&A 수정에 성공하셨습니다.");
 				let productnum = document.getElementById('qna_productnum').value;
 				document.getElementById('qna_modify_content').value = '';
@@ -803,5 +752,131 @@
 	    window.scrollTo({top:0, behavior:"smooth"});
 	});
 	
+	$(document).ready(function() {
+				$('#p_rewardList').on('change', function () {
+						$('#p_reward-cart-item-1').val(1);
+						$('#ProductNum').text(1);
+						const selectedOption = $(this).find('option:selected');
+						const selectedOptionText = selectedOption.text();
+						const selectedCost = selectedOption.data('cost');
+						const selectedpAmount = selectedOption.data('pamount');
+						
+						
+						$('#p_selectedOption').text(selectedOptionText);
+						$('#p_selectedCost strong').text(selectedCost.toLocaleString() + '원');
+						$('#totalProductCost').text(selectedCost.toLocaleString());
+			
+						$('.ProductDetailSummary_list_cart').show();
+			
+						$('.ProductDetailRewardCartItem_icon').on('click', function () {
+							$('#p_rewardList').val('');
+							$('#p_basicOption').prop('selected', true);
+							$('.ProductDetailSummary_list_cart').hide();
+							$('#totalProductCost').text('0');
+							$('#ProductNum').text('0');
+						})
+										
+										
+						$('#p_reward-cart-item-1').on('change', function() {
+						    let inputNum = parseInt($(this).val());
+							if (!isNaN(inputNum) && inputNum > 0) {
+						        let selectedpAmount = parseInt($('#p_rewardList option:selected').data('pamount'));
+								$('#totalProductCost').text((selectedCost * inputNum).toLocaleString());
+						        if (inputNum > selectedpAmount) {
+						            alert('재고량을 초과하여 더 이상 선택할 수 없습니다.');
+						            $(this).val(selectedpAmount);
+						            $('#ProductNum').text(selectedpAmount);
+						        } else {
+						            $('#ProductNum').text(inputNum);
+						        }
+						    } else{
+						        alert('유효한 숫자를 입력하세요.');
+						        $(this).val(1); 
+						        $('#ProductNum').text(1);
+						    }
+						});
+								
+						let fundingCnt = parseInt($('#p_reward-cart-item-1').val());
+						$('#p_plus').on('click', function () {
+							console.log(fundingCnt)
+											
+							$('#p_reward-cart-item-1').val(fundingCnt);
+							$('#ProductNum').text(fundingCnt);
+							$('#totalProductCost').text((selectedCost * fundingCnt).toLocaleString());
+							if (fundingCnt >= selectedpAmount) {
+									alert('재고량을 초과하여 더 이상 선택할 수 없습니다.');
+									$('#p_reward-cart-item-1').val(selectedpAmount);
+									$('#ProductNum').text(selectedpAmount);
+									fundingCnt=selectedpAmount;
+							}
+							else{
+									fundingCnt++;
+							}
+						});
+						$('#p_minus').on('click', function () {
+							if (fundingCnt > 1) {
+								fundingCnt--;
+								$('#p_reward-cart-item-1').val(fundingCnt);
+								console.log(fundingCnt)
+								$('#ProductNum').text(fundingCnt);
+								$('#totalProductCost').text((selectedCost * fundingCnt).toLocaleString());
+								}
+							});
+						});
+						$('#p_payBtn').click(function () {
+								const selectedOption = $('#p_rewardList').val();
+								
+								if (selectedOption) {
+								} else {
+								     alert('상품 옵션을 선택해 주세요.');
+								}
+						});
+	    });
+		
+
+		$(document).ready(function() {
+		    $('#p_payBtn').click(function() {
+		        let cost = $('#totalProductCost').text().replace(/,/g, '');
+		        let product = $('#p_selectedOption').text();
+		        let productCnt = $('#ProductNum').text();
+		        let storename = $('#storeName').text();
+				
+				let loginUser = /*[[${loginUser}]]*/ '';
+				let loginSeller = /*[[${loginSeller}]]*/ '';
+				let loginOrg = /*[[${loginOrg}]]*/ '';
+				let loginManager = /*[[${loginManager}]]*/ '';
+				console.log(loginUser);
+				console.log(loginSeller);
+				
+				if (!loginUser) {
+					if(!loginSeller && !loginOrg && !loginManager){
+					    alert("로그인 후 이용해 주세요.");
+						
+					}
+					else{
+					    alert("사용자로 로그인 후 이용해주세요");
+					}
+					
+					const loginUrl = "/user/login";
+					window.location.href = loginUrl; 
+					return;
+				}
+		
+		        console.log(storename);
+		
+		        const urlParams = new URLSearchParams(window.location.search);
+		        const productnum = urlParams.get('productnum');
+		
+		        const newUrl = "/store/productPay?productname=" + encodeURIComponent(product) + 
+		                           "&cost=" + encodeURIComponent(cost) + 
+		                           "&productCnt=" + encodeURIComponent(productCnt) + 
+		                           "&storename=" + encodeURIComponent(storename) + 
+		                           "&productnum=" + encodeURIComponent(productnum);
+		        
+		        // get방식으로 페이지이동
+		        window.location.href = newUrl;
+		    });
+		});
+
 </script>
 </html>

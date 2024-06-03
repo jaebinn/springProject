@@ -12,7 +12,7 @@
    <div class="container">
    		<div class="contents">
    			<div class="tit">
-   				<a th:href="@{/funding/fundingView(fBoardnum=${fBoardnum})}"><i class="fa-regular fa-less-than"></i></a>
+   				<a th:href="@{/funding/fundingView(fBoardnum=${fboard.fBoardnum})}"><i class="fa-regular fa-less-than"></i></a>
    				<h2>[[${fboard.fTitle}]]</h2><br>
    				<span id="orgname">by [[${orgname}]]</span>
    			</div>
@@ -128,7 +128,7 @@
 				</div>
    				<div class="donation_buttons">
    					<input type="button" class="button_highlight jq_donate" onclick="payBtn()" value="펀딩 결제">
-   					<a th:href="@{/funding/fundingView(fBoardnum=${fBoardnum})}" class="jq_prev_rdona_view">뒤로 가기</a>
+   					<a th:href="@{/funding/fundingView(fBoardnum=${fboard.fBoardnum})}" class="jq_prev_rdona_view">뒤로 가기</a>
    				</div>
    			</div>
    		</div>
@@ -174,13 +174,14 @@
 				    "pg": "danal",
 				    "method": "card_rebill",
 					show_agree_window: 0,
-				    "user": {
-				    "id": user.userid,
-				    "username": user.username,
-				    "phone": user.userphone,
-				    "email": user.email,
-					"addr" : user.addr
-						},							
+					
+					    "user": {
+					    "id": user.userid,
+					    "username": user.username,
+					    "phone": user.userphone,
+					    "email": user.email,
+						"addr" : user.addr
+							},							
 						
 						extra: {
 								start_at: date, 

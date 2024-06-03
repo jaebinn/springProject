@@ -4,10 +4,10 @@
 <head>
    <link rel="stylesheet" href="/css/index.css">
    <script src="https://kit.fontawesome.com/516da99189.js" crossorigin="anonymous"></script>
-   <link rel="stylesheet" href="/css/login.css">
    <link rel="stylesheet" href="/css/header_footer.css">   
    <link rel="stylesheet" href="/css/kakaomap.css">
    <link rel="stylesheet" href="/css/faqChatbot.css">
+   <link rel="stylesheet" href="/css/managerModal.css">
    
 </head>
 
@@ -119,8 +119,12 @@
    <th:block th:replace="~{layout/footer::footer()}"></th:block>
    <!-- FAQ ChatBot -->
    <th:block th:replace="~{layout/faqChatbot::faqChatbot()}"></th:block>
+   <!-- 관리자 승인여부 모달창 -->
+   <th:block th:replace="~{layout/managerModal::managerModal()}"></th:block>
+   
 </body>
 <script src="/js/jquery-3.7.1.min.js"></script>
+<script src="/js/managerModal.js"></script>
 <script src="/js/index.js"></script>
 <script>
    $('.logout').on('click', function () {
@@ -361,27 +365,32 @@
 					
 			    });
 			
-			    $("#chat-form").submit(function (e) {
-			        e.preventDefault();
-			        const messageInput = $("#chat-input");
-			        if (!isNaN(messageInput.val()) && messageInput.val().trim() !== '') {
-			            // 만약 입력된 메시지가 숫자이고 비어있지 않다면, 질문 번호로 간주하여 답변을 가져옴
-			            getAnswer(parseInt(messageInput.val()));
-			        } else {
-			            // 숫자가 아니거나 비어있다면, 일반 메시지로 간주하여 전송
-						myMessage(messageInput.val());
-						const chatLogs = $(".chat-logs");
-						const newMessage = `<div class="chat-msg"><span class="cm-msg-text errormsg">보기에 있는 질문의 번호를 입력하세요.</span></div>`;
-						chatLogs.append(newMessage);
-						chatLogs.scrollTop(chatLogs.prop("scrollHeight"));
-						
-			            messageInput.val("");
-			            messageInput.focus();
-						loadQuestions()
-			            return;
-			        }
-			        messageInput.val('');
-			    });
+				$("#chat-form").submit(function (e) {
+				    e.preventDefault();
+				    const messageInput = $("#chat-input");
+				    const message = messageInput.val().trim(); // 입력된 메시지의 앞뒤 공백을 제거합니다.
+				    if (message === '') {
+				        alert("메시지를 입력하세요.");
+				        return; // 빈 문자열이면 함수를 여기서 종료합니다.
+				    }
+				    if (!isNaN(message) && message.trim() !== '') {
+				        // 만약 입력된 메시지가 숫자이고 비어있지 않다면, 질문 번호로 간주하여 답변을 가져옵니다.
+				        getAnswer(parseInt(message));
+				    } else {
+				        // 숫자가 아니거나 비어있다면, 일반 메시지로 간주하여 전송합니다.
+				        myMessage(message);
+				        const chatLogs = $(".chat-logs");
+				        const newMessage = `<div class="chat-msg"><span class="cm-msg-text errormsg">보기에 있는 질문의 번호를 입력하세요.</span></div>`;
+				        chatLogs.append(newMessage);
+				        chatLogs.scrollTop(chatLogs.prop("scrollHeight"));
+				
+				        messageInput.val("");
+				        messageInput.focus();
+				        loadQuestions();
+				        return;
+				    }
+				    messageInput.val('');
+				});
 			});
 			
 			function loadQuestions() {
@@ -459,6 +468,8 @@
 			    chatLogs.append(newMessage);
 			    chatLogs.scrollTop(chatLogs.prop("scrollHeight"));
 			}
+			
+			
 	});
 </script>
 

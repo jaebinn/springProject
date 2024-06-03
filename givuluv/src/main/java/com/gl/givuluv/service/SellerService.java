@@ -2,6 +2,8 @@ package com.gl.givuluv.service;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.gl.givuluv.domain.dto.ProductDTO;
 import com.gl.givuluv.domain.dto.QnaDTO;
 import com.gl.givuluv.domain.dto.ReviewDTO;
@@ -40,5 +42,12 @@ public interface SellerService {
 	List<ReviewDTO> getReviewListBySellerid(String sellerid);
 	
 	StoreDTO getStoreBySellerid(String sellerid);
-
+	
+	String getSelleridByStorename(String storename);
+	
+	 boolean checkSName(String sName);
+	 
+	 boolean updateStore(StoreDTO store, String sellerid);
+	 
+	 boolean updateStoreBackgroundPicture(MultipartFile[] files, String sellerid) throws Exception ;
 }

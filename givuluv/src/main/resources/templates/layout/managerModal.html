@@ -1,0 +1,47 @@
+<th:block th:fragment="managerModal()">
+	<div id="managerApprove" class="modal">
+	    <div class="modal-content">
+	        <span class="close">&times;</span>
+	        <div class="modal-approve">
+	            <h1>GivuLuv 승인</h1>
+	            <div class="approve_menu">
+	                <input type="button" value="판매자" class="tablinks sellerApprove selected">
+	                <input type="button" value="사회단체" class="tablinks orgApprove">
+	            </div>
+	            <div id="sellerApproveTabContent" class="tabcontent">
+	                <div class="approveSellerList approveList">
+	                    <ul>
+	                        <h3 class="approveBtn wait">승인 대기[0]</h3>
+	                        <div class="sellerList waitList" style="display: none;">
+	                            <li class="sellername">판매자<a href="#" class="isApprove">승인</a></li>
+	                        </div>
+	                    </ul>
+	                    <ul>
+	                        <h3 class="approveBtn success">승인 완료</h3>
+	                        <div class="sellerList successList" style="display: none;">
+	                            <li class="sellername"></li>
+	                            <li class="isApprove"></li>
+	                        </div>
+	                    </ul>
+	                </div>
+	            </div>
+	            <div id="orgApproveTabContent" class="tabcontent" style="display: none;">
+	                <div class="approveOrgList approveList">
+	                    <ul>
+	                        <h3 class="approveBtn wait">승인 대기[0]</h3>
+	                        <div class="orgList waitList" style="display: none;">
+	                        </div>
+	                    </ul>
+	                    <ul>
+	                        <h3 class="approveBtn success">승인 완료</h3>
+	                        <div class="orgList successList" style="display: none;">
+	                            <li class="orgname"></li>
+	                            <li class="isApprove"></li>
+	                        </div>
+	                    </ul>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+</th:block>

@@ -31,5 +31,10 @@ public class LikeServiceImpl implements LikeService{
 	public boolean cancelLike(int likenum) {
 		return lmapper.deleteLike(likenum) == 1;
 	}
+	
+	@Override
+	   public boolean cancelLikeByDTO(LikeDTO like) {
+	      return lmapper.deleteByLikeDTO(like) == 1;
+	   }
 
 }

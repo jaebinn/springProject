@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.gl.givuluv.domain.dto.FollowDTO;
 import com.gl.givuluv.domain.dto.UserDTO;
 import com.gl.givuluv.mapper.UserMapper;
 
@@ -251,4 +252,18 @@ public class UserServiceImpl implements UserService{
 		
 		return umapper.getSystemNameByUserid(userid);
 	}
+	@Override
+	public UserDTO getUserInfo(UserDTO userid) {
+		
+		return umapper.getUserInfo(userid);
+	}
+
+	@Override
+	   public boolean addFollow(FollowDTO follow) {
+	      if(umapper.getfollow(follow) == null) {
+	         return umapper.insertFollow(follow) == 1;
+	      }
+	      return false;
+	   }
+
 }

@@ -13,13 +13,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.gl.givuluv.domain.dto.ProductDTO;
 import com.gl.givuluv.domain.dto.QnaDTO;
 import com.gl.givuluv.domain.dto.ReviewDTO;
 import com.gl.givuluv.domain.dto.SBoardDTO;
 import com.gl.givuluv.domain.dto.SellerDTO;
-
+import com.gl.givuluv.domain.dto.StoreDTO;
 import com.gl.givuluv.service.MailSendService;
 import com.gl.givuluv.service.SellerService;
 
@@ -184,5 +185,43 @@ public class SellerController {
 	         
 	         return "seller/my/reviewList";
 	      }
+	      @GetMapping("my/storeUpdate")
+	         public String SellerMyStoreUpdate(String sellerid, HttpServletRequest req) {
+	            HttpSession session = req.getSession();
+	            return "seller/my/storeUpdate";
+	   }
+
+	   @GetMapping("checkSName")
+	   @ResponseBody
+	      public String checkSName(String sName) {
+	         if(service.checkSName(sName)) {
+	            System.out.println("O");
+	            return "O";
+	         }
+	         else { 
+	            System.out.println("X");
+	            return "X";
+	         }
+	      }
+
+	   @PostMapping("my/storeInfoUpdate")
+	         public String SellerMyStoreInfoUpdate(StoreDTO store, HttpServletRequest req) {
+	            HttpSession session = req.getSession();
+	            String sellerid = (String)session.getAttribute("loginSeller");
+	            
+	            service.updateStore(store, sellerid);
+	            
+	            return "seller/my/storeUpdate";
+	         }
+
+	   @PostMapping("my/storeContentsUpdate")
+	         public String SellerMyStoreContentsUpdate(HttpServletRequest req, MultipartFile[] files) throws Exception {
+	            HttpSession session = req.getSession();
+	            String sellerid = (String)session.getAttribute("loginSeller");
+	            
+	            service.updateStoreBackgroundPicture(files, sellerid);
+	            
+	            return "seller/my/storeUpdate";
+	         }
 
 }

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/groupinfo.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+<div class="gro_wrap">
+    <!--헤더-->
+    <div class="gro_header">
+		<div class="gro_header_inner">
+			<div class="gro_logobox">
+	    		<a href="/" class="gro_logo">
+	        	 	<img src="../images/GivuLuv_logo.png" alt="">
+	    		</a>
+	    		<a href="/" class="gro_tit">
+	        		기부러브
+	    		</a>
+				<span class="gro_subtitle">기부러브로그 가입</span>
+			</div>
+		</div>			
+	</div>
+    <div class="gro_main">
+        <!--페이지별로 나타내는 디자인-->
+        <ol class="gro_step_list">
+            <li class="gro_step_item">
+                STEP1 신청등록
+            </li>
+            <li class="gro_step_item active">
+                <i class="fa-regular fa-circle-check"></i>
+                STEP2 단체정보
+            </li>
+            <li class="gro_step_item">
+                STEP3 가입신청 완료
+            </li>
+        </ol>
+        <div class="gro_form_area">
+            <div class="gro_form_fieldset">
+                <h2 class="gro_form_check">
+                    단체 정보 입력
+                    <span class="gro_form_require_check">
+                        필수항목
+                    </span>
+                </h2>
+                <div class="gro_form_content">
+                <div class="gro_form_row">
+                        <div class="gro_form_col_left">
+                            <label for="insitutename" class="gro_form_checkname">
+                                단체 이름
+                            </label>
+                        </div>
+                        <div class="gro_form_col_right">
+                            <input id="insitutename" class="gro_form_input_text" placeholder="1~30자 한글, 영문 숫자 사용가능">
+                        </div>
+                </div> 
+                <div class="gro_form_row">
+                        <div class="gro_form_col_left">
+                            <label for="address" class="gro_form_address">
+                                단체 주소
+                            </label>
+                        </div>
+                        <div class="gro_form_col_right">
+                            <input id="address" class="gro_form_input_text"
+                            placeholder="주소를 입력해주세요.">
+                        </div>
+                    </div>
+                </div>
+                <div class="gro_form_row">
+                    <div class="gro_form_col_left">
+                        <label for="phonenum" class="gro_form_phonenum">
+                            연락처
+                        </label>
+                    </div>
+                    <div class="gro_form_col_right">
+                        <input id="phonenum" class="gro_form_input_text"
+                        placeholder="연락처를 '-'없이 입력">
+                    </div>
+                </div>
+                <div class="gro_form_row">
+                    <div class="gro_form_col_left">
+                        <label for="infomation" class="gro_form_infoexp">
+                            단체 설명
+                        </label>
+                    </div>
+                    <div class="gro_form_col_right">
+                        <input id="infomation" class="gro_form_input_text"
+                        placeholder="단체에 대한 설명을 적어 주세요">
+                    </div>
+                </div>
+				<button id="submitBtn" type="button">제출</button>
+            </div>
+			<div id="resultMessage" class="visible"></div>        
+        </div>    
+        <div class="gro_step_button">
+            <a href="/org/logsignup" id="beforePage" class="gro_button_prev">이전</a>
+            <a href="/org/signupcomplete" id="nextPage" class="gro_button_next">다음</a>
+        </div>
+    </div>
+    <div class="gro_footer">
+		<div class="gro_footer_inner">
+			 <p><a href="/">기부러브</a><span>Copyright © GivuLuv Corp. All Rights Reserved.</span></p>
+		</div>
+	</div>    
+</div>    
+</body>
+<script src="/js/groupinfo.js"></script>
+</html>

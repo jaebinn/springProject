@@ -15,6 +15,7 @@ public interface OrgService {
 	boolean join(OrgDTO org, MultipartFile[] files) throws Exception;
 	boolean login(String orgid, String orgpw);
 	boolean checkId(String orgid);
+	boolean checkPw(String orgpw);
 	String getOrgnameByOrgid(String orgid);
 	String getOrgnameBynum(int dBoardnum);
 	List<String> getOrgnameByCategory(@Param("orgcategory") String orgcategory);

@@ -158,11 +158,17 @@ a{
     height: 30px;
     cursor: pointer;
     background-color: unset;
-    background-image: url('../images/heart1_icon.png');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     border: none;
+}
+.likeimg1{
+    background-image: url('../images/heart1_icon.png');
+}
+.likeimg2{
+    background-image: url('../images/heart2_icon.png');
+    filter: invert(70%) sepia(17%) saturate(7476%) hue-rotate(300deg) brightness(98%) contrast(85%);
 }
 
 .seller_link{

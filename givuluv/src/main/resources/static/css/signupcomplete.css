@@ -1,0 +1,155 @@
+@font-face {
+    font-family: 'TTLaundryGothicB';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/TTLaundryGothicB.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+.suc_wrap{
+    width: 100%;
+}
+.suc_header_inner{
+    background-color: #f1f1f1;
+    margin: 0 auto;
+    width: 100%;
+    height: 100px;
+}
+.suc_header .suc_logobox{
+    display: flex;
+}
+.suc_header .suc_logo{
+    display: inline-block;
+    padding: 22px 0 20px;
+}
+.suc_header img{
+    width: 78px;
+}
+.suc_header .suc_tit{
+   width: 100px;
+   height: 20px;
+   display: inline-block;
+}
+.suc_header .suc_tit {
+    font-family: 'TTLaundryGothicB';
+    line-height: 60px;
+    font-size: 25px;
+    text-align: center;
+    color: rgb(231, 112, 151);
+    margin-top: 22px;
+    text-decoration: none;
+}
+.suc_header .suc_subtitle{
+    font-family: 'TTLaundryGothicB';
+    line-height: 60px;
+    font-size: 15px;
+    text-align: center;
+    color: rgb(231, 112, 151);
+    margin-top: 24px;
+}
+.suc_step_list {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    width: 1140px;
+    margin: 47px auto 32px;
+    justify-content: space-between;
+    align-items: center;
+}
+.suc_step_item {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    position: relative;
+    font-family: Arial, sans-serif;
+    color: #aaa;
+}
+.suc_step_item.active {
+    background-color: rgb(231, 112, 151);
+    color: white;
+}
+.suc_step_item.active .fa-circle-check {
+    color: white;
+}
+.suc_step_item:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    border-top: 20px solid transparent;
+    border-bottom: 20px solid transparent;
+    border-left: 20px solid #ddd;
+    transform: translateY(-50%);
+}
+.suc_step_item:last-child:before {
+    content: none;
+}
+.suc_step_item.active::after {
+    border-left-color: rgb(231, 112, 151);
+}
+.suc_message {
+    margin-top: 20px;
+    background-color: #e7f5ff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    position: relative;
+    top: 30px;
+}
+.suc_message h1 {
+    font-size: 24px;
+    color: rgb(231, 112, 151);;
+    margin-bottom: 10px;
+    text-align: center;
+}
+.suc_message p {
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.suc_message .suc_icon {
+    font-size: 50px;
+    color: greenyellow;
+    position: absolute;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #fff;
+    border-radius: 50%;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    
+}
+.suc_message a {
+    background-color: rgb(231, 112, 151);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-decoration: none;
+    margin-left: 45%;
+}
+.suc_message a:hover {
+    background-color: rgb(231, 112, 151);
+}
+.suc_footer{
+	position: relative;
+	top: 340px;
+    padding: 19px 0 100px;
+    border-top: 1px solid rgb(#828282);
+    background: #f5f5f5;
+}
+.suc_footer_inner{
+    margin: 0 auto;
+    width: 1140px;
+    text-align: center;
+}
+.suc_footer_inner a{
+    text-decoration: none;
+    font-family: 'TTLaundryGothicB';
+    line-height: 60px;
+    font-size: 20px;
+    color: rgb(231, 112, 151);
+}

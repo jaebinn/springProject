@@ -9,4 +9,5 @@ public interface LikeService {
 	LikeDTO getLike(LikeDTO like);
 	
 	boolean cancelLike(int likenum);
+	boolean cancelLikeByDTO(LikeDTO like);
 }

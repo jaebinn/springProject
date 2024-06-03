@@ -8,6 +8,8 @@ import com.gl.givuluv.domain.dto.DPaymentDTO;
 import com.gl.givuluv.domain.dto.FBoardDTO;
 import com.gl.givuluv.domain.dto.FPaymentDTO;
 import com.gl.givuluv.domain.dto.ProductDTO;
+import com.gl.givuluv.domain.dto.SBoardDTO;
+import com.gl.givuluv.domain.dto.SPaymentDTO;
 import com.gl.givuluv.domain.dto.UserDTO;
 
 @Mapper
@@ -53,5 +55,18 @@ public interface PaymentMapper {
 	FBoardDTO getFBoardByFBoardnum(int fBoardnum);
 
 	String getOrgnameByOrgid(String orgid);
+	
+	boolean insertSPayment(SPaymentDTO s_payment);
+
+	SPaymentDTO getLastSPaymentById(String userid);
+
+	SPaymentDTO getSPaymentByPaymentnum(int paymentnum);
+
+	UserDTO getUserBySPaymentnum(int paymentnum);
+
+	SBoardDTO getSBoardBySBoardnum(int sBoardnum);
+
+	ProductDTO getSProductByProductnum(int productnum);
+	
 
 }

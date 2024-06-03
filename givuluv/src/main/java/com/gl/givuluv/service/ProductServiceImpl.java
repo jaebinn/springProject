@@ -95,4 +95,12 @@ public class ProductServiceImpl implements ProductService {
 	public int[] getMConnectidByCategory(String category) {
 		return pmapper.getMConnectidByCategory(category);
 	}
+	@Override
+	public int getProductnumBySBoardnum(int sBoardnum) {
+		return pmapper.getProductnumBySBoardnum(sBoardnum);
+	}
+	@Override
+	public int getSProductnumByNameAndConnectid(String productname, int sBoardnum) {
+		return pmapper.getSProductnumByNameAndConnectid(productname, sBoardnum);
+	}
 }

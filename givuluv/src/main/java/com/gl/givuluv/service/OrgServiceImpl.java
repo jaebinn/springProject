@@ -165,4 +165,9 @@ public class OrgServiceImpl implements OrgService {
        return omapper.checkUnqnumber(orgunqnum);
     }
 
+	@Override
+    public boolean checkPw(String orgpw) {
+        return omapper.checkPw(orgpw) == null;
+    }
+
 }

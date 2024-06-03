@@ -29,7 +29,12 @@ public interface CBoardService {
 	 */
 	CBoardDTO getCampaign(int cBoardnum);
 	
-	List<CBoardDTO> getCampaignBoardListOfUser(String loginUser);
+	/**
+	 * 유저의 카테고리 알고리즘 게시글 가져오기
+	 * @param loginUser
+	 * @return
+	 */
+	List<CBoardDTO>  getCampaignBoardListOfUser(String loginUser, int cBoardnum, int amount);
 	
 	/**
 	 * 캠페인에 해당하는 단체의 프로필 링크 찾기
@@ -73,4 +78,8 @@ public interface CBoardService {
 	 */
 	String getCategory(CBoardDTO cboard);
 	
+	boolean insertLike(LikeDTO like);
+	boolean cancelLike(LikeDTO like);
+
+	List<CBoardDTO> getCampaignList(int boardlastnum, int amount);
 }

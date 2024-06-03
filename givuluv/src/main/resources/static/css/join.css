@@ -257,3 +257,17 @@ select:focus {
     font-size: 13px;
     cursor: pointer;
 }
+.file_cont div{
+	margin: 10px 0;
+}
+#fileBtn .btn:nth-child(2){
+	margin-left: 10px;
+}
+#fileBtn .btn{
+	text-decoration: none;
+	font-weight: bold;
+	border: 3px solid rgb(231, 112, 151);
+	border-radius: 5px;
+	padding: 5px 8px;
+	color: rgb(231, 112, 151);
+}

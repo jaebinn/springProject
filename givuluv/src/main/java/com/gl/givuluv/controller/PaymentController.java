@@ -9,11 +9,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gl.givuluv.domain.dto.DPaymentDTO;
 import com.gl.givuluv.domain.dto.FPaymentDTO;
+import com.gl.givuluv.domain.dto.SPaymentDTO;
 import com.gl.givuluv.service.DBoardService;
 import com.gl.givuluv.service.DPaymentService;
 import com.gl.givuluv.service.FPaymentService;
 import com.gl.givuluv.service.OrgService;
 import com.gl.givuluv.service.ProductService;
+import com.gl.givuluv.service.SPaymentService;
+import com.gl.givuluv.service.SellerService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -33,6 +36,10 @@ public class PaymentController {
 	private OrgService oservice;
 	@Autowired
 	private DBoardService dbservice;
+	@Autowired
+	private SellerService sellservice;
+	@Autowired
+	private SPaymentService spservice;
 	
 	@PostMapping("confirmPay")
 	@ResponseBody
@@ -111,7 +118,45 @@ public class PaymentController {
 		}
 		return null;
 	}
-	
+	@PostMapping("confirmStore")
+	@ResponseBody
+	public SPaymentDTO successStore(
+			@RequestParam int cost,
+			@RequestParam String storename,
+			@RequestParam int sBoardnum,
+			@RequestParam String productname,
+			@RequestParam int amount,
+			@RequestParam String ordermemo,
+			HttpServletRequest req) {
+		SPaymentDTO s_payment = new SPaymentDTO();
+		HttpSession session = req.getSession();
+		String userid = (String)session.getAttribute("loginUser");
+		if(ordermemo.equals("basic")) {
+			ordermemo = "없음";
+		}
+		else if(ordermemo.equals("door")) {
+			ordermemo = "문 앞에 놓아주세요.";
+		}
+		else if(ordermemo.equals("missed")) {
+			ordermemo = "부재시 연락 부탁드려요.";
+		}
+		else if(ordermemo.equals("advance")) {
+			ordermemo = "배송 전 미리 연락해 주세요.";
+		}
+		s_payment.setSBoardnum(sBoardnum);
+		s_payment.setSellerid(sellservice.getSelleridByStorename(storename));
+		s_payment.setUserid(userid);
+		s_payment.setSCost(cost);
+		s_payment.setAmount(amount);
+		s_payment.setReqetc(ordermemo);
+		s_payment.setProductnum(prservice.getSProductnumByNameAndConnectid(productname, sBoardnum));
+		if(spservice.insertSPayment(s_payment)) {
+			SPaymentDTO spayment = spservice.getLastSPaymentById(userid);
+			System.out.println(spayment);
+			return spayment;
+		}
+		return null;
+	}
 	
 }
 	

@@ -16,7 +16,7 @@
 		select * from product where p_type='M' order by productnum desc
    </select>
    <select id="getSList">
-		select * from product where connectid = #{connectid} order by cost asc limit 1
+		select * from product where connectid = #{connectid} and p_type='m'order by cost asc limit 1
    </select>
    <select id="getProductListBySBoardnum">
 		select * from product where p_type='M' order by connectid=#{sBoardnum}
@@ -54,7 +54,16 @@
       <select id="getListBySBoardnumType">
       select * from product where connectid = #{sBoardnum} and p_type = #{type}
       </select>
-	 <select id="getProduct">
-		select * from product where connectid = (select connectid from product where productnum = #{productnum})
+	<select id="getProduct">
+		select * from product where connectid = (select connectid from product where productnum = #{productnum}) and p_type='m'
+   </select>
+   
+   <!--MDM-->
+   <select id="getProductnumBySBoardnum">
+		select productnum from product where connectid = #{sBoardnum} order by cost asc limit 1
+   </select>
+   <!--MDM-->
+   <select id="getSProductnumByNameAndConnectid">
+		select productnum from product where productname=#{productname} and connectid=#{sBoardnum} and p_type='m'
    </select>
 </mapper>

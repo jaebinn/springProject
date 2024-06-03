@@ -3,6 +3,7 @@ package com.gl.givuluv.service;
 
 import java.util.List;
 
+import com.gl.givuluv.domain.dto.FollowDTO;
 import com.gl.givuluv.domain.dto.UserDTO;
 
 public interface UserService {
@@ -71,4 +72,6 @@ public interface UserService {
 	
 	List<String> getSystemNameByUserid(UserDTO userid);	
 	
+	UserDTO getUserInfo(UserDTO userid);
+	boolean addFollow(FollowDTO follow);
 }

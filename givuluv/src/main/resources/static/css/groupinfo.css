@@ -150,6 +150,20 @@
 .gro_step_button a{
 	text-decoration: none;
 }
+#submitBtn{
+	display: inline-block;
+    width: auto;
+    height: 44px;
+    padding: 0 16px;
+    border: 1px solid rgb(231, 112, 151);
+    font-size: 14px;
+    line-height: 16px;
+    color:rgb(255, 255, 255);
+    background: rgb(231, 112, 151);
+    vertical-align: top;
+    border-radius: 10px;
+    
+}
 .gro_button_prev{
     display: inline-block;
     min-width: 132px;

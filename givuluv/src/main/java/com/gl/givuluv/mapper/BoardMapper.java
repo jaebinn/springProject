@@ -93,5 +93,9 @@ public interface BoardMapper {
 	List<SBoardDTO> getStoreList();
 
 	List<SBoardDTO> getSBoardListBySNum(int sNum);
-
+	
+	SBoardDTO getSboardByProductnum(int productnum);
+	
+	List<CBoardDTO> getCampaignListByCategories(String[] categoryList, int cBoardnum, int amount);
+	List<CBoardDTO> getCampaignList(int boardlastnum, int amount);
 }

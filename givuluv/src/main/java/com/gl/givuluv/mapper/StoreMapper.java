@@ -21,5 +21,7 @@ public interface StoreMapper {
 
 	StoreDTO getStoreBySBoardnum(String connectid);
 	
+	StoreDTO getStoreBySName(String sName);
+	   int updateStore(StoreDTO store, String sellerid);
 
 }

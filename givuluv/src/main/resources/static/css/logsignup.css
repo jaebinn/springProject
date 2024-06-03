@@ -113,6 +113,7 @@
     margin-top: -10px;
     padding: 30px;
     border-top: 1px solid #e5e5e5;
+    
 }
 .lsu_form_row{
     display: table;
@@ -174,11 +175,52 @@
     width: auto;
     height: 44px;
     padding: 0 16px;
-    border: 1px solid #828282;
+    border: 1px solid rgb(231, 112, 151);
     font-size: 14px;
     line-height: 16px;
-    color:#666;
+    color:rgb(255, 255, 255);
+    background: rgb(231, 112, 151);
     vertical-align: top;
+    border-radius: 10px;
+}
+.lsu_button_mname{
+   display: inline-block;
+    width: auto;
+    height: 44px;
+    padding: 0 16px;
+    border: 1px solid rgb(231, 112, 151);
+    font-size: 14px;
+    line-height: 16px;
+    color:rgb(255, 255, 255);
+    background: rgb(231, 112, 151);
+    vertical-align: top;
+    border-radius: 10px;
+}
+.lsu_button_mId{
+    display: inline-block;
+    width: auto;
+    height: 44px;
+    padding: 0 16px;
+    border: 1px solid rgb(231, 112, 151);
+    font-size: 14px;
+    line-height: 16px;
+    color:rgb(255, 255, 255);
+    background: rgb(231, 112, 151);
+    vertical-align: top;
+    border-radius: 10px;
+}
+.lsu_button_pw{
+	display: inline-block;
+    width: auto;
+    height: 44px;
+    padding: 0 16px;
+    border: 1px solid rgb(231, 112, 151);
+    font-size: 14px;
+    line-height: 16px;
+    color:rgb(255, 255, 255);
+    background: rgb(231, 112, 151);
+    vertical-align: top;
+    border-radius: 10px;
 }
 #uniquenumber_result {
     margin-top: 10px;

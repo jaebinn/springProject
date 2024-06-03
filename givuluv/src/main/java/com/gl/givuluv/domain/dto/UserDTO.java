@@ -22,4 +22,5 @@ public class UserDTO {
 	private int bonus;
 	private char type;
 	private String usercategory;
+	private String keyword;
 }

@@ -34,4 +34,8 @@ public interface ProductService {
 	
 	//MDM 수정
 	int[] getMConnectidByCategory(String category);
+
+	int getProductnumBySBoardnum(int sBoardnum);
+	
+	int getSProductnumByNameAndConnectid(String productname, int sBoardnum);
 }

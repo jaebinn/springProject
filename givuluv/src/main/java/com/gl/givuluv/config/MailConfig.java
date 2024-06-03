@@ -15,9 +15,9 @@ public class MailConfig {
 
         javaMailSender.setHost("smtp.gmail.com");
         javaMailSender.setUsername("whiteclover129@gmail.com");
-        javaMailSender.setPassword("vzquqcjszzjrgutq"); // gitignore해야함
+        javaMailSender.setPassword(""); // gitignore해야함
 
-        javaMailSender.setPort(465); // SSL 포트로 변경
+        javaMailSender.setPort(587); 
 
         javaMailSender.setJavaMailProperties(getMailProperties());
 
@@ -25,13 +25,14 @@ public class MailConfig {
     }
     
     private Properties getMailProperties() {
-        Properties properties = new Properties();
-        properties.setProperty("mail.transport.protocol", "smtp"); // 프로토콜 설정
-        properties.setProperty("mail.smtp.auth", "true"); // smtp 인증
-        properties.setProperty("mail.smtp.starttls.enable", "true"); // smtp strattles 사용
-        properties.setProperty("mail.debug", "true"); // 디버그 사용
-        properties.setProperty("mail.smtp.ssl.trust","smtp.gmail.com"); // ssl 인증 서버는 
-        properties.setProperty("mail.smtp.ssl.enable","true"); // ssl 사용
+    	Properties properties = new Properties();
+    	properties.put("mail.transport.protocol", "smtp");
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.smtp.starttls.enable", "true"); // TLS 사용
+        properties.put("mail.smtp.starttls.required", "true"); // TLS 필수 사용
+        properties.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+        properties.put("mail.smtp.ssl.protocols", "TLSv1.2 TLSv1.3"); // TLS 프로토콜 지정
+        properties.put("mail.debug", "true");
         return properties;
     }
 }

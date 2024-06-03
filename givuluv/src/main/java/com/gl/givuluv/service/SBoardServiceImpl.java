@@ -18,10 +18,12 @@ import com.gl.givuluv.domain.dto.FileDTO;
 import com.gl.givuluv.domain.dto.ProductDTO;
 import com.gl.givuluv.domain.dto.SBoardDTO;
 import com.gl.givuluv.domain.dto.StoreDTO;
+import com.gl.givuluv.domain.dto.UserDTO;
 import com.gl.givuluv.mapper.BoardMapper;
 import com.gl.givuluv.mapper.FileMapper;
 import com.gl.givuluv.mapper.ProductMapper;
 import com.gl.givuluv.mapper.StoreMapper;
+import com.gl.givuluv.mapper.UserMapper;
 
 import ch.qos.logback.core.model.Model;
 
@@ -40,7 +42,11 @@ public class SBoardServiceImpl implements SBoardService{
 	@Autowired
 	private ProductMapper pmapper;
 	
-	@Autowired FileMapper fmapper;
+	@Autowired 
+	private FileMapper fmapper;
+	
+	@Autowired
+	private UserMapper umapper;
 	
 	@Override
 	   public boolean regist(Model model, SBoardDTO sBoard, String sellerId, List<ProductDTO> products, String filenames, MultipartFile thumbnail) throws Exception {
@@ -109,6 +115,18 @@ public class SBoardServiceImpl implements SBoardService{
 	@Override
 	public SBoardDTO getSBoard(int connectid) {
 		return bmapper.getSBoard(connectid);
+	}
+	
+	// MDM
+	@Override
+	public SBoardDTO getSboardByProductnum(int productnum) {
+		return bmapper.getSboardByProductnum(productnum);
+	}
+
+	// MDM
+	@Override
+	public UserDTO getUserById(String userid) {
+		return umapper.getUserById(userid);
 	}
 	
 }

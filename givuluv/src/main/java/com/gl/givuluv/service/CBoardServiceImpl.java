@@ -1,18 +1,16 @@
 package com.gl.givuluv.service;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gl.givuluv.domain.dto.CBoardDTO;
-import com.gl.givuluv.domain.dto.CommentDTO;
 import com.gl.givuluv.domain.dto.FileDTO;
 import com.gl.givuluv.domain.dto.FollowDTO;
 import com.gl.givuluv.domain.dto.LikeDTO;
 import com.gl.givuluv.mapper.BoardMapper;
-import com.gl.givuluv.mapper.CommentMapper;
 import com.gl.givuluv.mapper.FileMapper;
 import com.gl.givuluv.mapper.LikeMapper;
 import com.gl.givuluv.mapper.OrgMapper;
@@ -67,11 +65,19 @@ public class CBoardServiceImpl implements CBoardService {
 	}
 	
 	@Override
-	public List<CBoardDTO> getCampaignBoardListOfUser(String loginUser){
-		List<CBoardDTO> campaigns = new ArrayList<>(); 
-		
-		
-		return campaigns;
+	public List<CBoardDTO> getCampaignBoardListOfUser(String loginUser, int cBoardnum, int amount){
+//		1. user의 카테고리 가져오기
+		String categories = umapper.getUserCategoryById(loginUser);
+//		2. 카테고리 ,로 나누기
+		String [] categoryList = categories.split(",");
+		System.out.println(categoryList);
+//		3. 카테고리 갯수에 따라서 동적 쿼리문 수행하기
+		return bmapper.getCampaignListByCategories(categoryList, cBoardnum, amount);
+	}
+	
+	@Override
+	public List<CBoardDTO> getCampaignList(int boardlastnum, int amount){
+		return bmapper.getCampaignList(boardlastnum, amount);
 	}
 
 	@Override
@@ -126,5 +132,23 @@ public class CBoardServiceImpl implements CBoardService {
 			follow.setUserid(loginUser);
 		}
 		return umapper.getfollow(follow);
+	}
+
+	@Override
+	public boolean insertLike(LikeDTO like) {
+		like.setType('C');
+		if(lmapper.insertLike(like) == 1) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean cancelLike(LikeDTO like) {
+		like.setType('C');
+		if(lmapper.deleteByLikeDTO(like) == 1) {
+			return true;
+		}
+		return false;
 	}
 }

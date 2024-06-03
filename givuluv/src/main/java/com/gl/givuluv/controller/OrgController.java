@@ -80,7 +80,16 @@ public class OrgController {
 			return "X";
 		}
 	}
-	
+	@GetMapping("checkPw")
+	@ResponseBody
+	public String checkPw(String orgpw) {
+		if(service.checkPw(orgpw)) {
+			return "O";
+		}
+		else {
+			return "X";
+		}
+	}
 	@GetMapping("register")
 	public String register() {
 		return "org/register";
@@ -93,10 +102,24 @@ public class OrgController {
 	 public String groupinfo() {
 	    return "org/groupinfo";
 	}
+	
 	 @GetMapping("signupcomplete")
 	 public String signupcomplete() {
 	    return "org/signupcomplete";
 	}
+	 @GetMapping("checkunqnum")
+		@ResponseBody
+		public String checkunqnum(@RequestParam(value = "orgunqnum", required = false) Integer orgunqnum) {
+		    if (orgunqnum == null) {
+		        return "X";
+		    }
+		    System.out.println(service.checkUnqnumber(orgunqnum));
+		    if (service.checkUnqnumber(orgunqnum)) {
+		        return "O";
+		    } else {  
+		        return "X";
+		    }
+		}
 	 @GetMapping("checkunqnumber")
 		@ResponseBody
 		public String checkunqnum(int orgunqnum) {

@@ -12,164 +12,338 @@
 	<th:block th:replace="~{layout/header::header(loginUser)}"></th:block>
 	<!-- 컨텐츠 -->
 	<div class="wrap campaignList mt">
-		<div id="Board(boardnum)" class="orgBoard board">
-			<div class="boardHeader">
-				<div class="mainHeader">
-					<a href="#" class="profile">
-						<img src="/summernoteImage/202405221023256949ed58d39-11cf-4eb5-bab3-0a9a7b59ab73.png">
-						<p>단체 이름</p>
-					</a>
-					<p>2주전</p>
-				</div>
-				<a class="follow follow_${orgid}" href="javascript:follow(orgid)">팔로우</a>
-				<!--if문으로 팔로우 돼있으면 안 보이게 / 팔로우 누르면 DB에 넣고 팔로우 안 보이게-->
-			</div>
-			<a href="javascript:modal('boardnum')">
-				<div class="contents">
-					내용<br>내용<br>내용<br>내용<br>내용<br>내용<br>내용<br>내용<br>내용<br>내용
-				</div>
-			</a>
-			<div class="boardFooter">
-				<div class="hashtag">
-					<p>동물</p>
-				</div>
-				<div class="btn_box like_box">
-					<a href="javascript:addLike(boardnum)" id="addLike(boardnum)" class="addLike"><i
-							class="fa-regular fa-heart"></i></a>
-					<!--<a href="javascript:cancelLike(boardnum)" id="addLike(boardnum)" class="cancelLike"><i style="color:rgb(255, 128, 194)" class="fa-solid fa-heart"></i></a>-->
-					<p>999</p>
-					<a href="javascript:copyLink(boardnum)"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-				</div>
-			</div>
-			<div class="modal_box" style="display: none;">
-				<div class="modal_exit"></div>
-				<div class="modal">
-					<div class="modalBoard">
-						<div class="boardHeader">
-							<div class="mainHeader">
-								<a href="#" class="profile">
-									<img
-										src="/summernoteImage/202405221023256949ed58d39-11cf-4eb5-bab3-0a9a7b59ab73.png">
-									<p>단체 이름</p>
-								</a>
-								<p>2주 전</p>
-							</div>
-							<a class="follow follow_${orgid}" href="javascript:follow(orgid)">팔로우</a>
-							<!--if문으로 팔로우 돼있으면 안 보이게 / 팔로우 누르면 DB에 넣고 팔로우 안 보이게-->
-						</div>
-						<div class="contents">
-							내용<br>내용<br>내용<br>내용<br>내용<br>내용<br>내용<br>내용<br>내용<br>내용
-						</div>
-						<div class="boardFooter">
-							<div class="hashtag">
-								<p>동물</p>
-							</div>
-							<div class="btn_box">
-								<a href="javascript:addLike(boardnum)" id="addLike(boardnum)" class="addLike"><i
-										class="fa-regular fa-heart"></i></a>
-								<!--<a href="javascript:cancelLike(boardnum)" id="addLike(boardnum)" class="cancelLike"><i style="color:rgb(255, 128, 194)" class="fa-solid fa-heart"></i></a>-->
-								<a href="javascript:copyLink(boardnum)"><i
-										class="fa-solid fa-arrow-up-right-from-square"></i></a>
-							</div>
-						</div>
-					</div>
-					<div class="modal_side_box">
-						<div class="commentbox">
-							<div class="comment">
-								<div class="commentHeader">
-									<a href="#" class="commentprofile">
-										<img
-											src="/summernoteImage/202405221023256949ed58d39-11cf-4eb5-bab3-0a9a7b59ab73.png">
-										<p>유저 이름</p>
-									</a>
-									<div class="like_box">
-										<a href="javascript:addcommentLike(commentnum)" id="addcommentLike(commentnum)"
-											class="addLike"><i class="fa-regular fa-heart"></i></a>
-										<!--<a href="javascript:cancelcommentLike(commentnum)" id="addLike(commentnum)" class="cancelLike"><i style="color:rgb(255, 128, 194)" class="fa-solid fa-heart"></i></a>-->
-										<p>999</p> <!-- 1000이상이면 k 달아주기 -->
-									</div>
-								</div>
-								<div class="othercommentdetail">
-									sadfasdfasdfasdfasdfasfsadfasdfasdfas<br>afsdfasdf
-								</div>
-								<div class="commentFooter">
-									<div class="date">
-										<p>2시간 전</p>
-									</div>
-									<div class="commentA_box">
-										<a class="commentA" href="javascript:commentModify(commentnum)">수정</a>
-										<a class="commentA" href="javascript:commentDelete(commentnum)">삭제</a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<form class="comment_regist_box" name="comment_regist">
-							<input type="hidden" name="cBoardnum" value=""> <!-- boardnum -->
-							<textarea class="commentdetail" name="commentdetail"></textarea>
-							<a href="commentRegist(cBoardnum)" class="registBtn">등록</a>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="managerBoard board">
-			<a href="javascript:modal('cBoardnum')">
-				<div class="contents">
-					내용<br>내용<br>내용<br>내용<br>내용<br>내용<br>내용<br>내용<br>내용<br>내용
-				</div>
-			</a>
-			<div class="boardFooter">
-				<div class="btn_box like_box">
-					<a href="javascript:addLike(boardnum)" id="addLike(boardnum)" class="addLike"><i
-							class="fa-regular fa-heart"></i></a>
-					<!--<a href="javascript:cancelLike(boardnum)" id="addLike(boardnum)" class="cancelLike"><i style="color:rgb(255, 128, 194)" class="fa-solid fa-heart"></i></a>-->
-					<p>999</p>
-					<a href="javascript:copyLink(boardnum)"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-				</div>
-			</div>
-			<div class="modal_box" style="display: none;">
-				<div class="modal_exit"></div>
-				<div class="modal">
-					<div class="modalBoard">
-						<div class="contents">
-							내용<br>내용<br>내용<br>내용 내용<br>내용<br>내용<br>내용 내용<br>내용<br>내용<br>내용 내용<br>내용<br>내용<br>내용
-							내용<br>내용<br>내용<br>내용 내용<br>내용<br>내용<br>내용
-							내용<br>내용<br>내용<br>내용<br>내용<br>내용<br>내용<br>내용<br>내용<br>내용
-						</div>
-						<div class="boardFooter">
-							<div class="btn_box">
-								<a href="javascript:addLike(boardnum)" id="addLike(boardnum)" class="addLike"><i
-										class="fa-regular fa-heart"></i></a>
-								<!--<a href="javascript:cancelLike(boardnum)" id="addLike(boardnum)" class="cancelLike"><i style="color:rgb(255, 128, 194)" class="fa-solid fa-heart"></i></a>-->
-								<a href="javascript:copyLink(boardnum)"><i
-										class="fa-solid fa-arrow-up-right-from-square"></i></a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+
 	</div>
 	<!-- footer -->
 	<th:block th:replace="~{layout/footer::footer()}"></th:block>
 </body>
 <script src="/js/jquery-3.7.1.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script src="/js/campaign.js"></script>
 <script th:inline="javascript">
 	$('.h_logout').on('click', function () {
 		alert("로그아웃되었습니다.")
 	})
 
-
-	$(".modal_exit").on('click', function () {
-		$(".modal_box").attr("style", "display:none")
-	})
-
 	function modal(boardnum) {
-		console.log("modal 실행")
-		$(".modal_box").attr("style", "display:flex")
+		console.log("modal 실행");
+		$("#board" + boardnum + " .modal_box").attr("style", "display:flex");
+
+		let className = $("#board" + boardnum).attr("class");
+		console.log(className)
+		let classNames = className.split(" ");
+		if (classNames.indexOf("managerBoard") !== -1) {
+			return;
+		}
+		side_box_Print(boardnum);
+		replyList(boardnum);
 	}
 
+	$(document).ready(function () {
+		boardList(boardlastnum);
 
+		$(document).on('click', '.modal_exit', function () {
+			$(".modal_box").attr("style", "display:none");
+			$(".modal_side_box").remove();
+		});
+
+		$(document).on("scroll", ".commentbox", function(){
+			console.log("scroll")
+			let scrollTop = $(this).scrollTop();
+			// 요소의 전체 높이
+			let scrollHeight = $(this).prop('scrollHeight');
+			// 요소의 보여지는 높이
+			let boxHeight = $(this).height();
+			// 스크롤바의 높이
+			let scrollbarHeight = scrollHeight - boxHeight;
+
+			// 만약 스크롤바의 높이와 스크롤된 위치의 합이 요소의 전체 높이와 거의 같아진다면
+			if (scrollTop + boxHeight >= scrollbarHeight - 5) { // 5는 여유를 두는 값입니다.
+				let cBoardnum = $(this).next().find("#cBoardnum").val();
+				replyList(cBoardnum);
+			}
+		})
+
+		$(window).on("scroll", document, function(){
+			console.log("scroll")
+			let scrollTop = $(document).scrollTop();
+			// 요소의 전체 높이
+			let scrollHeight = document.body.scrollHeight;
+			// 요소의 보여지는 높이
+			let boxHeight = window.innerHeight;
+			// 스크롤바의 높이
+			let scrollbarHeight = scrollHeight - boxHeight;
+
+			// 만약 스크롤바의 높이와 스크롤된 위치의 합이 요소의 전체 높이와 거의 같아진다면
+			if (scrollTop + boxHeight >= scrollbarHeight - 5) { // 5는 여유를 두는 값입니다.
+				boardList();
+			}
+		})
+		
+
+	})
+
+	let boardlastnum = 0;
+	const session_loginUser = /*[[${session.loginUser}]]*/'';
+	const session_loginOrg = /*[[${session.loginOrg}]]*/'';
+	let boardFlag = false;
+	let boardlastFlag = false;
+
+	function boardList() {
+		if (boardlastFlag) {
+			return;
+		}
+		if (boardFlag) {
+			return;
+		}
+		boardFlag = true;
+		console.log("리스트 가져오기")
+
+		if (boardlastnum !== 0) {
+			boardlastnum--;
+		}else{
+			boardlastnum = 2147483647;
+		}
+
+		$.ajax({
+			url: '/campaign/boardList',
+			data: {
+				boardlastnum: boardlastnum,
+			},
+			dataType: 'json',
+			type: 'POST',
+			success: function (data) {
+				if (!boardlastFlag) {
+					console.log("boardlastnum"+boardlastnum)
+					console.log("같"+data.campaignList[data.campaignList.length-1].cboardnum)
+					console.log("길이"+data.campaignList.length)
+					if (boardlastnum === data.campaignList[data.campaignList.length-1].cboardnum) {
+						boardlastFlag = true;
+						return
+					}
+				} else {
+					return;
+				}
+				$.each(data.campaignList, function (index, item) {// data의 크기만큼 for문 , index=index, item=data의 index번째 방
+					let cBoard_like = '';
+					let follow = '';
+					if (session_loginUser !== null) {
+						cBoard_like = data.likeList[index];
+						follow = data.followList[index];
+					}
+
+					let boardDate = date(item.cregdate);
+
+					let boardnum = item.cboardnum;
+					let str = '';
+					if (item.type === 'O') {
+						// 단체 글
+						let orgid = item.connectid;
+						let orgname = data.campaignWriterNameList[index]
+						str += `
+						<div id="board${boardnum}" class="orgBoard board">
+							<div class="boardHeader">
+								<div class="mainHeader">
+									<a href="#" class="profile">
+										<img src="${data.campaignProfileFileLinkList[index]}">
+										<p>${orgname}</p>
+									</a>
+									<p>${boardDate}</p>
+								</div>`
+
+
+						if (session_loginUser !== null) {
+							//User 아니면 안 보임
+							if (follow === null || follow === '') {
+								//팔로우 안 돼 있을 때
+								str += `<a id=addFollow_${orgid} class="follow"
+										href="javascript:addFollow('${orgid}')">팔로우</a>`
+							}
+						}
+
+						str += `
+							</div>
+							<a href="javascript:modal(${boardnum})">
+								<div class="contents">
+									<p>${item.ccontent}</p>
+								</div>
+							</a>
+							<div class="boardFooter">
+								<div class="hashtag">
+									<p>${data.categoryList[index]}</p>
+								</div>
+								<div class="btn_box like_box">
+									<p id="boardLikeCount${boardnum}" class="boardLikeCount${boardnum}">${data.campaign_likecountList[index]}</p> <!-- 1000이상이면 k 달아주기 -->`
+						if (session_loginUser !== null) {
+							console.log("세션 로그인 : " + session_loginUser)
+							//User 아니면 안 보임
+							if (cBoard_like === null) {
+								//좋아요 안 돼 있을 때
+								str += `<a href="javascript:addBoardLike(${boardnum})" style="display:block"
+											id="addBoardLike${boardnum}" class="addLike addBoardLike${boardnum}"><i class="fa-regular fa-heart"></i></a>
+										<a href="javascript:cancelBoardLike(${boardnum})" style="display:none"
+											id="cancelBoardLike${boardnum}" class="cancelLike cancelBoardLike${boardnum}"><i style="color:rgb(255, 128, 194)"
+												class="fa-solid fa-heart"></i></a>`
+							}
+							else {
+								//좋아요 돼 있을 때
+								str += `<a href="javascript:addBoardLike(${boardnum})" style="display:none"
+											id="addBoardLike${boardnum}" class="addLike	addBoardLike${boardnum}" ><i class="fa-regular fa-heart"></i></a>
+										<a href="javascript:cancelBoardLike(${boardnum})" style="display:block"
+											id="cancelBoardLike${boardnum}" class="cancelLike cancelBoardLike${boardnum}"><i style="color:rgb(255, 128, 194)"
+												class="fa-solid fa-heart"></i></a>`
+							}
+						}
+						else {
+							str += `좋아요`;
+						}
+						str += `<a href="javascript:copyLink(${boardnum})"><i
+											class="fa-solid fa-arrow-up-right-from-square"></i></a>
+								</div>
+							</div>
+							<div class="modal_box" style="display: none;">
+								<div class="modal_exit"></div>
+								<div class="modal">
+									<div class="modalBoard">
+										<div class="boardHeader">
+											<div class="mainHeader">
+												<a href="#" class="profile">
+													<img src="${data.campaignProfileFileLinkList[index]}">
+													<p>${data.campaignWriterNameList[index]}</p>
+												</a>
+												<p class="campaignDate">${boardDate}</p>
+											</div>`
+						if (session_loginUser !== null) {
+							//User 아니면 안 보임
+							if (follow === null || follow === '') {
+								//팔로우 안 돼 있을 때
+								str += `<a id=addFollow_${orgid} class="follow"
+												href="javascript:addFollow('${orgid}')">팔로우</a>`
+							}
+						}
+						str += `
+										</div>
+										<div class="contents"><p>${item.ccontent}</p></div>
+										<div class="boardFooter">
+											<div class="hashtag">
+												<p>${data.categoryList[index]}</p>
+											</div>
+											<div class="btn_box like_box">
+												<p id="boardLikeCount${boardnum}" class="boardLikeCount${boardnum}">${data.campaign_likecountList[index]}</p> <!-- 1000이상이면 k 달아주기 -->`
+
+						if (session_loginUser !== null) {
+							console.log("세션 로그인 : " + session_loginUser)
+							//User 아니면 안 보임
+							if (cBoard_like === null) {
+								//좋아요 안 돼 있을 때
+								str += `
+												<a href="javascript:addBoardLike(${boardnum})" style="display:block"
+													id="addBoardLike${boardnum}" class="addLike addBoardLike${boardnum}">
+													<i class="fa-regular fa-heart"></i>
+												</a>
+												<a href="javascript:cancelBoardLike(${boardnum})" style="display:none"
+													id="cancelBoardLike${boardnum}" class="cancelLike cancelBoardLike${boardnum}">
+													<i style="color:rgb(255, 128, 194)" class="fa-solid fa-heart"></i>
+												</a>`
+							}
+							else {
+								//좋아요 돼 있을 때
+								str += `
+												<a href="javascript:addBoardLike(${boardnum})" style="display:none"
+													id="addBoardLike${boardnum}" class="addLike addBoardLike${boardnum}">
+													<i class="fa-regular fa-heart"></i>
+												</a>
+												<a href="javascript:cancelBoardLike(${boardnum})" style="display:block"
+													id="cancelBoardLike${boardnum}" class="cancelLike cancelBoardLike${boardnum}">
+													<i style="color:rgb(255, 128, 194)" class="fa-solid fa-heart"></i>
+												</a>`
+							}
+						}
+						else {
+							str += `좋아요`;
+						}
+						str += `<a href="javascript:copyLink(${boardnum})"><i
+														class="fa-solid fa-arrow-up-right-from-square"></i></a>
+											</div>
+										</div>
+									</div>`
+					}
+					else {
+						// 매니저 글
+						str += `
+						<div id="board${boardnum}" class="managerBoard board">
+							<a href="javascript:modal(${boardnum})">
+								<div class="contents">
+									<p>${item.ccontent}</p>
+								</div>
+							</a>
+							<div class="boardFooter">
+								<div class="btn_box like_box">
+									<p id="boardLikeCount${boardnum}" class="boardLikeCount${boardnum}">${data.campaign_likecountList[index]}</p>`
+						if (session_loginUser !== null) {
+							console.log("세션 로그인 : " + session_loginUser)
+							//User 아니면 안 보임
+							console.log("출력 : " + cBoard_like)
+							if (cBoard_like === null) {
+								//좋아요 안 돼 있을 때
+								str += `<a href="javascript:addBoardLike(${boardnum})" style="display:block" id="addBoardLike${boardnum}" class="addLike addBoardLike${boardnum}"><i class="fa-regular fa-heart"></i></a>
+																<a href="javascript:cancelBoardLike(${boardnum})" style="display:none" id="cancelBoardLike${boardnum}" class="cancelLike cancelBoardLike${boardnum}"><i style="color:rgb(255, 128, 194)" class="fa-solid fa-heart"></i></a>`
+							}
+							else {
+								//좋아요 돼 있을 때
+								str += `<a href="javascript:addBoardLike(${boardnum})" style="display:none" id="addBoardLike${boardnum}" class="addLike addBoardLike${boardnum}"><i class="fa-regular fa-heart"></i></a>
+																<a href="javascript:cancelBoardLike(${boardnum})" style="display:block" id="cancelBoardLike${boardnum}" class="cancelLike cancelBoardLike${boardnum}"><i style="color:rgb(255, 128, 194)" class="fa-solid fa-heart"></i></a>`
+							}
+						}
+						else {
+							str += `좋아요`;
+						}
+						str += `
+								<a href="javascript:copyLink(${boardnum})"><i
+												class="fa-solid fa-arrow-up-right-from-square"></i></a>
+							</div>
+							<div class="modal_box" style="display: none;">
+							<div class="modal_exit"></div>
+								<div class="modal">
+									<div class="modalBoard">
+										<div class="contents"><p>${item.ccontent}</p></div>
+										<div class="boardFooter">
+											<div class="btn_box like_box">
+												<p id="boardLikeCount${boardnum}" class="boardLikeCount${boardnum}">${data.campaign_likecountList[index]}</p>`
+						if (session_loginUser !== null) {
+							console.log("세션 로그인 : " + session_loginUser)
+							//User 아니면 안 보임
+							if (cBoard_like === null) {
+								//좋아요 안 돼 있을 때
+								str += `<a href="javascript:addBoardLike(${boardnum})" style="display:block" id="addBoardLike${boardnum}" class="addLike addBoardLike${boardnum}"><i class="fa-regular fa-heart"></i></a>
+																<a href="javascript:cancelBoardLike(${boardnum})" style="display:none" id="cancelBoardLike${boardnum}" class="cancelLike cancelBoardLike${boardnum}"><i style="color:rgb(255, 128, 194)" class="fa-solid fa-heart"></i></a>`
+							}
+							else {
+								//좋아요 돼 있을 때
+								str += `<a href="javascript:addBoardLike(${boardnum})" style="display:none" id="addBoardLike${boardnum}" class="addLike addBoardLike${boardnum}"><i class="fa-regular fa-heart"></i></a>
+																<a href="javascript:cancelBoardLike(${boardnum})" style="display:block" id="cancelBoardLike${boardnum}" class="cancelLike cancelBoardLike${boardnum}"><i style="color:rgb(255, 128, 194)" class="fa-solid fa-heart"></i></a>`
+							}
+						}
+						else {
+							str += `좋아요`;
+						}
+						str += `<a href="javascript:copyLink(${boardnum})"><i
+											class="fa-solid fa-arrow-up-right-from-square"></i></a>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>`
+					}
+					$(".campaignList").append(str);
+					boardlastnum = boardnum;
+					console.log("보드넘"+boardnum)
+				});
+				boardFlag = false;
+			}
+		})
+	}
 </script>
 
 </html>

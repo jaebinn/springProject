@@ -176,6 +176,21 @@
 	<delete id="deleteUser">
 		delete from user where userid=#{userid}
 	</delete>
-	
-	
+	<update id="updateBonus">
+		update user set bonus= bonus + #{bonus} where userid=#{userid}
+	</update>
+	<update id="giveBonus">
+		update user
+		set bonus = bonus + floor(#{SCost} * 0.1)
+		where userid = #{userid}
+	</update>
+	 <select id="getUserInfo">
+		select * from user where userid = #{userid}
+	</select>
+	<insert id="insertFollow">
+      insert into follow(orgid, userid) values(#{orgid},#{userid})
+   </insert>
+   <select id="getUserCategoryById">
+      select usercategory from user where userid = #{userid};
+   </select>
 </mapper>

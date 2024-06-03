@@ -27,4 +27,6 @@ public interface SellerMapper {
 	SellerDTO getSellerById(String sellerid);
 	
 	String getCategory(int snum);
+	
+	String getSelleridByStorename(String storename);
 }
