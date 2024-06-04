@@ -139,17 +139,16 @@ a, input {
 		flex-direction: column;
 		gap: 10px;
 	}
-	.review_div > div, .QnA_div > div {
-		
+	.review_div > a, .QnA_div > a {
 		width: 100%;
 		padding: 10px;
 		display: flex;
 		flex-direction: column;
 		gap: 10px;
 	}
-	.review_div > div{border: 2px solid #2f966b;}
-	.QnA_div > div {border: 2px solid #e77097;}
-	.review_div > div > .table {
+	.review_div > a{border: 2px solid #2f966b;}
+	.QnA_div > a {border: 2px solid #e77097;}
+	.review_div > a > .table {
 		background-color: white;
 		width: 100%; height: 150px;
 		display: flex;
@@ -158,23 +157,23 @@ a, input {
 		border: 1px solid #e0e0e0;
 		box-shadow: 0 3px 3px rgba(0,0,0,0.2);
 	}
-	.review_div > div > .table > img {
+	.review_div > a > .table > img {
 		border: 1px solid #e0e0e0;
 		margin: 5px;
 		width: 50%;
 	}
-	.review_div > div > .table > div {
+	.review_div > a > .table > div {
 		width: 100%;
 		padding: 5px;
 		font-size: 12px;
 	}
-	.review_div > div > .table > div > :nth-child(1){
+	.review_div > a > .table > div > :nth-child(1){
 		width: 100%; height: 70%;
 		padding: 5px;
 		margin-bottom: 5px;
 	}
-	.review_div > div > .table > div > :nth-child(2),
-	.review_div > div > .table > div > :nth-child(3) {
+	.review_div > a > .table > div > :nth-child(2),
+	.review_div > a > .table > div > :nth-child(3) {
 		text-align: right;
 	}
 	.QnA_title {
@@ -182,25 +181,25 @@ a, input {
 		padding-bottom: 10px;
 		margin-bottom: 10px;
 	}
-	.QnA_title, .QnA_div > div > .table{
+	.QnA_title, .QnA_div > a > .table{
 		display: flex;
 		justify-content: space-between;
 	}
-	.QnA_div > div > .table {
+	.QnA_div > a > .table {
 		padding: 2px;
 		border: 1px solid #e0e0e0;
 		box-shadow: 0 3px 3px rgba(0,0,0,0.2);
 	}
-	.QnA_div > div > .table > span {
+	.QnA_div > a > .table > span {
 		font-size: 12px;
 	}
-	.QnA_div > div > .table > :nth-child(2) {
+	.QnA_div > a > .table > :nth-child(2) {
 		max-width: 200px;
 	}
-	.QnA_div > div > .table > :nth-child(3) {
+	.QnA_div > a > .table > :nth-child(3) {
 		text-align: center;
 	}
-	.QnA_div > div > .table > img {
+	.QnA_div > a > .table > img {
 		width: 25px; height: 25px;
 		border: 1px solid #e0e0e0;
 		border-radius: 50%;

@@ -78,8 +78,8 @@
 				</div>
 				<!-- qna 필터 div -->
 				<div class="filter_div">
-					<input type="button" value="전체보기" onclick="javascript:total_veiw()">
-					<input type="button" value="답변 대기" onclick="window.location.href = 'qnaNoAnswer'" style="color: #757575;">
+					<input type="button" value="전체보기" onclick="window.location.href = 'qna'" style="color: #757575;">
+					<input type="button" value="답변 대기">
 					<input type="button" value="최신순">					
 				</div>
 				<!-- qna 내용 div -->
@@ -98,7 +98,7 @@
 					</div>
 				</div>
 				<div class="search_area" style="display:none">
-					<form name="searchForm" id="searchForm" action="qna" onsubmit="return search(1)">
+					<form name="searchForm" id="searchForm" action="qnaNoAnswer" onsubmit="return search(1)">
 						<input type="hidden" name="pagenum" th:value="${pageMaker.cri.pagenum}">
 						<input type="hidden" name="amount" th:value="${pageMaker.cri.amount}">
 					</form>

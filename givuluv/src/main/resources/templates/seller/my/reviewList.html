@@ -89,6 +89,26 @@
 						</div>
 					</div>
 				</div>
+				<div class="search_area" style="display:none">
+					<form name="searchForm" id="searchForm" action="reviewList" onsubmit="return search(1)">
+						<input type="hidden" name="pagenum" th:value="${pageMaker.cri.pagenum}">
+						<input type="hidden" name="amount" th:value="${pageMaker.cri.amount}">
+					</form>
+				</div>
+				<table class="pagination">
+					<tbody>
+						<tr>
+							<td>
+								<a class="btn changePage" th:href="${pageMaker.startPage - 1}" th:if="${pageMaker.prev}">&lt;</a>
+								<th:block th:each="i : ${#numbers.sequence(pageMaker.startPage, pageMaker.endPage)}">
+									<span class="nowPage" th:if="${pageMaker.cri.pagenum == i}">[[${i}]]</span>
+									<a class="btn changePage" th:href="${i}" th:unless="${pageMaker.cri.pagenum == i}">[[${i}]]</a>
+								</th:block>
+								<a class="btn changePage" th:href="${pageMaker.endPage+1}" th:if="${pageMaker.next}">&gt;</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>
@@ -97,4 +117,22 @@
 </body>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+	const searchForm = $("#searchForm");
+		
+		function search(pagenum){
+			searchForm.find("[name=pagenum]").val(pagenum);
+			//유효성 검사
+			return true;
+		}
+		
+		$(".changePage").on("click",function(e){
+			//e(이벤트)의 기본 작동 막기
+			e.preventDefault();
+			let pagenum = $(this).attr("href");
+			searchForm.attr("onsubmit",`search(${pagenum})`);
+			searchForm.submit();
+		})
+</script>
+
 </html>

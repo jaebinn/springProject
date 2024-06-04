@@ -88,4 +88,7 @@
 	<select id="getSProductByProductnum">
 		select pr.* from s_payment p join product pr on p.productnum = pr.productnum where p.productnum=#{productnum} order by paymentnum desc limit 1;
 	</select>
+	<select id="getLastSPaymentBySellerid">
+      select * from s_payment where sellerid = #{sellerid}
+   </select>
 </mapper>

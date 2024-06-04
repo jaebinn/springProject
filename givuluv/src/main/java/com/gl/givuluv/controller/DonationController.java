@@ -163,8 +163,23 @@ public class DonationController {
 		return "donation/donationView";
 	}
 	@GetMapping("write")
-	public String write() {
-	    return "donation/write";
+	public String write(HttpServletRequest req, Model model) {
+		String url = "/";
+		HttpSession session = req.getSession();
+		String loginOrg = session.getAttribute("loginOrg").toString();
+		if(dbservice.isApproveOrg(loginOrg) == 1) {
+			return "funding/write";
+		}
+		else if(dbservice.isApproveOrgX(loginOrg) == 1){
+			System.out.println("승인이 필요한 사회단체입니다.");
+			model.addAttribute("alertMessage", "스토어 승인 대기 중입니다.\n승인 후 가게 등록이 가능합니다.");
+			model.addAttribute("redirectUri", url);
+			return "store/storeMassege";
+		}else {
+			model.addAttribute("alertMessage", "스토어 등록 후 가게 등록이 가능합니다.");
+			model.addAttribute("redirectUri", url);
+			return "store/storeMassege";
+		}
 	}
     @GetMapping("pay")
     public String pay(@RequestParam("dBoardnum") int dBoardnum, Model model, HttpServletRequest req) {

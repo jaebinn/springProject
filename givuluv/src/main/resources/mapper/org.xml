@@ -31,6 +31,9 @@
 	<select id="checkPw">
 		select * from org where orgpw=#{orgpw}
 	</select>
+	<select id="checkRegisterByOrgid">
+		select ifnull(max(isagree), 'n') as isagree from o_approve where orgid = #{loginOrg}
+   </select>	
 	<update id="updateOrg">
 		
 	</update>

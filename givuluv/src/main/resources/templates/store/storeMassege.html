@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <meta charset="UTF-8">
+</head>
+<body>
+	<script th:inline="javascript">
+	    /*<![CDATA[*/
+	    document.addEventListener("DOMContentLoaded", function() {
+	        var message = /*[[${alertMessage}]]*/ '';
+	        var redirectUri = /*[[${redirectUri}]]*/ '';
+	
+	        if (message) {
+	            alert(message);
+	        }
+	        
+	        if (redirectUri) {
+	            window.location.href = redirectUri;
+	        }
+	    });
+	    /*]]>*/
+	</script>
+</body>
+</html>

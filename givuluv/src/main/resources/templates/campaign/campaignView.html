@@ -103,7 +103,7 @@
 			let follow = /*[[${follow}]]*/'';
 			if(follow === null || follow === ''){
 				//팔로우 안 돼 있을 때
-				str += `<a id=follow_${orgid} class="follow" href="javascript:follow(${orgid})">팔로우</a>`
+				str += `<a id=addFollow_${orgid} class="follow addFollow_${orgid}" href="javascript:addFollow('${orgid}')">팔로우</a>`
 			}
 		}
 		str +=`</div>

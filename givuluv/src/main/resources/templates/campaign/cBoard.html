@@ -156,7 +156,7 @@
 							//User 아니면 안 보임
 							if (follow === null || follow === '') {
 								//팔로우 안 돼 있을 때
-								str += `<a id=addFollow_${orgid} class="follow"
+								str += `<a id=addFollow_${orgid} class="follow addFollow_${orgid}"
 										href="javascript:addFollow('${orgid}')">팔로우</a>`
 							}
 						}
@@ -217,7 +217,7 @@
 							//User 아니면 안 보임
 							if (follow === null || follow === '') {
 								//팔로우 안 돼 있을 때
-								str += `<a id=addFollow_${orgid} class="follow"
+								str += `<a id=addFollow_${orgid} class="follow addFollow_${orgid}"
 												href="javascript:addFollow('${orgid}')">팔로우</a>`
 							}
 						}

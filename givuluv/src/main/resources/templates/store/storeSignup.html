@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <meta charset="UTF-8">
+ <link rel="stylesheet" href="/css/storeSignup.css">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+ <style>
+    @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap');
+ </style>
+</head>
+<body>
+<div class="ssu_wrap">
+    <!--헤더-->
+    <div class="ssu_header">
+        <div class="ssu_header_inner">
+            <div class="ssu_logobox">
+                <a href="/" class="ssu_logo">
+                    <img src="/images/GivuLuv_logo.png" alt="">
+                </a>
+                <a href="/" class="ssu_tit">
+                    기부러브
+                </a>
+                <span class="ssu_subtitle">기부러브 스토어 가입</span>
+            </div>
+        </div>            
+    </div>
+    <div class="ssu_main">
+        <ol class="ssu_step_list">
+            <li class="ssu_step_item active">
+                <i class="fa-regular fa-circle-check"></i>
+                스토어 가입하기
+            </li>
+        </ol>
+        <div class="ssu_form_area">
+            <div class="ssu_form_fieldset">
+                <h2 class="ssu_form_check">
+                    사업자등록확인
+                    <span class="ssu_form_require_check">
+                        필수항목
+                    </span>
+                </h2>
+                <div class="ssu_form_content">
+                   <div class="ssu_form_row">
+                        <div class="ssu_form_col_left">
+                            <label for="storename" class="ssu_form_checkname">
+                                상호명
+                            </label>
+                        </div>
+                        <div class="ssu_form_col_right">
+                            <input id="storename" class="ssu_form_input_text" placeholder="1~30자 한글, 영문 숫자 사용가능">
+							<button type="button" id="storenamebtn" class="ssu_button_storename">중복확인</button>
+                            <p class="ssu_form_input_desc">
+                                사업자등록증에 등록된 상호명으로 입력하세요
+                            </p>
+							<div id="storename_result"></div>
+                        </div>
+                   </div> 
+                   <div class="ssu_form_row">
+                        <div class="ssu_form_col_left">
+                            <label for="regnum" class="ssu_form_regnum">
+                                사업자등록번호
+                            </label>
+                        </div>
+                        <div class="ssu_form_right">
+                            <input id="regnum" class="ssu_form_input_text"
+                            placeholder="사업자등록번호 10자리를 '-'없이 입력">
+                            <button type="button" id="regnumbtn" class="ssu_button_regnum">중복확인</button>
+                        </div>
+                        <div id="regnum_result"></div>
+                   </div>
+                </div>        
+            </div>
+            <div class="ssu_form_fieldset">
+                <h2 class="ssu_form_check">
+                    스토어 및 대표자 정보
+                    <span class="ssu_form_require_check">
+                        필수항목
+                    </span>
+                </h2>
+                <p class="ssu_form_content_tip">입력하신 정보는 이후 신청서 등록 시 수정이 불가한 항목입니다. 
+                 정확하게 확인하신 후 등록해주세요.   
+                </p>
+                <div class="ssu_form_content">
+                    <div class="ssu_form_row">
+                        <div class="ssu_form_col_left">
+                            <label for="leadername" class="ssu_form_leadername">
+                                대표자 이름
+                            </label>
+                        </div>
+                        <div class="ssu_form_col_right">
+                            <input id="leadername" class="ssu_form_input_text"
+                            placeholder="1~15자 한글, 영문 사용가능">
+                        </div>
+                    </div>
+                    <div class="ssu_form_row">
+                        <div class="ssu_form_col_left">
+                            <label for="information" class="ssu_form_information">
+                                스토어소개
+                            </label>
+                        </div>
+                        <div class="ssu_form_col_right">
+                            <textarea id="information" class="ssu_form_input_textarea"
+                            placeholder="스토어 소개글을 작성해주세요."></textarea>
+                        </div>
+                    </div>
+                    <div class="ssu_form_row">
+                        <div class="ssu_form_col_left">
+                            <label for="storePhone" class="ssu_form_storePhone">
+                                전화번호
+                            </label>
+                        </div>
+                        <div class="ssu_form_col_right">
+                            <input id="storePhone"
+                            class="ssu_form_input_text"
+                            placeholder="스토어(대표자) 전화번호를 입력해주세요">
+                        </div>
+                    </div>
+                    <div class="ssu_form_row">
+                        <div class="ssu_form_col_left">
+                            <label for="s_zipcode" class="ssu_form_zipcode">
+                                우편번호
+                            </label>
+                        </div>
+                        <div class="ssu_form_col_right">
+                            <input type="text" id="s_zipcode"
+                            class="ssu_form_input_text" onclick="findAddr()"
+                            placeholder="우편번호">
+                            <button type="button" id="zipcodeBtn" class="ssu_button_regnum" onclick="findAddr()">우편번호 찾기</button>
+                        </div>
+                    </div>
+                    <div class="ssu_form_row">
+                        <div class="ssu_form_col_left">
+                            <label for="s_addr" class="ssu_form_addr">
+                                주소
+                            </label>
+                        </div>
+                        <div class="ssu_form_col_right">
+                            <input type="text" id="s_addr"
+                            class="ssu_form_input_text" onclick="findAddr()"
+                            placeholder="주소">
+                        </div>
+                    </div>
+                    <div class="ssu_form_row">
+                        <div class="ssu_form_col_left">
+                            <label for="s_addrdetail" class="ssu_form_addrdetail">
+                                상세주소
+                            </label>
+                        </div>
+                        <div class="ssu_form_col_right">
+                            <input type="text" id="s_addrdetail"
+                            class="ssu_form_input_text"
+                            placeholder="상세주소">
+                        </div>
+                    </div>
+                    <div class="ssu_form_row">
+                        <div class="ssu_form_col_left">
+                            <label for="s_addretc" class="ssu_form_addretc">
+                                참고항목
+                            </label>
+                        </div>
+                        <div class="ssu_form_col_right">
+                            <input type="text" id="s_addretc"
+                            class="ssu_form_input_text"
+                            placeholder="참고항목">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ssu_step_button">
+                <a href="/" id="cancel" class="ssu_button_cancel">취소</a>
+                <a href="/" id="storesubmit" class="ssu_button_next">신청</a>
+            </div>
+        </div>
+    </div>
+    <div class="ssu_footer">
+        <div class="ssu_footer_inner">
+             <p><a href="/">기부러브</a><span>Copyright © GivuLuv Corp. All Rights Reserved.</span></p>
+        </div>
+    </div>
+</div>    
+</body>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="/js/jquery-3.7.1.min.js"></script>
+<script src="/js/storeSignup.js"></script>
+</html>

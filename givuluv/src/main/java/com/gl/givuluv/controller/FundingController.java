@@ -45,20 +45,33 @@ public class FundingController {
 	}
 	
 	@GetMapping("write")
-	public void write() {}
+	public String write(HttpServletRequest req, Model model) {
+		String url = "/";
+		HttpSession session = req.getSession();
+		String loginOrg = session.getAttribute("loginOrg").toString();
+		if(fbservice.isApproveOrg(loginOrg) == 1) {
+			return "funding/write";
+		}
+		else if(fbservice.isApproveOrgX(loginOrg) == 1){
+			System.out.println("승인이 필요한 사회단체입니다.");
+			model.addAttribute("alertMessage", "스토어 승인 대기 중입니다.\n승인 후 가게 등록이 가능합니다.");
+			model.addAttribute("redirectUri", url);
+			return "store/storeMassege";
+		}else {
+			model.addAttribute("alertMessage", "스토어 등록 후 가게 등록이 가능합니다.");
+			model.addAttribute("redirectUri", url);
+			return "store/storeMassege";
+		}
+	}
 	
 	@PostMapping("write")
 	public String regist(Model model, FBoardDTO fBoard,
 			@ModelAttribute("productList") ProductDTO productList, String filenames, MultipartFile thumbnail,
 			HttpServletRequest req) throws Exception {
-		// 경로
-		System.out.println("Post : store/write");
-		// 파라미터 출력
-		System.out.println(fBoard.getFTitle());
-		System.out.println(fBoard.getFContent());
-		System.out.println(fBoard.getFEnddate());
-		System.out.println(fBoard.getTargetAmount());
-		System.out.println(fBoard.getOrgid());
+		HttpSession session = req.getSession();
+		String sessionOrgId = session.getAttribute("loginOrg").toString();
+		
+		
 		List<ProductDTO> products = productList.getProductList();
 		for (ProductDTO product : products) {
 			System.out.println(product.getProductname());
@@ -67,8 +80,6 @@ public class FundingController {
 		}
 		System.out.println("파일이름들 : "+filenames);
 		// 세션 검사
-		HttpSession session = req.getSession();
-		String sessionOrgId = session.getAttribute("loginOrg").toString();
 		if (sessionOrgId.equals(fBoard.getOrgid())) {
 			if (fbservice.regist(model, fBoard, products, filenames, thumbnail)) {
 				System.out.println("성공");

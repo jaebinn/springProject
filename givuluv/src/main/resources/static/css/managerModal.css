@@ -129,8 +129,8 @@
 	align-items: center;
 	padding: 10px 0;
 }
-.sellername a,
-.orgname a{
+.sellername .btn,
+.orgname .btn{
 	border: 3px solid rgb(231, 112 , 151);
 	background-color: rgb(231, 112, 151);
 	color: white;
@@ -138,9 +138,7 @@
 	border-radius: 5px;
 	font-size: 14px;
 }
-.sellerList li{
-	
-}
+
 .approveBtn{
 	text-align: center;
 	padding: 5px 10px;

@@ -4,13 +4,12 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.gl.givuluv.mapper.OrgapproveMapper">
 	<insert id="insertOrgapprove">
-		insert into o_approve(institute_name, address, phone_number, information)
-		values(#{instituteName},#{address}, #{phoneNumber}, #{information})
+		insert into o_approve(o_approvenum,institute_name, address, phone_number, information, regdate, orgid)
+		values(#{oApprovenum},#{instituteName},#{address}, #{phoneNumber}, #{information}, #{regdate}, #{orgid})
 	</insert>
 	 <select id="getOrgapproveByInstituteName" >
         SELECT * FROM o_approve WHERE institute_name = #{instituteName}
     </select>
-
     <select id="getAllOrgapproves">
         SELECT * FROM o_approve
     </select>
@@ -26,11 +25,22 @@
 	<select id="getApproveList">
 		select * from o_approve where isagree='o';
 	</select>
+	<select id="orgApproveProfile">
+		select * from o_approve where o_approvenum=#{oapprovenum};
+	</select>
+	<select id="isApproveOrg">
+		select count(*) from o_approve where orgid=#{loginOrg} and isagree='o'
+	</select>
+	<select id="isApproveOrgX">
+		select count(*) from o_approve where orgid=#{loginOrg} and isagree='-'
+	</select>
     <!-- Update (U) -->
-    <update id="updateOrgapprove">
-        
-    </update>
-
+	<update id="updateorgApprove">
+		update o_approve set isagree='o', regdate=now() where o_approvenum=#{approvenum}
+	</update>
+	<update id="cancelorgApprove">
+		update o_approve set isagree='-', regdate=now() where o_approvenum=#{approvenum}
+	</update>
     <!-- Delete (D) -->
     <delete id="deleteOrgapproveByInstituteName" >
        

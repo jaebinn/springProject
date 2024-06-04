@@ -1,10 +1,12 @@
 package com.gl.givuluv.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -22,6 +24,7 @@ import com.gl.givuluv.domain.dto.ReviewDTO;
 import com.gl.givuluv.domain.dto.SBoardDTO;
 import com.gl.givuluv.domain.dto.SBoardwithFileDTO;
 import com.gl.givuluv.domain.dto.SPaymentDTO;
+import com.gl.givuluv.domain.dto.SRegisterDTO;
 import com.gl.givuluv.domain.dto.StoreDTO;
 import com.gl.givuluv.domain.dto.UserDTO;
 import com.gl.givuluv.service.FileService;
@@ -210,7 +213,29 @@ public class StoreController {
 	
 	
 	@GetMapping("write")
-	public void write() {
+	public String write(HttpServletRequest req, Model model) {
+		HttpSession session = req.getSession();
+		String loginSeller = (String)session.getAttribute("loginSeller");
+		
+		char check = sservice.checkStoreBySellerid(loginSeller);
+		
+		String url;
+		
+		if(check == 'o') {
+			return "store/write";
+		}
+		else if(check == '-'){
+			url = "/";
+			model.addAttribute("alertMessage", "스토어 승인 대기 중입니다.\n승인 후 가게 등록이 가능합니다.");
+			model.addAttribute("redirectUri", url);
+			return "store/storeMassege";
+		}
+		else {
+			url = "storeSignup";
+			model.addAttribute("alertMessage", "스토어 등록 후 가게 등록이 가능합니다.");
+			model.addAttribute("redirectUri", url);
+			return "store/storeMassege";
+		}
 	}
 
 	@PostMapping("write")
@@ -445,7 +470,98 @@ public class StoreController {
 			}
 		}
 		
+		@GetMapping("storeSignup")
+		public String storeSignup(HttpServletRequest req, Model model) {
+			
+			HttpSession session = req.getSession();
+			String loginSeller = (String)session.getAttribute("loginSeller");
+			
+			char check = sservice.checkStoreBySellerid(loginSeller);
+			
+			String url;
+			
+			if(check == 'o') {
+				url = "/";
+				model.addAttribute("alertMessage", "이미 승인된 스토어입니다.");
+				model.addAttribute("redirectUri", url);
+				return "store/storeMassege";
+			}
+			else if(check == '-'){
+				url = "/";
+				model.addAttribute("alertMessage", "스토어 승인 대기 중입니다.");
+				model.addAttribute("redirectUri", url);
+				return "store/storeMassege";
+			}
+			else {
+				return "store/storeSignup";
+			}
+		}
 		
+	    @GetMapping("checkStorename")
+		@ResponseBody
+	    public String checkStorename(@RequestParam String storename) {
+	    	if(sservice.checkStorename(storename)) {
+				System.out.println("O");
+				return "O";
+			}
+			else {
+				System.out.println("X");
+				return "X";
+			}
+	    }
+	    
+	    @GetMapping("checkRegnum")
+	    @ResponseBody
+	    public String checkRegnum(@RequestParam String regnum) {
+	    	if(sservice.checkRegnum(regnum)) {
+	    		System.out.println("O");
+	    		return "O";
+	    	}
+	    	else {
+	    		System.out.println("X");
+	    		return "X";
+	    	}
+	    }
+	    
+	    
+	    @GetMapping("signup")
+	    @ResponseBody
+	    public String signup(
+	    		@RequestParam String storename, 
+	    		@RequestParam String regnum,
+	    		@RequestParam String leadername, 
+	    		@RequestParam String storePhone,
+	    		@RequestParam String s_zipcode, 
+	    		@RequestParam String s_addr,
+	    		@RequestParam String s_addrdetail, 
+	    		@RequestParam String s_addretc,
+	    		@RequestParam String information,
+	            HttpServletRequest req) {
+
+	        HttpSession session = req.getSession();
+	        String loginSeller = (String) session.getAttribute("loginSeller");
+
+	        SRegisterDTO srdto = new SRegisterDTO();
+
+	        srdto.setSName(storename);
+	        srdto.setSRegnum(regnum);
+	        srdto.setSLeader(leadername);
+	        srdto.setSPhone(storePhone);
+	        srdto.setSZipcode(s_zipcode);
+	        srdto.setSAddr(s_addr);
+	        srdto.setSAddrdetail(s_addrdetail);
+	        srdto.setSAddretc(s_addretc);
+	        srdto.setSellerid(loginSeller);
+	        srdto.setInformation(information);
+
+	        System.out.println(srdto);
+	        
+	        if (sservice.insertStoreSignup(srdto)) {
+	        	return "O";
+	        } else {
+	        	return "X";
+	        }
+	    }
 	}
 
 

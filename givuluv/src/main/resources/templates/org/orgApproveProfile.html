@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="/css/profile.css">
+	<link rel="stylesheet" href="/css/groupInfo.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+	<div class="gro_wrap">
+		<!--헤더-->
+		<div class="gro_header">
+			<div class="gro_header_inner">
+				<div class="gro_logobox">
+					<a href="/" class="gro_logo">
+						<img src="../images/GivuLuv_logo.png" alt="">
+					</a>
+					<a href="/" class="gro_tit">
+						기부러브
+					</a>
+					<span class="gro_subtitle">기부러브 [사회단체] 승인 프로필</span>
+				</div>
+			</div>
+		</div>
+		<section class="profile-card">
+			<div class="image">
+				<img th:src="${profile.systemname}" alt="" class="profile-img">
+			</div>
+			<div class="text-data">
+				<span class="ceoname name">[[${profile.orgInfo.ceoname}]]</span>
+				<span class="name">단체명: [[${profile.orgInfo.orgname}]]</span>
+				<span class="age">아이디: [[${profile.orgInfo.orgid}]]</span>
+				<table>
+					<tr>
+						<th>고유번호: </th>
+						<td>[[${profile.orgInfo.orgunqnum}]]</td>
+					</tr>
+					<tr>
+						<th>주소: </th>
+						<td> [[${profile.orgapproveProfile.address}]]</td>
+					</tr>
+					<tr>
+						<th>카테고리: </th>
+						<td> [[${profile.orgInfo.orgcategory}]]</td>
+					</tr>
+					<tr>
+						<th>자기소개: </th>
+						<td> [[${profile.orgapproveProfile.information}]]</td>
+					</tr>
+				</table>
+			</div>
+
+		</section>
+		<div class="gro_footer">
+			<div class="gro_footer_inner">
+				<p><a href="/">기부러브</a><span>Copyright © GivuLuv Corp. All Rights Reserved.</span></p>
+			</div>
+		</div>		
+	</div>
+</body>
+<script src="/js/groupinfo.js"></script>
+
+</html>

@@ -1,37 +1,51 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper
-  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gl.givuluv.mapper.ReviewMapper">
-	<insert id="insertDReview">
-		insert into review(reviewnum, reviewdetail, userid, connectid, type)
-		values(#{reviewnum},#{reviewdetail},#{userid},#{connectid}, 'd')
-	</insert>
-	<select id="getLastReview">
-		select * from review where userid=#{userid} order by reviewnum desc limit 1
-	</select>
-	<select id="getDReviewThree">
-		select * from review where type='d' order by reviewnum desc limit 3
-	</select>
-	<select id="getReviewList">
-		select * from review where connectid=#{dBoardnum}
-	</select>
-	<select id="getReviewCnt">
-		select count(reviewnum) from review where connectid=#{dBoardnum}
-	</select>
-	<delete id="deleteReview">
-		delete from review where reviewnum=#{reviewnum}
-	</delete>
-	<update id="updateReview">
-		update review set reviewdetail=#{reviewdetail}, reviewdate=now() where reviewnum=#{reviewnum}
-	</update>
-	
-	<select id="getProductReviewList">
-		select reviewnum, reviewdetail, userid, DATE_FORMAT(reviewdate, '%Y-%m-%d') as reviewdate, star, connectid, type
-		from review where connectid = #{sBoardnum} and type = 'm' order by reviewnum desc
-	</select>
-	<select id="getReviewListByConnectid">
-      select * from review where connectid=#{connectid} order by reviewnum desc
+   <insert id="insertDReview">
+      insert into review(reviewnum, reviewdetail, userid, connectid, type)
+      values(#{reviewnum},#{reviewdetail},#{userid},#{connectid}, 'd')
+   </insert>
+   <select id="getLastReview">
+      select * from review where userid=#{userid} order by reviewnum desc
+      limit 1
    </select>
+   <select id="getDReviewThree">
+      select * from review where type='d' order by reviewnum desc limit 3
+   </select>
+   <select id="getReviewList">
+      select * from review where connectid=#{dBoardnum}
+   </select>
+   <select id="getReviewCnt">
+      select count(reviewnum) from review where connectid=#{dBoardnum}
+   </select>
+   <delete id="deleteReview">
+      delete from review where reviewnum=#{reviewnum}
+   </delete>
+   <update id="updateReview">
+      update review set reviewdetail=#{reviewdetail}, reviewdate=now() where
+      reviewnum=#{reviewnum}
+   </update>
+
+   <select id="getProductReviewList">
+      select reviewnum, reviewdetail, userid, DATE_FORMAT(reviewdate,
+      '%Y-%m-%d') as reviewdate, star, connectid, type
+      from review where connectid = #{sBoardnum} and type = 'm' order by
+      reviewnum desc
+   </select>
+   <select id="getReviewListByConnectid">
+      select * from review where connectid=#{connectid} order by reviewnum
+      desc
+   </select>
+   <select id="getReviewListBySBoardnumWithCri">
+      select * from review where connectid = #{sBoardnum}
+      order by reviewnum desc
+      limit #{cri.startrow}, ${cri.amount}
+   </select>
+
+   <select id="getTotalBySBoardnum">
+      select count(*) from review
+      where connectid = #{connectid}
+   </select>
+
 
 </mapper>

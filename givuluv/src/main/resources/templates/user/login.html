@@ -26,6 +26,7 @@
 			</div>
 			<div class="login-input">
 				<form action="/user/login" method="post" name="loginForm">
+					<input type="hidden" name="type" id="type" value="User">
 					<div class="login-input-wrap">
 						<input type="text" name="userid" id="userid" placeholder="아이디" th:value="${joinid}"><br>
 						<input type="password" name="userpw" id="userpw" placeholder="비밀번호"><br>
@@ -77,6 +78,7 @@
 			<div class="login-input">
 				<h1>GivuLuv [관리자] 로그인</h1>
 				<form action="/manager/login" method="post" name="loginForm">
+					<input type="hidden" name="type" value="Manager">
 					<div class="login-input-wrap">
 						<input type="text" name="managerid" id="managerid" placeholder="아이디"><br>
 						<input type="password" name="managerpw" id="managerpw" placeholder="비밀번호"><br>
@@ -98,6 +100,9 @@
 			};
 		</script>
 	</th:block>
+	<script th:inline="javascript">
+				
+	</script>
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 	<script th:inline="javascript">
 		document.addEventListener("DOMContentLoaded", function() {
@@ -113,6 +118,27 @@
 					
 		        });
 		$(document).ready(function () {
+			let type = /*[[${type}]]*/'';
+			console.log(type)
+			setTimeout(function(){
+				if(type === "Seller"){
+					console.log("seller")
+					$("#type").val("Seller")
+					$('.seller-login').trigger('click');
+				}
+				else if(type === "Org"){
+					console.log("들어옴")
+					$("#type").val("Org")
+					
+					$('.org-login').trigger('click');
+				}
+				else if(type === "Manager"){
+					$("#type").val("Manager")
+					$('#managerLogin').trigger('click');
+				}
+	        }, 0);
+			
+			
 			$("#loginBtn").on("click", function () {
 				let userid = $("#userid").val();
 				let userpw = $("#userpw").val();
@@ -153,21 +179,24 @@
 		            $("form[name='loginForm']").attr("action", "/user/login");
 		            $("#userid, #sellerid, #orgid").attr("name", "userid").attr("id", "userid");
 		            $("#userpw, #sellerpw, #orgpw").attr("name", "userpw").attr("id", "userpw");
-		         $(".content > h1").text("GivuLuv 로그인");
+		        	$(".content > h1").text("GivuLuv 로그인");
+					$("#type").val("User");
 		        });
 		
 		        $(".seller-login").on("click", function () {
 		            $("form[name='loginForm']").attr("action", "/seller/login");
 		            $("#userid, #orgid").attr("name", "sellerid").attr("id", "sellerid");
 		            $("#userpw, #orgpw").attr("name", "sellerpw").attr("id", "sellerpw");
-		         $(".content > h1").text("GivuLuv [판매자] 로그인");
+		         	$(".content > h1").text("GivuLuv [판매자] 로그인");
+				 	$("#type").val("Seller")
 		        });
 		
 		        $(".org-login").on("click", function () {
 		            $("form[name='loginForm']").attr("action", "/org/login");
 		            $("#userid, #sellerid").attr("name", "orgid").attr("id", "orgid");
 		            $("#userpw, #sellerpw").attr("name", "orgpw").attr("id", "orgpw");
-		         $(".content > h1").text("GivuLuv [사회단체] 로그인");
+		         	$(".content > h1").text("GivuLuv [사회단체] 로그인");
+					$("#type").val("Org")
 		        });
 				//관리자 모달 로그인
 				$('#managerArea').on("click", function(){

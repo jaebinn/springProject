@@ -20,7 +20,10 @@
    <select id ="getSellerById">
       select sellerid from seller where sellerid = #{sellerid}
    </select>
-
+   <select id="getSellerInfoById">
+	  select * from seller where sellerid=#{sellerid}
+   </select>
+   
    <update id ="updateSeller">
       <!--부분 업데이트 또는 전체 업데이트-->
    </update>

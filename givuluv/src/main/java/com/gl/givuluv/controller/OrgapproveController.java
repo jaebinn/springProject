@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.gl.givuluv.domain.dto.OrgapproveDTO;
 import com.gl.givuluv.service.OrgapproveService;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+
 
 
 @Controller
@@ -20,8 +23,13 @@ public class OrgapproveController {
 	private OrgapproveService service;
 	
 	@PostMapping("/join")
-	 public ResponseEntity<Boolean> join(@RequestBody OrgapproveDTO orgapprove) {
-        boolean result = service.join(orgapprove);
-        return new ResponseEntity<>(result, HttpStatus.OK);
-    }
+	 public ResponseEntity<Boolean> join(@RequestBody OrgapproveDTO orgapprove, HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		String orgid = (String)session.getAttribute("loginOrg");
+		System.out.println("orgid:"+ orgid);
+		System.out.println(orgapprove);
+		orgapprove.setOrgid(orgid);
+		boolean result = service.join(orgapprove);
+       return new ResponseEntity<>(result, HttpStatus.OK);
+   }
 }

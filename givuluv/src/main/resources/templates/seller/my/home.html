@@ -59,71 +59,30 @@
 					</a>
 				</div>
 				<div class="revenue_div">
-					<div class="month_revenue">
-						<span>이번달 수익</span>
-						<span>0원</span>
-					</div>
-					<span>/</span>
-					<div class="total_revenue">
-						<span>전체 수익</span>
-						<span>0원</span>
-					</div>
+					<!-- 총 판매 상품량 -->
+					<!-- 전체 수익 -->
 				</div>
 				<div class="write_div">
 					<div class="review_div">
 						<h3>리뷰</h3>
-						<div>
-							<div class="table">
-								<img src="/images/사과.jpg">
-								<div>
-									<p>사과 맛나누</p>
-									<p>apple님</p>
-									<p>2024.05.21</p>
-								</div>
-							</div>
-							<div class="table">
-								<img src="/images/바나나.jpg">
-								<div>
-									<p>바나나 맛나누 ㅁㄴㅇㄻㄴㅇㄹㄴㅇㅁㄹㄴㅇㅁㄻㄴㅇㄻㄴㅇㄻㄴㅇㄹㄴㅇ</p>
-									<p>apple님</p>
-									<p>2024.05.21</p>
-								</div>
-							</div>
-							<div class="table">
-								<img src="/images/당근.jpg">
-								<div>
-									<p>정말 너무 좋아요 잘쓰겠습니다~</p>
-									<p>apple님</p>
-									<p>2024.05.21</p>
-								</div>
-							</div>
-						</div>
+						<a class="homeReview" href="/seller/my/reviewList">
+							<!-- 리뷰 div1 -->
+							<!-- 리뷰 div2 -->
+							<!-- 리뷰 div3 -->
+						</a>
 					</div>
 					<div class="QnA_div">
 						<h3>Q&A</h3>
-						<div>
+						<a class="homeQna" href="/seller/my/qna">
 							<div class="QnA_title">
 								<span>프로필</span>
 								<span>Q&A 내용</span>
 								<span>작성 날짜</span>
 							</div>
-							<div class="table">
-								<img src="/images/default_profile.png">
-								<span>정말 너무 좋아fasdfasdfdssdafsasdafsda
-									sadfsadasdfdsafsdafasdff요 잘쓰겠습니다~</span>
-								<span>2024.05.21</span>
-							</div>
-							<div class="table">
-								<img src="/images/default_profile.png">
-								<span>정말 너무 좋아요 잘쓰겠습니다~</span>
-								<span>2024.05.21</span>
-							</div>
-							<div class="table">
-								<img src="/images/default_profile.png">
-								<span>정말 너무 좋아요 잘쓰겠습니다~</span>
-								<span>2024.05.21</span>
-							</div>
-						</div>
+							<!-- QnA div 1 -->
+							<!-- QnA div 2 -->
+							<!-- QnA div 3 -->
+						</a>
 					</div>
 				</div>
 			</div>
@@ -132,5 +91,105 @@
 	<!-- footer -->
 	<th:block th:replace="~{layout/footer::footer()}"></th:block>
 </body>
-
+<script>
+	$(document).ready(function () {
+		// homeIncome
+		$.ajax({
+			url: '/seller/homeIncome',
+			method: 'GET',
+			dataType: 'json',
+			contentType: 'application/json; charset=utf-8',
+			success: function (response) {
+				for (let index = 0; index < response.length; index++) {
+					let item = response[index];
+					
+					//<div class="month_revenue">
+						//<span>총 판매 상품량</span>
+						//<span>0개</span>
+					//</div>
+					//<span>/</span>
+					//<div class="total_revenue">
+						//<span>전체 수익</span>
+						//<span>0원</span>
+					//</div>
+					
+					let str = '<div class="month_revenue">';
+					str += `<span>총 판매 상품량</span>`;
+					str += `<span>${item.totalAmount}개</span>`;
+					str += `</div>`;
+					str += `<span>/</span>`;
+					str += `<div class="total_revenue">`;
+					str += `<span>전체 수익</span>`;
+					str += `<span>${item.totalCost}원</span>`;
+					str += `</div>`;
+					
+					$(".revenue_div").append(str); // 이전에 생성된 HTML에 새로운 요소 추가
+				}
+			},
+			error: function (e) {
+				console.log(e);
+			}
+		});
+		
+		// homeReview
+		$.ajax({
+			url: '/seller/homeReview',
+			method: 'GET',
+			dataType: 'json',
+			contentType: 'application/json; charset=utf-8',
+			success: function (response) {
+				const maxLength = 80; 
+				
+				for (let index = 0; index < Math.min(response.length, 3); index++) {
+					let item = response[index];
+					let reviewDTO = item.review;
+					let sBoardThumbnail = item.sBoardThumbnail;
+					
+					let reviewDetail = reviewDTO.reviewdetail;
+		            if (reviewDetail.length > maxLength) {
+		                reviewDetail = reviewDetail.substring(0, maxLength) + "...";
+		            }
+	
+					let str = '<div class="table">';
+					str += `<img src="/summernoteImage/${sBoardThumbnail.systemname}">`;
+					str += `<div>`;
+					str += `<p>${reviewDetail}`;
+					str += `<p>${reviewDTO.userid}`;
+					str += `<p>${reviewDTO.reviewdate}`;
+					str += `</div>`;
+					str += `</div>`;
+					
+					$(".homeReview").append(str);
+				}
+			},
+			error: function (e) {
+				console.log(e);
+			}
+		});
+	
+		// homeQnA
+		$.ajax({
+			url: '/seller/homeQnA',
+			method: 'GET',
+			dataType: 'json',
+			contentType: 'application/json; charset=utf-8',
+			success: function (response) {
+				for (let index = 0; index < Math.min(response.length, 6); index++) {
+					let QnaDTO = response[index];
+					
+					let str = '<div class="table">';
+					str += `<img src="/images/default_profile.png">`;
+					str += `<span>${QnaDTO.question}</span>`;
+					str += `<span>${QnaDTO.qnaregdate}</span>`;
+					str += `</div>`;
+					
+					$(".homeQna").append(str); // 이전에 생성된 HTML에 새로운 요소 추가
+				}
+			},
+			error: function (e) {
+				console.log(e);
+			}
+		});
+	});
+</script>
 </html>

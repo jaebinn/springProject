@@ -30,5 +30,7 @@ public interface FileMapper {
 	List<String> getFileBySBoardnum(int sBoardnum);
 	List<String> getFileBySBoardnum(String connectid);
 	List<FileDTO> getOrgProfile();
+	String getSellerProfileBySName(String sName);
+	String getSellerProfileById(String sellerid);
 
 }

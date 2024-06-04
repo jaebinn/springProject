@@ -28,13 +28,32 @@
                 resultMessage.style.color = "red";
                 return;
             }
+            // 현재 시간을 regdate로 설정
+    			  var now = new Date();
+    			var regdate = now.getFullYear() + '-' +
+                  ('0' + (now.getMonth() + 1)).slice(-2) + '-' +
+                  ('0' + now.getDate()).slice(-2) + ' ' +
+                  ('0' + now.getHours()).slice(-2) + ':' +
+                  ('0' + now.getMinutes()).slice(-2) + ':' +
+                  ('0' + now.getSeconds()).slice(-2);
 
-            var orgapprove = {
+    		// 로그인된 사용자의 orgid를 가져온다고 가정
+    			/*var orgid = getLoggedInUserOrgId(); // 
+    			console.log("Retrieved orgid: ", orgid);
+
+   		 			if (!orgid) {
+        			resultMessage.innerHTML = "유효한 orgid를 가져오지 못했습니다.";
+        			resultMessage.style.color = "red";
+        			return;
+    }*/
+            	var orgapprove = {
                 instituteName: instituteName,
                 address: address,
                 phoneNumber: phoneNumber,
-                information: information
-            };
+                information: information,
+                regdate: regdate,
+                //orgid: orgid
+            	};
 
             fetch('/orgapp/join', {
                 method: 'POST',
@@ -48,9 +67,9 @@
                 if (data) {
                     resultMessage.innerHTML = "단체 정보가 성공적으로 저장되었습니다.";
                     resultMessage.style.color = "rgb(79,148,111)";
-                     setTimeout(function() {
-                	window.location.href = '/org/signupcomplete';
-            }, 2000);
+                    // setTimeout(function() {
+                	//window.location.href = '/org/signupcomplete';
+            //}, 2000);
                 } else {
                     resultMessage.innerHTML = "단체 정보 저장에 실패했습니다.";
                     resultMessage.style.color = "red";
@@ -62,14 +81,17 @@
                 resultMessage.style.color = "red";
             });
         });
+       
         
  // 정보가 전부다 입력해야 다음버튼 클릭 가능하게 하기  
+function validateForm() {
+	
 document.getElementById('insitutename').addEventListener('input', validateForm);
 document.getElementById('address').addEventListener('input', validateForm);
 document.getElementById('phonenum').addEventListener('input', validateForm);
-document.getElementById('infomation').addEventListener('input', validateForm);   
+document.getElementById('infomation').addEventListener('input', validateForm); 
 
-function validateForm() {
+
     var instituteName = document.getElementById('insitutename').value;
     var address = document.getElementById('address').value;
     var phoneNumber = document.getElementById('phonenum').value;
@@ -86,4 +108,4 @@ function validateForm() {
         document.getElementById('nextPage').style.opacity = '0.5';
     }
 }
-     
+

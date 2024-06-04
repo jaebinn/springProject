@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.gl.givuluv.domain.dto.Criteria;
 import com.gl.givuluv.domain.dto.ReviewDTO;
 
 @Mapper
@@ -25,6 +26,10 @@ public interface ReviewMapper {
 	List<ReviewDTO> getProductReviewList(int sBoardnum);
 	
 	 List<ReviewDTO> getReviewListByConnectid(String connectid);
+
+	long getTotalBySBoardnum(int sBoardnum);
+
+	List<ReviewDTO> getReviewListBySBoardnumWithCri(Criteria cri, String sBoardnum);
 
 
 }

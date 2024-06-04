@@ -533,8 +533,7 @@ function addFollow(orgid) {
 		data: JSON.stringify(data),
 		contentType: "application/json;charset=utf-8",
 		success: function(result, status, xhr) {
-			addFollow_banana
-			$("#addFollow_" + orgid).remove();
+			$(".addFollow_" + orgid).remove();
 		},
 		error: function(xhr, status, error) {
 			console.error('AJAX Error: ', status, error);

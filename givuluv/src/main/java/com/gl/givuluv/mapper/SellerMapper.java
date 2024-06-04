@@ -26,7 +26,10 @@ public interface SellerMapper {
 	//로그인을 위해 아이디 불러오기
 	SellerDTO getSellerById(String sellerid);
 	
+	
 	String getCategory(int snum);
 	
 	String getSelleridByStorename(String storename);
+
+	SellerDTO getSellerInfoById(String sellerid);
 }

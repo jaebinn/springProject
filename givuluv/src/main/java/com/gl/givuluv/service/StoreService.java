@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.gl.givuluv.domain.dto.LikeDTO;
 import com.gl.givuluv.domain.dto.ProductDTO;
 import com.gl.givuluv.domain.dto.SBoardDTO;
+import com.gl.givuluv.domain.dto.SRegisterDTO;
 import com.gl.givuluv.domain.dto.StoreDTO;
 
 @Service
@@ -26,5 +27,14 @@ public interface StoreService {
 	boolean deleteLikeSBoard(int sboardnum, String userid);
 	
 	LikeDTO getSBoardLike(int connectid, String loginUser);
+	
+	//MDM
+	boolean checkRegnum(String regnum);
+	//MDM
+	boolean insertStoreSignup(SRegisterDTO srdto);
+	//MDM
+	boolean checkStorename(String storename);
+	//MDM
+	char checkStoreBySellerid(String loginSeller);
 	
 }

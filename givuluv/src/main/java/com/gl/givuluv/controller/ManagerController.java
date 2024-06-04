@@ -7,12 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.gl.givuluv.domain.dto.OrgDTO;
+import com.gl.givuluv.domain.dto.OrgapproveDTO;
 import com.gl.givuluv.service.ManagerService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -69,6 +73,56 @@ public class ManagerController {
 	public List<Map<String, Object>> getApproveInfo() {
 		List<Map<String, Object>> orgApproveInfo = service.getApproveInfo();
 		return orgApproveInfo;
+	}
+	
+	@PostMapping("approve")
+	@ResponseBody
+	public ResponseEntity<String> approve(@RequestBody Map<String, Object> payload) {
+	    System.out.println(payload);
+	    Object approveNum = payload.get("approveNum");
+	    
+	    System.out.println(approveNum);
+
+	    if (approveNum instanceof String) {
+	        String sname = (String) approveNum;
+	        service.sellerApprove(sname);
+	    } else if (approveNum instanceof Integer) {
+	        int approvenum = (Integer) approveNum;
+	        service.orgApprove(approvenum);
+	    }
+
+	    return ResponseEntity.ok("승인이 완료되었습니다!");
+	}
+	@PostMapping("approveCancel")
+	@ResponseBody
+	public ResponseEntity<String> approveCancel(@RequestBody Map<String, Object> payload) {
+		System.out.println(payload);
+		Object approveNum = payload.get("approveNum");
+		System.out.println(approveNum);
+		
+		if (approveNum instanceof String) {
+			String sname = (String) approveNum;
+			service.sellerApproveCancel(sname);
+		} else if (approveNum instanceof Integer) {
+			int approvenum = (Integer) approveNum;
+			service.orgApproveCancel(approvenum);
+		}
+		
+		return ResponseEntity.ok("승인이 취소되었습니다!");
+	}
+	@GetMapping("orgApproveProfile")
+	public String orgApproveProfile(int oapprovenum, Model model) {
+		Map<String, Object> orgApproveProfile = service.orgApproveProfile(oapprovenum);
+		model.addAttribute("profile", orgApproveProfile);
+		return "org/orgApproveProfile";
+		
+	}
+	@GetMapping("sellerApproveProfile")
+	public String sellerApproveProfile(String sName, Model model) {
+		Map<String, Object> sellerApproveProfile = service.sellerApproveProfile(sName);
+		model.addAttribute("profile", sellerApproveProfile);
+		return "seller/sellerApproveProfile";
+		
 	}
 }
 

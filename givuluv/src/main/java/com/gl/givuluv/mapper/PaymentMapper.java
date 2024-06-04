@@ -67,6 +67,8 @@ public interface PaymentMapper {
 	SBoardDTO getSBoardBySBoardnum(int sBoardnum);
 
 	ProductDTO getSProductByProductnum(int productnum);
+
+	List<SPaymentDTO> getLastSPaymentBySellerid(String sellerid);
 	
 
 }

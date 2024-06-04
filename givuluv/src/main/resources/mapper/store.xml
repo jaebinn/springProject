@@ -35,4 +35,21 @@
       s_opendate=#{store.sOpendate}, s_leader=#{store.sLeader}
       where sellerid = #{sellerid};
    </update>
+   
+   <select id="checkStorename">
+		select count(*) from s_register where s_name = #{storename}
+   </select>
+   <!--MDM-->
+   <select id="checkRegnum">
+		select count(*) from s_register where s_regnum = #{regnum}
+   </select>
+   <!--스토어 신청-->
+   <insert id="insertStoreSignup">
+		insert into s_register(s_name, s_regnum, s_phone, s_zipcode, s_addr, s_addrdetail, s_addretc, s_leader, sellerid, information)
+		values(#{sName}, #{sRegnum}, #{sPhone}, #{sZipcode}, #{sAddr}, #{sAddrdetail}, #{sAddretc}, #{sLeader}, #{sellerid}, #{information})
+   </insert>
+    <!--MDM-->
+   <select id="checkStoreBySellerid">
+		select ifnull(max(isagree), 'n') as isagree from s_register where sellerid = #{loginSeller}
+   </select>
 </mapper>

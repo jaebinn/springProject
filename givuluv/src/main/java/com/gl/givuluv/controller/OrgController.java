@@ -57,17 +57,19 @@ public class OrgController {
 	}
 	
 	@PostMapping("login")
-	public String login(String orgid, String orgpw, HttpServletRequest req) {
-	    HttpSession session = req.getSession();
-	    if(service.login(orgid, orgpw)) {
-	        System.out.println(orgid + " 로그인됨");
-	        session.setAttribute("loginOrg", orgid);
-	        return "redirect:/";
-	    } else {
-	        System.out.println("로그인 실패");
-	        return "user/login";
-	    }
-	}
+	   public String login(String orgid, String orgpw, HttpServletRequest req, String type, Model model) {
+	       HttpSession session = req.getSession();
+	       if(service.login(orgid, orgpw)) {
+	           System.out.println(orgid + " 로그인됨");
+	           session.setAttribute("loginOrg", orgid);
+	           return "redirect:/";
+	       } else {
+	           System.out.println("로그인 실패");
+	           model.addAttribute("type", type);
+	           return "user/login";
+	       }
+	   }
+
 	
 	
 	@GetMapping("checkId")
@@ -91,8 +93,30 @@ public class OrgController {
 		}
 	}
 	@GetMapping("register")
-	public String register() {
-		return "org/register";
+	public String register(HttpServletRequest req, Model model) {
+		
+		HttpSession session = req.getSession();
+		String loginOrg = (String)session.getAttribute("loginOrg");
+		
+		char check = service.checkRegisterByOrgid(loginOrg);
+		
+		String url;
+		
+		if(check == 'o') {
+			url = "/";
+			model.addAttribute("alertMessage", "이미 승인된 단체입니다.");
+			model.addAttribute("redirectUri", url);
+			return "store/storeMassege";
+		}
+		else if(check == '-'){
+			url = "/";
+			model.addAttribute("alertMessage", "사회단체 승인 대기 중입니다.");
+			model.addAttribute("redirectUri", url);
+			return "store/storeMassege";
+		}
+		else {
+			return "store/storeSignup";
+		}
 	}
 	@GetMapping("logsignup")
 	public String logsignup() {
@@ -136,7 +160,8 @@ public class OrgController {
 	@ResponseBody
 	public List<Map<String, String>> getOrgProfile(){
 		List<Map<String, String>> orgprofile = service.getOrgProfile();
-		System.out.println("뭐야 "+orgprofile);
 		return orgprofile;
 	}
+	
+	
 }

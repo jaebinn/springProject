@@ -23,8 +23,12 @@ import com.gl.givuluv.domain.dto.ProductDTO;
 import com.gl.givuluv.domain.dto.UserDTO;
 import com.gl.givuluv.mapper.BoardMapper;
 import com.gl.givuluv.mapper.FileMapper;
+import com.gl.givuluv.mapper.OrgapproveMapper;
 import com.gl.givuluv.mapper.ProductMapper;
+import com.gl.givuluv.mapper.SRegisterMapper;
 import com.gl.givuluv.mapper.UserMapper;
+
+import jakarta.servlet.http.HttpSession;
 
 
 @Service
@@ -43,6 +47,8 @@ public class FBoardServiceImpl implements FBoardService{
 	private ProductMapper pmapper;
 	@Autowired
 	private UserMapper umapper;
+	@Autowired
+	private OrgapproveMapper oamapper;
 	
 	public boolean regist(Model model, FBoardDTO fBoard, List<ProductDTO> products, String filenames, MultipartFile thumbnail) throws Exception {
 		// s_num 찾기
@@ -344,6 +350,16 @@ public class FBoardServiceImpl implements FBoardService{
 	@Override
 	public UserDTO getUserById(String userid) {
 		return umapper.getUserById(userid);
+	}
+
+	@Override
+	public int isApproveOrg(String loginOrg) {
+		return oamapper.isApproveOrg(loginOrg);
+	}
+
+	@Override
+	public int isApproveOrgX(String loginOrg) {
+		return oamapper.isApproveOrgX(loginOrg);
 	}
 	
 }

@@ -3,37 +3,60 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gl.givuluv.mapper.QnaMapper">
-	<insert id="insertQna">
-		insert into qna(question, productnum, userid)
-		values(#{question},#{productnum},#{userid})
-	</insert>
-	<select id="getLastQna" resultType="QnaDTO">
-		select qnanum, question, DATE_FORMAT('qnaregdate', '%Y-%m-%d') as qnaregdate, answer, productnum, userid 
-		from qna where userid = #{userid} 
-		order by qnanum desc limit 1
-	</select>
-	
-	<select id="getQnaList" resultType="QnaDTO">
-		select * 
-		from qna 
-		where productnum = #{productnum} 
-		order by qnanum desc
-	</select>
-	<delete id="deleteQna">
-		delete from qna where qnanum = #{qnanum}
-	</delete>
-	
-	<update id="updateQna">
-		update qna set question = #{question} where qnanum = #{qnanum}
-	</update>
-	
-	<select id="getModifyQna">
-		select * 
-		from qna 
-		where qnanum = #{qnanum} 
-	</select>
+   <insert id="insertQna">
+      insert into qna(question, productnum, userid)
+      values(#{question},#{productnum},#{userid})
+   </insert>
+   <select id="getLastQna" resultType="QnaDTO">
+      select qnanum, question, DATE_FORMAT('qnaregdate', '%Y-%m-%d') as qnaregdate, answer, productnum, userid 
+      from qna where userid = #{userid} 
+      order by qnanum desc limit 1
+   </select>
+   
+   <select id="getQnaList" resultType="QnaDTO">
+      select * 
+      from qna 
+      where productnum = #{productnum} 
+      order by qnanum desc
+   </select>
+   <delete id="deleteQna">
+      delete from qna where qnanum = #{qnanum}
+   </delete>
+   
+   <update id="updateQna">
+      update qna set question = #{question} where qnanum = #{qnanum}
+   </update>
+   
+   <select id="getModifyQna">
+      select * 
+      from qna 
+      where qnanum = #{qnanum} 
+   </select>
    <select id="getNoAnswerList">
            select * from qna where productnum = #{productnum} and answer is null 
            order by qnanum desc
       </select>
+      
+      <select id="getQnaListWithCri">
+      select *
+      from qna
+      where productnum = #{productnum}
+      order by qnanum desc
+      limit #{cri.startrow},#{cri.amount}
+   </select>
+   <select id="getNoAnswerQnaListWithCri">
+      select *
+      from qna
+      where productnum = #{productnum} and answer is null
+      order by qnanum desc
+      limit #{cri.startrow},#{cri.amount}
+   </select>
+   <select id="getTotalByProductnum">
+      select count(*) from qna where productnum = #{productnum}
+   </select>
+   <select id="getNoAnswerTotalByProductnum">
+      select count(*) from qna where answer is null and productnum = #{productnum}
+   </select>
+
+
 </mapper>

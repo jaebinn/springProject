@@ -28,11 +28,11 @@
 	</select>
 	
 	<select id="getUserDonationById">
-		select count(userid) from d_detail where userid= #{userid}
+		select count(userid) from d_payment where userid= #{userid}
 	</select>
 	
 	<select id="getUserFundingById">
-		select count(userid) from f_detail where userid = #{userid}
+		select count(userid) from f_payment where userid = #{userid}
 	</select>
 		
 	<select id="getDonationNameById">

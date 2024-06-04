@@ -18,6 +18,7 @@ import com.gl.givuluv.domain.dto.FileDTO;
 import com.gl.givuluv.domain.dto.LikeDTO;
 import com.gl.givuluv.domain.dto.ProductDTO;
 import com.gl.givuluv.domain.dto.SBoardDTO;
+import com.gl.givuluv.domain.dto.SRegisterDTO;
 import com.gl.givuluv.domain.dto.StoreDTO;
 import com.gl.givuluv.mapper.BoardMapper;
 import com.gl.givuluv.mapper.FileMapper;
@@ -122,21 +123,39 @@ public class StoreServiceImpl implements StoreService {
 		return smapper.getStoreName(snum);
 	}
 	
+	@Override
+	public boolean insertLikeSBoard(LikeDTO likedto) {
+		return lmapper.insertLike(likedto) == 1;
+	}
+	
+	@Override
+	public boolean deleteLikeSBoard(int sboardnum, String userid) {
+		return lmapper.deleteSLike(sboardnum, userid);
+	}
+	
+	@Override
+	public LikeDTO getSBoardLike(int connectid, String loginUser) {
+		return lmapper.getSBoardLike(connectid, loginUser);
+	}
+	
 	//MDM
-		@Override
-		public boolean insertLikeSBoard(LikeDTO likedto) {
-			return lmapper.insertLike(likedto) == 1;
-		}
-		
-		//MDM
-		@Override
-		public boolean deleteLikeSBoard(int sboardnum, String userid) {
-			return lmapper.deleteSLike(sboardnum, userid);
-		}
-		
-		//MDM
-		@Override
-		public LikeDTO getSBoardLike(int connectid, String loginUser) {
-			return lmapper.getSBoardLike(connectid, loginUser);
-		}
+	@Override
+	public boolean checkRegnum(String regnum) {
+		return smapper.checkRegnum(regnum) == 1;
+	}
+	//MDM
+	@Override
+	public boolean insertStoreSignup(SRegisterDTO srdto) {
+		return smapper.insertStoreSignup(srdto) == 1;
+	}
+	//MDM
+	@Override
+	public boolean checkStorename(String storename) {
+		return smapper.checkStorename(storename) == 1;
+	}
+	//MDM
+	@Override
+	public char checkStoreBySellerid(String loginSeller) {
+		return smapper.checkStoreBySellerid(loginSeller);
+	}
 }

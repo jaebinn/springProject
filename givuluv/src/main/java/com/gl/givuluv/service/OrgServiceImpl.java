@@ -156,7 +156,6 @@ public class OrgServiceImpl implements OrgService {
 	        fileMap.put("orgname", orgname);
 	        files.add(fileMap);
 	    }
-	    System.out.println("너뭐야 "+files);
 	    return files;
 	}
 
@@ -169,5 +168,11 @@ public class OrgServiceImpl implements OrgService {
     public boolean checkPw(String orgpw) {
         return omapper.checkPw(orgpw) == null;
     }
+
+	@Override
+	public char checkRegisterByOrgid(String loginOrg) {
+		return omapper.checkRegisterByOrgid(loginOrg);
+	}
+
 
 }

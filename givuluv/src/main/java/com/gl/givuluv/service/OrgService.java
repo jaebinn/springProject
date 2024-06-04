@@ -24,4 +24,5 @@ public interface OrgService {
 	int getOrgByUnqnum(int orgunqnum);
 	List<Map<String, String>> getOrgProfile();
 	boolean checkUnqnumber(int orgunqnum);
+	char checkRegisterByOrgid(String loginOrg);
 }

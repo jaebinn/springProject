@@ -19,6 +19,7 @@ import com.gl.givuluv.domain.dto.DBoardDTO;
 import com.gl.givuluv.domain.dto.FileDTO;
 import com.gl.givuluv.mapper.BoardMapper;
 import com.gl.givuluv.mapper.FileMapper;
+import com.gl.givuluv.mapper.OrgapproveMapper;
 
 @Service
 public class DBoardServiceImpl implements DBoardService{
@@ -31,6 +32,8 @@ public class DBoardServiceImpl implements DBoardService{
 	
 	@Autowired
 	private FileMapper fmapper;
+	@Autowired
+	private OrgapproveMapper oamapper;
 	
 	@Override
 	   public boolean regist(DBoardDTO dboard, String filenames, MultipartFile thumbnail) throws Exception{
@@ -172,5 +175,17 @@ public class DBoardServiceImpl implements DBoardService{
 	@Override
 	public boolean updateSaveMoney(int dBoardnum) {
 		return dbmapper.updateSaveMoney(dBoardnum);
+	}
+
+
+	@Override
+	public int isApproveOrg(String loginOrg) {
+		return oamapper.isApproveOrg(loginOrg);
+	}
+
+
+	@Override
+	public int isApproveOrgX(String loginOrg) {
+		return oamapper.isApproveOrgX(loginOrg);
 	}
 }

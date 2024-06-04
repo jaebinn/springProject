@@ -38,8 +38,8 @@
                 </p>
                 <div class="re_button_area">
                     <a href="/org/logsignup" class="re_button_join" id="joinButton">가입하기</a>
-                    <a href="#" class="re_modify">신청서 수정</a>
                 </div>
+				
                 <div class="re_banner_area">
                     <div class="re_banner_container">
                         <div class="re_banner_wrapper">
@@ -194,23 +194,6 @@
         </div>
     </div>
 </div>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const buttons = document.querySelectorAll('a[role="button"]');
-
-        buttons.forEach(button => {
-            button.addEventListener('click', function(event) {
-                event.preventDefault();
-                const id = this.id.replace('button', 'desc');
-                const desc = document.getElementById(id);
-                if (desc.style.display === "none" || desc.style.display === "") {
-                    desc.style.display = "block";
-                } else {
-                    desc.style.display = "none";
-                }
-            });
-        });
-    });
-</script>
+<script src="/js/register.js"></script>
 </body>
 </html>

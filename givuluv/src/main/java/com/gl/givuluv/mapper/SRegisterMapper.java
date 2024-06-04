@@ -14,6 +14,8 @@ public interface SRegisterMapper {
 
 	List<SRegisterDTO> getNotApproveList();
 	List<SRegisterDTO> getApproveList();
-
+	boolean updatesellerApprove(String sname);
+	boolean cancelsellerApprove(String sname);
+	SRegisterDTO sellerApproveProfile(String sName);
 
 }

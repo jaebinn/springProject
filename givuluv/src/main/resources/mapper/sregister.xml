@@ -13,4 +13,13 @@
 	<select id="getApproveList">
 		select * from s_register where isagree='o';
 	</select>
+	<select id="sellerApproveProfile">
+		select * from s_register where s_name=#{sName}
+	</select>
+	<update id="updatesellerApprove">
+		update s_register set isagree='o', regdate=now() where s_name=#{sname}
+	</update>
+	<update id="cancelsellerApprove">
+		update s_register set isagree='-', regdate=now() where s_name=#{sname}
+	</update>
 </mapper>

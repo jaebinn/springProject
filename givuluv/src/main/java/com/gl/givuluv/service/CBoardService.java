@@ -82,4 +82,8 @@ public interface CBoardService {
 	boolean cancelLike(LikeDTO like);
 
 	List<CBoardDTO> getCampaignList(int boardlastnum, int amount);
+
+	int isApproveOrg(String loginOrg);
+
+	int isApproveOrgX(String loginOrg);
 }

@@ -28,5 +28,9 @@ public interface FBoardService {
 
 	UserDTO getUserById(String userid);
 
+	int isApproveOrg(String loginOrg);
+
+	int isApproveOrgX(String loginOrg);
+
 	
 }

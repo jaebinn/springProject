@@ -38,5 +38,9 @@ public interface DBoardService {
 
 	boolean updateSaveMoney(int dBoardnum);
 
+	int isApproveOrg(String loginOrg);
+
+	int isApproveOrgX(String loginOrg);
+
 	
 }

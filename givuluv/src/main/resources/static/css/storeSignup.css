@@ -1,0 +1,263 @@
+@font-face {
+    font-family: 'TTLaundryGothicB';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/TTLaundryGothicB.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+.ssu_wrap{
+    width: 100%;
+}
+.ssu_header_inner{
+    background-color: #f1f1f1;
+    margin: 0 auto;
+    width: 100%;
+    height: 100px;
+}
+.ssu_header .ssu_logobox{
+    display: flex;
+}
+.ssu_header .ssu_logo{
+    display: inline-block;
+    padding: 22px 0 20px;
+}
+.ssu_header img{
+    width: 78px;
+}
+.ssu_header .ssu_tit{
+   width: 100px;
+   height: 20px;
+   display: inline-block;
+}
+.ssu_header .ssu_tit {
+    font-family: 'TTLaundryGothicB';
+    line-height: 60px;
+    font-size: 25px;
+    text-align: center;
+    color: rgb(231, 112, 151);
+    margin-top: 22px;
+    text-decoration: none;
+}
+.ssu_header .ssu_subtitle{
+    font-family: 'TTLaundryGothicB';
+    line-height: 60px;
+    font-size: 15px;
+    text-align: center;
+    color: rgb(231, 112, 151);
+    margin-top: 24px;
+}
+.ssu_step_list {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    width: 1140px;
+    margin: 47px auto 32px;
+    justify-content: space-between;
+    align-items: center;
+}
+.ssu_step_item {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    position: relative;
+    font-family: Arial, sans-serif;
+    color: #aaa;
+}
+.ssu_step_item.active {
+    background-color: rgb(231, 112, 151);
+    color: white;
+}
+.ssu_step_item.active .fa-circle-check {
+    color: white;
+}
+.ssu_step_item:before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    border-top: 20px solid transparent;
+    border-bottom: 20px solid transparent;
+    border-left: 20px solid #ddd;
+    transform: translateY(-50%);
+}
+.ssu_step_item:last-child:before {
+    content: none;
+}
+.ssu_step_item.active:before {
+    border-left-color: rgb(231, 112, 151);
+}
+.fa-circle-check {
+    margin-right: 8px;
+}
+.ssu_form_fieldset{
+    margin: 16px 0;
+    border: 1px solid #e5e5e5;
+    width: 60%;
+    margin-left: 350px;
+}
+.ssu_form_check{
+    position: relative;
+    padding: 25px 30px 23px;
+    font-family: "Do Hyeon", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 25px;
+}
+.ssu_form_check .ssu_form_require_check{
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    font-size: 20px;
+    color: #ed5a5a;
+}
+.ssu_form_content{
+    margin-top: -10px;
+    padding: 30px;
+    border-top: 1px solid #e5e5e5;
+}
+.ssu_form_row{
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+.ssu_form_col_left{
+    display: table-cell;
+    width: 170px;
+    padding-left: 4px;
+    vertical-align: top;
+}
+.ssu_form_checkname{
+    position: relative;
+    display: inline-block;
+    padding: 10px 0;
+    font-size: 16px;
+    line-height: 22px;
+    font-weight: 400;
+    color: #666;
+}
+.ssu_form_col_right{
+    display: table-cell;
+    padding: 18px 0;
+}
+.ssu_form_input_text{
+    width: 405px;
+    height: 42px;
+    padding: 0 14px;
+    font-size: 14px;
+    line-height: 40px;
+    border: 1px solid rgb(0, 0, 0);
+    color: #202020;
+    background: #fbfbfb;
+}
+.ssu_form_input_textarea{
+	width: 405px;
+    height: 250px;
+    resize: none;
+    padding: 14px;
+    font-size: 14px;
+    line-height: 20px;
+    border: 1px solid rgb(0, 0, 0);
+    color: #202020;
+    background: #fbfbfb;
+}
+.ssu_form_input_desc{
+    position: relative;
+    margin-top: 14px;
+    padding-left: 10px;
+    font-size: 14px;
+    line-height: 20px;
+    color: #828282;
+}
+.ssu_form_row+.ssu_form_row{
+    border-top: 1px solid #e5e5e5;
+    padding: 30px 0 20px;
+}
+.ssu_form_regnum{
+    position: relative;
+    display: inline-block;
+    padding: 10px 0;
+    font-size: 16px;
+    line-height: 22px;
+    font-weight: 400;
+    color: #666;
+}
+.ssu_button_regnum, .ssu_button_storename{
+    display: inline-block;
+    width: auto;
+    height: 44px;
+    padding: 0 16px;
+    border: 1px solid #828282;
+    font-size: 14px;
+    line-height: 16px;
+    color:#666;
+    vertical-align: top;
+    cursor: pointer;
+}
+#regnum_result, #storename_result {
+    margin-top: 10px;
+    font-weight: bold;
+}
+.ssu_form_content_tip{
+    position: relative;
+    padding: 18px 34px 16px;
+    border-top: 1px solid #e0e5e8;
+    border-bottom: 1px solid #ecf1f4;
+    background: rgb(235,244,249);
+    font-size: 13px;
+    line-height: 19px;
+    color: #647b88;
+}
+.ssu_form_content .ssu_form_input_text{
+    height: -21px;
+}
+.ssu_step_button{
+    margin: 40px 0 100px;
+    text-align: center;
+    margin-right: 50px;
+}
+.ssu_step_button a{
+	text-decoration: none;
+}
+.ssu_button_cancel{
+    display: inline-block;
+    min-width: 132px;
+    height: 35px;
+    border: 1px solid #e0e5e8; 
+    vertical-align: top;
+    margin-left: 10px;
+    font-size: 16px;
+    line-height: 16px;
+    color: #202020;
+    padding: 14px 15px 0;
+}
+.ssu_button_next{
+    display: inline-block;
+    min-width: 132px;
+    height: 35px;
+   	border: 1px solid #e0e5e8;
+    vertical-align: top;
+    margin-left: 10px;
+    font-size: 16px;
+    line-height: 16px;
+    background: rgb(231, 112, 151);
+    color: #fff;
+    padding: 14px 15px 0;
+}
+.ssu_footer{
+    padding: 19px 0 100px;
+    border-top: 1px solid rgb(#828282);
+    background: #f5f5f5;
+}
+.ssu_footer_inner{
+    margin: 0 auto;
+    width: 1140px;
+    text-align: center;
+}
+.ssu_footer_inner a{
+    text-decoration: none;
+    font-family: 'TTLaundryGothicB';
+    line-height: 60px;
+    font-size: 20px;
+    color: rgb(231, 112, 151);
+}
+
+

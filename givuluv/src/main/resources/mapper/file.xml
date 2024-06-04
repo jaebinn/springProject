@@ -29,7 +29,9 @@
 	<select id="getOrgProfileByOrgid">
 		select systemname from file where connectionid=#{orgid} and type='O' and boardthumbnail='N'
 	</select>
-	
+	<select id="getSellerProfileById">
+		select systemname from file where connectionid=#{sellerid} and type='P' and boardthumbnail='N'
+	</select>
 	<select id="getSBoardFile">
         select * from file where connectionid = #{connectid} and type = 'M' and boardthumbnail='Y'
     </select>

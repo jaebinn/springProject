@@ -14,6 +14,7 @@ import com.gl.givuluv.mapper.BoardMapper;
 import com.gl.givuluv.mapper.FileMapper;
 import com.gl.givuluv.mapper.LikeMapper;
 import com.gl.givuluv.mapper.OrgMapper;
+import com.gl.givuluv.mapper.OrgapproveMapper;
 import com.gl.givuluv.mapper.UserMapper;
 
 @Service
@@ -32,6 +33,9 @@ public class CBoardServiceImpl implements CBoardService {
 	
 	@Autowired
 	private UserMapper umapper;
+	
+	@Autowired
+	private OrgapproveMapper oamapper;
 	
 	@Override
 	public boolean regist(CBoardDTO cboard, String filenames) {
@@ -150,5 +154,15 @@ public class CBoardServiceImpl implements CBoardService {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public int isApproveOrg(String loginOrg) {
+		return oamapper.isApproveOrg(loginOrg);
+	}
+
+	@Override
+	public int isApproveOrgX(String loginOrg) {
+		return oamapper.isApproveOrgX(loginOrg);
 	}
 }

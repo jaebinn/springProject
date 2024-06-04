@@ -221,4 +221,51 @@ $(document).ready(function() {
         });
     });
 });
-
+function upload(){
+		$("#file").click();
+	}
+	
+	//$(선택자).change(함수) : 해당 선택자의 요소에 변화가 일어난다면 넘겨주는 함수 호출
+	$("[type=file]").change(function(e){
+		//e : 파일이 업로드된 상황 자체를 담고있는 이벤트 객체
+		//e.target : 파일이 업로드가 된 input[type=file] 객체(태그객체)
+		const fileTag = e.target;
+		console.log(fileTag);
+		//e.target.files : 파일태그에 업로드가 된 파일들의 배열
+		const file = fileTag.files[0];
+		console.log("파일 "+file);
+		
+		if(file == undefined){
+			//업로드 창을 띄웠다가 취소한 경우(파일이 업로드 되었다가 없어진 경우)
+			cancelFile(fileTag.id.split("e").pop());
+		}
+		else{
+			//파일을 업로드를 한 경우(없었다가 업로드, 있었는데 다른 파일로 업로드)
+			//#file0name 찾아서 내부 텍스트 변경(파일의 이름으로)
+			$("#"+fileTag.id+"name").text(file.name);
+			
+			//업로드 된 파일의 확장자명			
+			let ext = file.name.split(".").pop();
+			if(ext == "jpeg" || ext == "png" || ext == "jpg" || ext == "webp" || ext == "gif"){
+				//".  file0       _cont"
+				$("."+fileTag.id+"_cont .thumbnail").remove();
+				const reader = new FileReader();
+				reader.onload = function(ie){
+					const img = document.createElement("img");
+					img.setAttribute("src",ie.target.result);
+					img.setAttribute("class","thumbnail");
+					img.setAttribute("style","max-width:300px; margin:10px");
+					document.querySelector("."+fileTag.id+"_cont").appendChild(img);
+				}
+				reader.readAsDataURL(file);
+			}
+			else{
+				$("."+fileTag.id+"_cont").remove();
+			}
+		}
+	})
+	function cancelFile(){
+		$(".thumbnail").remove();
+		$("#filename").text("로고 사진을 업로드하세요.");
+		return;
+	}

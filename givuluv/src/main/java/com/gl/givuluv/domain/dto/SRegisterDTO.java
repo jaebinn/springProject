@@ -14,6 +14,7 @@ public class SRegisterDTO {
 	private String sOpendate;
 	private String sLeader;
 	private String regdate;
+	private String information;
 	private String sellerid;
 	private char isagree;
 }
