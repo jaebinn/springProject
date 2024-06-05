@@ -18,7 +18,7 @@
 		<th:block th:replace="~{layout/userMyPageMenu::userMyPageMenu(loginUser)}"></th:block>
 		<!-- 오른쪽 내용 -->
 		<div class="left_div">
-			<h2>활동내역</h2>
+			<h2 id="acti_title">활동내역</h2>
 			<!--<div class="button_div">
 				페이지 이동???
 				<a href="#"><input type="button" value="게시글 내역"></a>
@@ -35,7 +35,11 @@
 			<div class="contents_div">
 				<!--history에 최초로 들어 왔을떄 뜨는 List-->
 				<div class="contents Dona_List" id="Dona_content" th:if="${not #lists.isEmpty(Donation_List)}" th:each="donationItem : ${Donation_List}">
-					<img th:src="@{/images/{d_systemnameItem}(d_systemnameItem=${d_systemname[4]})}">
+					<!--div추가됨-->
+					<!--<div th:each="d_systemNameItem : ${d_systemname}">-->
+					<img th:src="@{/images/{d_systemnameItem}(d_systemnameItem=${d_systemname[2]})}">
+					<!--</div>-->
+					<!---->
 					<div>
 						[기부]<p th:text="${donationItem}"></p>
 						
@@ -43,7 +47,9 @@
 					</div>
 				</div>
 				<div class="contents Fund_List" id="Fund_content" th:if="${not #lists.isEmpty(Funding_List)}" th:each="fundingItem : ${Funding_List}">
-					<img th:src="@{/images/{f_systemnameItem}(f_systemnameItem=${f_systemname[0]})}">
+					<!--<div th:each="f_systemNameItem : ${f_systemname}">-->
+						<img th:src="@{/images/{f_systemnameItem}(f_systemnameItem=${f_systemname})}">
+					<!--</div>-->
 					<div>
 						[펀드]<p th:text="${fundingItem}"></p>
 						
@@ -55,7 +61,7 @@
 				<!--기부 리스트-->
 				<div class="contents" id="d_request" th:if="${not #lists.isEmpty(d_boardtitle)}" th:each="d_boardtitleItem : ${d_boardtitle}">
 					
-					<img th:src="@{/images/{d_systemnameItem}(d_systemnameItem=${d_systemname[0]})}">
+					<img th:src="@{/images/{d_systemnameItem}(d_systemnameItem=${d_systemname})}">
 					<div>
 						[기부]<p  th:text="${d_boardtitleItem}"></p>
 						
@@ -67,7 +73,7 @@
 				<!--펀드 리스트-->
 				<div class="contents" id="f_request" th:if="${not #lists.isEmpty(f_boardtitle)}" th:each="f_boardtitleItem : ${f_boardtitle}">
 					
-					<img th:src="@{/images/{f_systemnameItem}(f_systemnameItem=${f_systemname[0]})}">
+					<img th:src="@{/images/{f_systemnameItem}(f_systemnameItem=${f_systemname})}">
 					<div>
 						[펀드]<p th:text="${f_boardtitleItem}"></p>
 						
@@ -77,9 +83,9 @@
 				<!--========================-->
 				<!--========================================-->
 				
-				<!--<div th:if="${#lists.isEmpty(Donation_List) and #lists.isEmpty(Funding_List)}">
-					<p>내역이 존재하지 않습니다.</p>
-				</div>-->
+				<div th:if="${#lists.isEmpty(Donation_List) == true and #lists.isEmpty(Funding_List) == true}"  id="empty_msg">
+					<p class="empty_msg">내역이 존재하지 않습니다.</p>
+				</div>
 				
 				<!--1page => 총 n개 -->
 				
@@ -101,11 +107,13 @@
 			focus.keyword
 		}
 		else{
+		$(".empty_msg").attr("style", "display : none");
 		$(".Dona_List").attr("style", "display : none");
 		$(".Fund_List").attr("style", "display : none");
 			
 			
 		searchForm.submit();
+		$(".empty_msg").attr("style", "display : none");
 		$(".Dona_List").attr("style", "display : none");
 		$(".Fund_List").attr("style", "display : none");
 		

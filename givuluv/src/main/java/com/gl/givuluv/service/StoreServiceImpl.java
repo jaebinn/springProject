@@ -18,6 +18,7 @@ import com.gl.givuluv.domain.dto.FileDTO;
 import com.gl.givuluv.domain.dto.LikeDTO;
 import com.gl.givuluv.domain.dto.ProductDTO;
 import com.gl.givuluv.domain.dto.SBoardDTO;
+import com.gl.givuluv.domain.dto.SBoardwithFileDTO;
 import com.gl.givuluv.domain.dto.SRegisterDTO;
 import com.gl.givuluv.domain.dto.StoreDTO;
 import com.gl.givuluv.mapper.BoardMapper;
@@ -158,4 +159,30 @@ public class StoreServiceImpl implements StoreService {
 	public char checkStoreBySellerid(String loginSeller) {
 		return smapper.checkStoreBySellerid(loginSeller);
 	}
+	//MDM
+		@Override
+		public List<SBoardwithFileDTO> getStoreViewProduct(int storenum, String loginUser) {
+			List<SBoardwithFileDTO> resultList = new ArrayList<>();
+			
+			int[] s_boardnum = bmapper.getSBoardnumBySNum(storenum);
+			
+			for(int sbnum : s_boardnum) {
+				SBoardDTO sdto = bmapper.getSBoard(sbnum);
+				ProductDTO pdto = pmapper.getSList(sbnum);
+				FileDTO fdto = fmapper.getSBoardFile(sbnum);
+				LikeDTO ldto = lmapper.getSBoardLike(sbnum, loginUser);
+				
+				SBoardwithFileDTO svdto = new SBoardwithFileDTO();
+				
+				svdto.setProduct(pdto);
+				svdto.setSBoard(sdto);
+				svdto.setProductFile(fdto);
+				svdto.setLike(ldto);
+				
+				resultList.add(svdto);
+			}
+			
+			
+			return resultList;
+		}
 }

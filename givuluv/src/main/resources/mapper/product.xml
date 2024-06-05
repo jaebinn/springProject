@@ -28,10 +28,10 @@
 		JOIN store st ON sb.s_num = st.s_num
 		JOIN seller s ON st.sellerid = s.sellerid
 		WHERE s.sellercategory = #{categoty}
-		order by p.connectid desc
+		order by p.connectid+0 desc
    </select>
     <select id="getMConnectid">
-		select distinct connectid from product where p_type = 'm' order by connectid desc
+		select distinct connectid from product where p_type = 'm' order by connectid+0 desc;
    </select>
    <select id="getProductConnectid">
 		select distinct connectid from product
@@ -49,7 +49,7 @@
 		update product set p_amount=p_amount-#{amount} where productnum=#{productnum}
    </update>
    <select id="getListBySBoardnum">
-      select * from product where connectid = #{sBoardnum}
+      select * from product where connectid = #{sBoardnum} and p_type='M';
       </select>
       <select id="getListBySBoardnumType">
       select * from product where connectid = #{sBoardnum} and p_type = #{type}
@@ -57,12 +57,23 @@
 	<select id="getProduct">
 		select * from product where connectid = (select connectid from product where productnum = #{productnum}) and p_type='m'
    </select>
-   
-   <!--MDM-->
+   <select id="getListByProductName">
+		select p.*
+		from product p
+		join s_board sb ON p.connectid = sb.s_boardnum
+		join store s ON sb.s_num = s.s_num
+		where s.sellerid = 'seller' and p.p_type='M' and p.productname like concat('%', #{text}, '%')
+   </select>
+   <select id="getTotal">
+		select count(*)
+		from product p
+		join s_board sb ON p.connectid = sb.s_boardnum
+		join store s ON sb.s_num = s.s_num
+		where s.sellerid = #{sellerid} and p.p_type='M'
+   </select>
    <select id="getProductnumBySBoardnum">
 		select productnum from product where connectid = #{sBoardnum} order by cost asc limit 1
    </select>
-   <!--MDM-->
    <select id="getSProductnumByNameAndConnectid">
 		select productnum from product where productname=#{productname} and connectid=#{sBoardnum} and p_type='m'
    </select>

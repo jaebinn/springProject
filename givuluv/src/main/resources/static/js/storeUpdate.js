@@ -171,3 +171,60 @@ function findAddr() {
       }
    }).open();
 }
+function show_product(e){
+	let productText = $('#keyword').val();
+	let searchProduct = $('#searchProduct');
+	searchProduct.val(productText);
+	console.log(searchProduct.val())
+	if(e.keyCode==13 && productText !== ""){//엔터
+		$.ajax({
+			url:'productSearch',
+			method:'POST',
+			contentType: "application/json",
+			data: JSON.stringify({ text: searchProduct.val() }),
+			success:function(data){
+				let list = $('.product_list')
+				let p_list = $('.product_list #t_list');
+				let sortProduct = $('.product_list #t_listSort');
+				p_list.css("display","none")
+				sortProduct.css("display","block")
+				sortProduct.empty(); // 기존 데이터 삭제
+				if (data.length > 0) {
+					data.forEach(function(product) {
+						list.append(
+							`<tbody id='t_listSort'>
+								<tr id="product_${product.productnum}">
+	                                 <td>${product.productnum}</td>
+	                                 <td>${product.productname}</td>
+	                                 <td>${product.pamount}개</td>
+	                                 <td>${product.cost}원</td>
+	                             </tr>
+							</tbody>`
+							);
+						});
+				} else {
+                     list.append(
+    					'<tbody id="t_listSort"><tr><td colspan="4">검색 결과가 없습니다.</td></tr></tbody>'
+					 );
+                }
+			},
+			error: function(e){
+				console.log("Error:", e);
+			}
+		})
+	}	
+}
+function search(pagenum){
+		const keyword = document.getElementById("searchProduct");
+		searchForm.find("[name=pagenum]").val(pagenum);
+		//유효성 검사
+		return true;
+	}
+	const searchForm = $('#searchForm');
+	$(".changePage").on("click",function(e){
+		//e(이벤트)의 기본 작동 막기
+		e.preventDefault();
+		let pagenum = $(this).attr("href");
+		searchForm.attr("onsubmit",`search(${pagenum})`);
+		searchForm.submit();
+	})

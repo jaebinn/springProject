@@ -17,7 +17,7 @@ import com.gl.givuluv.domain.dto.StoreDTO;
 public interface SellerService {
 
 //   회원가입 
-   boolean join(SellerDTO seller);
+   boolean join(SellerDTO seller, MultipartFile[] files) throws Exception;
 //   로그인
    boolean login(String sellerid, String sellerpw);
 //   이메일로 아이디 찾기
@@ -69,5 +69,16 @@ public interface SellerService {
    List<ReviewDTO> getReviewListBySelleridWithCri(Criteria cri, String sellerid);
    
    String getSelleridByStorename(String storename);
+   
+   List<ProductDTO> getSearchProduct(String text, String sellerid);
+   
+   String getSellerProfile(String sellerid);
+   
+   int getTotal(Criteria cri, String sellerid);
+   
+ //MDM
+   char checkStoreSignup(String sellerid);
+   //MDM
+   boolean storeInfoCheck(String sellerid);
 
 }

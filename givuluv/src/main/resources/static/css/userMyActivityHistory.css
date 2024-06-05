@@ -107,4 +107,19 @@ a, input {
 	.contents_div > .contents > div > :nth-child(2) {
 		font-size: 12px;
 	}
+	#search_btn{
+	width: 60px;
+    height: 20px;
+    border-radius: 20px;
+    border: none;
+    background-color: #e0e0e0;
+	}
+	#search_btn:hover{
+		background-color: rgb(79, 148, 111);
+		color: white;
+	}
+	
+	#empty_msg{
+		text-align: center;
+	}
 	

@@ -144,6 +144,11 @@ $('#summernote').summernote({
 		}
 	}
 });
+
+
+
+
+
 function uploadSummernoteImageFile(file, editor) {
 	data = new FormData();
 	data.append("file", file);
@@ -166,7 +171,6 @@ function uploadSummernoteImageFile(file, editor) {
 		}
 	});
 }
-
 
 //파일
 function upload() {
@@ -219,6 +223,7 @@ function cancelFile() {
 // 상품 등록
 let i = 0; //상품 추가 횟수
 function addProduct(num) {
+
 	const product_box = $(".product_box");
 	const product = $("#product" + num);
 	console.log(product_box);
@@ -249,7 +254,7 @@ function addProduct(num) {
 	//jQuery객체.appendTo("부모선택자") : 해당 선택자의 자식으로 jQuery 객체 추가
 	cloneElement.appendTo(".product_box");
 	$("#addProduct" + (i - 1)).remove();
-
+	$('html, body').scrollTop($(document).height());
 }
 
 function removeProduct(num) {
@@ -417,7 +422,7 @@ function storesubmit() {
 		let productcost = product[j].find(".productcost")
 		let productamount = product[j].find(".productamount")
 
-		if (productname.val()== '') {
+		if (productname.val() == '') {
 			alert("상품명을 작성해주세요.")
 			productname.focus();
 			return;
@@ -533,7 +538,7 @@ function fundingsubmit() {
 		let productcost = product[j].find(".productcost")
 		let productamount = product[j].find(".productamount")
 
-		if (productname.val()== '') {
+		if (productname.val() == '') {
 			alert("상품명을 작성해주세요.")
 			productname.focus();
 			return;

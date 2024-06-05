@@ -10,7 +10,12 @@
 			<div class="profile_div">
 				<img>
 				<span>[[${session.loginUser}]]</span>
-				<span><a href="/user/my/modify_userinfo"><input type="button" value="회원정보수정"></a></span>
+				<span>
+					<a href="/user/my/modify_userinfo"><input type="button" value="회원정보수정" id="modifyLink"></a>
+					<br>
+					<a id="userDelete" href="/user/my/delete_userinfo"><input type="button" value="회원탈퇴" id="deleteLink"></a>
+				
+				</span>
 			</div>
 			<div class="menu_div">
 				<div>
@@ -23,9 +28,9 @@
 					<a href="/user/my/activity_history"><strong>활동내역</strong></a>
 				</div>
 				<div>
-					<a><strong>정기결제관리</strong></a>
-					<a>정기기부</a>
-					<a>정기저금</a>
+					<a href="/user/my/User_Like"><strong>내 관심 리스트</strong></a>
+					
+					
 				</div>
 				
 			</div>

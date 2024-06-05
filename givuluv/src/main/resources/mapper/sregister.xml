@@ -22,4 +22,9 @@
 	<update id="cancelsellerApprove">
 		update s_register set isagree='-', regdate=now() where s_name=#{sname}
 	</update>
+	
+	<!--MDM-->
+   <select id="checkStoreSignup">
+		select ifnull(max(isagree), 'n') as isagree from s_register where sellerid = #{loginSeller}
+   </select>
 </mapper>

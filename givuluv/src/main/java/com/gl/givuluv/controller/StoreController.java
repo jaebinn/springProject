@@ -212,27 +212,35 @@ public class StoreController {
 	}
 	
 	
+	// MDM
 	@GetMapping("write")
 	public String write(HttpServletRequest req, Model model) {
 		HttpSession session = req.getSession();
-		String loginSeller = (String)session.getAttribute("loginSeller");
-		
+		String loginSeller = (String) session.getAttribute("loginSeller");
+
 		char check = sservice.checkStoreBySellerid(loginSeller);
-		
+
 		String url;
-		
-		if(check == 'o') {
-			return "store/write";
-		}
-		else if(check == '-'){
+
+		if (check == 'o') {
+			if (sellservice.storeInfoCheck(loginSeller)) {
+				// 승인을 받은 후 스토어 등록을 했다면
+				return "store/write";
+			} else {
+				// 승인을 받은 후 스토어 등록을 안했다면
+				url = "storewrite";
+				model.addAttribute("alertMessage", "스토어 등록 후 이용가능합니다.");
+				model.addAttribute("redirectUri", url);
+				return "store/storeMassege";
+			}
+		} else if (check == '-') {
 			url = "/";
-			model.addAttribute("alertMessage", "스토어 승인 대기 중입니다.\n승인 후 가게 등록이 가능합니다.");
+			model.addAttribute("alertMessage", "스토어 승인 대기 중입니다.\n승인 후 스토어 및 가게 등록이 가능합니다.");
 			model.addAttribute("redirectUri", url);
 			return "store/storeMassege";
-		}
-		else {
+		} else {
 			url = "storeSignup";
-			model.addAttribute("alertMessage", "스토어 등록 후 가게 등록이 가능합니다.");
+			model.addAttribute("alertMessage", "스토어 승인 후 스토어 및 가게 등록이 가능합니다.");
 			model.addAttribute("redirectUri", url);
 			return "store/storeMassege";
 		}
@@ -327,7 +335,48 @@ public class StoreController {
        }
        return "store/sBoard";
     }
-	   
+	
+	
+	//MDM
+	@GetMapping("storewrite")
+	public String storewrite(HttpServletRequest req, Model model) {
+		HttpSession session = req.getSession();
+		String loginSeller = (String)session.getAttribute("loginSeller");
+		
+		char check = sservice.checkStoreBySellerid(loginSeller);
+		
+		String url;
+		
+		if(check == 'o') {
+        	if(sellservice.storeInfoCheck(loginSeller)) {
+        		//승인을 받은 후 스토어 등록을 했다면 메이페이지 이동하기
+        		url = "seller/my/home";
+      			model.addAttribute("alertMessage", "이미 등록한 스토어가 있습니다.");
+      			model.addAttribute("redirectUri", url);
+      			return "store/storeMassege";
+        	}
+        	else {
+        		//승인을 받은 후 스토어 등록을 안했다면
+        		return "store/storewrite";
+        	}
+		}
+		else if(check == '-'){
+			url = "/";
+			model.addAttribute("alertMessage", "스토어 승인 대기 중입니다.\n승인 후 스토어 및 가게 등록이 가능합니다.");
+			model.addAttribute("redirectUri", url);
+			return "store/storeMassege";
+		}
+		else {
+			url = "storeSignup";
+			model.addAttribute("alertMessage", "스토어 승인 신청 후 이용가능합니다..");
+			model.addAttribute("redirectUri", url);
+			return "store/storeMassege";
+		}
+	}
+
+	
+	
+	
 	@GetMapping("productView")
 	public String getProduct(@RequestParam int productnum, Model model, HttpServletRequest req) {
 		HttpSession session = req.getSession();
@@ -562,6 +611,29 @@ public class StoreController {
 	        	return "X";
 	        }
 	    }
+	    
+	    // 나중에 링크 만들면 넣어주기
+	    @GetMapping("storeview")
+	    public String getMethodName(@RequestParam int storenum, HttpServletRequest req, Model model) {
+	    	HttpSession session = req.getSession();
+	    	
+			String loginUser = (String)session.getAttribute("loginUser");
+			String loginSeller = (String)session.getAttribute("loginSeller");
+			String loginOrg = (String)session.getAttribute("loginOrg");
+			String loginManager = (String)session.getAttribute("loginManager");
+			
+	    	List<SBoardwithFileDTO> sBoardList = sservice.getStoreViewProduct(storenum, loginUser);
+	    	
+	    	model.addAttribute("sBoardList", sBoardList);
+			model.addAttribute("loginUser", loginUser);
+			model.addAttribute("loginSeller", loginSeller);
+			model.addAttribute("loginOrg", loginOrg);
+			model.addAttribute("loginManager", loginManager);
+			
+			
+	    	return "store/storeview";
+	    }
+	    
 	}
 
 

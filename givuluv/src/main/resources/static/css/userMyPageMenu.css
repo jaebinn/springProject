@@ -55,7 +55,7 @@ a, input {
 		border: 1px solid white;
 		width: 70px; height: 70px;
 		border-radius: 50%;
-		background-image: url(../images/newprofile.png);
+		background-image: url(../images/kakao_basic.jpg);
 		
 	}
 	.profile_div > :nth-child(3) {
@@ -83,6 +83,56 @@ a, input {
 		border-bottom: 1px solid #e0e0e0;
 	}
 	
-	#electronic_receipt:hover{
-		color: crimson;
+	.user_div{
+		
+		width: 735px;
+		height: 60px;
+	}
+	#user_name{
+		
+		width: 650px;
+		height: 55px;
+		margin: 0 auto;
+		text-align: center;
+		font-size: 20px;
+		margin-top: 5px;
+		color: #E77097;
+	}
+	#like_user{
+		color: purple;
+		pointer-events: none;
+	}
+	#userDelete{
+		margin-left: 12px;
+	}
+	#content_img{
+		background-image: url(../images/no_img1.png);
+	}
+	#gid{
+		font-size: 13px;
+	}
+	
+	#modifyLink, #deleteLink{
+	width: 80px;
+    height: 30px;
+    border-radius: 20px;
+    float: left;
+    margin-left: 8px;
+    border: none;
+    background-color: darkgrey;
+	}
+	#deleteLink{
+		margin-top: 5px;
+	}
+	
+	#modifyLink:hover{
+		background-color:rgb(79, 148, 111);
+		color: white;
+	}
+	#deleteLink:hover{
+		background-color:rgb(79, 148, 111);
+		color: white;
+	}
+	#empty{
+		text-align: center;
 	}

@@ -186,5 +186,30 @@ a, input {
 			border-right: none;
 			border-left: none;
 		}
+.pagination{
+	text-align: center;
+	padding: 0;
+}
+.pagination btn{
+	float: left;
+	display: block;
+	padding: 5px 12px;
+	color: #96a0ad;
+	line-height: 1.5;
 	
-	
+}
+#keyword{
+	border: none;
+	width: 440px;
+	height: 30px;
+}
+#searchForm{
+	position: relative;
+}
+#searchForm svg{
+	position: absolute;
+	top: 5px;
+}
+#searchForm #keyword{
+	margin-left: 30px;
+}

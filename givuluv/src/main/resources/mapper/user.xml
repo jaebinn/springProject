@@ -173,9 +173,6 @@
 		update user set username = #{user.username}, nickname = #{user.nickname}, email = #{user.email}, userphone = #{user.userphone}
 			where userid = #{loginUser}
 	</update>
-	<delete id="deleteUser">
-		delete from user where userid=#{userid}
-	</delete>
 	<update id="updateBonus">
 		update user set bonus= bonus + #{bonus} where userid=#{userid}
 	</update>
@@ -193,4 +190,31 @@
    <select id="getUserCategoryById">
       select usercategory from user where userid = #{userid};
    </select>
+   <delete id="deleteUser">
+		delete from `user` where userid=#{loginUser}
+	</delete>
+	<delete id="deleteF_detail">
+		delete from f_detail where userid=#{loginUser}
+	</delete>
+	<delete id="deleteD_detail">
+		delete from d_detail where userid=#{loginUser}
+	</delete>
+	<delete id="deleteFollow">
+		delete from follow where userid=#{loginUser}
+	</delete>
+	<delete id="deleteLike">
+		delete from `like` where userid=#{loginUser}
+	</delete>
+	<delete id="deleteReview">
+		delete from review where userid=#{loginUser}
+	</delete>
+	<delete id="deleteD_payment">
+		delete from d_payment where userid=#{loginUser}
+	</delete>
+	<delete id="deleteF_payment">
+		delete from f_payment where userid=#{loginUser}
+	</delete>
+	<delete id="deleteS_payment">
+		selete from s_payment where userid=#{loginUser}
+	</delete>
 </mapper>

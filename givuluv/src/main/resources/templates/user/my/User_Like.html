@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<header>
+	<meta charset="UTF-8">
+	<title>일반유저 User_Like</title>
+	<link rel="stylesheet" href="/css/userMyPageMenu.css">	
+	<link rel="stylesheet" href="/css/userMyActivityHistory.css">
+	<link rel="stylesheet" href="/css/header_footer.css">
+	<script src="https://kit.fontawesome.com/516da99189.js" crossorigin="anonymous"></script>
+	
+</header>
+<body>
+	<!-- header -->
+	<th:block th:replace="~{layout/header::header(loginUser)}"></th:block>
+	
+	<!-- 컨텐츠 -->
+	<div class="wrap">
+		<!-- 왼쪽 메뉴바 -->
+		<th:block th:replace="~{layout/userMyPageMenu::userMyPageMenu(loginUser)}"></th:block>
+		<!-- 오른쪽 내용 -->
+		<div class="left_div">
+			<h2>좋아요 리스트</h2>
+			<!--<div class="button_div">
+				페이지 이동???
+				<a href="#"><input type="button" value="게시글 내역"></a>
+				<a href="#"><input type="button" value="기부 내역"></a>
+				<a href="#"><input type="button" value="펀딩 내역"></a>
+				<a href="#"><input type="button" value="가게 내역"></a>
+			</div>-->
+			<div class="user_div">
+			<div id="user_name"><a id="like_user">[//[[${loginUser}]]//]</a>님의 관심리스트 입니다</div>
+			</div>
+			<div class="contents_div">
+				
+				<div class="contents like_list" id="like_list" th:if="${not #lists.isEmpty(like_info)}" th:each="Board : ${like_info}">
+					<!--이미지 경로를 모르겠음-->
+					
+						<img id="content_img">
+					
+					<!--=========================================-->
+					
+					<div>
+						<p id="gid">이미지란에 로고는 대체이미지입니다.</p>
+						<a href="#"><p th:text = "${Board.cContent}" > </p></a>
+						<p th:text = "${Board.cBoardnum}" class="boardnum"></p>
+						<!--<p th:text="${Board.cTitle}"></p>-->
+						
+						
+						<!--<Form th:action="@{/user/delete_like(c_board=${Board.cBoardnum})}" method="Get" name="deleteLikeForm">-->
+						<!--<input type="button" value="관심삭제" id="del_like" onclick= "deleteLike()">
+						<input type="hidden" value="${Board.cBoardnum}" id="hidden">-->
+						
+						<!--<p th:text = "${Board.cBoardnum}"></p>-->
+						<!--<input type="button" value="관심해제" id="del_like" onclick="">-->
+					</div>
+				</div>
+				
+			
+				
+				<div th:if="${#lists.isEmpty(like_info)}">
+					<p id="empty">내역이 존재하지 않습니다.</p>
+				</div>
+				
+				
+				
+			</div>
+		</div>
+	</div>
+	
+	<!-- footer -->
+	<th:block th:replace="~{layout/footer::footer()}"></th:block>
+</body>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<!--=====================================================-->
+<!--<script>
+	function deleteLike() {
+	           alert("좋아요를 취소하시겠습니까??");
+	           
+	           
+	           var boardnum = $(".boardnum").text();
+	           
+	           $.ajax({
+	               url: "/user/deleteLike",
+	               method: "post",
+	            dataType: 'json',
+	            contentType: 'application/json; charset=utf-8',
+	               data: JSON.stringify({ c_board: boardnum }),
+	               success: function(response) {
+	                   // 성공 시 처리할 로직
+	                   // 예: 응답으로 받은 값을 페이지에 다시 표시
+	                   $("#result").text(response.cBoardnum);
+					   alert("값이 성공적으로 전달되었습니다.")
+	               },
+	               error: function() {
+	                   alert("취소에 실패했습니다");
+	               }
+	           });
+	       }
+	    </script>-->
+
+<!--작동안함-->
+	
+	
+
+	
+
+
+</html>

@@ -131,7 +131,7 @@
 										<input th:unless="${item.like == null}"type="button" class="product_choice likeimg2" th:id="'product_choice'+${item.sBoard.sBoardnum}" th:onclick="'likeChoice(' + ${item.sBoard.sBoardnum} + ')'">
 			                        </div>
 			                    </div>
-			                    <a href="${list.sboard.sNum}" id="seller_link" class="storeGet">
+			                    <a th:href="${item.sBoard.sNum}" id="seller_link" class="storeGet">
 			                        <div class="seller_box">
 			                            <div class="seller_thumbnail">
 											<!--스토어 로고가 있는 경우(스토어 로고를 등록할 시 로직 만들기)-->
@@ -197,7 +197,7 @@
 			$(document).on("click", ".storeGet", function (e) {
 				e.preventDefault();
 				let storenum = $(this).attr("href");
-				location.href = "/store/storeView?s_num=" + storenum;
+				location.href = "/store/storeview?storenum=" + storenum;
 			})
 		    // 더보기 버튼 클릭 시
 		    $(document).on('click', "#product_more", function () {
@@ -254,6 +254,7 @@
 								let pnum = plist.productnum;
 								let sboardtit = slist.stitle;
 								let sBoardnum= slist.sboardnum;
+								let sNum = slist.snum;
 								//console.log(amount);
 								//console.log(pname);
 								//console.log(pnum);
@@ -297,7 +298,7 @@
 											${likeInput}
 										</div>
 									</div>
-									<a href="${slist.sNum}" id="seller_link" class="storeGet">
+									<a href="${slist.snum}" id="seller_link" class="storeGet">
 										<div class="seller_box">
 											<div class="seller_thumbnail">
 												<img src="${storeFileSrc}" alt="">
@@ -410,6 +411,18 @@
 					}
 				});
 			};
-		}				
+		}
+		
+							
 </script>
 </html>
+
+
+
+
+
+
+
+
+
+

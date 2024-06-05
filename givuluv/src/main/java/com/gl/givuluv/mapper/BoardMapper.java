@@ -98,4 +98,5 @@ public interface BoardMapper {
 	
 	List<CBoardDTO> getCampaignListByCategories(String[] categoryList, int cBoardnum, int amount);
 	List<CBoardDTO> getCampaignList(int boardlastnum, int amount);
+	int[] getSBoardnumBySNum(int storenum);
 }

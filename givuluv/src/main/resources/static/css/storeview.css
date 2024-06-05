@@ -1,0 +1,162 @@
+@font-face {
+    font-family: 'TTLaundryGothicB';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/TTLaundryGothicB.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'KCC-Hanbit';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/KCC-Hanbit.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+*{ box-sizing: border-box; margin: 0; padding: 0; }
+ul, li{
+    list-style: none;
+}
+a{
+    text-decoration: none; /* 링크의 밑줄 제거 */
+    color: black; /* 링크의 텍스트 색상을 투명하게 설정 */
+}
+.sv_wrap{
+	margin-top: 50px;
+    width: 100%;
+}
+
+.store_info_tit{
+    width: 100%;
+    height: 500px;
+    position: relative;
+    display: inline-block;
+}
+
+.storeImg{
+    width: 100%;
+    height: 500px;
+    z-index: -1;
+    position: absolute;
+    top: 0; left: 0;
+}
+.storeImg img{
+    width: 100%;
+    height: 500px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.9;
+}
+
+.storeImg img:before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, .25);
+    content: "";
+}
+
+.storeName{
+    width: 100%;
+    height: 500px;
+    position: absolute;
+}
+
+.storeName h1, .storeName h2{
+    padding-top: 150px;
+    width: 1340px;
+    color: white;
+    margin: 0 auto;
+    font-size: 40px;
+    font-family: 'TTLaundryGothicB';
+    padding-left: 20px;
+}
+
+.storeName h2{
+    padding-top: 0;
+    font-size: 25px;
+    margin-top: 20px;
+    font-family: 'KCC-Hanbit';
+}
+
+
+
+.store_info{
+    width: 1340px;
+    margin: auto;
+}
+.storContent{
+    overflow: hidden;
+}
+.brand{
+    width: 1340px;
+    height: 150px;
+    font-family: 'TTLaundryGothicB';
+    font-size: 25px;
+    margin-top: -110px;
+    background-color: white;
+}
+.brand p{
+    padding: 50px 40px;
+    color: rgb(108, 108, 108);
+}
+.storeContent_txt{
+    width: 1340px;
+    overflow: hidden;  
+}
+.storeContent_tit{
+    font-size: 30px;
+    line-height: 25px;
+    padding: 10px 40px;
+    font-family: 'TTLaundryGothicB';
+    margin-bottom: 40px;
+}
+.storeContent_con{
+    font-size: 16px;
+    line-height: 30px;
+    padding: 0 40px;
+    font-family: 'KCC-Hanbit';
+    color:rgb(81, 81, 81)
+}
+
+.storeContent_img{
+    margin-top: 80px;
+    width: 1340px;
+}
+
+.storeContent_img img{
+    width: 1340px;
+    height: 520px;
+    background-size: 520px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.storeimg_btn{
+    margin-top: 15px;
+    line-height: 0;
+    text-align: right;
+}
+.storeimg_btn li{
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-left: 7px;
+    background-color: rgba(0, 0, 0, 0.5);
+    vertical-align: top;
+}
+
+.storeimg_btn .slick-active{
+    border: 2px solid #333;
+    background-color: #fff;
+}
+.storeimg_btn li button{
+    color: rgba(0, 0, 0, 0);
+    white-space: nowrap;
+    font-size: 0;
+    line-height: 0;
+    width: 100%;
+    height: 100%;
+    vertical-align: top;
+    border: none;
+}

@@ -17,5 +17,8 @@ public interface SRegisterMapper {
 	boolean updatesellerApprove(String sname);
 	boolean cancelsellerApprove(String sname);
 	SRegisterDTO sellerApproveProfile(String sName);
+	
+	//MDM
+	char checkStoreSignup(String sellerid);
 
 }

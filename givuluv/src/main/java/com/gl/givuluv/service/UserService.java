@@ -3,6 +3,7 @@ package com.gl.givuluv.service;
 
 import java.util.List;
 
+import com.gl.givuluv.domain.dto.CBoardDTO;
 import com.gl.givuluv.domain.dto.FollowDTO;
 import com.gl.givuluv.domain.dto.UserDTO;
 
@@ -74,4 +75,36 @@ public interface UserService {
 	
 	UserDTO getUserInfo(UserDTO userid);
 	boolean addFollow(FollowDTO follow);
+	
+	List<CBoardDTO> getLikeInfoByUserid(String loginUser);
+	
+	Boolean Delete_LikeByUserid(String loginUser);
+	
+	int SelectC_boardNumByUserid(String loginUser);
+	
+	int getF_systemNameCntBynum(List<String> f_boardNum);
+	
+	int getD_systemNameCntBynum(UserDTO userid);
+	
+	Boolean checkuserPw(String userpw);
+	
+	Boolean deleteUser(String loginUser);
+	
+	Boolean deleteF_detail(String loginUser);
+	
+	Boolean deleteD_detail(String loginUser);
+	
+	Boolean deleteFollow(String loginUser);
+	
+	Boolean deleteLike(String loginUser);
+	
+	Boolean deleteReview(String loginUser);
+	
+	Boolean deleteD_payment(String loginUser);
+	
+	String getuserPwById(String loginUser);
+	
+	Boolean deleteF_payment(String loginUser);
+	
+	Boolean deleteS_payment(String loginUser);
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.gl.givuluv.domain.dto.CBoardDTO;
 import com.gl.givuluv.domain.dto.FollowDTO;
 import com.gl.givuluv.domain.dto.UserDTO;
 import com.gl.givuluv.mapper.UserMapper;
@@ -265,5 +266,98 @@ public class UserServiceImpl implements UserService{
 	      }
 	      return false;
 	   }
+	@Override
+	public List<CBoardDTO> getLikeInfoByUserid(String loginUser) {
+		
+		return umapper.getLikeInfoByUserid(loginUser);
+	}
 
+	@Override
+	public Boolean Delete_LikeByUserid(String loginUser) {
+		
+		return umapper.Delete_LikeByUserid(loginUser) == 1;
+	}
+
+	@Override
+	public int SelectC_boardNumByUserid(String loginUser) {
+		
+		return umapper.SelectC_boardNumByUserid(loginUser);
+	}
+
+	@Override
+	public int getF_systemNameCntBynum(List<String> f_boardNum) {
+		
+		return umapper.getF_systemNameCntBynum(f_boardNum);
+	}
+
+	@Override
+	public int getD_systemNameCntBynum(UserDTO userid) {
+		
+		return umapper.getD_systemNameCntBynum(userid);
+	}
+
+	@Override
+	public Boolean checkuserPw(String userpw) {
+		
+		return umapper.checkuserPw(userpw) == 1 ;
+	}
+
+	@Override
+	public Boolean deleteUser(String loginUser) {
+		
+		return umapper.deleteUser(loginUser) == 1;
+	}
+
+	@Override
+	public Boolean deleteF_detail(String loginUser) {
+		return umapper.deleteF_detail(loginUser) == 1;
+	}
+
+	@Override
+	public Boolean deleteD_detail(String loginUser) {
+		
+		return umapper.deleteD_detail(loginUser) == 1;
+	}
+
+	@Override
+	public Boolean deleteFollow(String loginUser) {
+		
+		return umapper.deleteFollow(loginUser) == 1;
+	}
+
+	@Override
+	public Boolean deleteLike(String loginUser) {
+		
+		return umapper.deleteLike(loginUser) == 1;
+	}
+
+	@Override
+	public Boolean deleteReview(String loginUser) {
+		
+		return umapper.deleteReview(loginUser) == 1;
+	}
+
+	@Override
+	public Boolean deleteD_payment(String loginUser) {
+		
+		return umapper.deleteD_payment(loginUser) == 1;
+	}
+
+	@Override
+	public String getuserPwById(String loginUser) {
+		
+		return umapper.getuserPwById(loginUser);
+	}
+
+	@Override
+	public Boolean deleteF_payment(String loginUser) {
+		
+		return umapper.deleteF_payment(loginUser) == 1;
+	}
+
+	@Override
+	public Boolean deleteS_payment(String loginUser) {
+		
+		return umapper.deleteS_payment(loginUser) == 1;
+	}
 }

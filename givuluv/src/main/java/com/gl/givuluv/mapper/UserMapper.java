@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.gl.givuluv.domain.dto.CBoardDTO;
 import com.gl.givuluv.domain.dto.FollowDTO;
 import com.gl.givuluv.domain.dto.SPaymentDTO;
 import com.gl.givuluv.domain.dto.UserDTO;
@@ -109,5 +110,33 @@ public interface UserMapper {
 	//  유저의 카테고리
 	String getUserCategoryById(String userid);
 
-
+List<CBoardDTO> getLikeInfoByUserid(String loginUser);
+	
+	int Delete_LikeByUserid(String loginUser);
+	
+	int SelectC_boardNumByUserid(String loginUser);
+	
+	int getF_systemNameCntBynum(List<String> f_boardNum);
+	
+	int getD_systemNameCntBynum(UserDTO userid);
+	
+	int checkuserPw(String userpw);
+	
+	int deleteF_detail(String loginUser);
+	
+	int deleteD_detail(String loginUser);
+	
+	int deleteFollow(String loginUser);
+	
+	int deleteLike(String loginUser);
+	
+	int deleteReview(String loginUser);
+	
+	int deleteD_payment(String loginUser);
+	
+	String getuserPwById(String loginUser);
+	
+	int deleteF_payment(String loginUser);
+	
+	int deleteS_payment(String loginUser);
 }

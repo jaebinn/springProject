@@ -4,54 +4,26 @@
 			<div class="profile_area">
 				<form>
 					<input type="file" name="files" id="file" style="display:none">
-					<img class="profile" src="/images/default_profile.png" onclick="javascript:myHome()">
+					<img class="profile" th:src="${systemname}" onclick="javascript:myHome()">
 				</form>
-				<a href="/seller/my/home">[[${session.loginUser}]]님</a>
-				<div>
-					<p>좋아요 : 304개</p>
-					<p>총 상품량 : 20개</p>
-					<p>구독자 : 90명</p>
+				<a href="/seller/my/home">[[${session.loginSeller}]]님</a>
+				<div class="likeSBoad">
+					<!-- 좋아요 총 개수 :  -->
+					<!-- 게시물 총 개수 :  -->
 				</div>
 			</div>
 			<div class="product_area">
 				<div class="buttons">
-					<input type="button" value="최다 댓글 상품">
-					<input type="button" value="최다 좋아요 상품">
+					<input class="mostLike" type="button" value="최다 좋아요 게시물" onclick="mostLikeSBoard()">
+					<input class="mostReview" type="button" value="최다 댓글 게시물" onclick="mostReviewSBoard()">
 				</div>
 				<div class="products">
 					<img class="one" src="/images/seller/my/1st.png">
 					<img class="two" src="/images/seller/my/2nd.png">
 					<img class="three" src="/images/seller/my/3rd.png">
-					<div class="product">
-						<div>
-							<img src="/images/사과.jpg">
-						</div>
-						<div>
-							<p>내 사과를 받아줘..</p>
-							<p>좋아요 : 100개</p>
-							<p>10,000원</p>
-						</div>
-					</div>
-					<div class="product">
-						<div>
-							<img src="/images/바나나.jpg">
-						</div>
-						<div>
-							<p>바나나먹으면 나한테 반하나?</p>
-							<p>좋아요 : 50개</p>
-							<p>10,000원</p>
-						</div>
-					</div>
-					<div class="product">
-						<div>
-							<img src="/images/당근.jpg">
-						</div>
-						<div>
-							<p>물론 당근이지!</p>
-							<p>좋아요 : 10개</p>
-							<p>10,000원</p>
-						</div>
-					</div>
+				<!-- ajax로 랭킹 1등 -->
+				<!-- ajax로 랭킹 2등 -->
+				<!-- ajax로 랭킹 3등 -->
 				</div>
 			</div>
 		</div>
@@ -135,5 +107,96 @@
 				console.log("/user/profileSave submit 완료");
 			}
 		</script>
+		<script>
+			// 처음 들어왔을때 "최다 댓글 게시물" 버튼 클릭
+			$(document).ready(function () {
+				$(".mostLike").focus();
+				mostLikeSBoard();
+			});
+
+			// "최다 댓글 게시물" 버튼
+			function mostReviewSBoard() {
+				$.ajax({
+					url: '/seller/mostReviewSBoard',
+					method: 'GET',
+					dataType: 'json',
+					contentType: 'application/json; charset=utf-8',
+					success: function (response) {
+						$(".product").remove();
+						for (let index = 0; index < Math.min(response.length, 3); index++) {
+							let sBoard = response[index];
+							let sBoardTitle = sBoard.sBoardTitle;
+							let sBoardnum = sBoard.sBoardnum;
+							let reviewCount = sBoard.reviewCount;
+							let systemname = sBoard.sBoardThumbnail.systemname;
+
+							let str = '<div class="product">';
+							str += `<div>`;
+							str += `<img src="/summernoteImage/${systemname}">`;
+							str += `</div>`;
+							str += `<div>`;
+							str += `<p>${sBoardTitle}</p>`;
+							str += `<p>댓글 개수 : ${reviewCount}</p>`;
+							str += `</div>`;
+							str += `</div>`;
+							
+							$(".products").append(str); // 이전에 생성된 HTML에 새로운 요소 추가
+						}
+					},
+					error: function (e) {
+						console.log(e);
+					}
+				});
+			}
+
+			// "최다 좋아요 게시글" 버튼
+			function mostLikeSBoard() {
+				$.ajax({
+					url: '/seller/mostLikeSBoard',
+					method: 'GET',
+					dataType: 'json',
+					contentType: 'application/json; charset=utf-8',
+					success: function (response) {
+						console.log(response);
+						$(".product").remove();
+						$(".likeSBoad").empty();
+					
+						let totalLikeCount = 0;
+						let totalSBoard = 0;
+						// response가 배열이라고 가정하고, 최대 5개까지만 요소 추가
+						for (let index = 0; index < Math.min(response.length, 3); index++) {
+							let sBoard = response[index];
+							let sBoardTitle = sBoard.sBoardTitle;
+							let sBoardnum = sBoard.sBoardnum;
+							let likeCount = sBoard.likeCount;
+							let systemname = sBoard.sBoardThumbnail.systemname;
+
+							let str = '<div class="product">';
+							str += `<div>`;
+							str += `<img src="/summernoteImage/${systemname}">`;
+							str += `</div>`;
+							str += `<div>`;
+							str += `<p>${sBoardTitle}</p>`;
+							str += `<p>좋아요 : ${likeCount}</p>`;
+							str += `</div>`;
+							str += `</div>`;
+
+							$(".products").append(str); // 이전에 생성된 HTML에 새로운 요소 추가
+							
+							totalLikeCount += likeCount;
+							totalSBoard += 1;
+						}
+						let str2 ='<p>좋아요 총 개수 : '+totalLikeCount+'개</p>';
+						str2 += '<p>게시글 총 개수 : '+totalSBoard+'개</p>';
+						
+						$(".likeSBoad").append(str2);
+					},
+					error: function (e) {
+						console.log(e);
+					}
+				});
+			}
+		</script>
+
 	</th:block>
 </th:block>

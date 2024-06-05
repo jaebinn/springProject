@@ -165,9 +165,9 @@
 		"application_id": "664d681b2bac039f7bd3d53b",
 		"order_name": productname,
 		"order_id": storename,
-		"pg": "danal",
-		"method": "card_rebill",
-		show_agree_window: 0,
+		"pg": "nicepay",
+		"method": "",
+		"tax_free": 0,
 		"user": {
 			"id": user.userid,
 			"username": user.username,
@@ -175,10 +175,7 @@
 			"email": user.email,
 			"addr": user.addr
 		},
-		extra: {
-			start_at: new Date().toISOString(),
-			end_at: new Date().toISOString()
-		}
+	
 
 	}).then(function (data) {
 		if (data.event === 'done') {
@@ -195,7 +192,7 @@
 				},
 				success: function (msg) {
 					alert("구매해 주셔서 감사합니다!");
-					location.href = "/store/receipt?paymentnum=" + msg.paymentnum;
+					location.href = "/store/sReceipt?paymentnum=" + msg.paymentnum;
 				},
 				error: function () {
 					console.error('error');

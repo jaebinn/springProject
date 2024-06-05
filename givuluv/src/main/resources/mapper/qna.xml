@@ -40,14 +40,14 @@
       <select id="getQnaListWithCri">
       select *
       from qna
-      where productnum = #{productnum}
+      where productnum = #{int1}
       order by qnanum desc
       limit #{cri.startrow},#{cri.amount}
    </select>
    <select id="getNoAnswerQnaListWithCri">
       select *
       from qna
-      where productnum = #{productnum} and answer is null
+      where productnum = #{int1} and answer is null
       order by qnanum desc
       limit #{cri.startrow},#{cri.amount}
    </select>

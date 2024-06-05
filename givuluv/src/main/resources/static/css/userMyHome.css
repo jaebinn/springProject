@@ -179,3 +179,30 @@ a, input {
 		border: 1px solid red;
 	}
 	
+	#Dona_btn, #Fund_btn{
+	width: 100px;
+    height: 30px;
+    border-radius: 20px;
+    border: none;
+	}
+	
+	#pointDonaLink{
+	width: 130px;
+    height: 30px;
+    border-radius: 20px;
+    border: none;
+	}
+	
+	#Dona_btn:hover{
+		background-color: rgb(79, 148, 111);
+		color: white;
+	}
+	#Fund_btn:hover{
+		background-color: rgb(79, 148, 111);
+		color: white;
+	}
+	#pointDonaLink:hover{
+		background-color: rgb(79, 148, 111);
+		color: white;
+	}
+	

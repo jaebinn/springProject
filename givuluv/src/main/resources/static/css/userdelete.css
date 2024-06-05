@@ -1,0 +1,90 @@
+#content_wrap{
+	width: 737px;
+	height: 400px;
+	
+}
+
+.input{
+	width: 735px;
+	height: 150px;
+}
+.input_content1{
+	/*float: left;*/
+	/*margin-top: 10px;
+	margin-left: 10px;*/
+	margin : 0 auto;
+	pointer-events: none;
+	margin-left: 250px;
+	
+
+	
+}
+
+#userpw{
+	width: 250px;
+	height: 50px;
+	margin : 0 auto;
+	margin-left: 230px
+}
+
+#deleteSubmit{
+	float: right;
+	margin-right: 30px;
+	margin-bottom: 10px;
+	width: 150px;
+	height: 50px;
+}
+
+#info_msg, #enter_pw{
+	width: 730px;
+	height: 73px;
+	/*border: 1px solid black;*/
+}
+
+.input_checkmsg{
+	/*border: 1px solid black;*/
+	height: 300px;
+	margin-top: 50px;
+}
+
+#submit_area{
+	margin-top: 150px;
+}
+
+#info_msg2{
+	text-align: center;
+}
+
+#enter_ok{
+	margin-top: 70px;
+	height: 100px;
+}
+
+#ok_enter{
+	width: 250px;
+	height: 50px;
+	margin-left: 230px;
+	
+}
+.input_content2{
+	margin-top: 50px;
+	pointer-events: none;
+}
+
+#loginuser{
+	color: blueviolet;
+}
+
+#password{
+	color: crimson;
+	pointer-events: none;
+}
+
+#okMessage{
+	color: crimson;
+	pointer-events: none;
+}
+
+#deleteSubmit:hover{
+	background-color:rgb(79, 148, 111);
+}

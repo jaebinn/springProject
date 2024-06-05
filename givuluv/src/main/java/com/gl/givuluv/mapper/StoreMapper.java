@@ -23,18 +23,17 @@ public interface StoreMapper {
 	StoreDTO getStoreBySBoardnum(String connectid);
 	
 	StoreDTO getStoreBySName(String sName);
+	
 	int updateStore(StoreDTO store, String sellerid);
 
-	// MDM
 	int checkRegnum(String regnum);
 
-	// MDM
 	int insertStoreSignup(SRegisterDTO srdto);
 
-	// MDM
 	int checkStorename(String storename);
 
-	// MDM
 	char checkStoreBySellerid(String loginSeller);
+	
+	int storeInfoCheck(String sellerid);
 
 }

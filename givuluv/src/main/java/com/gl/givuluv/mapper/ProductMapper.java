@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.gl.givuluv.domain.dto.Criteria;
 import com.gl.givuluv.domain.dto.FPaymentDTO;
 import com.gl.givuluv.domain.dto.ProductDTO;
 import com.gl.givuluv.domain.dto.SPaymentDTO;
@@ -37,7 +38,6 @@ public interface ProductMapper {
 
 	List<ProductDTO> getProductByConnectid(int fBoardnum);
 	
-	// MDM수정
 	int[] getMConnectid();
 
 	int[] getMConnectidByCategory(String category);
@@ -50,4 +50,10 @@ public interface ProductMapper {
 
 	// MDM
 	int getSProductnumByNameAndConnectid(String productname, int sBoardnum);
+
+	List<ProductDTO> getListByProductName(String text, String sellerid);
+
+	int getTotal(Criteria cri, String sellerid);
+	
+	
 }

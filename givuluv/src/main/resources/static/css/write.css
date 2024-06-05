@@ -241,3 +241,146 @@ img.thumbnailImg {
 .campaignwrite .note-editor.note-frame{
 	width: 1340px !important;
 }
+
+
+
+
+
+/*info write*/
+.infowritecontainer .writeheader_box{
+	position: fixed;
+	width: 100%;
+	top: 0;
+	left: 0;
+	background-color: rgb(252, 233, 239);
+	z-index: 3;
+}
+.infowritecontainer .writeheader{
+	max-width: 1340px;
+	margin: 0 auto;
+}
+.infowrite{
+	margin-top: 100px;
+}
+.infowrite .option{
+	display: block; position: absolute;
+	z-index: unset;
+	width: 100%; height: 500px; left: 0;  right: 0;
+	border-radius: 0; border: 1px solid #666; border-right: 0;border-left: 0;
+	padding: 0; margin: 0; background-color: unset;
+}
+.infowrite .thumbnail_box{
+	display: block; width: 100%; height: 100%; padding: 0; margin: 0;
+	background: url(https://cdn-icons-png.flaticon.com/128/12206/12206382.png) no-repeat center/10%
+}
+.infowrite .thumbnailImg{
+	width: 1920px;
+	height: 500px;
+}
+.infowrite .boxes{
+	display: flex;
+	justify-content: center;
+}
+.infowrite .textarea_box{
+	width: 100%;
+	margin-top: 550px;
+	border: 1px solid #666;
+	border-right: none;
+	border-left: none;
+	padding: 50px;
+	margin-bottom: 50px;
+}
+.infowrite .textarea_box th{
+	text-align: start;
+	padding-bottom: 20px;
+}
+.infowrite .textarea_box td{
+	width: 1040px;
+	justify-self: start;
+	padding-bottom: 20px;
+}
+.infowrite .textarea_box *{
+	font-family: NIXGONM-Vb;
+}
+.infowrite .info_onimg{
+	position: absolute;
+	top: 0;
+	z-index: 2;
+	color: white;
+}
+.infowrite .orgname_onimg{
+	font-weight: bold;
+	font-size: 60px;
+}
+.infowrite .summary_onimg{
+	font-size: 30px;
+}
+.infowrite .textarea_box input{
+	width: 1040px;
+	padding: 10px 5px;
+	border: none;
+	font-size: 24px;
+	border-bottom: 1px solid #666;
+}
+.infowrite .textarea_box input:focus-visible{
+	outline: none;
+}
+.infowrite .textarea_box .content_info{
+	font-size: 16px;
+	width: 1040px;
+	min-height: 100px;
+	resize: none;
+	padding: 10px;
+}
+.infowrite .textarea_box .content_info::-webkit-scrollbar{
+	display: none;
+}
+.infowrite .thumbnailImg{
+	height: 500px;
+}
+.infowrite .imgfile_box{
+	padding: 20px;
+	margin: 0 auto;
+}
+.infowrite .imgfile_box th{
+	padding: 20px;
+}
+.infowrite .imgfile_box td{
+	padding: 20px;
+}
+.infowrite .file_upload{
+	display: block;
+	width: 1140px;
+	height: 520px;
+	border: 1px solid #666;
+	background: url(https://cdn-icons-png.flaticon.com/128/12206/12206382.png) no-repeat center/10%
+}
+.infowrite .file_upload img{
+	width: 1140px;
+	height: 520px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

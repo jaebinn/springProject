@@ -1,121 +1,127 @@
 
 
 .left_div{
-   border: 1px solid black;
+	border: 1px solid black;
 }
 
 #content_wrap{
-   margin-top: 50px;
+	margin-top: 50px;
 }
 
 #usernickname{
-   width: 730px;
-   height: 60px;
-   /*border: 1px solid red;*/
-   pointer-events: none;
-   margin-top: 10px;
-   font-size: 20px;
-   text-align: center;
+	width: 730px;
+	height: 60px;
+	/*border: 1px solid red;*/
+	pointer-events: none;
+	margin-top: 10px;
+	font-size: 20px;
+	text-align: center;
 }
 
 #old_nickname{
-   color: purple;
+	color: purple;
 }
 
 
 
 #modi_username{
-   width: 730px;
-   height: 80px;
-   /*border: 1px solid blue;*/
-   margin-bottom: 50px;
+	width: 730px;
+	height: 80px;
+	/*border: 1px solid blue;*/
+	margin-bottom: 50px;
 }
 
 #modi_userpw{
-   width: 730px;
-   height: 80px;
-   /*border: 1px solid blue;*/
-   margin-bottom: 50px;
+	width: 730px;
+	height: 80px;
+	/*border: 1px solid blue;*/
+	margin-bottom: 50px;
 }
 
 #modi_nickname{
-   width: 730px;
-   height: 80px;
-   /*border: 1px solid blue;*/
-   margin-bottom: 50px;
+	width: 730px;
+	height: 80px;
+	/*border: 1px solid blue;*/
+	margin-bottom: 50px;
 }
 #modi_email{
-   width: 730px;
-   height: 80px;
-   /*border: 1px solid blue;*/
-   margin-bottom: 50px;
+	width: 730px;
+	height: 80px;
+	/*border: 1px solid blue;*/
+	margin-bottom: 50px;
 }
 #modi_userphone{
-   width: 730px;
-   height: 80px;
-   /*border: 1px solid blue;*/
-   margin-bottom: 50px;
+	width: 730px;
+	height: 80px;
+	/*border: 1px solid blue;*/
+	margin-bottom: 50px;
 }
 
 
 .old, .new{
-   width: 363px;
-   height: 75px;
-   /*border: 1px solid black;*/
-   float: left;
-   text-align: center;
+	width: 363px;
+	height: 75px;
+	/*border: 1px solid black;*/
+	float: left;
+	text-align: center;
 }
 
 
 
 .old_content{
-   margin-top: 60px!important;
-   pointer-events: none;
-   text-align: center !important;
+	margin-top: 60px!important;
+	pointer-events: none;
+	text-align: center !important;
 }
 
 #username, #nickname, #email, #userphone{
-   width: 360px;
-   height: 60px;
+	width: 360px;
+	height: 60px;
 }
 
 #userpw{
-   width: 200px;
-   height: 60px;
-   float: left;
+	width: 200px;
+	height: 60px;
+	float: left;
 }
 
-#id_check, #pw_check{
-   /*margin-right: 30px;*/
-   width: 150px;
-   height: 60px;
+ #pw_check{
+	
+	width: 150px;
+	height: 60px;
+}
+#pw_check:hover{
+	background-color: rgb(79, 148, 111);
+		color: white;
 }
 
 #nickname{
-   pointer-events: painted;
+	pointer-events: painted;
 }
 
 #submit_btn{
-   float: right;
-   margin-right: 30px;
-   margin-bottom: 10px;
-   width: 150px;
-   height: 50px;
+	float: right;
+	margin-right: 30px;
+	margin-bottom: 10px;
+	width: 150px;
+	height: 50px;
+	
 }
 
 #submit_btn:hover{
-   background-color: coral;
+	background-color:rgb(79, 148, 111);
+	color: white;
 }
 
 #old_username, #old_user_nickname, #old_useremail, #old_userphone, #old_userid, #old_userpw{
-   color: chocolate;
+	color: chocolate;
 }
 
 #pw_checkText{
-   width: 150px;
-   height: 20px;
-   float: right;
-   font-size: 12px;
-   color: green;
-   margin-top: 5px;
+	width: 150px;
+	height: 20px;
+	float: right;
+	font-size: 12px;
+	color: green;
+	margin-top: 5px;
 }

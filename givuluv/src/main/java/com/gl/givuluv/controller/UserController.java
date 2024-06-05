@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.gl.givuluv.domain.dto.CBoardDTO;
 import com.gl.givuluv.domain.dto.Criteria;
 import com.gl.givuluv.domain.dto.FollowDTO;
 import com.gl.givuluv.domain.dto.UserDTO;
@@ -424,7 +425,122 @@ public class UserController {
 
 		
 	}
+//		user_like page
+		@GetMapping("my/User_Like")
+		public String Usert_Like(UserDTO keyword, Model model, HttpServletRequest req) {
 
+			HttpSession session = req.getSession();
+			String loginUser = (String) session.getAttribute("loginUser");
+			System.out.println("loginUser :: " + loginUser);
+			/* UserDTO userid = service.getUserById(loginUser); */
+			String src = "/summernoteImage/";
+//			 userid 로 c_boardnum, c_title, c_content, c_regdate 를 가져옴
+//			 c_boardnum 밖에 안넘어옴
+			List<CBoardDTO> user_like_info = service.getLikeInfoByUserid(loginUser);
+			System.out.println("user_like_info :: " + user_like_info);
+
+			model.addAttribute("like_info", user_like_info);
+			model.addAttribute("loginUser", loginUser);
+			return "user/my/User_Like";
+		}
+
+		@PostMapping("deleteLike")
+		   @ResponseBody //반환된 객체가 JSON 형식으로 변환되어 클라이언트에게 응답하도록 한다.
+		   public Map<String, Object> delete_like(@RequestBody String c_board, HttpServletRequest req) {
+		       HttpSession session = req.getSession();
+		       String loginUser = (String) session.getAttribute("loginUser"); // 세션에서 "loginUser"라는 속성을 문자열로 가져온다.
+
+		       // 로그인 사용자가 없을 경우 처리
+		       if (loginUser == null) {
+		           // 예: 적절한 에러 메시지를 반환
+		           Map<String, Object> response = new HashMap<>();
+		           response.put("success", false);
+		           response.put("message", "User not logged in.");
+		           return response;
+		       }
+
+		       System.out.println("c_board :: " + c_board);
+
+		       // 실제 좋아요 취소 로직을 여기에 추가
+		       // 예: 좋아요 데이터를 삭제하는 서비스 호출
+
+		       // 성공 응답
+		       Map<String, Object> response = new HashMap<>();
+		       response.put("success", true);
+		       response.put("someValue", "좋아요가 취소되었습니다.");
+
+		       return response;
+		   }
+		
+		@GetMapping("my/delete_userinfo")
+		public String deleteUser(HttpServletRequest req, Model model) {
+			HttpSession session = req.getSession();
+			session.getAttribute("loginUser");
+			String loginUser = (String) session.getAttribute("loginUser");
+			
+			
+			
+			model.addAttribute("loginUser", loginUser);
+			
+			
+			return"user/my/delete_userinfo";
+		}
+		
+		@PostMapping("delete")
+		public String delete(HttpServletRequest req, Model model) {
+			HttpSession session = req.getSession();
+			session.getAttribute("loginUser");
+			String loginUser = (String) session.getAttribute("loginUser");
+			
+			/*
+			 * if(service.deleteF_detail(loginUser)) { System.out.println("F_detail 삭제완료");
+			 * } else { System.out.println("F_detail 정보가 없는 회원입니다"); }
+			 * if(service.deleteD_detail(loginUser)) { System.out.println("D_detail 삭제완료");
+			 * } else { System.out.println("D_detail 정보가 없는 회원입니다"); }
+			 */
+			if(service.deleteFollow(loginUser)) {
+				System.out.println("Follow 삭제완료");
+			}
+			else {
+				System.out.println("Follow 정보가 없는 회원입니다");
+			}
+			if(service.deleteLike(loginUser)) {
+				System.out.println("Like 삭제완료");
+			}
+			else {
+				System.out.println("Like 정보가 없는 회원입니다");
+			}
+			if(service.deleteReview(loginUser)) {
+				System.out.println("Review 삭제완료");
+			}
+			else {
+				System.out.println("Review 정보가 없는 회원입니다");
+			}
+			if(service.deleteD_payment(loginUser)) {
+				System.out.println("D_payment 삭제완료");
+			}
+			else {
+				System.out.println("D_payment 정보가 없는 회원입니다");
+			}
+			if(service.deleteF_payment(loginUser)) {
+				System.out.println("F_payment 삭제완료");
+			}
+			else {
+				System.out.println("F_payment 정보가 없는 회원입니다");
+			}
+			if(service.deleteS_payment(loginUser)) {
+				System.out.println("S_payment 삭제완료");
+			}
+			else {
+				System.out.println("S_payment 정보가 없는 회원입니다");
+			}
+			if(service.deleteUser(loginUser)) {
+				System.out.println("모든정보 삭제완료");
+				req.getSession().invalidate();
+				
+			}
+			return "redirect:/";
+		}
 
 
 

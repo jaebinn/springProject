@@ -34,6 +34,7 @@ import com.gl.givuluv.mapper.PaymentMapper;
 import com.gl.givuluv.mapper.ProductMapper;
 import com.gl.givuluv.mapper.QnaMapper;
 import com.gl.givuluv.mapper.ReviewMapper;
+import com.gl.givuluv.mapper.SRegisterMapper;
 import com.gl.givuluv.mapper.SellerMapper;
 import com.gl.givuluv.mapper.StoreMapper;
 
@@ -61,11 +62,62 @@ public class SellerServicempl implements SellerService{
    private LikeMapper likeMapper;
    @Autowired
    private PaymentMapper paymentMapper;
+   @Autowired
+   private SRegisterMapper srMapper;
    
    @Override
-   public boolean join(SellerDTO seller) {
-      
-      return sellmapper.insertSeller(seller) == 1;
+   public boolean join(SellerDTO seller, MultipartFile[] files) throws Exception{
+      if(sellmapper.insertSeller(seller) != 1) {
+    	  return false;
+      }
+      if(files == null || files.length == 0) {
+			return true;
+		}
+		else {
+			//방금 등록한 게시글 번호
+			boolean flag = false;
+			System.out.println("파일 개수 : "+files.length);
+			
+			for(int i=0;i<files.length;i++) {
+				MultipartFile file = files[i];
+				System.out.println(file.getOriginalFilename());
+				
+				String sellername = file.getOriginalFilename();
+				//5
+				int lastIdx = sellername.lastIndexOf(".");
+				//.png
+				String extension = sellername.substring(lastIdx);
+				
+				LocalDateTime now = LocalDateTime.now();
+				String time = now.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS"));
+
+				String systemname = time+UUID.randomUUID().toString()+extension;
+				
+				String path = saveFolder+systemname;
+				
+				//File DB 저장
+				FileDTO fdto = new FileDTO();
+				fdto.setSystemname(systemname);
+				fdto.setConnectionid(seller.getSellerid());
+				fdto.setType('P');
+				System.out.println("fdto 잘 포장함."+fdto);
+				
+				flag = fmapper.insertFile(fdto) == 1;
+				System.out.println("DB에 fdto 잘 넣음.");
+				
+				//실제 파일 업로드
+				file.transferTo(new File(path));
+				System.out.println("실제 파일을 업로드 잘함.");
+				
+				if(!flag) {
+					//업로드했던 파일 삭제, 게시글 데이터 삭제, 파일 data 삭제, ...
+					System.out.println("flag false:업로드 실패");
+					return false;
+				}
+			}
+			System.out.println("flag ture:업로드 성공");
+			return true;
+		}
    }
 
    @Override
@@ -134,6 +186,7 @@ public class SellerServicempl implements SellerService{
       public List<ProductDTO> getProductListBySellerid(String sellerid) {
          List<SBoardDTO> sBoardList = getSBoardListBySellerid(sellerid);
          List<String> sBoardnum_List = new ArrayList<>();
+         
          for (SBoardDTO sBoard : sBoardList) {
              sBoardnum_List.add(sBoard.getSBoardnum() + "");
          }
@@ -355,7 +408,7 @@ public class SellerServicempl implements SellerService{
        List<Map<String, Object>> result = new ArrayList<>();
 
        List<SBoardDTO> sBaordList = getSBoardListBySellerid(sellerid);
-       char type = 'M';
+       char type = 's';
        for (SBoardDTO sBoard : sBaordList) {
            String sBoardTitle = "";
            int sBoardnum = 0;
@@ -437,13 +490,11 @@ public class SellerServicempl implements SellerService{
     @Override
       public List<QnaDTO> getQnaListBySelleridWithCri(Criteria cri, String sellerid) {
          List<ProductDTO> productList = getProductListBySellerid(sellerid);
-
          List<QnaDTO> QnaList = new ArrayList<>();
 
          for (ProductDTO product : productList) {
             List<QnaDTO> ex = new ArrayList<>();
             ex = qnaMapper.getQnaListWithCri(cri, Integer.parseInt(product.getProductnum()));
-
             for (QnaDTO qna : ex) {
                QnaList.add(qna);
             }
@@ -571,4 +622,35 @@ public class SellerServicempl implements SellerService{
 		return sellmapper.getSelleridByStorename(storename);
 	}
 
+	@Override
+	public List<ProductDTO> getSearchProduct(String text, String sellerid) {
+		List<ProductDTO> pList  = productMapper.getListByProductName(text, sellerid);
+		return pList;
+	}
+
+	@Override
+	public String getSellerProfile(String sellerid) {
+		System.out.println("아이디 "+sellerid);
+		String src = "/summernoteImage/";
+	    String systemname = fmapper.getSellerProfileById(sellerid);
+	    systemname = src+systemname;
+		return systemname;
+	}
+	
+	//페이징처리
+	@Override
+	public int getTotal(Criteria cri, String sellerid) {
+		return productMapper.getTotal(cri, sellerid);
+	}
+	
+	//MDM
+		@Override
+		public char checkStoreSignup(String sellerid) {
+			return srMapper.checkStoreSignup(sellerid);
+		}
+		//MDM
+		@Override
+		public boolean storeInfoCheck(String sellerid) {
+			return storeMapper.storeInfoCheck(sellerid) == 1;
+		}
 }

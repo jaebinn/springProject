@@ -177,7 +177,7 @@
 		select * from s_board order by s_boardnum desc
 	</select>
 	<select id="getSBoardListBySNum">
-      select * from s_board where s_num = #{sNum};
+      select * from s_board where s_num = #{sNum} ;
       </select>
 		<!-- 캠페인 게시글 -->
 	<insert id="insertCampaign">
@@ -221,7 +221,9 @@
       order by c_boardnum desc
       limit #{amount}
    </select>
-
+	<select id="getSBoardnumBySNum">
+		select s_boardnum from s_board where s_num = #{storenum} order by s_boardnum desc
+	</select>
 	
 	
 	

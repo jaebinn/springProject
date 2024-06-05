@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,7 +29,7 @@ import com.gl.givuluv.domain.dto.StoreDTO;
 import com.gl.givuluv.service.FileService;
 import com.gl.givuluv.service.MailSendService;
 import com.gl.givuluv.service.SellerService;
-
+import com.gl.givuluv.service.StoreService;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -44,6 +45,8 @@ public class SellerController {
    private SellerService service;
    @Autowired
    private FileService fservice;
+   @Autowired
+   private StoreService sservice;
    
    private final MailSendService mailService;
    
@@ -59,9 +62,9 @@ public class SellerController {
    
    //post방식 일때 (기존 UserController 방식을 인용했습니다) 
    @PostMapping("join")
-   public String join(SellerDTO seller, HttpServletResponse resp) {
+   public String join(SellerDTO seller, MultipartFile[] files,HttpServletResponse resp) throws Exception {
       //회원가입 처리
-      if(service.join(seller)) {
+      if(service.join(seller, files)) {
          Cookie cookie = new Cookie("join_sellerid", seller.getSellerid());
          cookie.setPath("/");
          cookie.setMaxAge(60);
@@ -119,27 +122,81 @@ public class SellerController {
          req.getSession().invalidate();
          return "redirect:/";
       }
+    //MDM
       @PostMapping("login")
-      public String login(String sellerid, String sellerpw, HttpServletRequest req) {
+      public String login(String sellerid, String sellerpw, HttpServletRequest req, Model model) {
           HttpSession session = req.getSession();
           if(service.login(sellerid, sellerpw)) {
              System.out.println(sellerid);
              System.out.println(sellerpw);
               System.out.println(sellerid + " 로그인됨");
               session.setAttribute("loginSeller", sellerid);
-              return "redirect:/";
+              
+              //스토어 승인 또는 등록 확인
+              char signupcheck = service.checkStoreSignup(sellerid);
+              String url;
+              if(signupcheck == '-') {
+            	url = "/";
+      			model.addAttribute("alertMessage", "스토어 승인 대기 중입니다.");
+      			model.addAttribute("redirectUri", url);
+      			return "store/storeMassege";
+              }
+              else if(signupcheck == 'o') {
+            	if(service.storeInfoCheck(sellerid)) {
+            		//승인을 받은 후 스토어 등록을 했다면
+            		return "redirect:/";
+            	}
+            	else {
+            		//승인을 받은 후 스토어 등록을 안했다면
+            		url = "/store/storewrite";
+          			model.addAttribute("alertMessage", "스토어 등록 후 이용가능합니다.");
+          			model.addAttribute("redirectUri", url);
+          			return "store/storeMassege";
+            	}
+              }
+              else{
+            	  url = "/";
+        			model.addAttribute("alertMessage", "스토어 승인신청 해주세요.");
+        			model.addAttribute("redirectUri", url);
+        			return "store/storeMassege";  
+              }
+              
           } else {
              System.out.println(sellerid);
              System.out.println(sellerpw);
-              System.out.println("로그인 실패");
-              return "user/login";
+             System.out.println("로그인 실패");
+             return "user/login";
           }
       }
       @GetMapping("my/home")
-         public String SellerMyHome(String sellerid, HttpServletRequest req) {
-            HttpSession session = req.getSession();
-            return "seller/my/home";
-         }
+      public String SellerMyHome(HttpServletRequest req, Model model) {
+  	     HttpSession session = req.getSession();
+		 String loginSeller = (String)session.getAttribute("loginSeller");
+		 String systemname = service.getSellerProfile(loginSeller);
+		 
+		 model.addAttribute("systemname", systemname);
+		 return "seller/my/home";
+		 
+		 
+		 
+		 //잠시 주석처리!!
+		 /* char check = sservice.checkStoreBySellerid(loginSeller);
+		 * 
+		 * String url;
+		 * 
+		 * if(check == 'o') { if(service.storeInfoCheck(loginSeller)) { //승인을 받은 후 스토어
+		 * 등록을 했다면 //html정해지면 바꿔주기 return "seller/my/home"; } else { //승인을 받은 후 스토어 등록을
+		 * 안했다면 url = "/store/storewrite"; model.addAttribute("alertMessage",
+		 * "스토어 등록 후 이용가능합니다."); model.addAttribute("redirectUri", url); return
+		 * "store/storeMassege"; } } else if(check == '-'){ url = "/";
+		 * model.addAttribute("alertMessage", "스토어 승인 대기 중입니다.");
+		 * model.addAttribute("redirectUri", url); return "store/storeMassege"; } else {
+		 * url = "/store/storeSignup"; model.addAttribute("alertMessage",
+		 * "스토어 승인 신청 후 이용가능합니다.."); model.addAttribute("redirectUri", url); return
+		 * "store/storeMassege"; }
+		 */
+          
+       }
       
       @GetMapping("homeIncome") 
       @ResponseBody
@@ -239,16 +296,18 @@ public class SellerController {
             return "seller/my/storeUpdate";
          }
       
-         
+      
      
    //로그인 끝 ====================================================================
          // 현재 재고현황 페이지
          @GetMapping("my/productNow")
-         public String SellerMyProductNow(HttpServletRequest req, Model model) {
+         public String SellerMyProductNow(Criteria cri, HttpServletRequest req, Model model) {
             HttpSession session = req.getSession();
+	        String sellerid = (String)session.getAttribute("loginSeller");
             List<ProductDTO> productList = service.getProductListBySellerid((String)session.getAttribute("loginSeller"));
-            
             model.addAttribute("productList", productList);
+            model.addAttribute("pageMaker",new PageDTO(service.getTotal(cri, sellerid), cri));
+            System.out.println(service.getTotal(cri, sellerid));
             return "seller/my/productNow";
          }
          @GetMapping("my/qna")
@@ -261,7 +320,7 @@ public class SellerController {
             qnaList = service.getQnaListBySelleridWithCri(cri, sellerid);
             // qnaList = service.getNoAnswerList((String)
             // session.getAttribute("loginSeller"));
-
+            System.out.println(qnaList);
             model.addAttribute("pageMaker", new PageDTO(service.getQnaTotalBySellerid(sellerid), cri));
             model.addAttribute("qnaList", qnaList);
             model.addAttribute("cri", cri);
@@ -275,6 +334,7 @@ public class SellerController {
             HttpSession session = req.getSession();
             String sellerid = (String) session.getAttribute("loginSeller");
             List<QnaDTO> qnaList = new ArrayList<>();
+            System.out.println(qnaList);
             qnaList = service.getNoAnswerQnaListBySelleridWithCri(cri, sellerid);
             // qnaList =
             // service.getQnaListBySellerid((String)session.getAttribute("loginSeller"));
@@ -307,6 +367,16 @@ public class SellerController {
 
             return "seller/my/reviewList";
          }
-
+         @PostMapping("my/productSearch")
+         @ResponseBody
+         public List<ProductDTO> productSearch(@RequestBody Map<String, String> request, HttpServletRequest req) {
+             String text = request.get("text");
+             HttpSession session = req.getSession();
+             String sellerid = (String) session.getAttribute("loginSeller");
+             
+             List<ProductDTO> pList = service.getSearchProduct(text, sellerid);
+             System.out.println(pList);
+             return pList;
+         }
 
 }

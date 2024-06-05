@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>storeview</title>
+	<script src="https://kit.fontawesome.com/516da99189.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/css/storeview.css">
+	<link rel="stylesheet" href="/css/sBoard.css">
+	<link rel="stylesheet" href="/css/header_footer.css">
+</head>
+<body>
+	<!-- header -->
+	<th:block th:replace="~{layout/header::header(loginUser)}"></th:block>
+    <div class="sv_wrap">
+        <div class="store_info_tit">
+            <div class="storeImg">
+                <img src="/images/band.jpg" alt="">
+            </div>
+            <div class="storeName">
+                <h1>브랜드</h1>
+                <h2>간략한 소개글귀</h2>
+            </div>
+        </div>
+        <div class="store_info">
+            <div class="storeContent">
+                <div class="brand">
+                    <p>Brand Story</p>
+                </div>
+                <div class="storeContent_txt" id="storeContent_txt">
+                    <p class="storeContent_tit">기록이 다시 기억이 되는 순간</p>
+                    <p class="storeContent_con">
+                        주식회사 미더의 사회적 가치 창출을 위한 브랜드, 리바인더는 기록하는 이들을 위해 두 가지 순간을 설계합니다.<br><br>
+                        하나는 남기고 싶은 기억을 기록하는 순간의 감촉. 또 다른 하나는 순간의 기록이 10년 뒤 기억으로 되살아날 때의 감동입니다.<br> 기억을 위한 기록, Rebinder는 기록하고 싶은 순간과 변치 않는 기록을 만듭니다.<br> 나무를 베지 않은 비목재 제지인 돌종이로 만든 리바인더는 물과 충격에 강한 내구성과, 부드러운 필기감을 자랑합니다.<br><br>
+                            
+                        2015년 창업 이후 지속적으로 비영리단체와 사회적기업, 스타트업들의 이야기를 발굴하는 소셜홍보회사 미더는 사회적 가치 창출을 위한 브랜드 리바인더를 통해 기록의 소중함와 환경의 가치를 한 번 더 생각합니다.<br><br>
+                            ​
+                        -<br>
+                        SC제일은행X사회연대은행X해피빈 공감가게와 함께하는 리바인더는 기록의 소중함와 환경의 가치를 생각하는 예비사회적기업입니다.
+                    </p>
+                </div>
+                <div class="storeContent_img" id="storeContent_img">
+                    <img src="/images/band_sub.png" alt="">
+                </div>
+                <ul class="storeimg_btn">
+                    <!-- 이미지가 2개이상일때 만듦 -->
+                    <li >
+                        <button>1</button>
+                    </li>
+                    <li class="slick-active">
+                        <button>2</button>
+                    </li>
+                    <li>
+                        <button>3</button>
+                    </li>
+                    <li>
+                        <button>4</button>
+                    </li>
+                    <li>
+                        <button>5</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+		<div class="store_wrap">
+		        <div class="store_box">
+					<div class="product_item">
+						<div class="Product_list">
+							<!--맨처음 가게 눌렀을때-->
+							<!--th 타임리프로 리스트에 값이 비어있는지 확인-->
+							<!--리스트에 값이 없을경우-->
+							
+							<th:block th:if="${sBoardList != null and not #lists.isEmpty(sBoardList)}">
+								<!--for문 돌면서 가져오기-->
+								<th:block th:each="item : ${sBoardList}">
+					                <div class="product_item_box">
+										<!-- 수량이 있을 때 -->
+										<div th:if="${item.product.pAmount != 0}" class="item_box">
+										    <a th:href="${item.product.productnum}" id="store_link" class="get">
+										        <div class="product_thumbnail">
+										            <!-- 물품 썸네일 있을 경우 -->
+										            <img th:if="${item.productFile == null}" src="/images/product.jpg" alt="">
+										            <img th:unless="${item.productFile == null}" th:src="@{'/summernoteImage/' + ${item.productFile.systemname}}" alt="">
+										        </div>
+										        <div class="p_tit_box">
+										            <p class="product_title" th:text="${item.sBoard.sTitle}"></p>
+										        </div>
+										    </a>
+										</div>
+										<!-- 수량이 없을 때 -->
+										<div th:if="${item.product.pAmount == 0}" class="item_box">
+										    <div id="store_soldout" class="store_soldout">
+										        <div class="product_thumbnail">
+										            <!-- 물품 썸네일 있을 경우 -->
+										            <img th:if="${item.productFile == null}" src="/images/product.jpg" alt="">
+										            <img th:unless="${item.productFile == null}" th:src="@{'/summernoteImage/' + ${item.productFile.systemname}}" alt="">
+										        </div>
+										        <div class="soldout_box">
+										            <div class="soldout">품절</div>
+										        </div>
+										        <div class="p_tit_box">
+										            <p class="product_title" th:text="${item.sBoard.sTitle}"></p>
+										        </div>
+										    </div>
+										</div>
+					                    <div class="p_info_box">
+					                        <p class="product_price" th:text="${item.product.cost}+원"></p>
+											<!--찜(좋아요) 버튼 만들기-->
+					                        <div class="p_choice_box">
+												<input th:if="${item.like == null}" type="button" class="product_choice likeimg1" th:id="'product_choice'+${item.sBoard.sBoardnum}" th:onclick="'likeChoice(' + ${item.sBoard.sBoardnum} + ')'">
+												<input th:unless="${item.like == null}"type="button" class="product_choice likeimg2" th:id="'product_choice'+${item.sBoard.sBoardnum}" th:onclick="'likeChoice(' + ${item.sBoard.sBoardnum} + ')'">
+					                        </div>
+					                    </div>
+					                </div>
+								</th:block>
+							</th:block>
+							<th:block th:if="${sBoardList == null or #lists.isEmpty(sBoardList)}">
+								<p>등록된 물품이 없습니다.</p>
+							</th:block>
+						</div>
+					</div>
+					<div class="product_moreBtn">
+					    <input type="button" value="더보기" id="product_more" onclick="">
+					</div>
+			    </div>
+			</div>
+		</div>
+	<!-- footer -->
+	<th:block th:replace="~{layout/footer::footer()}"></th:block>
+</body>
+<footer>
+    <a href="#" class="btn_gotop" id="click">
+        <img src="/images/top_img.png" > 
+    </a>
+</footer>
+<script src="/js/jquery-3.7.1.min.js"></script>
+<script th:inline="javascript">
+	$('.h_logout').on('click', function(){
+		alert("로그아웃되었습니다.")
+	})
+	
+	$(document).ready(function () {
+		    // 한 번에 표시할 아이템의 개수 설정
+		    var itemsPerPage = 20;
+		
+		    // 아이템의 총 개수
+		    var totalItems = $('.product_item_box').length;
+		
+		    // 초기에는 itemsPerPage 개수까지만 표시되도록 설정
+		    $('.product_item_box:gt(' + (itemsPerPage - 1) + ')').hide();
+		
+		    // 아이템이 itemsPerPage 개수 이하이면 더보기 버튼 숨기기
+		    if (totalItems <= itemsPerPage) {
+		        $('#product_more').hide();
+		    }
+			$(document).on("click", ".get", function (e) {
+				e.preventDefault();
+				let productnum = $(this).attr("href");
+				console.log(productnum);
+				location.href = "/store/productView?productnum=" +	productnum;
+			})
+			$(document).on("click", ".storeGet", function (e) {
+				e.preventDefault();
+				let storenum = $(this).attr("href");
+				location.href = "/store/storeview?storenum=" + storenum;
+			})
+		    // 더보기 버튼 클릭 시
+		    $(document).on('click', "#product_more", function () {
+		        // itemsPerPage 개수 만큼 추가로 표시
+		        $('.product_item_box:hidden').slice(0, itemsPerPage).slideDown();
+		        // 아직 표시하지 않은 아이템의 개수 갱신
+		        totalItems -= itemsPerPage;
+		        // 남은 아이템이 itemsPerPage 개수 이하이면 더보기 버튼 숨기기
+		        if (totalItems <= itemsPerPage) {
+		            $('#product_more').hide();
+		        }
+		    });
+		});
+		
+		window.addEventListener('scroll', function(){
+		    var btn_gotop = document.querySelector('.btn_gotop'); // btn_gotop 요소를 선택
+		    if(this.scrollY > 200) {
+		        btn_gotop.style.display = 'block'; // 스크롤 위치에 따라 보이게 설정
+		    }
+		    else{
+		        btn_gotop.style.display = 'none'; // 스크롤 위치에 따라 숨김
+		    }
+		});
+		
+		var Top = document.getElementById('click'); // click 요소를 선택
+		Top.addEventListener('click', function(e){
+		    e.preventDefault();
+		    window.scrollTo({top:0, behavior:"smooth"});
+		});
+		
+	
+		//like 만들기
+		function likeChoice(sBoardnum) {
+			
+			let loginUser = /*[[${loginUser}]]*/ '';
+			let loginSeller = /*[[${loginSeller}]]*/ '';
+			let loginOrg = /*[[${loginOrg}]]*/ '';
+			let loginManager = /*[[${loginManager}]]*/ '';
+			
+			if (!loginUser) {
+				if(!loginSeller && !loginOrg && !loginManager){
+				    alert("로그인 후 이용해 주세요.");
+					
+				}
+				else{
+				    alert("사용자로 로그인 후 이용해주세요");
+				}
+				
+				const loginUrl = "/user/login";
+				window.location.href = loginUrl; 
+				return;
+			}
+			
+			
+			let like = document.getElementById('product_choice'+sBoardnum);
+			
+			if (like.classList.contains('likeimg1')) {
+				//좋아요 누르면 insert 보내기
+				$.ajax({
+				    url: '/store/likeChoice',
+				    type: 'get',
+				    data: { sBoardnum: sBoardnum },
+				    dataType: 'text',
+				    success: function(data) {
+				        if (data === "O") {
+				            like.classList.remove('likeimg1');
+				            like.classList.add('likeimg2');
+				        } else {
+				            alert("다시시도해주세요.");
+				        }
+				    },
+				    error: function(xhr, status, error) {
+				        console.error('AJAX Error: ', status, error);
+				        console.log(xhr.responseText); // 추가 로그
+				    }
+				});
+			} 
+			else if(like.classList.contains('likeimg2')) {
+				//좋아요 다시 누르면 delete 보내기
+				$.ajax({
+					url: '/store/likeDelete',
+					type: 'get',
+					data: { sBoardnum: sBoardnum },
+					dataType: 'text',
+					success: function(data){
+						if(data == "O"){
+							like.classList.add('likeimg1');
+							like.classList.remove('likeimg2');
+						} else {
+							alert("다시시도해주세요.");
+						}
+					},
+					error: function (xhr, status, error) {
+						console.error('AJAX Error: ', status, error);
+						console.log(xhr.responseText); // 추가 로그
+					}
+				});
+			};
+		}
+		
+							
+</script>
+</html>

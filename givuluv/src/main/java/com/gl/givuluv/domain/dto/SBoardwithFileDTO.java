@@ -22,4 +22,10 @@ public class SBoardwithFileDTO {
        this.like = like;
    }
    
+   public void SBoardwithFilesDTO(ProductDTO product, FileDTO productFile, SBoardDTO sBoard, LikeDTO like) {
+	   this.product = product;
+       this.productFile = productFile;
+       this.sBoard = sBoard;
+       this.like = like;
+   }
 }
