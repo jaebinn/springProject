@@ -19,7 +19,7 @@
 		select * from product where connectid = #{connectid} and p_type='m'order by cost asc limit 1
    </select>
    <select id="getProductListBySBoardnum">
-		select * from product where p_type='M' order by connectid=#{sBoardnum}
+		select * from product where p_type='M' and connectid=#{sBoardnum}
    </select>
     <select id="getMConnectidByCategory">
 		SELECT distinct p.connectid
@@ -62,7 +62,7 @@
 		from product p
 		join s_board sb ON p.connectid = sb.s_boardnum
 		join store s ON sb.s_num = s.s_num
-		where s.sellerid = 'seller' and p.p_type='M' and p.productname like concat('%', #{text}, '%')
+		where s.sellerid = #{sellerid} and p.p_type='M' and p.productname like concat('%', #{text}, '%') limit #{cri.startrow},#{cri.amount}
    </select>
    <select id="getTotal">
 		select count(*)
@@ -74,7 +74,24 @@
    <select id="getProductnumBySBoardnum">
 		select productnum from product where connectid = #{sBoardnum} order by cost asc limit 1
    </select>
+   <select id="getProductnumListBySBoardnum">
+		select * from product where connectid = #{sBoardnum} order by cost asc limit 1
+   </select>
    <select id="getSProductnumByNameAndConnectid">
 		select productnum from product where productname=#{productname} and connectid=#{sBoardnum} and p_type='m'
+   </select>
+   <select id="getProductCriList">
+		select p.*
+		from product p
+		join s_board sb ON p.connectid = sb.s_boardnum
+		join store s ON sb.s_num = s.s_num
+		where s.sellerid=#{sellerid} and p.p_type='M' limit #{cri.startrow},#{cri.amount}
+   </select>
+   <select id="getTotalCnt">
+		select count(p.productnum)
+		from product p
+		join s_board sb ON p.connectid = sb.s_boardnum
+		join store s ON sb.s_num = s.s_num
+		where s.sellerid = #{sellerid} and p.p_type='M' and p.productname like concat('%', #{text}, '%') 
    </select>
 </mapper>

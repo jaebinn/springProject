@@ -200,6 +200,7 @@ public class SellerServicempl implements SellerService{
                productList.add(product);
             }
          }
+         System.out.println(productList);
          return productList;
       }
 
@@ -623,8 +624,8 @@ public class SellerServicempl implements SellerService{
 	}
 
 	@Override
-	public List<ProductDTO> getSearchProduct(String text, String sellerid) {
-		List<ProductDTO> pList  = productMapper.getListByProductName(text, sellerid);
+	public List<ProductDTO> getCriSearchProduct(String text, String sellerid, Criteria cri) {
+		List<ProductDTO> pList  = productMapper.getListByProductName(text, sellerid, cri);
 		return pList;
 	}
 
@@ -633,6 +634,7 @@ public class SellerServicempl implements SellerService{
 		System.out.println("아이디 "+sellerid);
 		String src = "/summernoteImage/";
 	    String systemname = fmapper.getSellerProfileById(sellerid);
+	    System.out.println("너누구냐 "+systemname);
 	    systemname = src+systemname;
 		return systemname;
 	}
@@ -652,5 +654,15 @@ public class SellerServicempl implements SellerService{
 		@Override
 		public boolean storeInfoCheck(String sellerid) {
 			return storeMapper.storeInfoCheck(sellerid) == 1;
+		}
+
+		@Override
+		public List<ProductDTO> getProductCriList(String sellerid, Criteria cri) {
+			return productMapper.getProductCriList(sellerid ,cri);
+		}
+
+		@Override
+		public long getTotalCnt(String sellerid, String text) {
+			return productMapper.getTotalCnt(sellerid, text);
 		}
 }

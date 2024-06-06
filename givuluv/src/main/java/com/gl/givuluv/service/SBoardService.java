@@ -19,4 +19,5 @@ public interface SBoardService {
 	UserDTO getUserById(String userid);
 	
 	SBoardDTO getSboardByProductnum(int productnum);
+	List<Map<String, Object>> getMSBoardList();
 }

@@ -171,22 +171,27 @@ function findAddr() {
       }
    }).open();
 }
-function show_product(e){
+/*function show_product(e){
+	const searchForm = document.searchForm;
 	let productText = $('#keyword').val();
 	let searchProduct = $('#searchProduct');
+	let searchFormKeyword = $('.searchFormKeyword');
 	searchProduct.val(productText);
+	
 	console.log(searchProduct.val())
 	if(e.keyCode==13 && productText !== ""){//엔터
+		searchFormKeyword.val(productText);
 		$.ajax({
 			url:'productSearch',
 			method:'POST',
-			contentType: "application/json",
+			contentType: "application/json;",
 			data: JSON.stringify({ text: searchProduct.val() }),
 			success:function(data){
 				let list = $('.product_list')
-				let p_list = $('.product_list #t_list');
+				let t_list = $('.product_list #t_list');
 				let sortProduct = $('.product_list #t_listSort');
-				p_list.css("display","none")
+				t_list.css("display","none")
+				console.log(data)
 				sortProduct.css("display","block")
 				sortProduct.empty(); // 기존 데이터 삭제
 				if (data.length > 0) {
@@ -213,7 +218,7 @@ function show_product(e){
 			}
 		})
 	}	
-}
+}*/
 function search(pagenum){
 		const keyword = document.getElementById("searchProduct");
 		searchForm.find("[name=pagenum]").val(pagenum);

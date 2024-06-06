@@ -27,7 +27,9 @@
 	<select id ="getStoreBySName">
         select * from store where s_name = #{sName}
    </select>
-   
+   <select id="getStoreListBySNum">
+		select * from store where s_num=#{sNum}
+   </select>
    <update id="updateStore">
       update store
       set s_name=#{store.sName}, s_phone=#{store.sPhone}, s_zipcode=#{store.sZipcode},

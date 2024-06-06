@@ -70,7 +70,7 @@ public interface SellerService {
    
    String getSelleridByStorename(String storename);
    
-   List<ProductDTO> getSearchProduct(String text, String sellerid);
+   List<ProductDTO> getCriSearchProduct(String text, String sellerid, Criteria cri);
    
    String getSellerProfile(String sellerid);
    
@@ -80,5 +80,9 @@ public interface SellerService {
    char checkStoreSignup(String sellerid);
    //MDM
    boolean storeInfoCheck(String sellerid);
+   
+   List<ProductDTO> getProductCriList(String sellerid, Criteria cri);
+   
+   long getTotalCnt(String sellerid, String text);
 
 }

@@ -173,6 +173,9 @@
 		from s_board
 		where s_boardnum = #{connectid}
    </select>
+   <select id="getSBoardList">
+		select * from s_board
+   </select>
 	<select id="getStoreList">
 		select * from s_board order by s_boardnum desc
 	</select>

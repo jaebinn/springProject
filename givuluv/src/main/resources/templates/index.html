@@ -297,24 +297,24 @@
 				for (let index = 0; index < Math.min(response.length, 5); index++) {
 					let item = response[index];
 					console.log(item)
-					let product = item.product;
-					let productname = item.product.productname;
+					let boardtitle = item.board.stitle;
+					let sboardfile = item.sboardFiles;
 					let storename = item.store.sname;
-					let price = item.product.cost;
-					let systemname = item.systemname;
+					let storefile = item.storeFiles;
+					let cost = item.product.cost;
 					str += `<div id="store${index}" class="store">`
-					str += `<a href="store/productView?productnum=${product.productnum}">`
+					str += `<a href="store/productView?productnum=">`
 					str += '<div>'
-					str += `<img loading="lazy" src='${systemname}'" width="250px" height="180px">`
+					str += `<img loading="lazy" src='${sboardfile}'" width="250px" height="180px">`
 					str += '</div>'
 					str += '<div id="store_info_box0" class="store_info_box">'
 					str += '<a href="#" class="store_profile">'
-					str += `<img loading="lazy" src='${systemname}'" width="40px" height="40px">`
+					str += `<img loading="lazy" src='${storefile}'" width="40px" height="40px">`
 					str += `<p class="store_name">${storename}</p>`
 					str += '</a>'
 					str += '<div class="store_info_footer">'
-					str += `<p id="store_title${index}" class="store_title">${productname}</p>`
-					str += `<p id="product_price0" class="product_price">${price}원</p>`
+					str += `<p id="store_title${index}" class="store_title">${boardtitle}</p>`
+					str += `<p id="product_price0" class="product_price">${cost}원</p>`
 					str += '</div>'
 					str += '</div>'
 					str += '</a>'

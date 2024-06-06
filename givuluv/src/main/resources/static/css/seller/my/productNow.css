@@ -198,17 +198,18 @@ a, input {
 	line-height: 1.5;
 	
 }
+#searchForm{
+	margin-top: 5px;
+}
+.nowPage{
+	color: rgb(231,112,151);
+	font-size: 22px;
+	font-weight: bold;
+}
 #keyword{
 	border: none;
 	width: 440px;
 	height: 30px;
-}
-#searchForm{
-	position: relative;
-}
-#searchForm svg{
-	position: absolute;
-	top: 5px;
 }
 #searchForm #keyword{
 	margin-left: 30px;

@@ -24,6 +24,7 @@ public interface FileMapper {
 	List<String> getSystemnameByBoardnum(String dBoardnum);
 	FileDTO getFileByProductnum(int productnum);
 	FileDTO getFileByStorenum(int storenum);
+	List<String> getFileBySellerid(String sellerid);
 	List<String> getFileByFBoardnum(int fBoardnum);
 	String getOrgProfileByOrgid(String orgid);
 	FileDTO getSBoardFile(int connectid);
@@ -32,5 +33,6 @@ public interface FileMapper {
 	List<FileDTO> getOrgProfile();
 	String getSellerProfileBySName(String sName);
 	String getSellerProfileById(String sellerid);
+	List<String> getSellerProfileListById(String sellerid);
 
 }

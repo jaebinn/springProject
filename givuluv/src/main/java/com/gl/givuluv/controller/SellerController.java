@@ -169,15 +169,11 @@ public class SellerController {
           }
       }
       @GetMapping("my/home")
-      public String SellerMyHome(HttpServletRequest req, Model model) {
-  	     HttpSession session = req.getSession();
-		 String loginSeller = (String)session.getAttribute("loginSeller");
-		 String systemname = service.getSellerProfile(loginSeller);
-		 
-		 model.addAttribute("systemname", systemname);
+      public String SellerMyHome(String sellerid, HttpServletRequest req, Model model) {
+  	HttpSession session = req.getSession();
+		String loginSeller = (String)session.getAttribute("loginSeller");
+		
 		 return "seller/my/home";
-		 
-		 
 		 
 		 //잠시 주석처리!!
 		 /* char check = sservice.checkStoreBySellerid(loginSeller);
@@ -304,8 +300,8 @@ public class SellerController {
          public String SellerMyProductNow(Criteria cri, HttpServletRequest req, Model model) {
             HttpSession session = req.getSession();
 	        String sellerid = (String)session.getAttribute("loginSeller");
-            List<ProductDTO> productList = service.getProductListBySellerid((String)session.getAttribute("loginSeller"));
-            model.addAttribute("productList", productList);
+            List<ProductDTO> productCriList = service.getProductCriList(sellerid,cri);
+            model.addAttribute("productList", productCriList);
             model.addAttribute("pageMaker",new PageDTO(service.getTotal(cri, sellerid), cri));
             System.out.println(service.getTotal(cri, sellerid));
             return "seller/my/productNow";
@@ -369,13 +365,13 @@ public class SellerController {
          }
          @PostMapping("my/productSearch")
          @ResponseBody
-         public List<ProductDTO> productSearch(@RequestBody Map<String, String> request, HttpServletRequest req) {
+         public List<ProductDTO> productSearch(@RequestBody Map<String, String> request, Criteria cri, HttpServletRequest req) {
              String text = request.get("text");
              HttpSession session = req.getSession();
              String sellerid = (String) session.getAttribute("loginSeller");
              
-             List<ProductDTO> pList = service.getSearchProduct(text, sellerid);
-             System.out.println(pList);
+             List<ProductDTO> pList = service.getCriSearchProduct(text, sellerid, cri);
+             System.out.println("검색결과: "+pList);
              return pList;
          }
 

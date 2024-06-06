@@ -9,7 +9,6 @@ import lombok.Data;
 public class Criteria {
 	private int pagenum;
 	private int amount;
-	private String type;
 	private String keyword;
 	private int startrow;
 	
@@ -27,17 +26,12 @@ public class Criteria {
 		this.startrow = (this.pagenum - 1) * this.amount;
 	}
 	
-//	MyBatis에서 #{typeArr} 사용 가능
-	public String[] getTypeArr() {
-		return type == null ? new String[] {} : type.split("");
-	}
 	
 	public String getListLink() {							// ? 앞에 붙는 URI 문자열
 		UriComponentsBuilder builder = UriComponentsBuilder.fromPath("")
 				.queryParam("pagenum", pagenum)
 				.queryParam("amount", amount)
-				.queryParam("keyword", keyword)
-				.queryParam("type", type);
+				.queryParam("keyword", keyword);
 		
 		return builder.toUriString();
 	}

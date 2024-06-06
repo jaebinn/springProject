@@ -4,6 +4,7 @@ import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -128,5 +129,45 @@ public class SBoardServiceImpl implements SBoardService{
 	public UserDTO getUserById(String userid) {
 		return umapper.getUserById(userid);
 	}
+	@Override
+	public List<Map<String, Object>> getMSBoardList() {
+	    List<SBoardDTO> sboardList = bmapper.getSBoardList();
+	    String src = "/summernoteImage/";
+	    List<Map<String, Object>> result = new ArrayList<>();
+
+	    for (SBoardDTO board : sboardList) {
+	        // 게시판 파일 목록 가져오기
+	        List<String> sboardfile = fmapper.getFileBySBoardnum(board.getSBoardnum());
+	        ProductDTO productnumList = pmapper.getProductnumListBySBoardnum(board.getSBoardnum());
+	        List<String> sboardfilePaths = new ArrayList<>();
+	        for (String file : sboardfile) {
+	            sboardfilePaths.add(src + file);
+	        }
+
+	        // 가게 목록 가져오기
+	        List<StoreDTO> storeList = smapper.getStoreListBySNum(board.getSNum());
+	        for (StoreDTO store : storeList) {
+	            // 가게 파일 목록 가져오기
+	            List<String> storefile = fmapper.getFileBySellerid(store.getSellerid());
+	            List<String> storefilePaths = new ArrayList<>();
+	            for (String file : storefile) {
+	                storefilePaths.add(src + file);
+	            }
+
+	            // 결과 맵에 추가
+	            Map<String, Object> map = new HashMap<>();
+	            map.put("board", board);
+	            map.put("product", productnumList);
+	            map.put("sboardFiles", sboardfilePaths);
+	            map.put("store", store);
+	            map.put("storeFiles", storefilePaths);
+	            result.add(map);
+	        }
+	    }
+
+	    System.out.println("결과 " + result);
+	    return result;
+	}
+
 	
 }

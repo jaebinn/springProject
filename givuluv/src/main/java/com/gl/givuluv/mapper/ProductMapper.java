@@ -51,9 +51,15 @@ public interface ProductMapper {
 	// MDM
 	int getSProductnumByNameAndConnectid(String productname, int sBoardnum);
 
-	List<ProductDTO> getListByProductName(String text, String sellerid);
+	List<ProductDTO> getListByProductName(String text, String sellerid, Criteria cri);
 
 	int getTotal(Criteria cri, String sellerid);
+
+	List<ProductDTO> getProductCriList(String sellerid, Criteria cri);
+
+	long getTotalCnt(String sellerid, String text);
+
+	ProductDTO getProductnumListBySBoardnum(int sBoardnum);
 	
 	
 }

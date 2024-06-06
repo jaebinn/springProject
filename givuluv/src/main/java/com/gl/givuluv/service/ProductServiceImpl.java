@@ -62,13 +62,18 @@ public class ProductServiceImpl implements ProductService {
 			List<String> files = fmapper.getFileBySBoardnum(product.getConnectid());
 			System.out.println("files: " + files);
 			String systemname = src + files.get(0);
+			
 
 			StoreDTO store = smapper.getStoreBySBoardnum(product.getConnectid());
 			System.out.println("스토어: " + store);
-
+			//List<String> storeThumbnail = fmapper.getSellerProfileListById(store.getSellerid());
+			//System.out.println(storeThumbnail);
+			//String storeThumbnailList = src+storeThumbnail.get(0);
+			//System.out.println("나: "+storeThumbnailList);
 			Map<String, Object> map = new HashMap<>();
 			map.put("product", product);
 			map.put("systemname", systemname);
+			//map.put("storeThumbnail", storeThumbnailList);
 			map.put("store", store);
 			result.add(map);
 		}

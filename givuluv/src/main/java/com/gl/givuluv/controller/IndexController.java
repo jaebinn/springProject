@@ -37,6 +37,8 @@ public class IndexController {
 	@Autowired
 	private FBoardService fbservice;
 	@Autowired
+	private SBoardService sbservice;
+	@Autowired
 	private FileService fservice;
 	@Autowired
 	private DPaymentService pservice;
@@ -107,7 +109,8 @@ public class IndexController {
 	@GetMapping("getStoreInfo") 
 	@ResponseBody
 	public List<Map<String, Object>> getStoreInfo(){
-		List<Map<String, Object>> result = prservice.getMProductList();
+		List<Map<String, Object>> result = sbservice.getMSBoardList();
+		System.out.println("가게:"+result);
 		return result;
 	}
 	
