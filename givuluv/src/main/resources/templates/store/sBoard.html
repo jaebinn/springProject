@@ -126,7 +126,7 @@
 			                    <div class="p_info_box">
 			                        <p class="product_price" th:text="${item.product.cost}+원"></p>
 									<!--찜(좋아요) 버튼 만들기-->
-			                        <div class="p_choice_box">
+			                        <div class="p_choice_box"> 
 										<input th:if="${item.like == null}" type="button" class="product_choice likeimg1" th:id="'product_choice'+${item.sBoard.sBoardnum}" th:onclick="'likeChoice(' + ${item.sBoard.sBoardnum} + ')'">
 										<input th:unless="${item.like == null}"type="button" class="product_choice likeimg2" th:id="'product_choice'+${item.sBoard.sBoardnum}" th:onclick="'likeChoice(' + ${item.sBoard.sBoardnum} + ')'">
 			                        </div>
@@ -135,11 +135,9 @@
 			                        <div class="seller_box">
 			                            <div class="seller_thumbnail">
 											<!--스토어 로고가 있는 경우(스토어 로고를 등록할 시 로직 만들기)-->
-											<!-- 
 											<img th:if="${item.storeFile == null}" src="/images/store.jpg" alt="">
-											<img th:unless="${item.storeFile == null}" src="@{'/summernoteImage/' + ${item.storeFile.systemname}}" alt="">
-											-->
-											<img src="/images/store.jpg" alt="">
+											<img th:unless="${item.storeFile != null}" src="@{'/summernoteImage/' + ${item.storeFile.systemname}}" alt="">
+											
 			                            </div>
 			                            <div class="seller_info">
 			                                <p class="store_name" th:text="${item.storename}"></p>

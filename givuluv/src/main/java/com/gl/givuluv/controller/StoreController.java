@@ -25,6 +25,7 @@ import com.gl.givuluv.domain.dto.SBoardDTO;
 import com.gl.givuluv.domain.dto.SBoardwithFileDTO;
 import com.gl.givuluv.domain.dto.SPaymentDTO;
 import com.gl.givuluv.domain.dto.SRegisterDTO;
+import com.gl.givuluv.domain.dto.SinfoDTO;
 import com.gl.givuluv.domain.dto.StoreDTO;
 import com.gl.givuluv.domain.dto.UserDTO;
 import com.gl.givuluv.service.FileService;
@@ -62,7 +63,7 @@ public class StoreController {
 	private SPaymentService spservice;
 	
 	
-	
+	//MDM
 	@GetMapping("sBoard")
 	public String replace(Model model, HttpServletRequest req) {
 		
@@ -99,8 +100,9 @@ public class StoreController {
 					StoreDTO store = sservice.getStoreList(snum);
 					
 					if (store != null) {
-						// 스토어 로고파일 가져오기(스토어 등록할때 이미지 넣으면 구현)
-						// FileDTO storeFile = fservice.getFileByStorenum(store.getSNum());
+						//seller이름 가져오기
+						// 스토어 로고파일 가져오기
+						FileDTO storeFile = fservice.getFileBySellerID(store.getSellerid());
 						
 						// 스토어 이름 가져오기
 						String storeName = store.getSName();
@@ -113,7 +115,7 @@ public class StoreController {
 						sboarddto.setProduct(product);
 						sboarddto.setProductFile(productFile);
 						sboarddto.setSBoard(sboard);
-						// sboarddto.setStoreFile(storeFile);
+						sboarddto.setStoreFile(storeFile);
 						sboarddto.setStorename(storeName);
 						sboarddto.setCategory(category);
 						sboarddto.setLike(like);
@@ -139,7 +141,7 @@ public class StoreController {
 		
 		return "store/sBoard";
 	}
-	
+	//MDM
 	@GetMapping("getCategoryItems")
 	public @ResponseBody List<SBoardwithFileDTO> getCategoryItems(@RequestParam String category, HttpServletRequest req) {
 		List<SBoardwithFileDTO> resultList = new ArrayList<>();
@@ -179,7 +181,7 @@ public class StoreController {
 					
 					if (store != null) {
 						// 스토어 로고파일 가져오기(스토어 등록할때 이미지 넣으면 구현)
-						// FileDTO storeFile = fservice.getFileByStorenum(store.getSNum());
+						FileDTO storeFile = fservice.getFileBySellerID(store.getSellerid());
 						
 						// 스토어 이름 가져오기
 						String storeName = store.getSName();
@@ -192,7 +194,7 @@ public class StoreController {
 						sboarddto.setProduct(product);
 						sboarddto.setProductFile(productFile);
 						sboarddto.setSBoard(sboard);
-						// sboarddto.setStoreFile(storeFile);
+						sboarddto.setStoreFile(storeFile);
 						sboarddto.setStorename(storeName);
 						sboarddto.setCategory(p_category);
 						sboarddto.setLike(like);
@@ -212,7 +214,6 @@ public class StoreController {
 	}
 	
 	
-	// MDM
 	@GetMapping("write")
 	public String write(HttpServletRequest req, Model model) {
 		HttpSession session = req.getSession();
@@ -337,7 +338,6 @@ public class StoreController {
     }
 	
 	
-	//MDM
 	@GetMapping("storewrite")
 	public String storewrite(HttpServletRequest req, Model model) {
 		HttpSession session = req.getSession();
@@ -350,7 +350,7 @@ public class StoreController {
 		if(check == 'o') {
         	if(sellservice.storeInfoCheck(loginSeller)) {
         		//승인을 받은 후 스토어 등록을 했다면 메이페이지 이동하기
-        		url = "seller/my/home";
+        		url = "/seller/my/home";
       			model.addAttribute("alertMessage", "이미 등록한 스토어가 있습니다.");
       			model.addAttribute("redirectUri", url);
       			return "store/storeMassege";
@@ -479,7 +479,6 @@ public class StoreController {
 		}
 		
 		
-		//MDM
 		@GetMapping("likeChoice")
 		@ResponseBody
 		public String likeChoice(@RequestParam int sBoardnum, HttpServletRequest req) {
@@ -501,7 +500,6 @@ public class StoreController {
 		}
 		
 		
-		//MDM
 		@GetMapping("likeDelete")
 		@ResponseBody
 		public String likeDelete(@RequestParam int sBoardnum, HttpServletRequest req) {
@@ -612,7 +610,7 @@ public class StoreController {
 	        }
 	    }
 	    
-	    // 나중에 링크 만들면 넣어주기
+	    //MDM
 	    @GetMapping("storeview")
 	    public String getMethodName(@RequestParam int storenum, HttpServletRequest req, Model model) {
 	    	HttpSession session = req.getSession();
@@ -622,6 +620,19 @@ public class StoreController {
 			String loginOrg = (String)session.getAttribute("loginOrg");
 			String loginManager = (String)session.getAttribute("loginManager");
 			
+			//스토어 뷰 보여주는 목록 담아주는 로직
+			StoreDTO stdto = sservice.getStoreByStorenum(storenum);
+			SinfoDTO sidto = sservice.getSinfoByStorenum(storenum);
+			String mainimg = sservice.getStoreMainImg(storenum);
+			String[] subimg = sservice.getStoreSubImg(storenum);
+			
+			
+			model.addAttribute("stdto", stdto);
+			model.addAttribute("sidto", sidto);
+			model.addAttribute("mainimg", mainimg);
+			model.addAttribute("subimg", subimg);
+			
+			//상품 들어가는 목록 담아주는 로직
 	    	List<SBoardwithFileDTO> sBoardList = sservice.getStoreViewProduct(storenum, loginUser);
 	    	
 	    	model.addAttribute("sBoardList", sBoardList);
@@ -629,7 +640,6 @@ public class StoreController {
 			model.addAttribute("loginSeller", loginSeller);
 			model.addAttribute("loginOrg", loginOrg);
 			model.addAttribute("loginManager", loginManager);
-			
 			
 	    	return "store/storeview";
 	    }

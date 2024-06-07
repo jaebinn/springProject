@@ -40,7 +40,7 @@
     </select>
    
 	<select id="getFileByStorenum">
-		select * from file where connectionid = #{snum} and type = 'S'
+		select * from file where connectionid=#{sellerid} and type='P' and boardthumbnail='N'
 	</select>
 	<select id="getFileBySellerid">
 		select systemname from file where connectionid = #{sellerid} and type = 'P' and boardthumbnail='N'
@@ -50,5 +50,16 @@
 	</select>
 	<select id="getOrgProfile">
 		select * from file where type='O' and boardthumbnail='N';
+	</select>
+	<select id="getFileListBySellerid">
+		select * from file where connectionid=#{sellerid} and type='P' and boardthumbnail='N'
+	</select>
+	<!--MDM-->
+	<select id="getStoreMainImg">
+		select systemname from file where type = 'S' and boardthumbnail='N' and connectionid = #{storenum}
+	</select>
+	<!--MDM-->
+	<select id="getStoreSubImg">
+		select systemname from file where type = 'S' and boardthumbnail='Y' and connectionid = #{storenum}
 	</select>
 </mapper>

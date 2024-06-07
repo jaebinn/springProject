@@ -77,7 +77,7 @@
 			</div>
 			<ul class="rbox_list">
 				 <th:block th:if="${#lists.isEmpty(review)}">
-				        <li>응원 메시지가 없습니다.</li>
+				        <li id="noMsg">응원 메시지가 없습니다.</li>
 				</th:block>
 					<th:block th:each="reviewWithNickname : ${review}">
 							<li class="rbox_comment">
@@ -250,7 +250,7 @@
 				                               </div>
 				                           </div>
 				                       </li>`;
-				                   
+				$('#noMsg').hide();
 				$('.rbox_list').append(newComment);
 				reviewdetail.val(''); 
 				$('#totalReview strong').text(result.reviewCnt);

@@ -54,11 +54,12 @@ public class FundingController {
 		}
 		else if(fbservice.isApproveOrgX(loginOrg) == 1){
 			System.out.println("승인이 필요한 사회단체입니다.");
-			model.addAttribute("alertMessage", "스토어 승인 대기 중입니다.\n승인 후 가게 등록이 가능합니다.");
+			model.addAttribute("alertMessage", "단체 승인 대기 중입니다.\n승인 후 펀딩 글쓰기가 가능합니다.");
 			model.addAttribute("redirectUri", url);
 			return "store/storeMassege";
 		}else {
-			model.addAttribute("alertMessage", "스토어 등록 후 가게 등록이 가능합니다.");
+			url ="/org/register";
+			model.addAttribute("alertMessage", "단체 가입 후 글쓰기가 가능합니다.");
 			model.addAttribute("redirectUri", url);
 			return "store/storeMassege";
 		}

@@ -29,7 +29,7 @@
 		select count(*) > 0 from org where orgunqnum=#{orgunqnum}
 	</select>
 	<select id="checkPw">
-		select * from org where orgpw=#{orgpw}
+		select * from org where orgpw=#{orgpw} LIMIT 1
 	</select>
 	<select id="checkRegisterByOrgid">
 		select ifnull(max(isagree), 'n') as isagree from o_approve where orgid = #{loginOrg}

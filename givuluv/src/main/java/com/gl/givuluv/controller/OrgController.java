@@ -115,7 +115,7 @@ public class OrgController {
 			return "store/storeMassege";
 		}
 		else {
-			return "store/storeSignup";
+			return "org/register";
 		}
 	}
 	@GetMapping("logsignup")

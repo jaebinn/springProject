@@ -34,5 +34,9 @@ public interface FileMapper {
 	String getSellerProfileBySName(String sName);
 	String getSellerProfileById(String sellerid);
 	List<String> getSellerProfileListById(String sellerid);
+	FileDTO getFileListBySellerid(String sellerid);
+	String getStoreMainImg(int storenum);
+	String[] getStoreSubImg(int storenum);
+	FileDTO getFileByStorenum(String sellerid);
 
 }

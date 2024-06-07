@@ -1,6 +1,7 @@
 package com.gl.givuluv.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -124,7 +125,7 @@ public class UserServiceImpl implements UserService{
 
 //	유저가 기부한 프로젝트명을 전부 뽑아옴
 	@Override
-	public List<String> getDonaNameByUserid(UserDTO userid) {
+	public List<Map<String, Object>> getDonaNameByUserid(UserDTO userid) {
 		
 		return umapper.getDonaNameByUserId(userid);
 	}
@@ -359,5 +360,15 @@ public class UserServiceImpl implements UserService{
 	public Boolean deleteS_payment(String loginUser) {
 		
 		return umapper.deleteS_payment(loginUser) == 1;
+	}
+
+	@Override
+	public List<Map<String, Object>> getFundNameByUserid(UserDTO userid) {
+		return umapper.getFundingNameByUserId(userid);
+	}
+
+	@Override
+	public String getNicknameById(UserDTO userid) {
+		return umapper.getNicknameByUserId(userid);
 	}
 }

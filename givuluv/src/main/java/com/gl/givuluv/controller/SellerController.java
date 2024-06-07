@@ -248,8 +248,13 @@ public class SellerController {
       }
 
       @GetMapping("my/storeList")
-         public String SellerMyStoreList(HttpServletRequest req) {
+         public String SellerMyStoreList(HttpServletRequest req, Model model) {
             HttpSession session = req.getSession();
+            String sellerid = (String)session.getAttribute("loginSeller");
+            StoreDTO store = service.getStoreBySellerid(sellerid);
+            int storenum = store.getSNum();
+            System.out.println(storenum);
+            model.addAttribute("storenum", storenum);
             return "seller/my/storeList";
          }
       

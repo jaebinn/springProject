@@ -2,6 +2,7 @@ package com.gl.givuluv.service;
 
 
 import java.util.List;
+import java.util.Map;
 
 import com.gl.givuluv.domain.dto.CBoardDTO;
 import com.gl.givuluv.domain.dto.FollowDTO;
@@ -33,7 +34,7 @@ public interface UserService {
 //	유저가 기부한 기부 프로젝트의 설립일 불러오기
 	String getDoneTimeById(UserDTO userid);
 //	유저가 기부한 프로젝트명을 전부 뽑아옴
-	List<String> getDonaNameByUserid(UserDTO userid);
+	List<Map<String, Object>> getDonaNameByUserid(UserDTO userid);
 //	우저가 펀딩한 펀딩명을 전부 뽐아옴
 	List<String> getFundNameByUserId(UserDTO userid);
 //	유저가 펀딩한 프로젝트의 작성자를 불러옴
@@ -107,4 +108,6 @@ public interface UserService {
 	Boolean deleteF_payment(String loginUser);
 	
 	Boolean deleteS_payment(String loginUser);
+	List<Map<String, Object>> getFundNameByUserid(UserDTO userid);
+	String getNicknameById(UserDTO userid);
 }

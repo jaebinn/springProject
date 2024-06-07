@@ -37,5 +37,6 @@ public interface StoreMapper {
 	int storeInfoCheck(String sellerid);
 
 	List<StoreDTO> getStoreListBySNum(int sNum);
-
+	
+	StoreDTO getStoreByStorenum(int storenum);
 }

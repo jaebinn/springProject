@@ -14,4 +14,8 @@ public interface FileService {
 	FileDTO getFileByStorenum(int snum);
 	
 	FileDTO getSBoardFile(int connectid);
+
+	List<String> getSellerProfile(String sellerid);
+
+	FileDTO getFileBySellerID(String sellerid);
 }

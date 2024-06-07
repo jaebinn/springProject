@@ -50,4 +50,19 @@ public class FileServiceImpl implements FileService{
 		return fmapper.getFileByStorenum(snum);
 	}
 
+
+
+	@Override
+	public List<String> getSellerProfile(String sellerid) {
+		return fmapper.getSellerProfileListById(sellerid);
+	}
+
+
+
+	@Override
+	public FileDTO getFileBySellerID(String sellerid) {
+		return fmapper.getFileByStorenum(sellerid);
+	}
+
+
 }

@@ -12,6 +12,7 @@ import com.gl.givuluv.domain.dto.ProductDTO;
 import com.gl.givuluv.domain.dto.SBoardDTO;
 import com.gl.givuluv.domain.dto.SBoardwithFileDTO;
 import com.gl.givuluv.domain.dto.SRegisterDTO;
+import com.gl.givuluv.domain.dto.SinfoDTO;
 import com.gl.givuluv.domain.dto.StoreDTO;
 
 @Service
@@ -43,4 +44,18 @@ public interface StoreService {
 
 	// MDM
 	List<SBoardwithFileDTO> getStoreViewProduct(int storenum, String loginUser);
+
+	List<StoreDTO> getStore();
+	
+	// MDM
+	SinfoDTO getSinfoByStorenum(int storenum);
+
+	// MDM
+	String getStoreMainImg(int storenum);
+
+	// MDM
+	String[] getStoreSubImg(int storenum);
+
+	// MDM
+	StoreDTO getStoreByStorenum(int storenum);
 }

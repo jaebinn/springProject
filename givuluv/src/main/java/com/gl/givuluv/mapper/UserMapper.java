@@ -1,6 +1,7 @@
 package com.gl.givuluv.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -49,7 +50,7 @@ public interface UserMapper {
 	String getDoneTimeById(UserDTO userid);
 	
 //	유저가 기부한 프로젝트명을 전부 뽑아옴
-	List<String> getDonaNameByUserId(UserDTO userid);
+	List<Map<String, Object>> getDonaNameByUserId(UserDTO userid);
 	String getNicknameByUserId(String userid);
 	
 //	유저와 단체의 팔로우
@@ -139,4 +140,6 @@ List<CBoardDTO> getLikeInfoByUserid(String loginUser);
 	int deleteF_payment(String loginUser);
 	
 	int deleteS_payment(String loginUser);
+	List<Map<String, Object>> getFundingNameByUserId(UserDTO userid);
+	String getNicknameByUserId(UserDTO userid);
 }

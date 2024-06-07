@@ -40,17 +40,15 @@
 					</div>
 				</div>
 				<div>
-					
 					<div class="Dona_List" th:if="${not #lists.isEmpty(Donation_List)}" th:each="donationItem : ${Donation_List}">
-						<a id="Dona_Red">[기부활동]</a><span th:text="${donationItem}">Donation List Name</span>
-						<p id="Name_Time">[[${DoneUserName}]] &nbsp; [[${DoneTime}]]</p>
+						<a id="Dona_Red">[기부활동]</a><span th:text="${donationItem.d_title}"></span>
+						<p id="Name_Time">[[${donationItem.orgid}]] &nbsp; [[${donationItem.d_cost}]]원 &nbsp; </p> 
 					</div>
 					<div class="Fund_List" th:if="${not #lists.isEmpty(Funding_List)}" th:each="fundingItem : ${Funding_List}">
-						<a id="Fund_Blue">[펀딩활동]</a><span th:text="${fundingItem}">Funding List Name</span>
-						<p>[[${FundUserName}]] &nbsp; [[${FundTime}]]</p>
+						<a id="Fund_Blue">[펀딩활동]</a><span th:text="${fundingItem.f_title}">Funding List Name</span>
+						<p>[[${fundingItem.orgid}]] &nbsp; [[${fundingItem.f_cost}]]원</p>
 					</div>
 				<!--최초 첫div 만 script가 적용되는 이수가 있었지만 div의 id를 class로 바꿔주어 해결함 / id값이 겹치면 안되는 부분을 까먹음-->	
-					
 					
 					<div th:if="${#lists.isEmpty(Donation_List) and #lists.isEmpty(Funding_List)}">
 						<p>내역이 존재하지 않습니다.</p>

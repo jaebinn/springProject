@@ -38,4 +38,5 @@ public interface ProductService {
 	int getProductnumBySBoardnum(int sBoardnum);
 	
 	int getSProductnumByNameAndConnectid(String productname, int sBoardnum);
+
 }

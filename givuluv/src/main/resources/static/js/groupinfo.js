@@ -67,9 +67,9 @@
                 if (data) {
                     resultMessage.innerHTML = "단체 정보가 성공적으로 저장되었습니다.";
                     resultMessage.style.color = "rgb(79,148,111)";
-                    // setTimeout(function() {
-                	//window.location.href = '/org/signupcomplete';
-            //}, 2000);
+                     setTimeout(function() {
+                	window.location.href = '/org/signupcomplete';
+            	}, 2000);
                 } else {
                     resultMessage.innerHTML = "단체 정보 저장에 실패했습니다.";
                     resultMessage.style.color = "red";
@@ -85,27 +85,30 @@
         
  // 정보가 전부다 입력해야 다음버튼 클릭 가능하게 하기  
 function validateForm() {
-	
-document.getElementById('insitutename').addEventListener('input', validateForm);
-document.getElementById('address').addEventListener('input', validateForm);
-document.getElementById('phonenum').addEventListener('input', validateForm);
-document.getElementById('infomation').addEventListener('input', validateForm); 
+            var instituteName = document.getElementById('insitutename').value;
+            var address = document.getElementById('address').value;
+            var phoneNumber = document.getElementById('phonenum').value;
+            var information = document.getElementById('infomation').value;
 
+            if (instituteName !== "" && instituteName.length >= 1 && instituteName.length <= 30 &&
+                address !== "" &&
+                phoneNumber !== "" && /^\d{10,11}$/.test(phoneNumber) &&
+                information !== "") {
+                document.getElementById('nextPage').style.pointerEvents = 'auto';
+                document.getElementById('nextPage').style.opacity = '1';
+            } else {
+                document.getElementById('nextPage').style.pointerEvents = 'none';
+                document.getElementById('nextPage').style.opacity = '0.5';
+            }
+        }
 
-    var instituteName = document.getElementById('insitutename').value;
-    var address = document.getElementById('address').value;
-    var phoneNumber = document.getElementById('phonenum').value;
-    var information = document.getElementById('infomation').value;
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('insitutename').addEventListener('input', validateForm);
+            document.getElementById('address').addEventListener('input', validateForm);
+            document.getElementById('phonenum').addEventListener('input', validateForm);
+            document.getElementById('infomation').addEventListener('input', validateForm); 
 
-    if (instituteName !== "" && instituteName.length >= 1 && instituteName.length <= 30 &&
-        address !== "" &&
-        phoneNumber !== "" && /^\d{10,11}$/.test(phoneNumber) &&
-        information !== "") {
-        document.getElementById('nextPage').style.pointerEvents = 'auto';
-        document.getElementById('nextPage').style.opacity = '1';
-    } else {
-        document.getElementById('nextPage').style.pointerEvents = 'none';
-        document.getElementById('nextPage').style.opacity = '0.5';
-    }
-}
+            // 초기 로드 시 유효성 검사 호출
+            validateForm();
+        });
 

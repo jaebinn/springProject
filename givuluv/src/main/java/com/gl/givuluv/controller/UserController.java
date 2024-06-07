@@ -202,13 +202,14 @@ public class UserController {
     	
     	UserDTO userid = service.getUserById(loginUser); 
 		/* List<DPaymentDTO> Donation_List = service.getDonaNameByUserid(userid); */
-		String bonus = (String)service.getUserBonusById(userid);
-		String d_cost = (String)service.getUserD_costById(userid);
-		int donation = (int)service.getUserDonationById(userid);
-		int funding = (int)service.getUserFundingBiId(userid);
-		String D_name = (String)service.getDonationNameById(userid);
-		String DU_name = (String)service.getDonaUserNameById(userid);
-		String Done_time = (String)service.getDoneTimeById(userid);
+		String bonus = service.getUserBonusById(userid);
+		String d_cost = service.getUserD_costById(userid);
+		int donation = service.getUserDonationById(userid);
+		int funding = service.getUserFundingBiId(userid);
+		String D_name = service.getDonationNameById(userid);
+		String DU_name = service.getDonaUserNameById(userid);
+		String Done_time = service.getDoneTimeById(userid);
+		String NickName = service.getNicknameById(userid);
 		
 		
 		model.addAttribute("UserBonus", bonus); 
@@ -218,6 +219,7 @@ public class UserController {
 		model.addAttribute("DonationName", D_name);
 		model.addAttribute("DoneUserName", DU_name);
 		model.addAttribute("DoneTime", Done_time);
+		model.addAttribute("NickName", NickName);
 		/* model.addAttribute("DonationNameList", Donation_List); */
     
 		
@@ -240,37 +242,39 @@ public class UserController {
     	String loginUser = (String) session.getAttribute("loginUser");
     	UserDTO userid = service.getUserById(loginUser); 
 		/* System.out.println(userid); */
-    	List<String> Donation_List = service.getDonaNameByUserid(userid);
+    	List<Map<String, Object>> Donation_List = service.getDonaNameByUserid(userid);
+    	List<Map<String, Object>> Funding_List = service.getFundNameByUserid(userid);
     	
 		String bonus = (String)service.getUserBonusById(userid);
 		String d_cost = (String)service.getUserD_costById(userid);
 		int donation = (int)service.getUserDonationById(userid);
 		int funding = (int)service.getUserFundingBiId(userid);
-		String D_name = (String)service.getDonationNameById(userid);
-		String DU_name = (String)service.getDonaUserNameById(userid);
-		String Done_time = (String)service.getDoneTimeById(userid);
 		
 		
-		  System.out.println(Donation_List); 
-		  System.out.println(Donation_List.size());
+		System.out.println(Funding_List); 
+		System.out.println(Funding_List.size());
 		 
 		model.addAttribute("Donation_List", Donation_List);
-		
-		
+		model.addAttribute("Funding_List", Funding_List);
+		model.addAttribute("UserDonate", donation);
 		model.addAttribute("UserBonus", bonus); 
 		model.addAttribute("UserD_cost", d_cost);	
-		model.addAttribute("UserDonate", donation);	
 		model.addAttribute("UserFunding", funding);
-		model.addAttribute("DonationName", D_name); 
-		model.addAttribute("DoneUserName", DU_name);
-		model.addAttribute("DoneTime", Done_time);
 		/* model.addAttribute("DonationNameList", Donation_List); */
 		
     	return "/user/my/news";
     }
     
     @GetMapping("my/activity_history")
-    public String my_activity_history() {
+    public String my_activity_history(HttpServletRequest req, Model model) {
+		/*
+		 * HttpSession session = req.getSession(); String loginUser = (String)
+		 * session.getAttribute("loginUser"); UserDTO userid =
+		 * service.getUserById(loginUser); List<Map<String, Object>> Donation_List =
+		 * service.getDonaNameByUserid(userid); List<Map<String, Object>> Funding_List =
+		 * service.getFundNameByUserid(userid); model.addAttribute("Donation_List",
+		 * Donation_List); model.addAttribute("Funding_List", Funding_List);
+		 */
     	return "/user/my/activity_history";
     }
     
@@ -298,6 +302,7 @@ public class UserController {
 		// 영수증을 다운로드 할 수 있는 페이지
 		return "/user/my/electronic_receipt";
     }
+    
 //  유저 정보를 수정하는 수정페이지 
 //  유저 정보를 수정하는 수정페이지 
    @GetMapping("my/modify_userinfo")

@@ -20,11 +20,13 @@ import com.gl.givuluv.domain.dto.ProductDTO;
 import com.gl.givuluv.domain.dto.SBoardDTO;
 import com.gl.givuluv.domain.dto.SBoardwithFileDTO;
 import com.gl.givuluv.domain.dto.SRegisterDTO;
+import com.gl.givuluv.domain.dto.SinfoDTO;
 import com.gl.givuluv.domain.dto.StoreDTO;
 import com.gl.givuluv.mapper.BoardMapper;
 import com.gl.givuluv.mapper.FileMapper;
 import com.gl.givuluv.mapper.LikeMapper;
 import com.gl.givuluv.mapper.ProductMapper;
+import com.gl.givuluv.mapper.SinfoMapper;
 import com.gl.givuluv.mapper.StoreMapper;
 
 @Service
@@ -47,6 +49,10 @@ public class StoreServiceImpl implements StoreService {
 	
 	@Autowired
 	private LikeMapper lmapper;
+	
+	@Autowired
+	private SinfoMapper simapper;
+
 	
 
 	@Override
@@ -184,5 +190,34 @@ public class StoreServiceImpl implements StoreService {
 			
 			
 			return resultList;
+		}
+
+
+		@Override
+		public List<StoreDTO> getStore() {
+			return smapper.getMStoreList();
+		}
+		//MDM
+		@Override
+		public SinfoDTO getSinfoByStorenum(int storenum) {
+			return simapper.getSinfoByStorenum(storenum);
+		}
+		
+		//MDM
+		@Override
+		public String getStoreMainImg(int storenum) {
+			return fmapper.getStoreMainImg(storenum);
+		}
+		
+		//MDM
+		@Override
+		public String[] getStoreSubImg(int storenum) {
+			return fmapper.getStoreSubImg(storenum);
+		}
+		
+		//MDM
+		@Override
+		public StoreDTO getStoreByStorenum(int storenum) {
+			return smapper.getStoreByStorenum(storenum);
 		}
 }
