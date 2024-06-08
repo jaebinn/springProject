@@ -1,10 +1,24 @@
 # springProject
-스프링 프로젝트
+#스프링 프로젝트
 
 🖥️GivuLuv(기부러브) 스프링 프로젝트🖥️
 기간: 2024.05.08 ~ 2024.06.21
 
 주제: 사용자들이 온라인 상에서 다양한 사회적 이슈와 공익 프로젝트를 지원할 수 있도록 돕는 사이트 구축
+
+#기술스택
+<img src="https://img.shields.io/badge/Java-007396?style=for-the-badge&logo=Java&logoColor=white"> 
+<img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white"> 
+<img src="https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jQuery&logoColor=white">
+<br>
+<img src="https://img.shields.io/badge/apache%20tomcat-F8DC75?style=for-the-badge&logo=apachetomcat&logoColor=black">
+<br>
+<img src="https://img.shields.io/badge/html5-E34F26?style=flat-square&logo=html5&logoColor=white"> 
+<img src="https://img.shields.io/badge/css-1572B6?style=flat-square&logo=css3&logoColor=white"> 
+<img src="https://img.shields.io/badge/javascript-F7DF1E?style=flat-square&logo=javascript&logoColor=black"> 
+<br>
+<img src="https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white"> 
+<img src="https://img.shields.io/badge/Thymeleaf-005F0F?style=for-the-badge&logo=Thymeleaf&logoColor=white">
 
 구현기능
 1. 프로젝트 기부 / 펀딩 / 가게 기능: 다양한 공익 프로젝트를 카테고리별로 정렬하여 소개하고, 사용자들이 직접 후원 및 구매할 수 있는 결제 기능을 제공, 프로젝트별로 목표 금액, 현재 모액, 후원자 수 등을 투명하게 표시
