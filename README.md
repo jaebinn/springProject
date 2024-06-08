@@ -1,12 +1,12 @@
 # springProject
 #스프링 프로젝트
 
-🖥️GivuLuv(기부러브) 스프링 프로젝트🖥️
+🖥️GivuLuv(기부러브) 스프링 프로젝트🖥️ <br>
 기간: 2024.05.08 ~ 2024.06.21
 
 주제: 사용자들이 온라인 상에서 다양한 사회적 이슈와 공익 프로젝트를 지원할 수 있도록 돕는 사이트 구축
 
-#기술스택
+#기술스택 <br>
 <img src="https://img.shields.io/badge/Java-007396?style=for-the-badge&logo=Java&logoColor=white"> 
 <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white"> 
 <img src="https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jQuery&logoColor=white">
