@@ -5,9 +5,9 @@ import lombok.Data;
 
 @Data
 public class SinfoDTO {
-   private int s_infonum;
-   private String s_title;
-   private String s_infocontent;
-   private String s_summary;
-   private int s_num;   
+   private int sInfonum;
+   private String sTitle;
+   private String sInfocontent;
+   private String sSummary;
+   private int sNum;   
 }

@@ -39,4 +39,6 @@ public interface StoreMapper {
 	List<StoreDTO> getStoreListBySNum(int sNum);
 	
 	StoreDTO getStoreByStorenum(int storenum);
+	
+	int cancelStore(String sname);
 }

@@ -56,10 +56,13 @@
 	</select>
 	<!--MDM-->
 	<select id="getStoreMainImg">
-		select systemname from file where type = 'S' and boardthumbnail='N' and connectionid = #{storenum}
+		select systemname from file where type = 'S' and boardthumbnail='Y' and connectionid = #{storenum}
 	</select>
 	<!--MDM-->
 	<select id="getStoreSubImg">
-		select systemname from file where type = 'S' and boardthumbnail='Y' and connectionid = #{storenum}
+		select systemname from file where type = 'S' and boardthumbnail='N' and connectionid = #{storenum}
 	</select>
+	<update id="updateFile">
+      update file set systemname = #{systemname} where connectionid = #{connectionid}
+   </update>
 </mapper>

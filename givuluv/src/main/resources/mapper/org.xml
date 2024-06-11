@@ -34,10 +34,41 @@
 	<select id="checkRegisterByOrgid">
 		select ifnull(max(isagree), 'n') as isagree from o_approve where orgid = #{loginOrg}
    </select>	
+	<select id="getOrgPhoneByOrgid">
+		select orgphone from org where orgid = #{orgid}
+	</select>
+	
+	<select id="getCeoNameByOrgid">
+		select ceoname from org where orgid = #{orgid}
+	</select>
+	
+	<select id="getLogoByOrgid">
+		select logo from org where orgid = #{orgid}
+	</select>
+	
+	<select id="getOrgInfo" >
+		select * from org where orgid = #{orgid}
+	</select>
+	
+	<select id="getOrgSystemname">
+		select systemname from file where connectionid = #{orgid}
+	</select>
+	
+	<select id="getD_board">
+		select d_title, target_amount, save_money, d_regdate, d_enddate from d_board where orgid = #{orgid}
+	</select>
+	
+	<select id="getF_board">
+		select f_title, target_amount, save_money, f_regdate, f_enddate from f_board where orgid = #{orgid}
+	</select>
+   	
 	<update id="updateOrg">
-		
+		update org set orgpw=#{org.orgpw}, orgphone=#{org.orgphone}, ceoname=#{org.ceoname}
+			where orgid = #{org.orgid}
 	</update>
 	<delete id="deleteOrg">
 		delete from org where orgid=#{orgid}
 	</delete>
+	
+	
 </mapper>

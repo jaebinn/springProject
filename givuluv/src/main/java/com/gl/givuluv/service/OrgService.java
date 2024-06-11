@@ -25,4 +25,19 @@ public interface OrgService {
 	List<Map<String, String>> getOrgProfile();
 	boolean checkUnqnumber(int orgunqnum);
 	char checkRegisterByOrgid(String loginOrg);
+	String getOrgPhoneByOrgid(String orgid);
+	
+	String getCeoNameByOrgid(String orgid);
+	
+	String getLogoByOrgid(String orgid);
+	
+	OrgDTO getOrgInfo(String orgid);
+	
+	boolean modify(OrgDTO org, MultipartFile files);
+	
+	String getOrgSystemname(String orgid);
+	
+	List<String> getD_board(String orgid);
+	
+	List<String> getF_board(String orgid);
 }

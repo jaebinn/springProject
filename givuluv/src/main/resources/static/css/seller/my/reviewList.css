@@ -128,7 +128,7 @@ a, input {
 			margin: 0 30px;
 			border-bottom: 1px solid #e0e0e0;
 			display: grid;
-			grid-template-columns: 10% 70% 20%; 
+			grid-template-columns: 10% 60% 30%; 
 		}
 		/* 리뷰 프로필 */
 		.reviewList_div > .review > .profile {
@@ -169,10 +169,21 @@ a, input {
 		/* 리뷰 사진 */
 		.poto_div {
 			width: 100%; height: 100%;
+			margin-left: 20px;
 			display: flex;
 			align-items: center;
-			justify-content: center;
+			justify-content: start;
 		}
-		.poto_div > img {
+		.poto_div > div >img {
 			width: 100px; height: 100px;
+		}
+		
+		.nextDiv {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		.nextDiv > #load-more-btn {
+			font-size: 30px;
+			color: #e77097;
 		}

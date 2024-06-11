@@ -1,6 +1,7 @@
 package com.gl.givuluv.service;
 
 import java.io.File;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -173,6 +174,115 @@ public class OrgServiceImpl implements OrgService {
 	public char checkRegisterByOrgid(String loginOrg) {
 		return omapper.checkRegisterByOrgid(loginOrg);
 	}
+	
+	@Override
+	public String getOrgPhoneByOrgid(String orgid) {
+		
+		return omapper.getOrgPhoneByOrgid(orgid);
+	}
 
+	@Override
+	public String getCeoNameByOrgid(String orgid) {
+		
+		return omapper.getCeoNameByOrgid(orgid);
+	}
+
+	@Override
+	public String getLogoByOrgid(String orgid) {
+		
+		return omapper.getLogoByOrgid(orgid);
+	}
+
+	@Override
+	public OrgDTO getOrgInfo(String orgid) {
+		 
+		return omapper.getOrgInfo(orgid);
+	}
+
+	@Override
+	public boolean modify(OrgDTO org, MultipartFile files) {
+		if(omapper.updateOrg(org) != 1) { 
+			return false;
+		}
+		if(files == null ) {
+			return true;
+		}
+		else {
+			//방금 등록한 게시글 번호
+			boolean flag = false;
+			
+			
+			
+				System.out.println("for문 잘 들어옴.");
+				MultipartFile file = files;
+				System.out.println(file.getOriginalFilename());
+				
+				//apple.png
+				String orgname = file.getOriginalFilename();
+				//5
+				int lastIdx = orgname.lastIndexOf(".");
+				//.png
+				String extension = orgname.substring(lastIdx);
+				
+				LocalDateTime now = LocalDateTime.now();
+				String time = now.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS"));
+
+				//20240502162130141랜덤문자열.png
+				String systemname = time+UUID.randomUUID().toString()+extension;
+				
+				//실제 생성될 파일의 경로
+				//D:/0900_GB_JDS/7_spring/file/20240502162130141랜덤문자열.png
+				String path = saveFolder+systemname;
+				
+				//File DB 저장
+				FileDTO fdto = new FileDTO();
+				fdto.setSystemname(systemname);
+				fdto.setConnectionid(org.getOrgid());
+				fdto.setType('O');
+				System.out.println("fdto 잘 포장함."+fdto);
+				
+				flag = fmapper.updateFile(fdto) == 1;
+				System.out.println("DB에 fdto 잘 넣음.");
+				
+				//실제 파일 업로드
+				try {
+					file.transferTo(new File(path));
+				} catch (IllegalStateException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				System.out.println("실제 파일을 업로드 잘함.");
+				
+				if(!flag) {
+					//업로드했던 파일 삭제, 게시글 데이터 삭제, 파일 data 삭제, ...
+					System.out.println("flag false:업로드 실패");
+					return false;
+				}
+			
+			System.out.println("flag ture:업로드 성공");
+			return true;
+		}
+	}
+
+	@Override
+	public String getOrgSystemname(String orgid) {
+		
+		return omapper.getOrgSystemname(orgid);
+	}
+
+	@Override
+	public List<String> getD_board(String orgid) {
+		
+		return omapper.getD_board(orgid);
+	}
+
+	@Override
+	public List<String> getF_board(String orgid) {
+		
+		return omapper.getF_board(orgid);
+	}
 
 }

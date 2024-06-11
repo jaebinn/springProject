@@ -55,9 +55,17 @@ public class OrgController {
 		}
 		return "user/login";
 	}
-	
+	 @GetMapping("login")
+	    public String loginPage(HttpSession session) {
+	        if (session.getAttribute("loginOrg") != null) {
+	            // 이미 로그인된 경우 홈 페이지로 리다이렉트
+	            return "redirect:/";
+	        }
+	        // 로그인 페이지로 이동
+	        return "user/login";
+	    }
 	@PostMapping("login")
-	   public String login(String orgid, String orgpw, HttpServletRequest req, String type, Model model) {
+	   public String login(String orgid, String orgpw, HttpServletRequest req, HttpServletResponse resp, String type, Model model) {
 	       HttpSession session = req.getSession();
 	       if(service.login(orgid, orgpw)) {
 	           System.out.println(orgid + " 로그인됨");
@@ -65,8 +73,15 @@ public class OrgController {
 	           return "redirect:/";
 	       } else {
 	           System.out.println("로그인 실패");
+				/*
+				 * Cookie cookie = new Cookie("orgLoginErr", "로그인실패"); cookie.setPath("/");
+				 * cookie.setMaxAge(60); resp.addCookie(cookie);
+				 */
+	           model.addAttribute("orgLoginErr", "로그인실패");
+				
+				 
 	           model.addAttribute("type", type);
-	           return "user/login";
+	           return "/user/login";
 	       }
 	   }
 
@@ -163,5 +178,112 @@ public class OrgController {
 		return orgprofile;
 	}
 	
+	@GetMapping("my/home")
+	public String home(HttpServletRequest req, Model model) {
+		HttpSession session = req.getSession();
+		String src = "/summernoteImage/";
+//		세션에 세팅된 [orgid]를 불러옵니다.
+		String orgid = (String) session.getAttribute("loginOrg");
+		System.out.println("orgid :: "+orgid);
+		
+//		orgid로 org정보 전체를 불러옵니다.
+		OrgDTO orginfo = service.getOrgInfo(orgid);
+		System.out.println("orginfo :: "+orginfo);
+		
+		String orgSystenmane = service.getOrgSystemname(orgid);
+		System.out.println("orgSystenmane :: "+orgSystenmane);
+////		orgid로 [orgname]을 불러옵니다.
+//		String orgname = service.getOrgnameByOrgid(orgid);
+//		System.out.println("orgname :: "+orgname);
+//		
+////		orgid로 [category]를 불러옵니다.
+//		String orgcategory = service.getCategoryByOrgid(orgid);
+//		System.out.println("orgcategory :: "+orgcategory);
+//		
+////		orgid로 [orgPhone]을 불러옵니다.
+//		String orgphone = service.getOrgPhoneByOrgid(orgid);
+//		System.out.println("orgphone :: "+orgphone);
+//		
+////		orgid로 [ceoName]을 불러옵니다.
+//		String ceoname = service.getCeoNameByOrgid(orgid);
+//		System.out.println("ceoname :: "+ceoname);
+//		
+////		orgid로 [logo]를 불러옵니다.
+//		String orglogo = service.getLogoByOrgid(orgid);
+//		System.out.println("orglogo :: "+orglogo);
+		
+//		모델 
+		model.addAttribute("orgid", orgid);
+		model.addAttribute("orginfo", orginfo);
+		model.addAttribute("orgsystemname", src+orgSystenmane);
+		
+		System.out.println("model정상작동 home으로 넘어갑니다.");
+		return "/org/my/home";
+	}
+	@GetMapping("my/modify_orginfo")
+	public String modify_orginfo(HttpServletRequest req, Model model) {
+		String src = "/summernoteImage/";
+		HttpSession session = req.getSession();
+
+//		세션에 세팅된 [orgid]를 불러옵니다.
+		String orgid = (String) session.getAttribute("loginOrg");
+		System.out.println("orgid :: "+orgid);
+		
+//		orgid로 org정보 전체를 불러옵니다.
+		OrgDTO orginfo = service.getOrgInfo(orgid);
+		System.out.println("orginfo :: "+orginfo);
+		
+//		모델 
+		model.addAttribute("orgid", orgid);
+		model.addAttribute("orginfo", orginfo);
+		return "org/my/modify_orginfo";
+	}
 	
+	@GetMapping("modify")
+	public String modify() {
+		return "org/my/modify_orginfo";
+	}
+
+	@PostMapping("modify")
+	public String modify(OrgDTO org, HttpServletRequest req, Model model, MultipartFile files) throws Exception {
+		System.out.println("org :: "+org);
+		System.out.println(files);
+		service.modify(org, files);
+		return "/org/my/home";
+	}
+	
+	@GetMapping("my/org_activity_history")
+	public String org_activity_history(HttpServletRequest req, Model model) {
+		HttpSession session = req.getSession();
+
+//		세션에 세팅된 [orgid]를 불러옵니다.
+		String orgid = (String) session.getAttribute("loginOrg");
+		
+		List <String> d_boardList = service.getD_board(orgid);
+		List <String> f_boardList = service.getF_board(orgid);
+		OrgDTO orginfo = service.getOrgInfo(orgid);
+		
+		System.out.println("d_boardList :: "+d_boardList);
+		System.out.println("f_boardList :: "+f_boardList);
+		
+		model.addAttribute("orgid", orgid);
+		model.addAttribute("d_boardList", d_boardList);
+		model.addAttribute("f_boardList", f_boardList);
+		model.addAttribute("orginfo", orginfo);
+		System.out.println("컨트롤러 도착함 히스토리로 넘어감");
+		return "org/my/org_activity_history";
+	}
+	
+	@GetMapping("my/org_news")
+	public String org_news(HttpServletRequest req, Model model) {
+		HttpSession session = req.getSession();
+
+//		세션에 세팅된 [orgid]를 불러옵니다.
+		String orgid = (String) session.getAttribute("loginOrg");
+		
+		OrgDTO orginfo = service.getOrgInfo(orgid);
+		model.addAttribute("orginfo", orginfo);
+		System.out.println("컨트롤러 도착. 뉴스로 넘어감");
+		return"org/my/org_news";
+	}
 }

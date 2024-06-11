@@ -23,7 +23,7 @@
 				<div>
 					<h3>상품</h3>
 					<a href="/seller/my/productNow">현제 재고현황</a>
-					<a>새 물품 등록</a>
+					<a href="/store/write">새 물품 등록</a>
 				</div>
 				<div>
 					<h3>스토어</h3>
@@ -60,13 +60,13 @@
 				</div>
 				<h1>apple님 스토어
 				</h1>
-				<div class="storeList_div">
-					<a class="store" th:href="'/store/storeview?storenum=' + ${storenum}">
+				<div th:if="${storeData != null and storeData.size() > 0}" th:each="data:${storeData}" class="storeList_div">
+					<a th:href="@{/store/storeview(storenum=${data.sInfo.sNum})}" class="store">
 						<div>
-							<h3>리바인더</h3>
-							<span>기억을 위한 기록, 리바인더</span>
+							<h3>[[${data.sInfo.sTitle}]]</h3>
+							<span>[[${data.sInfo.sSummary}]]</span>
 						</div>
-						<img src="https://happybean-phinf.pstatic.net/20201029_22/1603952042489jbJ9i_JPEG/PC__1920x500.jpg">
+						<img th:src="${data.url}">
 					</a>
 				</div>
 			</div>

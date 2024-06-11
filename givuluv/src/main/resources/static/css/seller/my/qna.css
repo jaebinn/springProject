@@ -251,5 +251,15 @@ a, input {
 			font-size: 13px;
 		}
 		
+		.nextDiv {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		.nextDiv > #load-more-btn {
+			font-size: 30px;
+			color: #e77097;
+		}
+		
 	
 	

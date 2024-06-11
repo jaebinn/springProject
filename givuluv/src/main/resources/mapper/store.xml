@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gl.givuluv.mapper.StoreMapper">
+	<!--MDM-->
 	<insert id="insertStore">
-		
+		insert into store(s_name, s_regnum, s_phone, s_zipcode, s_addr, s_addrdetail, s_addretc, s_opendate, s_leader, sellerid)
+		values(#{sName}, #{sRegnum}, #{sPhone}, #{sZipcode}, #{sAddr}, #{sAddrdetail}, #{sAddretc}, now(), #{sLeader}, #{sellerid})
 	</insert>
 	
 	<select id="getStoreBySellerId">
@@ -58,4 +60,8 @@
    <select id="getStoreByStorenum">
 		select s_name from store where s_num = #{storenum}
    </select>
+   <!--MDM-->
+   <delete id="cancelStore">
+		delete from store where s_name = #{sname}
+   </delete>
 </mapper>

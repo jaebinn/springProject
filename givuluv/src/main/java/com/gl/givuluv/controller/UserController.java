@@ -51,10 +51,17 @@ public class UserController {
     public UserController(MailSendService mailService) {
         this.mailService = mailService;
     }
-    
     @GetMapping("login")
-    public String login() {
-        return "user/login"; 
+    public String loginPage(HttpSession session) {
+        if (session.getAttribute("loginUser") != null || 
+            session.getAttribute("loginSeller") != null || 
+            session.getAttribute("loginOrg") != null || 
+            session.getAttribute("loginManager") != null) {
+            // 이미 로그인된 경우 홈 페이지로 리다이렉트
+            return "redirect:/";
+        }
+        // 로그인 페이지로 이동
+        return "user/login";
     }
     @GetMapping("logout")
     public String logout(HttpServletRequest req) {
@@ -92,6 +99,7 @@ public class UserController {
     public String join(UserDTO user, HttpServletResponse resp) {
         //회원가입 처리
         if(service.join(user)) {
+        	System.out.println(user.getUserid());
             Cookie cookie = new Cookie("joinid", user.getUserid());
             cookie.setPath("/");
             cookie.setMaxAge(60);

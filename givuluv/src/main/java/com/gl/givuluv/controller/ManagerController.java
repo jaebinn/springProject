@@ -39,6 +39,18 @@ public class ManagerController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " + e.getMessage());
         }
     }
+	 @GetMapping("login")
+	    public String loginPage(HttpSession session) {
+	        if (session.getAttribute("loginUser") != null || 
+	            session.getAttribute("loginSeller") != null || 
+	            session.getAttribute("loginOrg") != null || 
+	            session.getAttribute("loginManager") != null) {
+	            // 이미 로그인된 경우 홈 페이지로 리다이렉트
+	            return "redirect:/";
+	        }
+	        // 로그인 페이지로 이동
+	        return "user/login";
+	    }
 	@PostMapping("login")
 	public String managerLogin(String managerid, String managerpw, HttpServletRequest req) {
 		HttpSession session = req.getSession();

@@ -1,0 +1,168 @@
+
+
+.left_div{
+	border: 1px solid black;
+}
+
+#content_wrap{
+	margin-top: 50px;
+}
+
+#title_orgname{
+	width: 730px;
+	height: 60px;
+	/*border: 1px solid red;*/
+	pointer-events: none;
+	margin-top: 10px;
+	font-size: 20px;
+	text-align: center;
+}
+
+#old_orgname_title{
+	color: purple;
+	pointer-events: none;
+	
+	
+	
+}
+
+#orgname_title{
+	text-align: center;
+	font-size: 30px;
+}
+
+
+
+#modi_orgname{
+	width: 730px;
+	height: 80px;
+	/*border: 1px solid blue;*/
+	margin-bottom: 50px;
+}
+
+#modi_orgpw{
+	width: 730px;
+	height: 80px;
+	/*border: 1px solid blue;*/
+	margin-bottom: 50px;
+}
+
+#modi_orgname{
+	width: 730px;
+	height: 80px;
+	/*border: 1px solid blue;*/
+	margin-bottom: 50px;
+}
+
+#modi_orgphone{
+	width: 730px;
+	height: 80px;
+	/*border: 1px solid blue;*/
+	margin-bottom: 50px;
+}
+#modi_ceoname{
+	width: 730px;
+	height: 80px;
+	/*border: 1px solid blue;*/
+	margin-bottom: 50px;
+}
+
+
+.old, .new{
+	width: 363px;
+	height: 75px;
+	/*border: 1px solid black;*/
+	float: left;
+	text-align: center;
+}
+
+
+
+.old_content{
+	margin-top: 60px!important;
+	pointer-events: none;
+	text-align: center !important;
+}
+
+#orgname, #orgpw, #orgphone, #ceoname{
+	width: 360px;
+	height: 60px;
+}
+
+#orgpw{
+	width: 200px;
+	height: 60px;
+	float: left;
+}
+
+#id_check, #pw_check{
+	/*margin-right: 30px;*/
+	width: 150px;
+	height: 60px;
+}
+
+/*#nickname{
+	pointer-events: painted;
+}*/
+
+#submit_btn{
+	float: right;
+	margin-right: 30px;
+	margin-bottom: 10px;
+	width: 150px;
+	height: 50px;
+}
+
+#submit_btn:hover{
+	background-color: coral;
+}
+
+#old_orgname, #old_orgpw, #old_orgphone, #old_ceoname, #old_org_pw, #old_profile{
+	color: chocolate;
+}
+
+.old_content_profile{
+	height: 200px;
+	width: 363px;
+	
+}
+
+#modi_profile{
+	width: 733px;
+	height: 300px;
+	
+}
+
+#img_area{
+	width: 365px;
+	height: 300px;
+	border: 1px solid black;
+	float: left;
+}
+
+#img_area > img{
+	width:365px; 
+	height:300px;
+}
+
+.new_file{
+	width: 363px;
+	height: 300px;
+	
+	float: right;
+}
+
+#choice, #delete{
+	float: right;
+	margin-right: 20px;
+	margin-top: 200px;
+	border: 1px solid black;
+}
+
+#fileBtn{
+	width: 200px;
+	height: 200px;
+	
+	float: right;
+	
+}

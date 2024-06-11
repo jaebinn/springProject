@@ -36,8 +36,12 @@
       select * from review where connectid=#{connectid} order by reviewnum
       desc
    </select>
+   <select id="getReviewListByConnectidM">
+      select * from review where connectid=#{connectid} and type='m' order by reviewnum 
+      desc
+   </select>
    <select id="getReviewListBySBoardnumWithCri">
-      select * from review where connectid = #{sBoardnum}
+      select * from review where connectid = #{sBoardnum} and type = 'm'
       order by reviewnum desc
       limit #{cri.startrow}, ${cri.amount}
    </select>

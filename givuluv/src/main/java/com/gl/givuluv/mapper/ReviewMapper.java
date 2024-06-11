@@ -31,5 +31,7 @@ public interface ReviewMapper {
 
 	List<ReviewDTO> getReviewListBySBoardnumWithCri(Criteria cri, String sBoardnum);
 
+	List<ReviewDTO> getReviewListByConnectidM(String sBoardnum);
+
 
 }

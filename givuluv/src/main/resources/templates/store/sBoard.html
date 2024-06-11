@@ -136,7 +136,7 @@
 			                            <div class="seller_thumbnail">
 											<!--스토어 로고가 있는 경우(스토어 로고를 등록할 시 로직 만들기)-->
 											<img th:if="${item.storeFile == null}" src="/images/store.jpg" alt="">
-											<img th:unless="${item.storeFile != null}" src="@{'/summernoteImage/' + ${item.storeFile.systemname}}" alt="">
+											<img th:unless="${item.storeFile == null}" th:src="@{'/summernoteImage/' + ${item.storeFile.systemname}}" alt="">
 											
 			                            </div>
 			                            <div class="seller_info">
@@ -241,8 +241,8 @@
 								let productFileSrc = item.productFile ? src+item.productFile.systemname : '/images/product.jpg';
 								
 								//스토어 로고 등록시 작성
-								//let storeFileSrc = item.storeFile ? src+item.storeFile.systemname : '/images/store.jpg';
-								let storeFileSrc = '/images/store.jpg';
+								let storeFileSrc = item.storeFile ? src+item.storeFile.systemname : '/images/store.jpg';
+								
 								
 								//수량이 0개인지 체크
 								//console.log(plist);

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!--org mypage-->
+<html>
+<header>
+	<meta charset="UTF-8">
+	<title>org activity_history</title>
+	<link rel="stylesheet" href="/css/userMyPageMenu.css">
+	<link rel="stylesheet" href="/css/userMyHome.css">
+	<link rel="stylesheet" href="/css/header_footer.css">
+	<link rel="stylesheet" href="/css/org_activity_history.css">
+	<script src="https://kit.fontawesome.com/516da99189.js" crossorigin="anonymous"></script>
+</header>
+
+<body>
+	<!-- header -->
+	<th:block th:replace="~{layout/header::header(loginUser)}"></th:block>
+
+	<!-- 컨텐츠 -->
+	<div class="wrap">
+		<!-- 왼쪽 메뉴바 -->
+		<th:block th:replace="~{layout/orgMyPageMenu::orgMyPageMenu(loginOrg)}"></th:block>
+		<!-- 오른쪽 내용 -->
+		<div class="left_div">
+			<div>
+				<div class="Dona_List" th:if="${not #lists.isEmpty(d_boardList)}" th:each="d_boardItem : ${d_boardList}">
+					<a id="Dona_Red">[기부 게시글]</a><span>org user별 Q&A 구역입니다</span>
+					<p id="Name_Time"></p>
+				</div>
+				<div class="Fund_List" >
+					<a id="Fund_Blue">[펀딩 게시글]</a><span >	org user별 Q&A 구역입니다</span>
+					<p><!--[[${FundUserName}]] &nbsp; [[${FundTime}]]--></p>
+				</div>
+			<div>
+									
+				<span></span>
+					<p><!--차곡차곡 모은 보너스 포인트로 "<a href="#" id="Trip"><strong>해외여행</strong></a>"가자!--></p>
+				</div>
+			</div>
+		
+		</div>
+	</div>
+
+	<!-- footer -->
+	<th:block th:replace="~{layout/footer::footer()}"></th:block>
+</body>
+<!--<script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>-->
+
+
+</html>

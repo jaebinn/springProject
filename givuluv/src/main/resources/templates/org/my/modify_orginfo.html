@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<!--유저 정보 수정 페이지 입니다.-->
+<html>
+<header>
+	<meta charset="UTF-8">
+	<title>단체유저 정보수정 페이지</title>
+	<link rel="stylesheet" href="/css/userMyPageMenu.css">
+	<link rel="stylesheet" href="/css/userMyHome.css">
+	<link rel="stylesheet" href="/css/header_footer.css">
+	<link rel="stylesheet" href="/css/orgModify.css">
+	<script src="https://kit.fontawesome.com/516da99189.js" crossorigin="anonymous"></script>
+</header>
+
+<body>
+	<!-- header -->
+	<th:block th:replace="~{layout/header::header(loginUser)}"></th:block>
+
+	<!-- 컨텐츠 -->
+	<form action="/org/modify" method="post" name="modifyForm" 	enctype="multipart/form-data">
+	<div class="wrap">
+		<!-- 왼쪽 메뉴바 -->
+		<th:block th:replace="~{layout/orgMyPageMenu::orgMyPageMenu(loginOrg)}"></th:block>
+		<!-- 오른쪽 내용 -->
+		
+		<div class="left_div">
+			<div id="orgname_title"><a id="old_orgname_title"><strong>[[${orginfo.orgname}]]</strong></a> 님의 회원정보 </div>
+			<div id="content_wrap">
+			<!--<div id="modi_username">
+				<div class="old">
+					<a class="old_content">기존 이름 :		<h2 id="old_orgname">[[${orginfo.orgname}]]</h2></a> 
+				</div>
+				<div class="new">
+					<input type="text" id="orgname" name="orgname" th:value="${orginfo.orgname}">
+				</div>
+			</div>-->
+			
+			<div id="modi_orgpw">
+				<div class="old">
+					<a class="old_content">기존 비밀번호 :	<h2 id="old_org_pw">[[${orginfo.orgpw}]]</h2></a>
+					<!--비밀번호 중복체크-->
+				</div>
+				<div class="new">
+					<input type="text" id="orgpw" name="orgpw" placeholder="새로운 비밀번호">
+					<input type="button" id="pw_check" name="pw_check" value="비밀번호 확인" onclick=	pwcheck()>
+				</div>
+			</div>
+			
+			<div id="modi_orgphone">
+				<div class="old">
+					<a class="old_content">기존 핸드폰번호 :	<h2 id="old_orgphone">[[${orginfo.orgphone}]]</h2></a>
+				</div>
+				<div class="new">
+					<input type="text" id="orgphone" name="orgphone" th:value="${orginfo.orgphone}">
+				</div>
+			</div>
+			
+			<div id="modi_ceoname">
+				<div class="old">
+					<a class="old_content">기존 CEO이름 :	<h2 id="old_ceoname">[[${orginfo.ceoname}]]</h2></a>
+				</div>
+				<div class="new">
+					<input type="text" id="ceoname" name="ceoname" th:value="${orginfo.ceoname}">
+				</div>
+			</div>
+			<div id="modi_profile">
+				<div>
+					<!--<a class="old_content_profile" id="old_profile">기존 프로필</a>-->
+					<div id="img_area" class="file_cont"><img src="/images/naver.png"></div>
+				</div>
+				<div class="new_file">
+					
+					<div>
+						<input type="file" name="files" id="file" style="display:none">
+						<span id="filename">프로필 사진 변경</span>
+					</div>
+					<br>
+					<div id="fileBtn">
+						<a class="btn" id="choice" href="javascript:upload()">파일 선택</a>
+						<a class="btn" id="delete" href="javascript:cancelFile()">첨부 삭제</a>
+					</div>
+				</div>
+			</div>
+			
+			<div id="submit_btn_wrap">
+				<input type="button" id="submit_btn" value="수정하기" onclick="modify()">
+			</div>
+			</div>
+		</div>
+	</div>
+	
+	</form>
+	<!-- footer -->
+	<th:block th:replace="~{layout/footer::footer()}"></th:block>
+</body>
+<!--<script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>-->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+	function modify(){
+		const modifyForm = document.modifyForm;
+		alert("회원 정보가 변경되었습니다.")
+		modifyForm.submit();
+		
+		
+		
+	}
+	
+	function pwcheck() {
+		    const orgpw = document.getElementById('orgpw');
+			
+			
+			const reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[~?!@-]).{4,}$/;
+			
+			
+			if(orgpw.value == ""){
+				alert("비밀번호를 입력해주세요.");
+				
+				orgpw.focus();
+				return;
+			}
+			if (!reg.test(orgpw.value)) {
+			    alert("영어 대문자, 소문자, 숫자, 특수문자(~,?,!,@,-)를 모두 하나 이상 포함해야 합니다.");
+				orgpw.focus();
+				return;
+			}
+			if (orgpw.value.length < 8) {
+			    alert("최소 8자 이상의 비밀번호를 입력해주세요");
+				orgpw.focus();
+				return;
+			}
+			if (/(\w)\1\1/.test(orgpw.value)) {
+			   alert("같은 문자가 연속해서 사용되지 않았습니다.");
+			   orgpw.focus();
+			   return;
+		    }
+			if (/[^\w~?!@-]/.test(orgpw.value)) {
+			   alert("사용할 수 없는 문자가 포함되지 않았습니다.");
+			   orgpw.focus();
+			   return;
+		   }
+			
+			
+			 else {
+				console.log("확인")	
+				alert("비밀번호가 확인되었습니다.");
+				
+			}
+		}
+	
+		// 프로필 사진 수정 script 
+		// update문으로 systemname만 ""으로 만들어줄 예정
+		//실제 경로의 파일은 방치??
+		function upload(){
+				$("#file").click();
+			}
+			
+			//$(선택자).change(함수) : 해당 선택자의 요소에 변화가 일어난다면 넘겨주는 함수 호출
+			$("[type=file]").change(function(e){
+				//e : 파일이 업로드된 상황 자체를 담고있는 이벤트 객체
+				//e.target : 파일이 업로드가 된 input[type=file] 객체(태그객체)
+				const fileTag = e.target;
+				console.log("s"+fileTag);
+				//e.target.files : 파일태그에 업로드가 된 파일들의 배열
+				const file = fileTag.files[0];
+				console.log("파일 "+file);
+				
+				if(file == undefined){
+					//업로드 창을 띄웠다가 취소한 경우(파일이 업로드 되었다가 없어진 경우)
+					cancelFile(fileTag.id.split("e").pop());
+				}
+				else{
+					//파일을 업로드를 한 경우(없었다가 업로드, 있었는데 다른 파일로 업로드)
+					//#file0name 찾아서 내부 텍스트 변경(파일의 이름으로)
+					$("#"+fileTag.id+"name").text(file.name);
+					
+					//업로드 된 파일의 확장자명			
+					let ext = file.name.split(".").pop();
+					if(ext == "jpeg" || ext == "png" || ext == "jpg" || ext == "webp" || ext == "gif"){
+						//".  file0       _cont"
+						$("."+fileTag.id+"_cont .thumbnail").remove();
+						const reader = new FileReader();
+						reader.onload = function(ie){
+							const img = document.createElement("img");
+							img.setAttribute("src",ie.target.result);
+							img.setAttribute("class","thumbnail");
+							img.setAttribute("style","max-width:300px; margin:10px");
+							img.setAttribute("style","width:365px; height:300px");
+							document.querySelector("."+fileTag.id+"_cont").appendChild(img);
+							let old_img = document.querySelector("#img_area > img");
+							old_img.setAttribute("style","display:none;");
+						}
+						reader.readAsDataURL(file);
+					}
+					else{
+						$("."+fileTag.id+"_cont").remove();
+					}
+				}
+			})
+			function cancelFile(){
+				$(".thumbnail").remove();
+				
+				return;
+			}
+
+		
+</script>
+
+
+</html>

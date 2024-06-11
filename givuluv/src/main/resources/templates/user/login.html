@@ -91,7 +91,8 @@
 	<th:block th:if="${joinid != null}">
 		<script th:inline="javascript">
 			window.onload = function () {
-				let joinid = /*[[${joinid}]]*/'';
+				let joinid = document.cookie;
+				console.log(joinid)
 				alert(joinid + '님 가입을 환영합니다~');
 				setTimeout(function () {
 					document.loginForm.userid.value = joinid;
@@ -101,7 +102,16 @@
 		</script>
 	</th:block>
 	<script th:inline="javascript">
-				
+		let sellerLoginErr = /*[[${sellerLoginErr}]]*/ false;
+		let orgLoginErr = /*[[${orgLoginErr}]]*/ false;
+
+		if(sellerLoginErr){
+			alert("로그인 실패")
+		}
+
+		if(orgLoginErr){
+			alert("로그인 실패")
+		}
 	</script>
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 	<script th:inline="javascript">

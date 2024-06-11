@@ -64,7 +64,7 @@ a{
 
 .storeName h1, .storeName h2{
     padding-top: 150px;
-    width: 1340px;
+    width: 1300px;
     color: white;
     margin: 0 auto;
     font-size: 40px;
@@ -82,14 +82,14 @@ a{
 
 
 .store_info{
-    width: 1340px;
+    width: 1300px;
     margin: auto;
 }
 .storContent{
     overflow: hidden;
 }
 .brand{
-    width: 1340px;
+    width: 1300px;
     height: 150px;
     font-family: 'TTLaundryGothicB';
     font-size: 25px;
@@ -101,7 +101,7 @@ a{
     color: rgb(108, 108, 108);
 }
 .storeContent_txt{
-    width: 1340px;
+    width: 1300px;
     overflow: hidden;  
 }
 .storeContent_tit{
@@ -118,26 +118,37 @@ a{
     font-family: 'KCC-Hanbit';
     color:rgb(81, 81, 81)
 }
-
-.storeContent_img{
+.storeContent_img {
     margin-top: 80px;
-    width: 1340px;
+    width: 1300px;
+    overflow: hidden; /* 슬라이더 영역을 벗어나는 이미지 숨기기 */
 }
 
-.storeContent_img img{
-    width: 1340px;
+.image_slider {
+    display: flex;
+    transition: transform 0.5s ease; /* 슬라이딩 애니메이션 */
+}
+
+.image_slider li {
+    list-style: none;
+}
+
+.image_slider img {
+    width: 1300px;
     height: 520px;
     background-size: 520px;
     background-repeat: no-repeat;
     background-position: center;
 }
 
-.storeimg_btn{
+.storeimg_btn {
     margin-top: 15px;
     line-height: 0;
     text-align: right;
+    margin-bottom: 100px;
 }
-.storeimg_btn li{
+
+.storeimg_btn li {
     display: inline-block;
     width: 12px;
     height: 12px;
@@ -146,11 +157,12 @@ a{
     vertical-align: top;
 }
 
-.storeimg_btn .slick-active{
+.storeimg_btn .slick-active {
     border: 2px solid #333;
     background-color: #fff;
 }
-.storeimg_btn li button{
+
+.storeimg_btn li button {
     color: rgba(0, 0, 0, 0);
     white-space: nowrap;
     font-size: 0;
@@ -159,4 +171,5 @@ a{
     height: 100%;
     vertical-align: top;
     border: none;
+    cursor: pointer;
 }

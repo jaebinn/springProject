@@ -48,9 +48,7 @@ function commentRegist(cBoardnum) {
 
 	commentdetail = replaceString.toDB(commentdetail);
 	console.log("변환 댓글 : " + commentdetail);
-
 }
-
 
 
 //파일
@@ -85,6 +83,7 @@ $("#thumbnail[type=file]").change(function(e) {
 				img.setAttribute("src", ie.target.result);
 				img.setAttribute("class", "thumbnailImg");
 				$(".thumbnail_box").prepend(img);
+				$(".thumbnail_box").attr("style", "background-size:0%");
 			}
 			reader.readAsDataURL(file);
 		}
@@ -99,6 +98,7 @@ function thumbnailcancelFile() {
 	$("#thumbnailname").html("선택된 썸네일 없음")
 	$("img.thumbnailImg").remove();
 	$("#thumbnail[type=file]").val('');
+	$(".thumbnail_box").attr("style", "background-size:10%");
 }
 
 
@@ -282,54 +282,65 @@ function removeProduct(num) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //donation/wirte submit 유효성 검사
-function donationsubmit() {
-	const donationForm = document.donationForm;
-
-	// 제목 유효성 검사
-	let title = $("#dTitle").val();
-	console.log(title);
-	if (title.length < 1 || title.length === '') {
-		alert("제목을 작성해주세요!");
-		$("#dTitle").focus();
-		return false;
-	}
-
-	// 내용 유효성 검사
-	let content = $(".note-editable").html();
-	if (content === '') {
-		alert("내용을 입력해주세요.")
-		$(".note-editable").focus();
-		return false;
-	}
+function storeinfosubmit() {
+	const storeinfoForm = document.storeinfoForm;
 
 	//파일 유효성 검사
 	console.log($("#thumbnail")[0])
 	console.log($("#thumbnail")[0].files.length)
 	if ($("#thumbnail")[0].files.length == 0) {
-		alert("파일을 첨부해주세요!")
+		alert("썸네일 사진을 첨부해주세요!")
+		return false;
+	}
+	
+	// 간단한 소개 유효성 검사
+	let summary = $("#sSummary").val();
+	console.log(summary);
+	if (summary.length < 1 || summary.length === '') {
+		alert("간단한 소개를 작성해주세요!");
+		$("#sSummary").focus();
+		return false;
+	}
+	
+	// 제목 유효성 검사
+	let title = $("#sTitle").val();
+	console.log(title);
+	if (title.length < 1 || title.length === '') {
+		alert("제목을 작성해주세요!");
+		$("#sTitle").focus();
+		return false;
+	}
+
+	// 내용 유효성 검사
+	let content = $("#content").val();
+	if (content === '') {
+		alert("내용을 입력해주세요.")
+		$("#content").focus();
+		return false;
+	}
+
+	//파일 유효성 검사
+	console.log($(".file")[0])
+	console.log($(".file")[0].files.length)
+	if ($(".file")[0].files.length == 0) {
+		alert("내용 사진을 한 장 이상 첨부해주세요!")
 		return false;
 	}
 
 	// 내용 input:hidden에 삽입
-	$("#dContent").val(content);
+	content = replaceString.toDB(content);
+	$("#sInfocontent").val(content);
 	console.log("content : " + content);
-	console.log("dContent 삽입 : " + $("#dContent").val())
+	console.log("sInfocontent 삽입 : " + $("#sInfocontent").val())
 
 	console.log("submit");
-	donationForm.submit();
+	storeinfoForm.submit();
 }
+
+
+
+
+
+
+

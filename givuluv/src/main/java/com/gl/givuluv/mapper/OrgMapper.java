@@ -25,4 +25,16 @@ public interface OrgMapper {
 		boolean checkUnqnumber(int orgunqnum);
 		OrgDTO checkPw(String pw);
 		char checkRegisterByOrgid(String loginOrg);
+		
+		String getOrgPhoneByOrgid(String orgid);
+		String getCeoNameByOrgid(String orgid);
+		String getLogoByOrgid(String orgid);
+		
+		OrgDTO getOrgInfo(String orgid);
+		
+		String getOrgSystemname(String orgid);
+		
+		List<String> getD_board(String orgid);
+		
+		List<String> getF_board(String orgid);
 }

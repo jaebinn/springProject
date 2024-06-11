@@ -218,6 +218,6 @@
 		delete from f_payment where userid=#{loginUser}
 	</delete>
 	<delete id="deleteS_payment">
-		selete from s_payment where userid=#{loginUser}
+		delete from s_payment where userid=#{loginUser}
 	</delete>
 </mapper>

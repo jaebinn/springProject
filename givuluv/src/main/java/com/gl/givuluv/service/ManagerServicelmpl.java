@@ -12,6 +12,7 @@ import com.gl.givuluv.domain.dto.OrgDTO;
 import com.gl.givuluv.domain.dto.OrgapproveDTO;
 import com.gl.givuluv.domain.dto.SRegisterDTO;
 import com.gl.givuluv.domain.dto.SellerDTO;
+import com.gl.givuluv.domain.dto.StoreDTO;
 import com.gl.givuluv.domain.dto.UserDTO;
 import com.gl.givuluv.mapper.FileMapper;
 import com.gl.givuluv.mapper.ManagerMapper;
@@ -19,6 +20,7 @@ import com.gl.givuluv.mapper.OrgMapper;
 import com.gl.givuluv.mapper.OrgapproveMapper;
 import com.gl.givuluv.mapper.SRegisterMapper;
 import com.gl.givuluv.mapper.SellerMapper;
+import com.gl.givuluv.mapper.StoreMapper;
 
 @Service
 public class ManagerServicelmpl implements ManagerService{
@@ -35,6 +37,8 @@ public class ManagerServicelmpl implements ManagerService{
 	private FileMapper fmapper;
 	@Autowired
 	private SellerMapper smapper;
+	@Autowired
+	private StoreMapper stmapper;
 	
 	@Override
 	public int insertManager(ManagerDTO manager) {
@@ -134,20 +138,48 @@ public class ManagerServicelmpl implements ManagerService{
 	    System.out.println(result);
 	    return result;
 	}
-
+	
+	//MDM
 	@Override
 	public boolean sellerApprove(String sname) {
-		return srmapper.updatesellerApprove(sname);
+		if(srmapper.updatesellerApprove(sname)) {
+			System.out.println("승인은 통과");
+			SRegisterDTO sregister = srmapper.sellerApproveProfile(sname);
+			System.out.println("등록 정보가져오기 통과");
+			StoreDTO store = new StoreDTO();
+			
+			store.setSName(sregister.getSName());
+			store.setSRegnum(sregister.getSRegnum());
+			store.setSPhone(sregister.getSPhone());
+			store.setSZipcode(sregister.getSZipcode());
+			store.setSAddr(sregister.getSAddr());
+			store.setSAddrdetail(sregister.getSAddrdetail());
+			store.setSAddretc(sregister.getSAddretc());
+			store.setSLeader(sregister.getSLeader());
+			store.setSellerid(sregister.getSellerid());
+			System.out.println("스토어디티오에 담기 성공");
+			return stmapper.insertStore(store)==1;
+		}
+		else {
+			return false;
+		
+		}
 	}
 
 	@Override
 	public boolean orgApprove(int approvenum) {
 		return oamapper.updateorgApprove(approvenum);
 	}
-
+	
+	//MDM
 	@Override
 	public boolean sellerApproveCancel(String sname) {
-		return srmapper.cancelsellerApprove(sname);
+		 if(srmapper.cancelsellerApprove(sname)) {
+			return stmapper.cancelStore(sname) == 1;
+		}
+		 else {
+			 return false;
+		 }
 	}
 
 	@Override

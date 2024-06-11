@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!--org mypage-->
+<html>
+<header>
+	<meta charset="UTF-8">
+	<title>org activity_history</title>
+	<link rel="stylesheet" href="/css/userMyPageMenu.css">
+	<link rel="stylesheet" href="/css/userMyHome.css">
+	<link rel="stylesheet" href="/css/header_footer.css">
+	<link rel="stylesheet" href="/css/org_activity_history.css">
+	<script src="https://kit.fontawesome.com/516da99189.js" crossorigin="anonymous"></script>
+</header>
+
+<body>
+	<!-- header -->
+	<th:block th:replace="~{layout/header::header(loginUser)}"></th:block>
+
+	<!-- 컨텐츠 -->
+	<div class="wrap">
+		<!-- 왼쪽 메뉴바 -->
+		<th:block th:replace="~{layout/orgMyPageMenu::orgMyPageMenu(loginOrg)}"></th:block>
+		<!-- 오른쪽 내용 -->
+		<div class="left_div">
+			<!---->
+		
+		</div>
+	</div>
+
+	<!-- footer -->
+	<th:block th:replace="~{layout/footer::footer()}"></th:block>
+</body>
+<!--<script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>-->
+
+
+</html>

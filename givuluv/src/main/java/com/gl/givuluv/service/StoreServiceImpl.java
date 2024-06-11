@@ -209,15 +209,97 @@ public class StoreServiceImpl implements StoreService {
 			return fmapper.getStoreMainImg(storenum);
 		}
 		
-		//MDM
-		@Override
-		public String[] getStoreSubImg(int storenum) {
-			return fmapper.getStoreSubImg(storenum);
-		}
+		 @Override
+		   public List<String> getStoreSubImg(int storenum) {
+		      String[] systemnameList = fmapper.getStoreSubImg(storenum);
+
+		      List<String> systemnames = new ArrayList<String>();
+		      for (String systemname : systemnameList) {
+		         systemnames.add("/summernoteImage/"+systemname);
+		      }
+		      
+		      return systemnames;
+		   }
 		
 		//MDM
 		@Override
 		public StoreDTO getStoreByStorenum(int storenum) {
 			return smapper.getStoreByStorenum(storenum);
 		}
+		
+		@Override
+		   public SinfoDTO insertSinfo(SinfoDTO sinfo, List<MultipartFile> files, MultipartFile thumbnail) throws Exception {
+		      System.out.println("insert" + sinfo);
+		      if (simapper.insertSinfo(sinfo) == 1) {
+		         // 썸네일 저장
+		         String orgname = thumbnail.getOriginalFilename();
+		         int lastIdx = orgname.lastIndexOf(".");
+		         String ext = orgname.substring(lastIdx);
+		         System.out.println(ext);
+
+		         LocalDateTime now = LocalDateTime.now();
+		         String time = now.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS"));
+
+		         String systemname = time + UUID.randomUUID().toString() + ext;
+
+		         String path = saveFolder + systemname;
+
+		         FileDTO thumbnailFile = new FileDTO();
+		         thumbnailFile.setConnectionid(sinfo.getSNum() + "");
+		         thumbnailFile.setType('S');
+		         thumbnailFile.setSystemname(systemname);
+		         System.out.println(thumbnailFile.getConnectionid());
+		         System.out.println(thumbnailFile.getType());
+		         System.out.println(thumbnailFile.getSystemname());
+
+		         if (fmapper.insertThumbnail(thumbnailFile) == 1) {
+		            thumbnail.transferTo(new File(path));
+		         } else {
+		            // 해당하는 파일들과 파일db 삭제, board삭제 등
+		            return null;
+		         }
+		         
+		         // 파일 저장
+		         int i=1;
+		         System.out.println("files 사이즈 : "+files.size());
+		         for (MultipartFile file_temp : files) {
+		            if(i != files.size()) {
+		               String orgname_file_temp = file_temp.getOriginalFilename();
+		               int lastIdx_file_temp = orgname_file_temp.lastIndexOf(".");
+		               String ext_file_temp = orgname_file_temp.substring(lastIdx_file_temp);
+		               System.out.println("ext: "+ext_file_temp);
+		               
+		               LocalDateTime now_file_temp = LocalDateTime.now();
+		               String time_file_temp = now_file_temp.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS"));
+		               
+		               String systemname_file_temp = time_file_temp + UUID.randomUUID().toString() + ext_file_temp;
+		               
+		               String path_file_temp = saveFolder + systemname_file_temp;
+		               
+		               FileDTO file = new FileDTO();
+		               file.setConnectionid(sinfo.getSNum() + "");
+		               file.setType('S');
+		               file.setSystemname(systemname_file_temp);
+		               System.out.println(file.getConnectionid());
+		               System.out.println(file.getType());
+		               System.out.println(file.getSystemname());
+		               if (fmapper.insertFile(file) == 1) {
+		                  file_temp.transferTo(new File(path_file_temp));
+		               } else {
+		                  // 해당하는 파일들과 파일db 삭제, board삭제 등
+		                  return null;
+		               }
+		               i++;
+		            }
+		         }
+
+		         return simapper.getSinfoByStorenum(sinfo.getSNum());
+		      }
+		      return null;
+		   }
+
+		   @Override
+		   public StoreDTO getStoreBySellerId(String sellerid) {
+		      return smapper.getStoreBySellerId(sellerid);
+		   }
 }

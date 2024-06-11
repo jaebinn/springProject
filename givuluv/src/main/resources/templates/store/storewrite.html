@@ -33,10 +33,6 @@
 		<div class="wrap storeinfowrite write infowrite">
 			<form method="post" name="storeinfoForm" id="storeinfoForm" enctype="multipart/form-data">
 				<div class="option">
-					<div class="info_onimg">
-						<p class="orgname_onimg">단체이름</p>
-						<p class="summary_onimg"></p>
-					</div>
 					<a href="javascript:thumbnailupload(0)" class="thumbnail_box">
 						<div id="thumbnailImg_box">
 							<div>
@@ -53,24 +49,23 @@
 						<tr>
 							<th>간략한 소개</th>
 							<td>
-								<input type="text" class="summary_info" placeholder="소개를 간략하게 작성해주세요.">
+								<input type="text" class="summary_info" name="sSummary" id="sSummary" placeholder="소개를 간략하게 작성해주세요.">
 							</td>
 						</tr>
 						<tr>
 							<th>타이틀</th>
 							<td>
-								<input type="text" class="title_info" placeholder="소개 글의 타이틀을 작성해주세요.">
+								<input type="text" class="title_info" name="sTitle" id="sTitle" placeholder="소개 글의 타이틀을 작성해주세요.">
 							</td>
 						</tr>
 						<tr>
 							<th>소개 및 하고싶은 말</th>
 							<td>
-								<textarea class="content_info" placeholder="소개 글을 작성해주세요."></textarea>
+								<textarea class="content_info" id="content" placeholder="소개 글을 작성해주세요."></textarea>
+								<input type="hidden" name="sInfocontent" id="sInfocontent">
 							</td>
 						</tr>
 					</table>
-					<input type="hidden" name="s_title">
-					<input type="hidden" name="s_infocontent">
 				</div>
 				<table class="imgfile_box">
 					<tr>

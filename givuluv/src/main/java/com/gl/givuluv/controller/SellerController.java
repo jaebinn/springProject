@@ -1,6 +1,7 @@
 package com.gl.givuluv.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,6 +26,7 @@ import com.gl.givuluv.domain.dto.QnaDTO;
 import com.gl.givuluv.domain.dto.ReviewDTO;
 import com.gl.givuluv.domain.dto.SBoardDTO;
 import com.gl.givuluv.domain.dto.SellerDTO;
+import com.gl.givuluv.domain.dto.SinfoDTO;
 import com.gl.givuluv.domain.dto.StoreDTO;
 import com.gl.givuluv.service.FileService;
 import com.gl.givuluv.service.MailSendService;
@@ -114,24 +116,30 @@ public class SellerController {
    
    //로그인 시작 ===================================================================
       @GetMapping("login")
-       public String login() {
-           return "user/login"; 
-       }
+      public String loginPage(HttpSession session) {
+          if (session.getAttribute("loginUser") != null || 
+              session.getAttribute("loginSeller") != null || 
+              session.getAttribute("loginOrg") != null || 
+              session.getAttribute("loginManager") != null) {
+              // 이미 로그인된 경우 홈 페이지로 리다이렉트
+              return "redirect:/";
+          }
+          // 로그인 페이지로 이동
+          return "user/login";
+      }
       @GetMapping("logout")
       public String logout(HttpServletRequest req) {
          req.getSession().invalidate();
          return "redirect:/";
       }
     //MDM
+      
       @PostMapping("login")
-      public String login(String sellerid, String sellerpw, HttpServletRequest req, Model model) {
+      public String login(String sellerid, String sellerpw, String type, HttpServletRequest req, Model model) {
           HttpSession session = req.getSession();
           if(service.login(sellerid, sellerpw)) {
-             System.out.println(sellerid);
-             System.out.println(sellerpw);
               System.out.println(sellerid + " 로그인됨");
               session.setAttribute("loginSeller", sellerid);
-              
               //스토어 승인 또는 등록 확인
               char signupcheck = service.checkStoreSignup(sellerid);
               String url;
@@ -162,18 +170,20 @@ public class SellerController {
               }
               
           } else {
-             System.out.println(sellerid);
-             System.out.println(sellerpw);
+             model.addAttribute("sellerLoginErr", "로그인 실패");
+             model.addAttribute("type", type);
              System.out.println("로그인 실패");
              return "user/login";
           }
       }
       @GetMapping("my/home")
       public String SellerMyHome(String sellerid, HttpServletRequest req, Model model) {
-  	HttpSession session = req.getSession();
+    	HttpSession session = req.getSession();
 		String loginSeller = (String)session.getAttribute("loginSeller");
-		
-		 return "seller/my/home";
+		String systemname = service.getSellerProfile(loginSeller);
+		System.out.println(systemname);
+		model.addAttribute("systemname", systemname);
+		return "seller/my/home";
 		 
 		 //잠시 주석처리!!
 		 /* char check = sservice.checkStoreBySellerid(loginSeller);
@@ -248,19 +258,37 @@ public class SellerController {
       }
 
       @GetMapping("my/storeList")
-         public String SellerMyStoreList(HttpServletRequest req, Model model) {
-            HttpSession session = req.getSession();
-            String sellerid = (String)session.getAttribute("loginSeller");
-            StoreDTO store = service.getStoreBySellerid(sellerid);
-            int storenum = store.getSNum();
-            System.out.println(storenum);
-            model.addAttribute("storenum", storenum);
-            return "seller/my/storeList";
-         }
+      public String SellerMyStoreList(HttpServletRequest req, Model model) {
+         HttpSession session = req.getSession();
+         String sellerid = (String)session.getAttribute("loginSeller");
+         
+         List<Map<String, Object>> storeData = new ArrayList<>();
+         
+         SinfoDTO sInfo = service.getSinfoBySellerid(sellerid);
+         System.out.println("컨트롤러 sInfo.getSNum() : "+sInfo.getSNum());
+         String storeMainImgSystemname = service.getStoreMainImgBySNum(sInfo.getSNum());
+         String url = "/summernoteImage/"+storeMainImgSystemname;
+            
+         Map<String, Object> map = new HashMap<>();
+         map.put("sInfo", sInfo);
+         map.put("url", url);
+         storeData.add(map);
+         String systemname = service.getSellerProfile(sellerid);
+ 		 model.addAttribute("systemname", systemname);
+         model.addAttribute("storeData", storeData);
+         System.out.println("컨트롤러 storeData : "+storeData);
+         
+         return "seller/my/storeList";
+      }
+
       
       @GetMapping("my/storeUpdate")
-         public String SellerMyStoreUpdate(String sellerid, HttpServletRequest req) {
+         public String SellerMyStoreUpdate(String sellerid, HttpServletRequest req, Model model) {
             HttpSession session = req.getSession();
+            String loginSeller = (String)session.getAttribute("loginSeller");
+            String systemname = service.getSellerProfile(loginSeller);
+    		System.out.println(systemname);
+    		model.addAttribute("systemname", systemname);
             return "seller/my/storeUpdate";
          }
       
@@ -306,6 +334,8 @@ public class SellerController {
             HttpSession session = req.getSession();
 	        String sellerid = (String)session.getAttribute("loginSeller");
             List<ProductDTO> productCriList = service.getProductCriList(sellerid,cri);
+    		String systemname = service.getSellerProfile(sellerid);
+    		model.addAttribute("systemname", systemname);
             model.addAttribute("productList", productCriList);
             model.addAttribute("pageMaker",new PageDTO(service.getTotal(cri, sellerid), cri));
             System.out.println(service.getTotal(cri, sellerid));
@@ -317,11 +347,14 @@ public class SellerController {
             System.out.println(cri);
             HttpSession session = req.getSession();
             String sellerid = (String) session.getAttribute("loginSeller");
+            String systemname = service.getSellerProfile(sellerid);
             List<QnaDTO> qnaList = new ArrayList<>();
             qnaList = service.getQnaListBySelleridWithCri(cri, sellerid);
             // qnaList = service.getNoAnswerList((String)
             // session.getAttribute("loginSeller"));
             System.out.println(qnaList);
+            
+            model.addAttribute("systemname", systemname);
             model.addAttribute("pageMaker", new PageDTO(service.getQnaTotalBySellerid(sellerid), cri));
             model.addAttribute("qnaList", qnaList);
             model.addAttribute("cri", cri);
@@ -348,26 +381,43 @@ public class SellerController {
          }
 
          @GetMapping("my/reviewList")
-         public String SellerMyReviewList(HttpServletRequest req, Model model, Criteria cri) {
-            System.out.println(cri);
-            cri.setAmount(5);
-            HttpSession session = req.getSession();
-            String sellerid = (String) session.getAttribute("loginSeller");
-            char type = 'M';
+               public String SellerMyReviewList(HttpServletRequest req, Model model, Criteria cri) {
+                  System.out.println(cri);
+                  cri.setAmount(5);
+                  HttpSession session = req.getSession();
+                  String sellerid = (String) session.getAttribute("loginSeller");
+                  char type = 'M';
 
-            List<SBoardDTO> sBoardList = service.getSBoardListBySellerid(sellerid);
-            List<ProductDTO> productList = service.getProductListBySelleridType(sellerid, type);
-            List<ReviewDTO> reviewList = service.getReviewListBySelleridWithCri(cri, sellerid);
+                  List<SBoardDTO> sBoardList = service.getSBoardListBySellerid(sellerid);
+                  List<ProductDTO> productList = service.getProductListBySelleridType(sellerid, type);
+                  List<ReviewDTO> reviewList = service.getReviewListBySelleridWithCri(cri, sellerid);
+                  List<FileDTO> sBoardThumbnailList = new ArrayList<>();
+                  
+                  for(SBoardDTO sBoard : sBoardList) {
+                     int sBoardNum = 0;
+                     sBoardNum = sBoard.getSBoardnum();
+                     
+                     FileDTO Thumbnail = service.getSBoardThumbnailBySNum(sBoardNum);
+                     String tn = "/summernoteImage/"+Thumbnail.getSystemname();
+                     Thumbnail.setSystemname(tn);
+                
+                     sBoardThumbnailList.add(Thumbnail);
+                  }
+                  System.out.println(reviewList);
+                  String systemname = service.getSellerProfile(sellerid);
+                  System.out.println("컨트롤러 sBoardList : " + sBoardList);
+                  System.out.println("컨트롤러 sBoard썸네일 : " + sBoardThumbnailList);
+                  model.addAttribute("systemname", systemname);
+                  model.addAttribute("sBoardList", sBoardList);
+                  model.addAttribute("productList", productList);
+                  model.addAttribute("reviewList", reviewList);
+                  model.addAttribute("pageMaker", new PageDTO(service.getReviewTotalBySellerid(sellerid), cri));
+                  model.addAttribute("sBoardThumbnailList", sBoardThumbnailList);
+                  model.addAttribute("cri", cri);
 
-            System.out.println("sBoardList" + sBoardList);
-            model.addAttribute("sBoardList", sBoardList);
-            model.addAttribute("productList", productList);
-            model.addAttribute("reviewList", reviewList);
-            model.addAttribute("pageMaker", new PageDTO(service.getReviewTotalBySellerid(sellerid), cri));
-            model.addAttribute("cri", cri);
+                  return "seller/my/reviewList";
+               }
 
-            return "seller/my/reviewList";
-         }
          @PostMapping("my/productSearch")
          @ResponseBody
          public List<ProductDTO> productSearch(@RequestBody Map<String, String> request, Criteria cri, HttpServletRequest req) {

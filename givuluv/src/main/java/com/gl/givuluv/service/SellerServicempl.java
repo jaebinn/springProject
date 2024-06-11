@@ -25,6 +25,7 @@ import com.gl.givuluv.domain.dto.ReviewDTO;
 import com.gl.givuluv.domain.dto.SBoardDTO;
 import com.gl.givuluv.domain.dto.SPaymentDTO;
 import com.gl.givuluv.domain.dto.SellerDTO;
+import com.gl.givuluv.domain.dto.SinfoDTO;
 import com.gl.givuluv.domain.dto.StoreDTO;
 import com.gl.givuluv.domain.dto.UserDTO;
 import com.gl.givuluv.mapper.BoardMapper;
@@ -36,6 +37,7 @@ import com.gl.givuluv.mapper.QnaMapper;
 import com.gl.givuluv.mapper.ReviewMapper;
 import com.gl.givuluv.mapper.SRegisterMapper;
 import com.gl.givuluv.mapper.SellerMapper;
+import com.gl.givuluv.mapper.SinfoMapper;
 import com.gl.givuluv.mapper.StoreMapper;
 
 @Service
@@ -64,6 +66,8 @@ public class SellerServicempl implements SellerService{
    private PaymentMapper paymentMapper;
    @Autowired
    private SRegisterMapper srMapper;
+   @Autowired
+   private SinfoMapper sinfoMapper;
    
    @Override
    public boolean join(SellerDTO seller, MultipartFile[] files) throws Exception{
@@ -148,11 +152,8 @@ public class SellerServicempl implements SellerService{
    @Override
    public boolean login(String sellerid, String sellerpw) {
       SellerDTO user = sellmapper.getSellerById(sellerid);
-      String user_pw = sellmapper.getSellerByPw(sellerpw);
       if(user != null) {
-         System.out.println(user.getSellerpw());
-         System.out.println(sellerpw);
-         if(user_pw.equals(sellerpw)) {
+         if(user.getSellerpw().equals(sellerpw)) {
             return true;
          }
       }
@@ -278,7 +279,7 @@ public class SellerServicempl implements SellerService{
          
          for (String sBoardnum : sBoardnum_List) {
             List<ReviewDTO> ex = new ArrayList<>();
-            ex = (reviewMapper.getReviewListByConnectid(sBoardnum));
+            ex = (reviewMapper.getReviewListByConnectidM(sBoardnum));
             
             for (ReviewDTO review : ex) {
                reviewList.add(review);
@@ -608,7 +609,6 @@ public class SellerServicempl implements SellerService{
          for (String sBoardnum : sBoardnum_List) {
             List<ReviewDTO> ex = new ArrayList<>();
             ex = (reviewMapper.getReviewListBySBoardnumWithCri(cri, sBoardnum));
-
             for (ReviewDTO review : ex) {
                reviewList.add(review);
             }
@@ -665,4 +665,24 @@ public class SellerServicempl implements SellerService{
 		public long getTotalCnt(String sellerid, String text) {
 			return productMapper.getTotalCnt(sellerid, text);
 		}
+		@Override
+	      public FileDTO getSBoardThumbnailBySNum(int sBoardNum) {
+	         return fmapper.getSBoardFile(sBoardNum);
+	      }
+	   @Override
+	      public SinfoDTO getSinfoBySellerid(String sellerid) {
+	         StoreDTO store = getStoreBySellerid(sellerid);
+	         System.out.println("서비스 임플 store.getSNum() : "+store.getSNum());
+	         int storenum = store.getSNum();
+	         
+	         SinfoDTO sInfo = sinfoMapper.getSinfoByStorenum(storenum);
+	         System.out.println("서비스 임플 sInfo : "+sInfo);
+	         return sInfo;
+	      }
+	   @Override
+	      public String getStoreMainImgBySNum(int sNum) {
+	         String getStoreMainImg = fmapper.getStoreMainImg(sNum);
+	         return getStoreMainImg;
+	      }
+
 }

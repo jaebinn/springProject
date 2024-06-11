@@ -54,8 +54,13 @@ public interface StoreService {
 	String getStoreMainImg(int storenum);
 
 	// MDM
-	String[] getStoreSubImg(int storenum);
+	List<String> getStoreSubImg(int storenum);
+
 
 	// MDM
 	StoreDTO getStoreByStorenum(int storenum);
+	
+	SinfoDTO insertSinfo(SinfoDTO sinfo, List<MultipartFile> files, MultipartFile thumbnail) throws Exception;
+	StoreDTO getStoreBySellerId(String sellerid);
+	
 }

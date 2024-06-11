@@ -5,4 +5,9 @@
 	<select id="getSinfoByStorenum">
 		select * from s_info where s_num = #{storenum}
 	</select>
+	<insert id="insertSinfo">
+      insert into s_info(s_title, s_infocontent, s_summary, s_num)
+      values(#{sTitle}, #{sInfocontent}, #{sSummary}, #{sNum}) 
+   </insert>
+
 </mapper>

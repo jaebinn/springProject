@@ -71,7 +71,9 @@ a{
     width: 1340px;
     overflow: hidden;
 }
-
+.Product_list{
+	text-align: center;
+}
 .product_item_box{
     width: 228px;
     overflow: hidden;

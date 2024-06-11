@@ -132,7 +132,7 @@ public class StoreController {
 				System.out.println("파일 정보를 가져올 수 없음");
 			}
 		}
-		
+		System.out.println(sBoardList);
 		model.addAttribute("sBoardList", sBoardList);
 		model.addAttribute("loginUser", loginUser);
 		model.addAttribute("loginSeller", loginSeller);
@@ -610,40 +610,73 @@ public class StoreController {
 	        }
 	    }
 	    
-	    //MDM
 	    @GetMapping("storeview")
 	    public String getMethodName(@RequestParam int storenum, HttpServletRequest req, Model model) {
-	    	HttpSession session = req.getSession();
-	    	
-			String loginUser = (String)session.getAttribute("loginUser");
-			String loginSeller = (String)session.getAttribute("loginSeller");
-			String loginOrg = (String)session.getAttribute("loginOrg");
-			String loginManager = (String)session.getAttribute("loginManager");
-			
-			//스토어 뷰 보여주는 목록 담아주는 로직
-			StoreDTO stdto = sservice.getStoreByStorenum(storenum);
-			SinfoDTO sidto = sservice.getSinfoByStorenum(storenum);
-			String mainimg = sservice.getStoreMainImg(storenum);
-			String[] subimg = sservice.getStoreSubImg(storenum);
-			
-			
-			model.addAttribute("stdto", stdto);
-			model.addAttribute("sidto", sidto);
-			model.addAttribute("mainimg", mainimg);
-			model.addAttribute("subimg", subimg);
-			
-			//상품 들어가는 목록 담아주는 로직
-	    	List<SBoardwithFileDTO> sBoardList = sservice.getStoreViewProduct(storenum, loginUser);
-	    	
-	    	model.addAttribute("sBoardList", sBoardList);
-			model.addAttribute("loginUser", loginUser);
-			model.addAttribute("loginSeller", loginSeller);
-			model.addAttribute("loginOrg", loginOrg);
-			model.addAttribute("loginManager", loginManager);
-			
-	    	return "store/storeview";
+	       System.out.println("Get : storeview");
+	       System.out.println(storenum);
+	       HttpSession session = req.getSession();
+
+	       String loginUser = (String) session.getAttribute("loginUser");
+	       String loginSeller = (String) session.getAttribute("loginSeller");
+	       String loginOrg = (String) session.getAttribute("loginOrg");
+	       String loginManager = (String) session.getAttribute("loginManager");
+
+	       // 스토어 뷰 보여주는 목록 담아주는 로직
+	       StoreDTO stdto = sservice.getStoreByStorenum(storenum);
+	       SinfoDTO sidto = sservice.getSinfoByStorenum(storenum);
+	       String mainimg = sservice.getStoreMainImg(storenum);
+	       System.out.println(mainimg);
+	       List<String> subimg = sservice.getStoreSubImg(storenum);
+
+	       model.addAttribute("stdto", stdto);
+	       model.addAttribute("sidto", sidto);
+	       model.addAttribute("mainimg", mainimg);
+	       model.addAttribute("subimg", subimg);
+
+	       // 상품 들어가는 목록 담아주는 로직
+	       List<SBoardwithFileDTO> sBoardList = sservice.getStoreViewProduct(storenum, loginUser);
+
+	       model.addAttribute("sBoardList", sBoardList);
+	       model.addAttribute("loginUser", loginUser);
+	       model.addAttribute("loginSeller", loginSeller);
+	       model.addAttribute("loginOrg", loginOrg);
+	       model.addAttribute("loginManager", loginManager);
+
+	       return "store/storeview";
 	    }
+
 	    
+	    @PostMapping("storewrite")
+	    public String storeinfo(SinfoDTO sinfo, List<MultipartFile> files, MultipartFile thumbnail, HttpServletRequest req, Model model) throws Exception {
+	       System.out.println("Post : storewrite");
+	       System.out.println(sinfo);
+	       HttpSession session = req.getSession();
+	       Object sellerid_temp = session.getAttribute("loginSeller");
+	       if(sellerid_temp == null) {
+	          return "/";
+	       }
+	       
+	       String sellerid = (String)sellerid_temp;
+	       if (sellservice.storeInfoCheck(sellerid)) {
+	          // 승인을 받은 후 스토어 등록을 했다면 메이페이지 이동하기
+	          String url = "/seller/my/home";
+	          model.addAttribute("alertMessage", "이미 등록한 스토어가 있습니다.");
+	          model.addAttribute("redirectUri", url);
+	          return "store/storeMassege";
+	       }
+	       
+	       StoreDTO store = sservice.getStoreBySellerId(sellerid);
+	       int sNum = store.getSNum();
+	       sinfo.setSNum(sNum);
+	       System.out.println(sNum);
+	       int sinfoNum = (sservice.insertSinfo(sinfo, files, thumbnail)).getSInfonum();
+	       
+	       return "redirect:/store/storeview?storenum="+sNum;
+	    }
+
+	    
+
+
 	}
 
 

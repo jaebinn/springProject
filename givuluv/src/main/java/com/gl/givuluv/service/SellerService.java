@@ -12,6 +12,7 @@ import com.gl.givuluv.domain.dto.QnaDTO;
 import com.gl.givuluv.domain.dto.ReviewDTO;
 import com.gl.givuluv.domain.dto.SBoardDTO;
 import com.gl.givuluv.domain.dto.SellerDTO;
+import com.gl.givuluv.domain.dto.SinfoDTO;
 import com.gl.givuluv.domain.dto.StoreDTO;
 
 public interface SellerService {
@@ -84,5 +85,10 @@ public interface SellerService {
    List<ProductDTO> getProductCriList(String sellerid, Criteria cri);
    
    long getTotalCnt(String sellerid, String text);
+   
+   FileDTO getSBoardThumbnailBySNum(int sBoardNum);
+   SinfoDTO getSinfoBySellerid(String seller);
+   String getStoreMainImgBySNum(int sNum);
+
 
 }

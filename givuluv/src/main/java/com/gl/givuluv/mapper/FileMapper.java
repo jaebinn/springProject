@@ -38,5 +38,6 @@ public interface FileMapper {
 	String getStoreMainImg(int storenum);
 	String[] getStoreSubImg(int storenum);
 	FileDTO getFileByStorenum(String sellerid);
+	int updateFile(FileDTO fdto);
 
 }

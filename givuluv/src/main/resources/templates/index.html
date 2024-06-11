@@ -123,10 +123,17 @@
    <th:block th:replace="~{layout/managerModal::managerModal()}"></th:block>
    
 </body>
+
 <script src="/js/jquery-3.7.1.min.js"></script>
 <script src="/js/managerModal.js"></script>
 <script src="/js/index.js"></script>
-<script>
+<script th:inline="javascript">
+	window.onload = function () {
+			// 로그인 후 브라우저 히스토리 초기화
+			if (window.history.replaceState) {
+				window.history.replaceState(null, null, window.location.href);
+			}
+		}
    $('.logout').on('click', function () {
       alert("로그아웃되었습니다.")
    })

@@ -24,7 +24,7 @@
 				<div>
 					<h3>상품</h3>
 					<a href="/seller/my/productNow">현재 재고현황</a>
-					<a>새 물품 등록</a>
+					<a href="/store/write">새 물품 등록</a>
 				</div>
 				<div>
 					<h3>스토어</h3>
@@ -85,30 +85,15 @@
 							</div>
 						</div>
 						<div class="poto_div">
-							<img src="/images/default_profile.png">
+							<div th:if="${sBoardThumbnailList != null and sBoardThumbnailList.size() > 0}" th:each="sBoardThumbnail:${sBoardThumbnailList}">
+								<img th:if="${review.connectid} == ${sBoardThumbnail.connectionid}" th:src="@{${sBoardThumbnail.systemname}}">
+							</div>
 						</div>
 					</div>
 				</div>
-				<div class="search_area" style="display:none">
-					<form name="searchForm" id="searchForm" action="reviewList" onsubmit="return search(1)">
-						<input type="hidden" name="pagenum" th:value="${pageMaker.cri.pagenum}">
-						<input type="hidden" name="amount" th:value="${pageMaker.cri.amount}">
-					</form>
+				<div class="nextDiv">
+					<i class="fa-solid fa-circle-plus" id="load-more-btn"></i>
 				</div>
-				<table class="pagination">
-					<tbody>
-						<tr>
-							<td>
-								<a class="btn changePage" th:href="${pageMaker.startPage - 1}" th:if="${pageMaker.prev}">&lt;</a>
-								<th:block th:each="i : ${#numbers.sequence(pageMaker.startPage, pageMaker.endPage)}">
-									<span class="nowPage" th:if="${pageMaker.cri.pagenum == i}">[[${i}]]</span>
-									<a class="btn changePage" th:href="${i}" th:unless="${pageMaker.cri.pagenum == i}">[[${i}]]</a>
-								</th:block>
-								<a class="btn changePage" th:href="${pageMaker.endPage+1}" th:if="${pageMaker.next}">&gt;</a>
-							</td>
-						</tr>
-					</tbody>
-				</table>
 			</div>
 		</div>
 	</div>
@@ -118,21 +103,32 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script>
-	const searchForm = $("#searchForm");
-		
-		function search(pagenum){
-			searchForm.find("[name=pagenum]").val(pagenum);
-			//유효성 검사
-			return true;
-		}
-		
-		$(".changePage").on("click",function(e){
-			//e(이벤트)의 기본 작동 막기
-			e.preventDefault();
-			let pagenum = $(this).attr("href");
-			searchForm.attr("onsubmit",`search(${pagenum})`);
-			searchForm.submit();
-		})
+	$(document).ready(function () {
+	    // 한 번에 표시할 아이템의 개수 설정
+	    var itemsPerPage = 5;
+	
+	    // 아이템의 총 개수
+	    var totalItems = $('.review').length;
+	
+	    // 초기에는 itemsPerPage 개수까지만 표시되도록 설정
+	    $('.review:gt(' + (itemsPerPage - 1) + ')').hide();
+	
+	    // 아이템이 itemsPerPage 개수 이하이면 더보기 버튼 숨기기
+	    if (totalItems <= itemsPerPage) {
+	        $('#load-more-btn').hide();
+	    }
+	    // 더보기 버튼 클릭 시
+	    $('#load-more-btn').on('click', function () {
+	        // itemsPerPage 개수 만큼 추가로 표시
+	        $('.review:hidden').slice(0, itemsPerPage).slideDown();
+	        // 아직 표시하지 않은 아이템의 개수 갱신
+	        totalItems -= itemsPerPage;
+	        // 남은 아이템이 itemsPerPage 개수 이하이면 더보기 버튼 숨기기
+	        if (totalItems <= itemsPerPage) {
+	            $('#load-more-btn').hide();
+	        }
+	    });
+	});
 </script>
 
 </html>
