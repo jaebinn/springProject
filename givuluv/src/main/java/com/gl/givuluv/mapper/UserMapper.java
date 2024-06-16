@@ -49,8 +49,10 @@ public interface UserMapper {
 //	유저가 기부한 기부 프로젝트의 설립일을 불러오기
 	String getDoneTimeById(UserDTO userid);
 	
-//	유저가 기부한 프로젝트명을 전부 뽑아옴
+//	유저가 일반결제로 기부한 프로젝트명을 전부 뽑아옴
 	List<Map<String, Object>> getDonaNameByUserId(UserDTO userid);
+//	유저가 정결제로 기부한 프로젝트명을 전부 뽑아옴
+	List<Map<String, Object>> getRDonaNameByUserId(UserDTO userid);
 	String getNicknameByUserId(String userid);
 	
 //	유저와 단체의 팔로우

@@ -41,4 +41,7 @@ public interface StoreMapper {
 	StoreDTO getStoreByStorenum(int storenum);
 	
 	int cancelStore(String sname);
+	
+	boolean deleteStoreBySellerid(String sellerid);
+
 }

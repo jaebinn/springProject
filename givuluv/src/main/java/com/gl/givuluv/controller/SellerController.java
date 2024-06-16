@@ -429,5 +429,91 @@ public class SellerController {
              System.out.println("검색결과: "+pList);
              return pList;
          }
+         @GetMapping("my/myInfoCheck")
+         public String SellerMyInfo(String sellerid, HttpServletRequest req, Model model) {
+            HttpSession session = req.getSession();
+            String loginSeller = (String) session.getAttribute("loginSeller");
+            String systemname = service.getSellerProfile(loginSeller);
+            model.addAttribute("systemname", systemname);
+            return "seller/my/myInfoCheck";
+         }
+
+      @PostMapping("my/myInfo")
+         public String SellerInfoCheck(SellerDTO seller, HttpServletRequest req, Model model) {
+            HttpSession session = req.getSession();
+            String loginSeller = (String) session.getAttribute("loginSeller");
+            String systemname = service.getSellerProfile(loginSeller);
+            String sellerid = seller.getSellerid();
+            String sellerpw = seller.getSellerpw();
+            System.out.println("아이디: "+sellerid);
+            if(service.checkId(sellerid) != null) {
+            	if(service.checkId(sellerid).equals(loginSeller)) {
+            		if(service.checkPw(sellerpw) != null) {
+            			model.addAttribute("systemname", systemname);
+            			return "seller/my/myInfo";
+            		}
+            		else {
+            			model.addAttribute("systemname", systemname);
+            			return "seller/my/myInfoCheck";
+            		}
+            	}
+            	else {
+            		model.addAttribute("systemname", systemname);
+            		return "seller/my/myInfoCheck";
+            	}
+            	
+            }
+            return "seller/my/home";
+        }
+
+
+      @PostMapping("my/mySellerInfoUpdate")
+         public String SellerInfoUpdate(SellerDTO seller,HttpServletRequest req) {
+            System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%"+seller);
+            HttpSession session = req.getSession();
+            String loginSeller = (String) session.getAttribute("loginSeller");
+            
+            if(seller == null) {
+            
+            }
+            else {
+               service.updateSeller(seller, loginSeller);
+            }
+            return "seller/my/myInfo";
+            
+         }
+
+
+      @PostMapping("my/mySellerProfile")
+         public String SellerUpdateProfile(HttpServletRequest req, MultipartFile[] files) throws Exception {
+            HttpSession session = req.getSession();
+            String loginSeller = (String) session.getAttribute("loginSeller");
+            
+            if(files == null) {
+               return "seller/my/myInfo";
+            }
+            else {
+               service.updateSellerProfile(files, loginSeller);
+            }
+            return "seller/my/myInfo";
+         
+         }
+
+
+      @GetMapping("my/deleteSeller")
+         public String DeleteSeller(HttpServletRequest req) {
+            HttpSession session = req.getSession();
+            String sellerid = (String) session.getAttribute("loginSeller");
+            
+            if(service.deleteSeller(sellerid)) {
+               System.out.println("seller 전체 삭제 성공");
+               return "/user/login";
+            }
+            else {
+               System.out.println("seller 전체 삭제 실패");
+               return "/seller/my/myInfo";
+            }
+            
+         }
 
 }

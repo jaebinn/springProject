@@ -32,4 +32,7 @@ public interface SellerMapper {
 	String getSelleridByStorename(String storename);
 
 	SellerDTO getSellerInfoById(String sellerid);
+	
+	boolean updateSeller(SellerDTO seller, String sellerid);
+	
 }

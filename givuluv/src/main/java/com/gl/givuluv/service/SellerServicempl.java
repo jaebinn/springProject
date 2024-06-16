@@ -142,12 +142,20 @@ public class SellerServicempl implements SellerService{
    }
    
 //   boolean 타입이 아님 pw를 받아와야 함
+   public String checkId(String sellerid) {
+	     SellerDTO seller = sellmapper.getSellerById(sellerid);
+	     if(seller == null) {
+	        return null;
+	     }
+	     else {
+	        String result = seller.getSellerid();
+	        return result;
+	     }
+	   }
    @Override
    public String checkPw(String sellerpw) {
-      
       return sellmapper.getSellerByPw(sellerpw) ;
    }
-
    
    @Override
    public boolean login(String sellerid, String sellerpw) {
@@ -160,11 +168,6 @@ public class SellerServicempl implements SellerService{
       return false;
    }
 
-   @Override
-   public String checkId(String sellerid) {
-      // TODO Auto-generated method stub
-      return null;
-   }
    
    @Override
    public String getCategory(int snum) {
@@ -684,5 +687,114 @@ public class SellerServicempl implements SellerService{
 	         String getStoreMainImg = fmapper.getStoreMainImg(sNum);
 	         return getStoreMainImg;
 	      }
+	   
+	   @Override
+	   public boolean updateSeller(SellerDTO seller, String loginSeller) {
+	      String sellerid = loginSeller;
+	      System.out.println("=============써비스 임플 seller : ============"+seller);
+	      return sellmapper.updateSeller(seller, sellerid);
+	   }
+	   
+	   
+	   @Override
+	   public boolean updateSellerProfile(MultipartFile[] files, String loginSeller) throws Exception {
+	      SellerDTO seller = sellmapper.getSellerById(loginSeller);
+	      String connectionid = loginSeller;
+	         String sellerid = seller.getSellerid();
+	         
+	         if(files == null || files.length == 0) {
+	            return true;
+	         }
+	         else {
+	            //방금 등록한 게시글 번호
+	            boolean flag = false;
+	            System.out.println("파일 개수 : "+files.length);
+	            
+	            for(int i=0;i<files.length;i++) {
+	               System.out.println("for문 잘 들어옴.");
+	               MultipartFile file = files[i];
+	               System.out.println(file.getOriginalFilename());
+	               
+	               //apple.png
+	               String orgname = file.getOriginalFilename();
+	               //5
+	               int lastIdx = orgname.lastIndexOf(".");
+	               //.png
+	               String extension = orgname.substring(lastIdx);
+	               
+	               LocalDateTime now = LocalDateTime.now();
+	               String time = now.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS"));
+
+	               //20240502162130141랜덤문자열.png
+	               String systemname = time+UUID.randomUUID().toString()+extension;
+	               
+	               //실제 생성될 파일의 경로
+	               //D:/0900_GB_JDS/7_spring/file/20240502162130141랜덤문자열.png
+	               String path = saveFolder+systemname;
+	               
+	               //File DB 저장
+	               FileDTO fdto = new FileDTO();
+	               fdto.setSystemname(systemname);
+	               fdto.setConnectionid(sellerid);
+	               fdto.setType('P');
+	               fdto.setBoardthumbnail('N');
+	               System.out.println("fdto 잘 포장함."+fdto);
+	              
+	               fmapper.deleteSellerProfile(connectionid);
+	               
+	               flag = fmapper.updateFiles(fdto, connectionid) == 1;
+	               System.out.println("DB에 fdto 잘 업뎃함.");
+	               
+	               //실제 파일 업로드
+	               file.transferTo(new File(path));
+	               System.out.println("실제 파일을 업로드 잘함.");
+	               
+	               if(!flag) {
+	                  //업로드했던 파일 삭제, 게시글 데이터 삭제, 파일 data 삭제, ...
+	                  System.out.println("flag false:업로드 실패");
+	                  return false;
+	               }
+	            }
+	            System.out.println("flag ture:업로드 성공");
+	            return true;
+	         }
+	   }
+
+	   
+	   @Override
+	   public boolean deleteSeller(String sellerid) {
+	      StoreDTO store = getStoreBySellerid(sellerid);
+	      if(store == null) {
+	         storeMapper.deleteStoreBySellerid(sellerid);
+	         System.out.println("store 삭제 완료");
+	         paymentMapper.deleteSPayment(sellerid);
+	         System.out.println("s_payment 삭제 완료");
+	         sellmapper.deleteSeller(sellerid);
+	         System.out.println("seller 삭제 완료");      
+	         fmapper.deleteSellerProfile(sellerid);
+	         System.out.println("seller 프로필 삭제 완료");
+	      }
+	      else {
+	         int sNum = store.getSNum();
+	         sinfoMapper.deleteSinfoBySNum(sNum);
+	         System.out.println("sinfo 삭제 완료");
+	         boardMapper.deleteSBoardBySNum(sNum);
+	         System.out.println("sboard 삭제 완료");
+	         
+	         storeMapper.deleteStoreBySellerid(sellerid);
+	         System.out.println("store 삭제 완료");
+	         paymentMapper.deleteSPayment(sellerid);
+	         System.out.println("s_payment 삭제 완료");
+	         sellmapper.deleteSeller(sellerid);
+	         System.out.println("seller 삭제 완료");
+	         fmapper.deleteSellerProfile(sellerid);
+	         System.out.println("seller 프로필 삭제 완료");
+	      }
+	      
+	      return true;
+	   }
+
+	
+
 
 }

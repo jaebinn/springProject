@@ -3,6 +3,7 @@ package com.gl.givuluv.controller;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -180,5 +181,16 @@ public class FundingController {
 		model.addAttribute("fboard", fboard);
 		model.addAttribute("orgname", orgname);
 		return "funding/fReceipt";
+	}
+	
+	@GetMapping("fundCancel")
+	public String fundCancel(int paymentnum) {
+		boolean isFundCancel = fpservice.fundCancelByNum(paymentnum);
+		if(isFundCancel) {
+			System.out.println("펀딩 결제 취소 완료!");
+			return "user/my/news";
+		}else {
+			return "funding/fReceipt?paymentnum="+paymentnum;
+		}
 	}
 }

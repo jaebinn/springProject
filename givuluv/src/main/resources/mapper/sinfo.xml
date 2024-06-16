@@ -9,5 +9,7 @@
       insert into s_info(s_title, s_infocontent, s_summary, s_num)
       values(#{sTitle}, #{sInfocontent}, #{sSummary}, #{sNum}) 
    </insert>
-
+	<delete id="deleteSinfoBySNum">
+      DELETE FROM s_info WHERE s_num = ${sNum};
+   </delete>
 </mapper>

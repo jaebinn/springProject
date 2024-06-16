@@ -34,19 +34,26 @@
 						<input type="button" id="Dona_btn" value="기부목록" >
 						<input type="button" id="Fund_btn" value="펀딩목록" >
 						</div>
-						<div id="shipStateBtn">
-						<input type="button" id="shipState_btn" value="배송목록보기" >
-						</div>
 					</div>
 				</div>
 				<div>
 					<div class="Dona_List" th:if="${not #lists.isEmpty(Donation_List)}" th:each="donationItem : ${Donation_List}">
-						<a id="Dona_Red">[기부활동]</a><span th:text="${donationItem.d_title}"></span>
-						<p id="Name_Time">[[${donationItem.orgid}]] &nbsp; [[${donationItem.d_cost}]]원 &nbsp; </p> 
+						<a th:href="@{/donation/receipt(paymentnum=${donationItem.paymentnum})}">
+							<span id="Dona_Red">[기부활동(일반결제)]</span><span th:text="${donationItem.d_title}"></span>
+							<p id="Name_Time"><span id="Dona_text">후원한 기부금은 환불이 어렵습니다.</span>[[${donationItem.orgid}]] &nbsp; [[${donationItem.d_cost}]]원 &nbsp; </p> 
+						</a>
+					</div>
+					<div class="Dona_List" th:if="${not #lists.isEmpty(RDonation_List)}" th:each="donationItem : ${RDonation_List}">
+						<a th:href="@{/donation/Rreceipt(paymentnum=${donationItem.paymentnum})}">
+							<span id="Dona_Red">[기부활동(정기결제)]</span><span th:text="${donationItem.d_title}"></span>
+							<p id="RName_Time">[[${donationItem.orgid}]] &nbsp; [[${donationItem.d_cost}]]원 &nbsp; </p> 
+						</a>
 					</div>
 					<div class="Fund_List" th:if="${not #lists.isEmpty(Funding_List)}" th:each="fundingItem : ${Funding_List}">
-						<a id="Fund_Blue">[펀딩활동]</a><span th:text="${fundingItem.f_title}">Funding List Name</span>
-						<p>[[${fundingItem.orgid}]] &nbsp; [[${fundingItem.f_cost}]]원</p>
+						<a th:href="@{/funding/fReceipt(paymentnum=${fundingItem.paymentnum})}">
+							<span id="Fund_Blue">[펀딩활동]</span><span th:text="${fundingItem.f_title}">Funding List Name</span>
+							<p id="Name_Time">[[${fundingItem.orgid}]] &nbsp; [[${fundingItem.f_cost}]]원</p>
+						</a>
 					</div>
 				<!--최초 첫div 만 script가 적용되는 이수가 있었지만 div의 id를 class로 바꿔주어 해결함 / id값이 겹치면 안되는 부분을 까먹음-->	
 					

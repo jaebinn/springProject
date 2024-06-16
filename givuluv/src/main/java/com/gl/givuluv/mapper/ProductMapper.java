@@ -60,6 +60,8 @@ public interface ProductMapper {
 	long getTotalCnt(String sellerid, String text);
 
 	ProductDTO getProductnumListBySBoardnum(int sBoardnum);
+
+	boolean updateAmount(FPaymentDTO payment);
 	
 	
 }

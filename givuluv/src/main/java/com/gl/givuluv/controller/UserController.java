@@ -251,6 +251,7 @@ public class UserController {
     	UserDTO userid = service.getUserById(loginUser); 
 		/* System.out.println(userid); */
     	List<Map<String, Object>> Donation_List = service.getDonaNameByUserid(userid);
+    	List<Map<String, Object>> RDonation_List = service.getRDonaNameByUserid(userid);
     	List<Map<String, Object>> Funding_List = service.getFundNameByUserid(userid);
     	
 		String bonus = (String)service.getUserBonusById(userid);
@@ -259,9 +260,12 @@ public class UserController {
 		int funding = (int)service.getUserFundingBiId(userid);
 		
 		
-		System.out.println(Funding_List); 
+		System.out.println("기부리스트: "+Donation_List); 
+		System.out.println("정기 기부리스트: "+RDonation_List); 
+		System.out.println("펀딩리스트: "+Funding_List); 
 		System.out.println(Funding_List.size());
 		 
+		model.addAttribute("RDonation_List", RDonation_List);
 		model.addAttribute("Donation_List", Donation_List);
 		model.addAttribute("Funding_List", Funding_List);
 		model.addAttribute("UserDonate", donation);

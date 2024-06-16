@@ -94,4 +94,7 @@
 		join store s ON sb.s_num = s.s_num
 		where s.sellerid = #{sellerid} and p.p_type='M' and p.productname like concat('%', #{text}, '%') 
    </select>
+   <update id="updateAmount">
+		update product set p_amount=p_amount-sum(#{amount}) where productnum=#{productnum}
+   </update>
 </mapper>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<!--유저 정보 수정 페이지 입니다.-->
+<html>
+<header>
+	<meta charset="UTF-8">
+	<title>일반유저 myhome</title>
+	<link rel="stylesheet" href="/css/userMyPageMenu.css">
+	<link rel="stylesheet" href="/css/userMyHome.css">
+	<link rel="stylesheet" href="/css/header_footer.css">
+	<link rel="stylesheet" href="/css/userModify.css">
+	<link rel="stylesheet" href="/css/userdelete.css">
+	<script src="https://kit.fontawesome.com/516da99189.js" crossorigin="anonymous"></script>
+</header>
+
+<body>
+	<!-- header -->
+	<th:block th:replace="~{layout/header::header(loginUser)}"></th:block>
+
+	<!-- 컨텐츠 -->
+	<form action="/user/delete" method="post" name="deleteForm">
+	<div class="wrap">
+		<!-- 왼쪽 메뉴바 -->
+		<th:block th:replace="~{layout/orgMyPageMenu::orgMyPageMenu(loginOrg)}"></th:block>
+		<!-- 오른쪽 내용 -->
+		
+		<div class="left_div">
+			<div id="usernickname"><h2 id="old_nickname"></h2><a id="loginuser">[[${loginUser}]]</a> 님의 회원탈퇴 페이지 입니다.</div>
+			<div id="content_wrap">
+				<div id="input_userpw">
+					<div class="input">
+						<div id="info_msg">
+						<a class="input_content1">계정의 <a id="password">비밀번호</a>를 입력하세요</a> 
+						</div>
+						<div id="enter_pw">
+						<input type="text" id="userpw" name="userpw" placeholder="비밀번호를 입력해주세요">
+						</div>
+							</div>
+							
+							<br>
+							<br>
+					<div class="input_checkmsg">
+						<div id="info_msg2">
+						<a class="input_content2">회원탈퇴를 진행하시면<br> 관련된 모든 정보가 자동 삭제되며 복구할 수 없습니다.	<br>
+													확인하셨으면 <a id="okMessage">"확인하였습니다"</a>라는 문구를 기입해주세요.</a> 
+						</div>
+						<div id="enter_ok">
+						<input type="text" id="ok_enter" name="ok_enter" placeholder="확인하였습니다">
+						</div>
+							</div>
+								
+					</div>
+					<!--<div id="submit_area">
+						<input type="button" id="deleteSubmit" name="deleteSubmit" value="탈퇴하기">
+					</div>-->	
+			
+			</div>
+			<div id="submit_area">
+				<input type="button" id="deleteSubmit" name="deleteSubmit" value="탈퇴하기" onclick="pwComparison()">
+			</div>
+		</div>
+	</div>
+	</form>
+	<!-- footer -->
+	<th:block th:replace="~{layout/footer::footer()}"></th:block>
+</body>
+<script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+<script>
+	function pwComparison(){
+		const userpw = document.getElementById('userpw');
+		const okMsg = document.getElementById('ok_enter');
+		const Msg = ["확인하였습니다"];
+		const xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function(){
+				if(xhr.readyState == 4){
+					if(xhr.status == 200){
+						let txt = xhr.responseText.trim();
+						console.log(userpw);
+						if(txt == "O"){
+							alert("비밀번호가 확인되었습니다.");
+							if(okMsg.value == Msg){
+								
+								alert("탈퇴 처리되었습니다 감사합니다.");
+																							
+								deleteForm.submit();
+							}
+							else{
+								
+															
+								alert("문구를 정확히 기입해주세요");
+								okMsg.value = "";
+								okMsg.focus();
+							}
+							
+						}else{
+							alert("비밀번호가 일치하지 않습니다.");
+							
+							
+							userpw.value = "";
+							userpw.focus();
+						}
+					}
+				}
+			}
+			
+			xhr.open("GET","/org/checkorgPw?orgpw="+userpw.value);
+			xhr.send();
+	}
+</script>
+
+
+</html>

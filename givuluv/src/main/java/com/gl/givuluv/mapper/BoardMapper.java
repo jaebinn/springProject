@@ -101,4 +101,6 @@ public interface BoardMapper {
 	int[] getSBoardnumBySNum(int storenum);
 
 	List<SBoardDTO> getSBoardList();
+
+	boolean deleteSBoardBySNum(int sNum);
 }

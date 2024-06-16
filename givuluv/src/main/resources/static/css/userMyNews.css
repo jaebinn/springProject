@@ -93,12 +93,6 @@ a, input {
     border-radius: 20px;
     border: none;
 	}
-	#shipState_btn{
-	width: 90px;
-    height: 30px;
-    border-radius: 20px;
-    border: none;
-	}
 	#Dona_btn:hover{
 		background-color: rgb(79, 148, 111);
 		color: white;
@@ -107,7 +101,20 @@ a, input {
 		background-color: rgb(79, 148, 111);
 		color: white;
 	}
-	#shipState_btn:hover{
-		background-color: rgb(79, 148, 111);
-		color: white;
+	.Dona_List #Name_Time{
+		display: flex;
+		justify-content: space-between;
+	}
+	.Fund_List #Name_Time{
+		text-align: right;
+	}
+	#RName_Time{
+		text-align: right;
+	}
+	#Dona_text{
+		color: red;
+	}
+	.Dona_List span:nth-child(2),
+	.Fund_List span:nth-child(2){
+		margin-left: 15px;
 	}

@@ -234,6 +234,10 @@ public class OrgController {
 		System.out.println("orginfo :: "+orginfo);
 		
 //		모델 
+		String orgSystemname = service.getOrgSystemname(orgid);
+		System.out.println("orgSystenmane :: "+orgSystemname);
+
+		model.addAttribute("orgsystemname", src+orgSystemname);
 		model.addAttribute("orgid", orgid);
 		model.addAttribute("orginfo", orginfo);
 		return "org/my/modify_orginfo";
@@ -244,12 +248,26 @@ public class OrgController {
 		return "org/my/modify_orginfo";
 	}
 
-	@PostMapping("modify")
+	@PostMapping("my/modify_orginfo")
 	public String modify(OrgDTO org, HttpServletRequest req, Model model, MultipartFile files) throws Exception {
-		System.out.println("org :: "+org);
-		System.out.println(files);
-		service.modify(org, files);
-		return "/org/my/home";
+		String src = "/summernoteImage/";
+		HttpSession session = req.getSession();
+		String orgid = (String) session.getAttribute("loginOrg");
+		org.setOrgid(orgid);
+		System.out.println("입력 받은org :: "+org);
+		System.out.println("입받은 file :: "+files);
+		System.out.println("post::modify");
+		String orgSystename = service.getOrgSystemname(orgid);
+		System.out.println("orgSystenmane :: "+src+orgSystename);
+		
+		  if(service.modify(org, files)) {
+			  System.out.println("OrgModify Ok"); } 
+		  else {
+				System.out.println("OrgModify flase"); }
+		 
+		System.out.println("fileName :: "+files);
+		model.addAttribute("orgsystemname", src+orgSystename);
+		return "redirect:home";
 	}
 	
 	@GetMapping("my/org_activity_history")
@@ -286,4 +304,87 @@ public class OrgController {
 		System.out.println("컨트롤러 도착. 뉴스로 넘어감");
 		return"org/my/org_news";
 	}
+	@GetMapping("my/delete_orginfo")
+	public String deleteUser(HttpServletRequest req, Model model) {
+		HttpSession session = req.getSession();
+		session.getAttribute("loginOrg");
+		String orgid = (String) session.getAttribute("loginOrg");
+		
+		
+		
+		model.addAttribute("loginOrg", orgid);
+		
+		
+		return"user/my/delete_userinfo";
+	}
+	
+	@PostMapping("delete")
+	public String delete(HttpServletRequest req, Model model) {
+		HttpSession session = req.getSession();
+		session.getAttribute("loginOrg");
+		String orgid = (String) session.getAttribute("loginOrg");
+		int d_boardnum = service.getD_boardnum(orgid);
+		int f_boardnum = service.getF_boardnum(orgid);
+		/*
+		 * if(service.deleteF_detail(loginUser)) { System.out.println("F_detail 삭제완료");
+		 * } else { System.out.println("F_detail 정보가 없는 회원입니다"); }
+		 * if(service.deleteD_detail(loginUser)) { System.out.println("D_detail 삭제완료");
+		 * } else { System.out.println("D_detail 정보가 없는 회원입니다"); }
+		 */
+		if(service.deleteFollow(orgid)) {
+			System.out.println("Follow 삭제완료");
+		}
+		else {
+			System.out.println("Follow 정보가 없는 회원입니다");
+		}
+		if(service.deleteD_Like(d_boardnum)) {
+			System.out.println("Like 삭제완료");
+		}
+		else {
+			System.out.println("Like 정보가 없는 회원입니다");
+		}
+		if(service.deleteF_Like(f_boardnum)) {
+			System.out.println("Like 삭제완료");
+		}
+		else {
+			System.out.println("Like 정보가 없는 회원입니다");
+		}
+		if(service.deleteD_Review(d_boardnum)) {
+			System.out.println("Review 삭제완료");
+		}
+		else {
+			System.out.println("Review 정보가 없는 회원입니다");
+		}
+		if(service.deleteF_Review(f_boardnum)) {
+			System.out.println("Review 삭제완료");
+		}
+		else {
+			System.out.println("Review 정보가 없는 회원입니다");
+		}
+		if(service.deleteD_payment(orgid)) {
+			System.out.println("D_payment 삭제완료");
+		}
+		else {
+			System.out.println("D_payment 정보가 없는 회원입니다");
+		}
+		if(service.deleteF_payment(orgid)) {
+			System.out.println("F_payment 삭제완료");
+		}
+		else {
+			System.out.println("F_payment 정보가 없는 회원입니다");
+		}
+		if(service.deleteS_payment(orgid)) {
+			System.out.println("S_payment 삭제완료");
+		}
+		else {
+			System.out.println("S_payment 정보가 없는 회원입니다");
+		}
+		if(service.deleteOrg(orgid)) {
+			System.out.println("모든정보 삭제완료");
+			req.getSession().invalidate();
+			
+		}
+		return "redirect:/";
+	}
+
 }

@@ -61,13 +61,133 @@
 	<select id="getF_board">
 		select f_title, target_amount, save_money, f_regdate, f_enddate from f_board where orgid = #{orgid}
 	</select>
-   	
+   	<select id="getDboard_info">
+		select d_title, target_amount, save_money from d_board where orgid = #{orgid}
+	</select>
+	
+	<select id="getDboardtitle">
+		select d_title from d_board where orgid = #{orgid}
+	</select>
+	
+	<select id="getTarget_amount">
+		select target_amount from d_board where orgid = #{orgid}
+	</select>
+	
+	<select id="getSave_money">
+		select save_money from d_board where orgid = #{orgid}
+	</select>
+	
+	<select id="getD_paymentinfo" resultType="String">
+		select userid, d_cost from d_payment where orgid = #{orgid}
+	</select>
+	
+	<select id="getD_payment_id">
+		select userid from d_payment where orgid = #{orgid}
+	</select>
+	
+	<select id="getD_payment_cost">
+		select d_cost from d_payment where orgid = #{orgid}
+	</select>
+	
+	<select id="getFboardtitle">
+		select f_title from f_board where orgid = #{orgid}
+	</select>
+	
+	<select id="getf_Target_amount">
+		select target_amount from f_board where orgid = #{orgid}
+	</select>
+	
+	<select id="getf_Save_money">
+		select sqve_money from f_board where orgid = #{orgid}
+	</select>
+	
+	<select id="getFollow">
+		select userid from follow where orgid = #{orgid} LIMIT 1
+	</select>
+	
+	<select id="getFollow_amount">
+		select count(follownum) from follow where orgid = #{orgid}
+	</select>
+	
+	<select id="getD_boardnum">
+		select d_boardnum from d_payment where orgid = #{orgid} LIMIT 1
+	</select>
+	
+	<select id="getLike_id">
+		select userid from `like` where connectid = #{d_boardnum}
+	</select>
+	
+	<select id="getLike_amount">
+		select count(likenum) from `like` where connectid = #{d_boardnum}
+	</select>
+	
+	<select id="getF_boardnum">
+		select f_boardnum from f_payment where orgid = #{orgid}
+	</select>
+	
+	<select id="getProduct_name">
+		select productname from product where connectid = #{f_boardnum}
+	</select>
+	<select id="getp_amount">
+		select f_boardnum from f_payment where f_boardnum = #{f_boardnum}
+	</select>
+	<select id="getp_cost">
+		select f_boardnum from f_payment where f_boardnum = #{f_boardnum}
+	</select>
+	
+	<select id="getReview_id">
+		select userid from review where connectid = #{f_boardnum}
+	</select>
+	<select id="getReview_date">
+		select reviewdate from review where connectid = #{f_boardnum}
+	</select>
+	<select id="getReview_star" >
+		select star from review where connectid = #{f_boardnum}
+	</select>
 	<update id="updateOrg">
 		update org set orgpw=#{org.orgpw}, orgphone=#{org.orgphone}, ceoname=#{org.ceoname}
 			where orgid = #{org.orgid}
 	</update>
+	<update id="modify">
+		update org set 
+		<trim suffixOverrides=",">
+		<if test="orgpw !=null">
+			orgpw=#{orgpw},
+		</if>
+		<if test="orgphone !=null">
+			orgphone=#{orgphone},
+		</if>
+		<if test="ceoname !=null">
+			ceoname=#{ceoname}
+		</if>
+		</trim>
+			where orgid = #{orgid}
+		
+	</update>
 	<delete id="deleteOrg">
 		delete from org where orgid=#{orgid}
+	</delete>
+	<delete id="deleteFollow">
+		delete from follow where orgid = #{orgid}
+	</delete>
+	<delete id="deleteD_payment">
+		delete from d_payment where orgid = #{orgid}
+	</delete>
+	<delete id="deleteF_payment">
+		delete from f_payment where orgid = #{orgid}
+	</delete>
+	
+	<delete id="deleteD_Like">
+		delete from like where connectid = #{d_boardnum}
+	</delete>
+	<delete id="deleteF_Like">
+		delete from like where connectid = #{d_boardnum}
+	</delete>
+	<delete id="deleteD_Review">
+		delete from Review where connectid = #{d_boardnum}
+	</delete>
+	<delete id="deleteF_Review">
+		delete from Review where connectid = #{d_boardnum}
 	</delete>
 	
 	

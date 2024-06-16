@@ -89,6 +89,12 @@ public interface SellerService {
    FileDTO getSBoardThumbnailBySNum(int sBoardNum);
    SinfoDTO getSinfoBySellerid(String seller);
    String getStoreMainImgBySNum(int sNum);
+   
+   boolean updateSeller(SellerDTO seller, String loginSeller);
+
+   boolean updateSellerProfile(MultipartFile[] files, String loginSeller) throws Exception;
+
+   boolean deleteSeller(String sellerid);
 
 
 }

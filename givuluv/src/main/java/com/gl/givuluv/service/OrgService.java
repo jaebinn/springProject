@@ -40,4 +40,66 @@ public interface OrgService {
 	List<String> getD_board(String orgid);
 	
 	List<String> getF_board(String orgid);
+List<String> Dboard_info(String orgid);
+	
+	String getDboardtitle(String orgid);
+	
+	String getTarget_amount(String orgid);
+	String getf_Target_amount(String orgid);
+	
+	String getSave_money(String orgid);
+	String getf_Save_money(String orgid);
+	
+	List<String> getD_paymentinfo(String orgid);
+	
+	List<String> getD_payment_id(String orgid);
+	
+	List<Integer> getD_payment_cost(String orgid);
+	
+	String getFboardtitle(String orgid);
+	
+	String getFollow(String orgid);
+	
+	int getFollow_amount(String orgid);
+	
+	int getD_boardnum(String orgid);
+	
+	String getLike_id(int d_boardnum);
+	
+	int getLike_amount(int d_boardnum);
+	
+	int getF_boardnum(String orgid);
+	
+	String getProduct_name(int f_boardnum);
+	
+	int getp_amount(int f_boardnum);
+	
+	int getp_cost(int f_boardnum);
+	
+	String getReview_id(int f_boardnum);
+	
+	String getReview_date(int f_boardnum);
+	
+	int getReview_star(int f_boardnum);
+	
+	Boolean checkuserPw(String userpw);
+	
+	Boolean deleteOrg(String orgid);
+	
+	Boolean deleteFollow(String orgid);
+	
+	
+	Boolean deleteD_Like(int d_boardnum);
+	Boolean deleteF_Like(int f_boardnum);
+	
+	Boolean deleteD_Review(int d_boardnum);
+	Boolean deleteF_Review(int f_boardnum);
+	
+	Boolean deleteD_payment(String orgid);
+	
+	String getuserPwById(String orgid);
+	
+	Boolean deleteF_payment(String orgid);
+	
+	Boolean deleteS_payment(String orgid);
 }

@@ -13,5 +13,6 @@ public interface SinfoMapper {
 	SinfoDTO getSinfoByStorenum(int storenum);
 
 	int insertSinfo(SinfoDTO sinfo);
-
+	
+	boolean deleteSinfoBySNum(int sNum);	
 }

@@ -68,7 +68,11 @@
 	<select id="getOrgnameByOrgid">
 		select o.orgname from f_payment p join org o on p.orgid = o.orgid = p.orgid=#{ordig} order by paymentnum desc limit 1
 	</select>
+	<delete id="fundCancelByNum">
+		delete from f_payment where paymentnum=#{paymentnum}
+	</delete>
 	
+	<!-- 가게 결제 -->
 	<insert id="insertSPayment">
 		insert into s_payment(userid, sellerid, s_boardnum, s_cost, amount, productnum, reqetc) 
 		values(#{userid},#{sellerid},#{SBoardnum},#{SCost},#{amount},#{productnum},#{reqetc})
@@ -91,4 +95,7 @@
 	<select id="getLastSPaymentBySellerid">
       select * from s_payment where sellerid = #{sellerid}
    </select>
+   <delete id="deleteSPayment">
+       delete from s_payment where sellerid = #{sellerid};
+   </delete>
 </mapper>

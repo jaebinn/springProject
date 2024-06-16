@@ -201,13 +201,17 @@ public class OrgServiceImpl implements OrgService {
 
 	@Override
 	public boolean modify(OrgDTO org, MultipartFile files) {
-		if(omapper.updateOrg(org) != 1) { 
+		System.out.println("service/org :: "+org);
+		if(omapper.modify(org) != 1) { 
+			System.out.println("Org User의 정보 수정 실패");
 			return false;
 		}
 		if(files == null ) {
+			System.out.println("파일을 불러오지 못했거나 없습니다.");
 			return true;
 		}
 		else {
+			System.out.println("org유저 정보 수정 완료 파일 수정 진행");
 			//방금 등록한 게시글 번호
 			boolean flag = false;
 			
@@ -233,7 +237,7 @@ public class OrgServiceImpl implements OrgService {
 				//실제 생성될 파일의 경로
 				//D:/0900_GB_JDS/7_spring/file/20240502162130141랜덤문자열.png
 				String path = saveFolder+systemname;
-				
+				System.out.println();
 				//File DB 저장
 				FileDTO fdto = new FileDTO();
 				fdto.setSystemname(systemname);
@@ -254,6 +258,7 @@ public class OrgServiceImpl implements OrgService {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				System.out.println("path :: "+path);
 				System.out.println("실제 파일을 업로드 잘함.");
 				
 				if(!flag) {
@@ -284,5 +289,174 @@ public class OrgServiceImpl implements OrgService {
 		
 		return omapper.getF_board(orgid);
 	}
+	@Override
+	public List<String> Dboard_info(String orgid) {
+		
+		return omapper.getDboard_info(orgid);
+	}
 
+	@Override
+	public String getDboardtitle(String orgid) {
+		
+		return omapper.getDboardtitle(orgid);
+	}
+
+	@Override
+	public String getTarget_amount(String orgid) {
+		return omapper.getTarget_amount(orgid);
+	}
+
+	@Override
+	public String getSave_money(String orgid) {
+		return omapper.getSave_money(orgid);
+	}
+
+	@Override
+	public List<String> getD_paymentinfo(String orgid) {
+		return omapper.getD_paymentinfo(orgid);
+	}
+
+	@Override
+	public List<String> getD_payment_id(String orgid) {
+		return omapper.getD_payment_id(orgid);
+	}
+
+	@Override
+	public List<Integer> getD_payment_cost(String orgid) {
+		return omapper.get_D_payment_cost(orgid);
+	}
+
+	@Override
+	public String getFboardtitle(String orgid) {
+		return omapper.getFboardtitle(orgid);
+	}
+
+	@Override
+	public String getf_Target_amount(String orgid) {
+		return omapper.getf_Target_amount(orgid);
+	}
+
+	@Override
+	public String getf_Save_money(String orgid) {
+		return omapper.getf_Save_money(orgid);
+	}
+
+	@Override
+	public String getFollow(String orgid) {
+		return omapper.getFollow(orgid);
+	}
+
+	@Override
+	public int getFollow_amount(String orgid) {
+		return omapper.getFollow_amount(orgid);
+	}
+
+	@Override
+	public int getD_boardnum(String orgid) {
+		return omapper.getD_boardnum(orgid);
+	}
+
+	@Override
+	public String getLike_id(int d_boardnum) {
+		return omapper.getLike_id(d_boardnum);
+	}
+
+	@Override
+	public int getLike_amount(int d_boardnum) {
+		return omapper.getLike_amount(d_boardnum);
+	}
+
+	@Override
+	public int getF_boardnum(String orgid) {
+		return omapper.getF_boardnum(orgid);
+	}
+
+	@Override
+	public String getProduct_name(int f_boardnum) {
+		return omapper.getProduct_name(f_boardnum);
+	}
+
+	@Override
+	public int getp_amount(int f_boardnum) {
+		return omapper.getp_amount(f_boardnum);
+	}
+
+	@Override
+	public int getp_cost(int f_boardnum) {
+		return omapper.getp_cost(f_boardnum);
+	}
+
+	@Override
+	public String getReview_id(int f_boardnum) {
+		return omapper.getReview_id(f_boardnum);
+	}
+
+	@Override
+	public String getReview_date(int f_boardnum) {
+		return omapper.getReview_date(f_boardnum);
+	}
+
+	@Override
+	public int getReview_star(int f_boardnum) {
+		return omapper.getReview_star(f_boardnum);
+	}
+
+	@Override
+	public Boolean checkuserPw(String userpw) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean deleteOrg(String orgid) {
+		return omapper.deleteOrg(orgid)==1;
+	}
+
+	
+
+	@Override
+	public Boolean deleteFollow(String orgid) {
+		return omapper.deleteFollow(orgid)==1;
+	}
+
+	@Override
+	public Boolean deleteD_Like(int d_boardnum) {
+		return omapper.deleteD_Like(d_boardnum)==1;
+	}
+	@Override
+	public Boolean deleteF_Like(int f_boardnum) {
+		return omapper.deleteF_Like(f_boardnum)==1;
+	}
+
+	@Override
+	public Boolean deleteD_Review(int d_boardnum) {
+		return omapper.deleteD_Review(d_boardnum)==1;
+	}
+	@Override
+	public Boolean deleteF_Review(int f_boardnum) {
+		return omapper.deleteF_Review(f_boardnum)==1;
+	}
+
+	@Override
+	public Boolean deleteD_payment(String orgid) {
+		return omapper.deleteD_payment(orgid)==1;
+	}
+
+
+	@Override
+	public Boolean deleteF_payment(String orgid) {
+		return omapper.deleteF_payment(orgid)==1;
+	}
+
+	@Override
+	public String getuserPwById(String orgid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean deleteS_payment(String orgid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

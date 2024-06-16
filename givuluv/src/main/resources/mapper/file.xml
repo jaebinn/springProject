@@ -63,6 +63,16 @@
 		select systemname from file where type = 'S' and boardthumbnail='N' and connectionid = #{storenum}
 	</select>
 	<update id="updateFile">
-      update file set systemname = #{systemname} where connectionid = #{connectionid}
+		update file set systemname = #{systemname} where connectionid = #{connectionid}
+	</update>
+	<update id="updateFiles">
+      update file
+      set systemname=#{fdto.systemname}, connectionid=#{fdto.connectionid},
+      type=#{fdto.type}, boardthumbnail=#{fdto.boardthumbnail}
+      where connectionid = #{connectionid};
    </update>
+
+   <delete id="deleteSellerProfile">
+      delete from file where connectionid = #{connectionid}
+   </delete>
 </mapper>

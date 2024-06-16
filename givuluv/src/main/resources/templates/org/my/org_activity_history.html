@@ -1,49 +1,271 @@
 <!DOCTYPE html>
-<!--org mypage-->
 <html>
 <header>
 	<meta charset="UTF-8">
-	<title>org activity_history</title>
-	<link rel="stylesheet" href="/css/userMyPageMenu.css">
-	<link rel="stylesheet" href="/css/userMyHome.css">
+	<title>단체유저 Activity_history</title>
+	<link rel="stylesheet" href="/css/userMyPageMenu.css">	
+	<link rel="stylesheet" href="/css/userMyHome2.css">
+	<link rel="stylesheet" href="/css/userMyActivityHistory.css">
 	<link rel="stylesheet" href="/css/header_footer.css">
-	<link rel="stylesheet" href="/css/org_activity_history.css">
+	<!--CSS 추가예정-->
 	<script src="https://kit.fontawesome.com/516da99189.js" crossorigin="anonymous"></script>
 </header>
-
 <body>
 	<!-- header -->
 	<th:block th:replace="~{layout/header::header(loginUser)}"></th:block>
-
+	
 	<!-- 컨텐츠 -->
 	<div class="wrap">
 		<!-- 왼쪽 메뉴바 -->
-		<th:block th:replace="~{layout/orgMyPageMenu::orgMyPageMenu(loginOrg)}"></th:block>
+		<th:block th:replace="~{layout/orgMyPageMenu::orgMyPageMenu(orgUser)}"></th:block>
 		<!-- 오른쪽 내용 -->
 		<div class="left_div">
-			<div>
-				<div class="Dona_List" th:if="${not #lists.isEmpty(d_boardList)}" th:each="d_boardItem : ${d_boardList}">
-					<a id="Dona_Red">[기부 게시글]</a><span>org user별 Q&A 구역입니다</span>
-					<p id="Name_Time"></p>
-				</div>
-				<div class="Fund_List" >
-					<a id="Fund_Blue">[펀딩 게시글]</a><span >	org user별 Q&A 구역입니다</span>
-					<p><!--[[${FundUserName}]] &nbsp; [[${FundTime}]]--></p>
-				</div>
-			<div>
+			<h2 id="acti_title">활동내역</h2>
+			<!--<div class="button_div">
+				페이지 이동???
+				<a href="#"><input type="button" value="게시글 내역"></a>
+				<a href="#"><input type="button" value="기부 내역"></a>
+				<a href="#"><input type="button" value="펀딩 내역"></a>
+				<a href="#"><input type="button" value="가게 내역"></a>
+			</div>-->
+			<!--<div class="search_div">
+			<form name="searchForm" id="searchForm" action="/user/search" method="post">
+				<input type="search" id="keyword" name="keyword" placeholder="검색어를 입력하세요">
+				<input type="button" value="검색" id="search_btn" onclick="search()">
+			</form>
+			</div>-->
+			<div class="contents_div">
+				<!--history에 최초로 들어 왔을떄 뜨는 List-->
+				<div class="myNews_div">
+							<div>
+								<div>
+									<h3><a id="nickname">[[${orginfo.orgname}]]</a> 님의 최근 기부</h3>
+									<!--로그인한 유저가 참여한 기부 , 펀딩 내역의 수-->
+									<span></span>
 									
-				<span></span>
-					<p><!--차곡차곡 모은 보너스 포인트로 "<a href="#" id="Trip"><strong>해외여행</strong></a>"가자!--></p>
+								</div>
+								<!--<a href="#">내 Q&A 정보 보러가기>></a>-->
+							</div>
+							<!--로그인한 유저가 참여한 기부, 펀딩 내역을 출력-->
+							<div>
+								<div class="Dona_List" >
+									<a id="Dona_Red"><!--[기부활동]--></a><span>[[${d_boardtitle}]]  </span>
+									<p id="Name_Time"></p>
+								</div>
+								<div class="Fund_List" >
+									<a id="Fund_Blue"><!--[펀딩활동]--></a><span >목표금액 :: [[${target_amount}]] </span>
+									<p><!--[[${FundUserName}]] &nbsp; [[${FundTime}]]--></p>
+								</div>
+								<div>
+									
+									<span>현재금액 :: [[${save_money}]]</span>
+									<p><!--차곡차곡 모은 보너스 포인트로 "<a href="#" id="Trip"><strong>해외여행</strong></a>"가자!--></p>
+								</div>
+							</div>
+						</div>
+				<div class="myNews_div">
+							<div>
+								<div>
+									<h3><a id="nickname">[[${orginfo.orgname}]]</a> 님의 최근 펀드</h3>
+									<!--로그인한 유저가 참여한 기부 , 펀딩 내역의 수-->
+									<span></span>
+									
+								</div>
+								<!--<a href="#">내 Q&A 정보 보러가기>></a>-->
+							</div>
+							<!--로그인한 유저가 참여한 기부, 펀딩 내역을 출력-->
+							<div>
+								<div class="Dona_List" >
+									<a id="Dona_Red"><!--[기부활동]--></a><span>[[${f_boardtitle}]]  </span>
+									<p id="Name_Time"></p>
+								</div>
+								<div class="Fund_List" >
+									<a id="Fund_Blue"><!--[펀딩활동]--></a><span >목표금액 :: [[${f_target_amount}]] </span>
+									<p><!--[[${FundUserName}]] &nbsp; [[${FundTime}]]--></p>
+								</div>
+								<div>
+									
+									<span>현재금액 :: [[${f_save_money}]]</span>
+									<p><!--차곡차곡 모은 보너스 포인트로 "<a href="#" id="Trip"><strong>해외여행</strong></a>"가자!--></p>
+								</div>
+							</div>
+						</div>
+				<div class="myNews_div">
+							<div>
+								<div>
+									<h3><a id="nickname">[[${orginfo.orgname}]]</a> 님의 최근 팔로우</h3>
+									<!--로그인한 유저가 참여한 기부 , 펀딩 내역의 수-->
+									<span></span>
+									
+								</div>
+								<!--<a href="#">내 Q&A 정보 보러가기>></a>-->
+							</div>
+							<!--로그인한 유저가 참여한 기부, 펀딩 내역을 출력-->
+							<div>
+								<div class="Dona_List" >
+									<a id="Dona_Red"><!--[기부활동]--></a><span>현재 팔로우 수 입니다 </span>
+									<p id="Name_Time"></p>
+								</div>
+								<div class="Fund_List" >
+									<a id="Fund_Blue"><!--[펀딩활동]--></a><span> 팔로워 :: [[${follow}]] </span>
+									<p><!--[[${FundUserName}]] &nbsp; [[${FundTime}]]--></p>
+								</div>
+								<div>
+									
+									<span>현재 팔로워 수 :: [[${follow_amount}]]</span>
+									<p><!--차곡차곡 모은 보너스 포인트로 "<a href="#" id="Trip"><strong>해외여행</strong></a>"가자!--></p>
+								</div>
+							</div>
+						</div>
+				<div class="myNews_div">
+							<div>
+								<div>
+									<h3><a id="nickname">[[${orginfo.orgname}]]</a> 님의 최근 리뷰</h3>
+									<!--로그인한 유저가 참여한 기부 , 펀딩 내역의 수-->
+									<span></span>
+									
+								</div>
+								<!--<a href="#">내 Q&A 정보 보러가기>></a>-->
+							</div>
+							<!--로그인한 유저가 참여한 기부, 펀딩 내역을 출력-->
+							<div>
+								<div class="Dona_List" >
+									<a id="Dona_Red"><!--[기부활동]--></a><span>리뷰어 : [[${review_id}]]  </span>
+									<p id="Name_Time"></p>
+								</div>
+								<div class="Fund_List" >
+									<a id="Fund_Blue"><!--[펀딩활동]--></a><span >올린시간 :: [[${review_date}]] </span>
+									<p><!--[[${FundUserName}]] &nbsp; [[${FundTime}]]--></p>
+								</div>
+								<div>
+									
+									<span>별점 :: [[${review_star}]]</span>
+									<p><!--차곡차곡 모은 보너스 포인트로 "<a href="#" id="Trip"><strong>해외여행</strong></a>"가자!--></p>
+								</div>
+							</div>
+						</div>
+				<div class="myNews_div">
+							<div>
+								<div>
+									<h3><a id="nickname">[[${orginfo.orgname}]]</a> 님의 최근 좋아요</h3>
+									<!--로그인한 유저가 참여한 기부 , 펀딩 내역의 수-->
+									<span></span>
+									
+								</div>
+								<!--<a href="#">내 Q&A 정보 보러가기>></a>-->
+							</div>
+							<!--로그인한 유저가 참여한 기부, 펀딩 내역을 출력-->
+							<div>
+								<div class="Dona_List" >
+									<a id="Dona_Red"><!--[기부활동]--></a><span>최근 좋아요 입니다</span>
+									<p id="Name_Time"></p>
+								</div>
+								<div class="Fund_List" >
+									<a id="Fund_Blue"><!--[펀딩활동]--></a><span >최근 좋아요 유저 :: [[${Like}]] </span>
+									<p><!--[[${FundUserName}]] &nbsp; [[${FundTime}]]--></p>
+								</div>
+								<div>
+									
+									<span>현재누적 좋아요 :: [[${Like_amount}]]</span>
+									<p><!--차곡차곡 모은 보너스 포인트로 "<a href="#" id="Trip"><strong>해외여행</strong></a>"가자!--></p>
+								</div>
+							</div>
+						</div>
+				<div class="myNews_div">
+							<div>
+								<div>
+									<h3><a id="nickname">[[${orginfo.orgname}]]</a> 님의 제품</h3>
+									<!--로그인한 유저가 참여한 기부 , 펀딩 내역의 수-->
+									<span></span>
+									
+								</div>
+								<!--<a href="#">내 Q&A 정보 보러가기>></a>-->
+							</div>
+							<!--로그인한 유저가 참여한 기부, 펀딩 내역을 출력-->
+							<div>
+								<div class="Dona_List" >
+									<a id="Dona_Red"><!--[기부활동]--></a><span>[[${product_name}]]  </span>
+									<p id="Name_Time"></p>
+								</div>
+								<div class="Fund_List" >
+									<a id="Fund_Blue"><!--[펀딩활동]--></a><span >상품금액 :: [[${p_amount}]] </span>
+									<p><!--[[${FundUserName}]] &nbsp; [[${FundTime}]]--></p>
+								</div>
+								<div>
+									
+									<span>현재재고 :: [[${p_cost}]]</span>
+									<p><!--차곡차곡 모은 보너스 포인트로 "<a href="#" id="Trip"><strong>해외여행</strong></a>"가자!--></p>
+								</div>
+							</div>
+						</div>
+				
+				
+				<!--=================================-->
+				<!--사용자가 search를 행했을때 뜨는 list -->
+				<!--기부 리스트-->
+				<!--<div class="contents" id="d_request" th:if="${not #lists.isEmpty(d_boardtitle)}" th:each="d_boardtitleItem : ${d_boardtitle}">
+					
+					<img th:src="@{/images/{d_systemnameItem}(d_systemnameItem=${d_systemname})}">
+					<div>
+						[기부]<p  th:text="${d_boardtitleItem}"></p>
+						
+						<p  th:text="${d_boardOrgid}"></p>
+					</div>
 				</div>
+				====================
+				
+				펀드 리스트
+				<div class="contents" id="f_request" th:if="${not #lists.isEmpty(f_boardtitle)}" th:each="f_boardtitleItem : ${f_boardtitle}">
+					
+					<img th:src="@{/images/{f_systemnameItem}(f_systemnameItem=${f_systemname})}">
+					<div>
+						[펀드]<p th:text="${f_boardtitleItem}"></p>
+						
+						<p th:each="f_boardOrgidItem : ${f_boardOrgid}" th:text="${f_boardOrgidItem}"></p>
+					</div>
+				</div>-->
+				<!--========================-->
+				<!--========================================-->
+				
+				<div th:if="${#lists.isEmpty(d_boardList) == true and #lists.isEmpty(f_boardList) == true}"  id="empty_msg">
+					<p class="empty_msg">내역이 존재하지 않습니다.</p>
+				</div>
+				
+				<!--1page => 총 n개 -->
+				
 			</div>
-		
 		</div>
 	</div>
-
+	
 	<!-- footer -->
 	<th:block th:replace="~{layout/footer::footer()}"></th:block>
 </body>
-<!--<script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>-->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
+<script>
+	function search(){
+		const keyword = document.getElementById("keyword")
+		
+		if(keyword.value == ""){
+			alert("검색어를 입력해주세요")
+			focus.keyword
+		}
+		else{
+		$(".empty_msg").attr("style", "display : none");
+		$(".Dona_List").attr("style", "display : none");
+		$(".Fund_List").attr("style", "display : none");
+			
+			
+		searchForm.submit();
+		$(".empty_msg").attr("style", "display : none");
+		$(".Dona_List").attr("style", "display : none");
+		$(".Fund_List").attr("style", "display : none");
+		
+		}
+		
+	}
+	
+	
+</script>
 
 </html>

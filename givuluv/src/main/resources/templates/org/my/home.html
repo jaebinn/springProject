@@ -47,32 +47,32 @@
 			</div>
 			<div class="savings_div">
 				<a href="#">
-					<span></span>
+					<span>주기적인 게시판 리뉴얼은 기부동참을 이끌어냅니다.</span>
 				</a>
 			</div>
 			<div class="myNews_div">
 				<div>
 					<div>
-						<h3><a id="nickname">[[${orginfo.orgname}]]</a> 님의 주요 Q&A</h3>
+						<h3><a id="nickname">[[${orginfo.orgname}]]</a> 님의 기부 게시판</h3>
 						<!--로그인한 유저가 참여한 기부 , 펀딩 내역의 수-->
 						<span></span>
-						<p>※[[${orginfo.orgname}]] 님의 최근 Q&A 목록입니다.</p>
+						<p>※[[${orginfo.orgname}]] 님의 목표/현재 금액입니다.</p>
 					</div>
-					<a href="#">내 Q&A 정보 보러가기>></a>
+					<!--<a href="#">내 Q&A 정보 보러가기>></a>-->
 				</div>
 				<!--로그인한 유저가 참여한 기부, 펀딩 내역을 출력-->
 				<div>
 					<div class="Dona_List" >
-						<a id="Dona_Red"><!--[기부활동]--></a><span>org user별 Q&A 구역입니다</span>
+						<a id="Dona_Red"><!--[기부활동]--></a><span>기부 명 :: [[${d_boardtitle}]]  </span>
 						<p id="Name_Time"></p>
 					</div>
 					<div class="Fund_List" >
-						<a id="Fund_Blue"><!--[펀딩활동]--></a><span >	org user별 Q&A 구역입니다</span>
+						<a id="Fund_Blue"><!--[펀딩활동]--></a><span >목표금액 :: [[${target_amount}]] </span>
 						<p><!--[[${FundUserName}]] &nbsp; [[${FundTime}]]--></p>
 					</div>
 					<div>
 						
-						<span></span>
+						<span>현재금액 :: [[${save_money}]]</span>
 						<p><!--차곡차곡 모은 보너스 포인트로 "<a href="#" id="Trip"><strong>해외여행</strong></a>"가자!--></p>
 					</div>
 				</div>

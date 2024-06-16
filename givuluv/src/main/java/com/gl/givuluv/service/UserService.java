@@ -110,4 +110,5 @@ public interface UserService {
 	Boolean deleteS_payment(String loginUser);
 	List<Map<String, Object>> getFundNameByUserid(UserDTO userid);
 	String getNicknameById(UserDTO userid);
+	List<Map<String, Object>> getRDonaNameByUserid(UserDTO userid);
 }

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>판매자 정보수정(신원확인)</title>
+	<script src="https://kit.fontawesome.com/1924b51539.js" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="/css/header_footer.css">
+	<link rel="stylesheet" href="/css/seller/my/rank.css">
+	<link rel="stylesheet" href="/css/seller/my/myInfoCheck.css">
+</head>
+
+<body>
+	<!-- header -->
+	<th:block th:replace="~{layout/header::header(loginUser)}"></th:block>
+
+	<!-- 컨텐츠 -->
+	<div class="wrap">
+		<!-- up_area - 프로필 및 랭킹 -->
+		<th:block th:replace="~{layout/sellerMyPageRank::sellerMyPageRank(loginUser)}"></th:block>
+
+		<div class="down_area">
+			<div class="menu_area">
+				<div>
+					<h3>내정보</h3>
+					<a href="/seller/my/myInfoCheck">내정보 수정</a>
+				</div>
+				<div>
+					<h3>상품</h3>
+					<a href="/seller/my/productNow">현제 재고현황</a>
+					<a>새 물품 등록</a>
+				</div>
+				<div>
+					<h3>스토어</h3>
+					<a href="/seller/my/storeList">내 스토어</a>
+					<a href="/seller/my/storeUpdate">스토어 수정</a>
+				</div>
+				<div>
+					<h3>Q&A</h3>
+					<a href="/seller/my/qna">Q&A 목록 및 관리</a>
+				</div>
+				<div>
+					<h3>리뷰</h3>
+					<a href="/seller/my/reviewList">리뷰 목록 및 관리</a>
+				</div>
+			</div>
+			<div class="contents_area">
+				<div class="button_div">
+					<a href="/seller/my/storeList">
+						<img src="/images/seller/my/스토어.png">
+						<span>apple님 스토어</span>
+					</a>
+					<a href="/seller/my/reviewList">
+						<img src="/images/seller/my/review.png">
+						<span>리뷰</span>
+					</a>
+					<a href="/seller/my/qna">
+						<img src="/images/seller/my/qna.png">
+						<span>Q&A</span>
+					</a>
+					<a>
+						<img src="/images/seller/my/쇼핑.png">
+						<span>다른스토어 보기</span>
+					</a>
+				</div>
+				<h1>본인확인</h1>
+				<div>
+					<form action="/seller/my/myInfo" class="info_form" method="post" name="myInfoForm">
+						<table>
+							<tbody>
+								<tr>
+									<th><label for="sellerid">아이디</label></th>
+									<td>
+										<input type="text" name="sellerid" id="sellerid" placeholder="아이디">
+									</td>
+								</tr>
+								<tr>
+									<th><label for="sellerpw">비밀번호</label></th>
+									<td>
+										<input type="password" name="sellerpw" id="sellerpw" placeholder="비밀번호">
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<button type="button" id="joinBtn" onclick="sendit()">확인</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- footer -->
+	<th:block th:replace="~{layout/footer::footer()}"></th:block>
+</body>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+	function sendit(){
+	    const myInfoForm = document.myInfoForm;
+	
+	    const sellerid = myInfoForm.sellerid;
+	    if(sellerid.value == ""){
+	        alert("아이디를 입력하세요!");
+	        sellerid.focus();
+	        return;
+	    }
+	    
+	    const sellerpw = myInfoForm.sellerpw;
+	    if(sellerpw.value==""){
+	        alert("비밀번호를 입력하세요!");
+	        sellerpw.focus();
+	        return;
+	    }
+		myInfoForm.submit();
+	}
+</script>
+</html>

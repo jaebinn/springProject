@@ -126,8 +126,11 @@ public class UserServiceImpl implements UserService{
 //	유저가 기부한 프로젝트명을 전부 뽑아옴
 	@Override
 	public List<Map<String, Object>> getDonaNameByUserid(UserDTO userid) {
-		
 		return umapper.getDonaNameByUserId(userid);
+	}
+	@Override
+	public List<Map<String, Object>> getRDonaNameByUserid(UserDTO userid) {
+		return umapper.getRDonaNameByUserId(userid);
 	}
 
 	@Override
@@ -371,4 +374,5 @@ public class UserServiceImpl implements UserService{
 	public String getNicknameById(UserDTO userid) {
 		return umapper.getNicknameByUserId(userid);
 	}
+
 }

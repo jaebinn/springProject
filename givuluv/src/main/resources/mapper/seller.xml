@@ -24,10 +24,6 @@
 	  select * from seller where sellerid=#{sellerid}
    </select>
    
-   <update id ="updateSeller">
-      <!--부분 업데이트 또는 전체 업데이트-->
-   </update>
-   
    <delete id ="deleteSeller">
       delete from seller where sellerid = #{sellerid}
    </delete>
@@ -43,5 +39,14 @@
 		join store st on s.sellerid = st.sellerid
 		where st.s_name = #{storename}
    </select>
-   
+   <update id ="updateSeller">
+      update seller
+      set sellerpw=#{seller.sellerpw},
+      sellername=#{seller.sellername},
+      sellercategory=#{seller.sellercategory}, email=#{seller.email},
+      sellerphone=#{seller.sellerphone}
+      where sellerid = #{sellerid};
+   </update>
+
+
 </mapper>

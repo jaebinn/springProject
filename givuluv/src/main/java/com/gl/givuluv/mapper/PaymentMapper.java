@@ -69,6 +69,8 @@ public interface PaymentMapper {
 	ProductDTO getSProductByProductnum(int productnum);
 
 	List<SPaymentDTO> getLastSPaymentBySellerid(String sellerid);
-	
 
+	boolean fundCancelByNum(int paymentnum);
+	
+	boolean deleteSPayment(String sellerid);
 }

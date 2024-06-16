@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>판매자 myInfo</title>
+	<script src="https://kit.fontawesome.com/1924b51539.js" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="/css/header_footer.css">
+	<link rel="stylesheet" href="/css/seller/my/rank.css">
+	<link rel="stylesheet" href="/css/seller/my/myInfo.css">
+</head>
+
+<body>
+	<!-- header -->
+	<th:block th:replace="~{layout/header::header(loginUser)}"></th:block>
+
+	<!-- 컨텐츠 -->
+	<div class="wrap">
+		<!-- up_area - 프로필 및 랭킹 -->
+		<th:block th:replace="~{layout/sellerMyPageRank::sellerMyPageRank(loginUser)}"></th:block>
+
+		<div class="down_area">
+			<div class="menu_area">
+				<div>
+					<h3>내정보</h3>
+					<a href="/seller/my/myInfoCheck">내정보 수정</a>
+				</div>
+				<div>
+					<h3>상품</h3>
+					<a href="/seller/my/productNow">현재 재고현황</a>
+					<a>새 물품 등록</a>
+				</div>
+				<div>
+					<h3>스토어</h3>
+					<a href="/seller/my/storeList">내 스토어</a>
+					<a href="/seller/my/storeUpdate">스토어 수정</a>
+				</div>
+				<div>
+					<h3>Q&A</h3>
+					<a href="/seller/my/qna">Q&A 목록 및 관리</a>
+				</div>
+				<div>
+					<h3>리뷰</h3>
+					<a href="/seller/my/reviewList">리뷰 목록 및 관리</a>
+				</div>
+			</div>
+			<div class="contents_area">
+				<div class="button_div">
+					<a href="/seller/my/storeList">
+						<img src="/images/seller/my/스토어.png">
+						<span>apple님 스토어</span>
+					</a>
+					<a href="/seller/my/reviewList">
+						<img src="/images/seller/my/review.png">
+						<span>리뷰</span>
+					</a>
+					<a href="/seller/my/qna">
+						<img src="/images/seller/my/qna.png">
+						<span>Q&A</span>
+					</a>
+					<a>
+						<img src="/images/seller/my/쇼핑.png">
+						<span>다른스토어 보기</span>
+					</a>
+				</div>
+				<h1>내정보 수정</h1>
+				<div class="update_div">
+					<form action="/seller/my/mySellerInfoUpdate" class="info_form" method="post" name="myInfoForm">
+						<table class="su_table">
+							<tbody>
+								<tr>
+									<th><label for="sellerpw">비밀번호</label></th>
+									<td>
+										<input type="password" name="sellerpw" id="sellerpw" placeholder="비밀번호를 입력하세요">
+									</td>
+								</tr>
+								<tr>
+									<th><label for="sellerpw_re">비밀번호 확인</label></th>
+									<td>
+										<input type="password" id="sellerpw_re" placeholder="비밀번호확인을 입력하세요">										
+									</td>
+								</tr>
+								<tr class="pw_check">
+									<td>
+										<span id="pw_checkText"></span>
+									</td>
+								</tr>
+								<tr>
+									<th><label for="sellername">이름</label></th>
+									<td>
+										<input type="text" name="sellername" id="sellername" placeholder="이름을 입력하세요">
+									</td>
+								</tr>
+								<tr>
+									<th><label for="sellercategory">카테고리</label><span id="necessary"></span></th>
+									<td>
+										<select id="orgcategory" name="sellercategory">
+											<option value="">선택하세요</option>
+											<option value="식품">식품</option>
+											<option value="음료/건강">음료/건강</option>
+											<option value="문구/문화">문구/문화</option>
+											<option value="인테리어">인테리어</option>
+											<option value="생활">생활</option>
+											<option value="미용">미용</option>
+											<option value="반려동물">반려동물</option>
+											<option value="식물/꽃">식물/꽃</option>
+											<option value="의류">의류</option>
+											<option value="패션잡화">패션잡화</option>
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<th><label for="email">이메일</label></th>
+									<td>
+										<input type="email" name="email" id="email" placeholder="ex) aaaa@naver.com">										
+									</td>							 
+								</tr>
+								<tr>
+									<th><label for="sellerphone">전화번호</label></th>
+									<td>
+										<input type="tel" name="sellerphone" id="sellerphone" placeholder="ex) 010-1234-5678">										
+									</td>							
+								</tr>
+							</tbody>
+						</table>
+					</form>
+					<div class="hellpPhoto_div" onclick="javascript:BP_plus()">
+						<img class="thumbnail" src="/images/seller/my/그림추가이미지.png" style="width: 100px; height: 100px;">
+					</div>
+				</div>
+				<form action="/seller/my/mySellerProfile" class="contents_form" method="post" name="mySellerProfileForm" enctype="multipart/form-data">
+					<table>
+						<tbody>
+							<tr>
+								<th><label>배경사진</label></th>
+								<td class="file_cont">
+									<input type="file" name="files" id="BP_file" style="display:none">
+									<span id="filename">배경 사진을 업로드하세요.</span>
+								</td>
+								<td class="file_btn">
+									<a class="btn" href="javascript:BP_plus()">파일 추가</a>
+									<a class="btn" href="javascript:BP_remove()">파일 삭제</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</form>
+				<div>
+					<button type="button" id="joinBtn" onclick="sendit()">수정 완료</button>
+					<button type="button" id="deleteBtn" onclick="deleteSeller()">회원탈퇴</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- footer -->
+	<th:block th:replace="~{layout/footer::footer()}"></th:block>
+</body>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="/js/myInfo.js"></script>
+<script>
+	function deleteSeller() {
+		if(confirm("정말 탈퇴하시겠습니까?")) {
+			location.href="/seller/my/deleteSeller"
+		}
+		else {
+			return;
+		}
+	}
+	function BP_plus(){
+		$("#BP_file").click();
+	}
+	
+	//$(선택자).change(함수) : 해당 선택자의 요소에 변화가 일어난다면 넘겨주는 함수 호출
+	$("[type=file]").change(function(e){
+		//e : 파일이 업로드된 상황 자체를 담고있는 이벤트 객체
+		//e.target : 파일이 업로드가 된 input[type=file] 객체(태그객체)
+		const fileTag = e.target;
+		console.log(fileTag);
+		//e.target.files : 파일태그에 업로드가 된 파일들의 배열
+		const file = fileTag.files[0];
+		console.log(file);
+		
+		if(file == undefined){
+			//업로드 창을 띄웠다가 취소한 경우(파일이 업로드 되었다가 없어진 경우)
+			cancelFile(fileTag.id.split("e").pop());
+		}
+		else{
+			//파일을 업로드를 한 경우(없었다가 업로드, 있었는데 다른 파일로 업로드)
+			//#file0name 찾아서 내부 텍스트 변경(파일의 이름으로)
+			$("#filename").text(file.name);
+			$("#filename").attr("style","color:black");
+			
+			//업로드 된 파일의 확장자명			
+			let ext = file.name.split(".").pop();
+			if(ext == "jpeg" || ext == "png" || ext == "jpg" || ext == "webp" || ext == "gif"){
+				//".  file0       _cont"
+				$(".thumbnail").remove();
+				const reader = new FileReader();
+				reader.onload = function(ie){
+					const img = document.createElement("img");
+					img.setAttribute("src",ie.target.result);
+					img.setAttribute("class","thumbnail");
+					document.querySelector(".hellpPhoto_div").append(img);
+				}
+				reader.readAsDataURL(file);
+			}
+			else{
+				$("."+fileTag.id+"_cont").remove();
+			}
+		}
+	})
+	function BP_remove(){
+		$(".thumbnail").remove();
+		
+		const img = document.createElement("img");
+		img.setAttribute("src", "/images/seller/my/그림추가이미지.png");
+		img.setAttribute("class","thumbnail");
+		img.setAttribute("style","width: 100px; height: 100px;");
+		document.querySelector(".hellpPhoto_div").append(img);
+		
+		$("#filename").text("배경 사진을 업로드하세요.");
+		$("#filename").attr("style","color:#757575");		
+		return;
+	}
+</script>
+
+</html>

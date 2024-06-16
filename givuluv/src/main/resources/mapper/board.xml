@@ -227,7 +227,9 @@
 	<select id="getSBoardnumBySNum">
 		select s_boardnum from s_board where s_num = #{storenum} order by s_boardnum desc
 	</select>
-	
+	<delete id="deleteSBoardBySNum">
+      DELETE FROM s_board WHERE s_num = ${sNum};
+   </delete>
 	
 	
 	

@@ -76,4 +76,16 @@ public class FPaymentServiceImpl implements FPaymentService{
 	public String getOrgnameByOrgid(String orgid) {
 		return pmapper.getOrgnameByOrgid(orgid);
 	}
+
+	@Override
+	public boolean fundCancelByNum(int paymentnum) {
+		FPaymentDTO payment = pmapper.getFPaymentByPaymentnum(paymentnum);
+		if(pmapper.fundCancelByNum(paymentnum)) {
+			prmapper.updateAmount(payment);
+			fbmapper.updateFSaveMoney(payment.getFBoardnum());
+			umapper.updateBonus(payment.getUserid(), (int)(payment.getFCost()*0.1));
+			return true;
+		}
+		return false;
+	}
 }

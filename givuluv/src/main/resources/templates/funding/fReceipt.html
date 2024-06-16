@@ -2,66 +2,117 @@
 <html>
 <head>
    <script src="https://kit.fontawesome.com/516da99189.js" crossorigin="anonymous"></script>   
-<link rel="stylesheet" href="/css/header_footer.css">
-<link rel="stylesheet" href="/css/receipt.css">
+   <link rel="stylesheet" href="/css/header_footer.css">
+   <link rel="stylesheet" href="/css/receipt.css">
 </head>
 <body>
    <!-- header -->
    <th:block th:replace="~{layout/header::header(loginUser)}"></th:block>
    <!-- 컨텐츠 -->
    <div class="wrap receipt">
-		<div class="content">
-			<div class="payementTit">
-				<h2>[[${user.username}]]님</h2>
-				<h2><strong>펀딩 감사합니다.</h2>
-				<h2><strong>펀딩 예약 완료</strong>되었습니다.</h2>
-			</div>
-			<div class="paymentInfo">
-				<p>고객님이 <strong>GivuLuv 주식회사</strong>에서 danal 결제 서비스를 통해 펀딩결제하신 내역입니다.</p>
-				<h3>결제정보</h3>
-				<table id="payTbl">
-					<tr>
-						<th>펀딩자명</th>
-						<td>[[${user.username}]]</td>
-					</tr>
-					<tr>
-						<th>사회단체</th>
-						<td>[[${orgname}]]</td>
-					</tr>
-					<tr>
-						<th>펀딩상품</th>
-						<td>[[${product.productname}]]</td>
-					</tr>
-					<tr>
-						<th>주문갯수</th>
-						<td>[[${fpayment.amount}]]개</td>
-					</tr>
-					<tr>
-						<th>기부번호</th>
-						<td>[[${fpayment.paymentnum}]]</td>
-					</tr>
-					<tr>
-						<th>결제일시</th>
-						<td>[[${fpayment.paydate}]]</td>
-					</tr>
-					<tr>
-						<th>펀딩 기간</th>
-						<td>([[${fboard.fEnddate}]]) 100% 달성시 자동으로 결제됩니다.</td>
-					</tr>
-				</table>
-				<div class="payCost">
-					<h2>결제예정 금액</h2>
-					<span>[[${fpayment.fCost}]] 원</span>
-				</div>
-				<div class="backtoDontion">
-					<input type="button" value="마이페이지로 돌아가기">
-				</div>
-			</div>
-		</div>
+      <div class="content">
+         <div class="payementTit">
+            <h2>[[${user.username}]]님</h2>
+            <h2><strong>펀딩 감사합니다.</h2>
+            <h2><strong>펀딩 예약 완료</strong>되었습니다.</h2>
+         </div>
+         <div class="paymentInfo">
+            <p>고객님이 <strong>GivuLuv 주식회사</strong>에서 danal 결제 서비스를 통해 펀딩결제하신 내역입니다.</p>
+            <h3>결제정보</h3>
+            <table id="payTbl">
+               <tr>
+                  <th>펀딩자명</th>
+                  <td>[[${user.username}]]</td>
+               </tr>
+               <tr>
+                  <th>사회단체</th>
+                  <td>[[${orgname}]]</td>
+               </tr>
+               <tr>
+                  <th>펀딩상품</th>
+                  <td>[[${product.productname}]]</td>
+               </tr>
+               <tr>
+                  <th>주문갯수</th>
+                  <td>[[${fpayment.amount}]]개</td>
+               </tr>
+               <tr>
+                  <th>기부번호</th>
+                  <td>[[${fpayment.paymentnum}]]</td>
+               </tr>
+               <tr>
+                  <th>결제일시</th>
+                  <td>[[${fpayment.paydate}]]</td>
+               </tr>
+               <tr>
+                  <th>펀딩 기간</th>
+                  <td>([[${fboard.fEnddate}]]) 100% 달성시 자동으로 결제됩니다.</td>
+               </tr>
+            </table>
+            <div class="payCost">
+               <h2>결제예정 금액</h2>
+               <span>[[${fpayment.fCost}]] 원</span>
+            </div>
+            <div class="backtoDontion">
+               <a href="/user/my/news"><input type="button" value="마이페이지로 돌아가기"></a>
+               <input type="button" value="펀딩 취소하기" id="fundCancel">
+            </div>
+         </div>
+      </div>
+   </div>
+   <!-- 모달창 -->
+   <div id="myModal" class="modal">
+      <div class="modal-content">
+         <span class="close">&times;</span>
+         <h2>펀딩 취소 전 확인하세요!</h2>
+         <div class="modal-caution">
+            <p id="cancelText">정말로 펀딩을 취소하시겠습니까?</p>
+         </div>
+         <div class="modal-explain">
+            <p>결제가 진행된 이후에는 단순 변심으로 인한 취소나 환불이 어려울 수 있습니다. 결제 진행 전, 
+                MY GivuLuv의 활동내역 > 펀딩내역에서 예약 결제를 취소할 수 있습니다.</p>
+         </div>
+         <div class="dnt_area agree">
+            <div class="agree_area v2">
+               <div class="donation_buttons">
+                  <form th:action="@{/funding/fundCancel(paymentnum=${fpayment.paymentnum})}" method="get" id="cancelForm">
+                     <input type="hidden" name="paymentnum" th:value="${fpayment.paymentnum}">
+                     <button type="button" class="button_highlight jq_funding">펀딩 취소하기</button>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
    </div>
    <!-- footer -->
    <th:block th:replace="~{layout/footer::footer()}"></th:block>
 </body>
 <script src="/js/jquery-3.7.1.min.js"></script>
+<script th:inline="javascript">
+   $('#fundCancel').on('click', function(){
+      console.log("모달 창 열기");
+      $('#myModal').css("display","block");
+   });
+   
+   // 모달 닫기 버튼 클릭 시 모달 닫기
+   $('.close').click(function () {
+      $('#myModal').css('display', 'none');
+   });
+   
+   // 모달 외부 클릭 시 모달 닫기
+   $(window).click(function (event) {
+      if ($(event.target).is('#myModal')) {
+         $('#myModal').css('display', 'none');
+      }
+   });
 
+   $('.button_highlight').on("click", function() {
+       if (confirm("정말 펀딩 취소하시겠습니까?")) {
+           $('#cancelForm').submit();
+           alert("펀딩취소가 완료되었습니다!");
+       } else {
+		   $('#myModal').css('display', 'none');
+       }
+   });
+</script>
 </html>

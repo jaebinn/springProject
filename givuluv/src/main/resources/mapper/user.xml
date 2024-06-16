@@ -50,7 +50,10 @@
 		select * from follow where orgid=#{orgid} and userid=#{userid}
 	</select>
 	<select id="getDonaNameByUserId">
-		select b.*, p.* from d_board b join d_payment p on b.d_boardnum = p.d_boardnum where p.userid=#{userid}
+		select b.*, p.* from d_board b join d_payment p on b.d_boardnum = p.d_boardnum where p.userid=#{userid} and p.type='p';
+	</select>
+	<select id="getRDonaNameByUserId">
+		select b.*, p.* from d_board b join d_payment p on b.d_boardnum = p.d_boardnum where p.userid=#{userid} and p.type='r';
 	</select>
 	<select id="getFundNameByUserId">
 		select distinct productname from product join f_detail on f_detail.userid = #{userid}

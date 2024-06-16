@@ -64,4 +64,7 @@
    <delete id="cancelStore">
 		delete from store where s_name = #{sname}
    </delete>
+   <delete id="deleteStoreBySellerid">
+      DELETE FROM store WHERE sellerid = #{sellerid}
+   </delete>
 </mapper>

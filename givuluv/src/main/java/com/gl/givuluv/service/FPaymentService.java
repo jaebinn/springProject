@@ -20,4 +20,5 @@ public interface FPaymentService {
 	ProductDTO getProductByProductnum(int productnum);
 	FBoardDTO getFBoardByFBoardnum(int fBoardnum);
 	String getOrgnameByOrgid(String orgid);
+	boolean fundCancelByNum(int paymentnum);
 }
