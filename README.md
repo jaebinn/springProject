@@ -38,7 +38,7 @@
 6. 회원 정보에 대한 마이페이지: 사용자 유형(사용자, 판매자, 사회단체, 관리자)에 따라 세션을 구분하여 뷰를 각각에 맞게 구현하고 CRUD를 이용하여 설계
 
 GivuLuv 인덱스 화면
-![인덱스화면](https://github.com/jaebinn/springProject/assets/108271458/ea4b4217-7099-47b8-ad68-d303713e346e)
+![screencapture-localhost-8080-2024-06-12-15_40_42](https://github.com/jaebinn/springProject/assets/108271458/563af964-5baa-4964-9019-2c33bb2b9bb1)
 
 GivuLuv 기부 / 펀딩 화면
 ![기부](https://github.com/jaebinn/springProject/assets/108271458/102c10d5-3b94-415b-b598-9db96a6b0e1c)
