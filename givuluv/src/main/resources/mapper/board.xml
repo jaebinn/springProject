@@ -107,13 +107,14 @@
 	</select>
 	<update id="updateFSaveMoney">
 		UPDATE f_board b
-		JOIN (SELECT f_boardnum, SUM(f_cost) as total_cost 
-		FROM f_payment
-		WHERE f_boardnum = #{fBoardnum}
-		GROUP BY f_boardnum) p 
-		 ON b.f_boardnum = p.f_boardnum 
-		SET b.save_money = p.total_cost 
-		WHERE b.f_boardnum = #{fBoardnum}
+		LEFT JOIN (
+		    SELECT f_boardnum, SUM(f_cost) as total_cost 
+		    FROM f_payment
+		    WHERE f_boardnum = #{fBoardnum}
+		    GROUP BY f_boardnum
+		) p ON b.f_boardnum = p.f_boardnum 
+		SET b.save_money = COALESCE(p.total_cost, 0)
+		WHERE b.f_boardnum = #{fBoardnum};
 	</update>
 	<!-- 참여율 정렬 -->
 	<select id="fundingParticipationRateList">

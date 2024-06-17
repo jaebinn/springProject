@@ -52,7 +52,6 @@ a, input {
 		font-weight: bold;
 	}
 	.profile_div > img {
-		border: 1px solid white;
 		width: 70px; height: 70px;
 		border-radius: 50%;
 		background-image: url(../images/kakao_basic.jpg);

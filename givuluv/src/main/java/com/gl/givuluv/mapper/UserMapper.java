@@ -112,8 +112,10 @@ public interface UserMapper {
 	  
 	//  유저의 카테고리
 	String getUserCategoryById(String userid);
-
-List<CBoardDTO> getLikeInfoByUserid(String loginUser);
+	
+	List<Map<String,Object>> getD_LikeInfoByUserid(String loginUser);
+	
+	List<CBoardDTO> getLikeInfoByUserid(String loginUser);
 	
 	int Delete_LikeByUserid(String loginUser);
 	
@@ -144,4 +146,13 @@ List<CBoardDTO> getLikeInfoByUserid(String loginUser);
 	int deleteS_payment(String loginUser);
 	List<Map<String, Object>> getFundingNameByUserId(UserDTO userid);
 	String getNicknameByUserId(UserDTO userid);
+	void decreaseBonus(String userid, int bonus);
+	
+	List<String> getF_SystemName(UserDTO userid);
+	
+	List<Map<String, Object>> getF_LikeInfoByUserid(String loginUser);
+	
+	List<String> getD_systemName(String loginUser);
+	
+	List<String> getF_systemName(String loginUser);
 }

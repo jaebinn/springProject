@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<!--유저 정보 수정 페이지 입니다.-->
+<!--유저 정보탈퇴 페이지 입니다.-->
 <html>
 <header>
 	<meta charset="UTF-8">
-	<title>일반유저 myhome</title>
+	<title>Org유저 myhome</title>
 	<link rel="stylesheet" href="/css/userMyPageMenu.css">
 	<link rel="stylesheet" href="/css/userMyHome.css">
 	<link rel="stylesheet" href="/css/header_footer.css">
@@ -17,14 +17,14 @@
 	<th:block th:replace="~{layout/header::header(loginUser)}"></th:block>
 
 	<!-- 컨텐츠 -->
-	<form action="/user/delete" method="post" name="deleteForm">
+	<form action="/org/delete" method="post" name="deleteForm">
 	<div class="wrap">
 		<!-- 왼쪽 메뉴바 -->
 		<th:block th:replace="~{layout/orgMyPageMenu::orgMyPageMenu(loginOrg)}"></th:block>
 		<!-- 오른쪽 내용 -->
 		
 		<div class="left_div">
-			<div id="usernickname"><h2 id="old_nickname"></h2><a id="loginuser">[[${loginUser}]]</a> 님의 회원탈퇴 페이지 입니다.</div>
+			<div id="usernickname"><h2 id="old_nickname"></h2><span id="loginuser">[[${loginOrg}]]</span> 님의 회원탈퇴 페이지 입니다.</div>
 			<div id="content_wrap">
 				<div id="input_userpw">
 					<div class="input">
@@ -32,7 +32,7 @@
 						<a class="input_content1">계정의 <a id="password">비밀번호</a>를 입력하세요</a> 
 						</div>
 						<div id="enter_pw">
-						<input type="text" id="userpw" name="userpw" placeholder="비밀번호를 입력해주세요">
+						<input type="text" id="orgpw" name="orgpw" placeholder="비밀번호를 입력해주세요">
 						</div>
 							</div>
 							
@@ -63,10 +63,10 @@
 	<!-- footer -->
 	<th:block th:replace="~{layout/footer::footer()}"></th:block>
 </body>
-<script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+
 <script>
 	function pwComparison(){
-		const userpw = document.getElementById('userpw');
+		const orgpw = document.getElementById('orgpw');
 		const okMsg = document.getElementById('ok_enter');
 		const Msg = ["확인하였습니다"];
 		const xhr = new XMLHttpRequest();
@@ -74,7 +74,7 @@
 				if(xhr.readyState == 4){
 					if(xhr.status == 200){
 						let txt = xhr.responseText.trim();
-						console.log(userpw);
+						console.log(orgpw);
 						if(txt == "O"){
 							alert("비밀번호가 확인되었습니다.");
 							if(okMsg.value == Msg){
@@ -95,14 +95,14 @@
 							alert("비밀번호가 일치하지 않습니다.");
 							
 							
-							userpw.value = "";
-							userpw.focus();
+							orgpw.value = "";
+							orgpw.focus();
 						}
 					}
 				}
 			}
 			
-			xhr.open("GET","/org/checkorgPw?orgpw="+userpw.value);
+			xhr.open("GET","/org/checkuserPw?orgpw="+orgpw.value);
 			xhr.send();
 	}
 </script>

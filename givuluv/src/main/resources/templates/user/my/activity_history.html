@@ -37,21 +37,20 @@
 				<div class="contents Dona_List" id="Dona_content" th:if="${not #lists.isEmpty(Donation_List)}" th:each="donationItem : ${Donation_List}">
 					<!--div추가됨-->
 					<!--<div th:each="d_systemNameItem : ${d_systemname}">-->
-					<img th:src="@{/images/{d_systemnameItem}(d_systemnameItem=${d_systemname[2]})}">
+					<!--<img th:src="@{/images/{d_systemnameItem}(d_systemnameItem=${d_systemname[2]})}">-->
 					<!--</div>-->
 					<!---->
 					<div>
-						[기부]<p th:text="${donationItem}"></p>
-						
+						[기부]<p th:text="${donationItem.d_title}"></p>
 						<!--<p>[[${DoneUserName}]]</p>-->
 					</div>
 				</div>
 				<div class="contents Fund_List" id="Fund_content" th:if="${not #lists.isEmpty(Funding_List)}" th:each="fundingItem : ${Funding_List}">
 					<!--<div th:each="f_systemNameItem : ${f_systemname}">-->
-						<img th:src="@{/images/{f_systemnameItem}(f_systemnameItem=${f_systemname})}">
+						<img th:src="${f_systemname}">
 					<!--</div>-->
 					<div>
-						[펀드]<p th:text="${fundingItem}"></p>
+						[펀드]<p th:text="${fundingItem.f_title}"></p>
 						
 						<!--<p>[[${FundUserName}]]</p>-->
 					</div>

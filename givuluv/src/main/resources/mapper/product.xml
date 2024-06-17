@@ -95,6 +95,6 @@
 		where s.sellerid = #{sellerid} and p.p_type='M' and p.productname like concat('%', #{text}, '%') 
    </select>
    <update id="updateAmount">
-		update product set p_amount=p_amount-sum(#{amount}) where productnum=#{productnum}
+		update product set p_amount=p_amount+#{amount} where productnum=#{productnum}
    </update>
 </mapper>

@@ -188,9 +188,10 @@ public class FundingController {
 		boolean isFundCancel = fpservice.fundCancelByNum(paymentnum);
 		if(isFundCancel) {
 			System.out.println("펀딩 결제 취소 완료!");
-			return "user/my/news";
+			
+			return "redirect:/user/my/news";
 		}else {
-			return "funding/fReceipt?paymentnum="+paymentnum;
+			return "redirect:/funding/fReceipt?paymentnum=" + paymentnum;
 		}
 	}
 }

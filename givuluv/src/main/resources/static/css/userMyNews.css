@@ -84,11 +84,17 @@ a, input {
 		justify-content: center;
 	}
 	.myNews_div > :nth-child(2) > div > p{
-		text-align: end;
+		text-align: center;
 	}
 	
 	#Dona_btn, #Fund_btn{
 	width: 80px;
+    height: 30px;
+    border-radius: 20px;
+    border: none;
+	}
+	#shipState_btn{
+	width: 90px;
     height: 30px;
     border-radius: 20px;
     border: none;
@@ -101,20 +107,17 @@ a, input {
 		background-color: rgb(79, 148, 111);
 		color: white;
 	}
-	.Dona_List #Name_Time{
-		display: flex;
-		justify-content: space-between;
-	}
-	.Fund_List #Name_Time{
-		text-align: right;
-	}
-	#RName_Time{
-		text-align: right;
+	#shipState_btn:hover{
+		background-color: rgb(79, 148, 111);
+		color: white;
 	}
 	#Dona_text{
 		color: red;
 	}
-	.Dona_List span:nth-child(2),
-	.Fund_List span:nth-child(2){
-		margin-left: 15px;
+	#Name_Time{
+		display: flex;
+		justify-content: space-between;
+	}
+	#RName_Time,#FName_Time{
+		text-align: right;
 	}

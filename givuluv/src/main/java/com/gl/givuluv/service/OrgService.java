@@ -60,46 +60,70 @@ List<String> Dboard_info(String orgid);
 	
 	String getFollow(String orgid);
 	
-	int getFollow_amount(String orgid);
+	String getFollow_amount(String orgid);
 	
-	int getD_boardnum(String orgid);
+	String getD_boardnum(String orgid);
 	
-	String getLike_id(int d_boardnum);
+	String getLike_id(String d_boardnum);
 	
-	int getLike_amount(int d_boardnum);
+	String getLike_amount(String d_boardnum);
 	
-	int getF_boardnum(String orgid);
+	String getF_boardnum(String orgid);
 	
-	String getProduct_name(int f_boardnum);
+	String getProduct_name(String f_boardnum);
 	
-	int getp_amount(int f_boardnum);
+	String getp_amount(String f_boardnum);
 	
-	int getp_cost(int f_boardnum);
+	String getp_cost(String f_boardnum);
 	
-	String getReview_id(int f_boardnum);
+	String getReview_id(String f_boardnum);
 	
-	String getReview_date(int f_boardnum);
+	String getReview_date(String f_boardnum);
 	
-	int getReview_star(int f_boardnum);
+	String getReview_star(String f_boardnum);
 	
-	Boolean checkuserPw(String userpw);
+	boolean checkuserPw(String userpw);
 	
-	Boolean deleteOrg(String orgid);
+	boolean deleteOrg(String orgid);
 	
-	Boolean deleteFollow(String orgid);
+	boolean deleteFollow(String orgid);
 	
 	
-	Boolean deleteD_Like(int d_boardnum);
-	Boolean deleteF_Like(int f_boardnum);
+	boolean deleteD_Like(String d_boardnum);
+	boolean deleteF_Like(String f_boardnum);
 	
-	Boolean deleteD_Review(int d_boardnum);
-	Boolean deleteF_Review(int f_boardnum);
+	boolean deleteD_Review(String d_boardnum);
+	boolean deleteF_Review(String f_boardnum);
 	
-	Boolean deleteD_payment(String orgid);
+	boolean deleteD_payment(String orgid);
 	
 	String getuserPwById(String orgid);
 	
-	Boolean deleteF_payment(String orgid);
+	boolean deleteF_payment(String orgid);
 	
-	Boolean deleteS_payment(String orgid);
+	boolean deleteO_approve(String orgid);
+	
+	boolean deleteO_register(String orgid);
+	
+	boolean deleteD_board(String orgid);
+	
+	boolean deleteF_board(String orgid);
+	
+	List<Map<String, Object>> getD_boardinfo(String orgid);
+	
+	List<Map<String, Object>> getF_boardinfo(String orgid);
+	
+	List<Map<String, Object>> getReviewinfo(String f_boardnum);
+	
+	List<Map<String, Object>> getFollowinfo(String orgid);
+	
+	List<Map<String, Object>> getLikeinfo(String d_boardnum);
+	
+	String getLike_cnt(String orgid);
+	
+	String getReview_cnt(String orgid);
+	
+	String getFollow_cnt(String orgid);
+	
+	
 }

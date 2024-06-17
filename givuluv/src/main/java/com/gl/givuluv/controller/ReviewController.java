@@ -46,7 +46,7 @@ public class ReviewController {
             Map<String, Object> responseBody = new HashMap<>();
             responseBody.put("review", result);
             responseBody.put("nickname", nickname); 
-            responseBody.put("reviewCnt", reviewCnt);
+            responseBody.put("reviewCnt", reviewCnt+1);
             return new ResponseEntity<>(responseBody, HttpStatus.OK);
         }
     }

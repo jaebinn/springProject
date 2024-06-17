@@ -1,6 +1,7 @@
 package com.gl.givuluv.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -60,34 +61,61 @@ List<String> getDboard_info(String orgid);
 		
 		String getFollow(String orgid);
 		
-		int getFollow_amount(String orgid);
+		String getFollow_amount(String orgid);
 		
-		int getD_boardnum(String orgid);
+		String getD_boardnum(String orgid);
 		
-		String getLike_id(int d_boardnum);
+		String getLike_id(String d_boardnum);
 		
-		int getLike_amount(int d_boardnum);
+		String getLike_amount(String d_boardnum);
 		
-		int getF_boardnum(String orgid);
+		String getF_boardnum(String orgid);
 		
-		String getProduct_name(int f_boardnum);
+		String getProduct_name(String f_boardnum);
 		
-		int getp_amount(int f_boardnum);
+		String getp_amount(String f_boardnum);
 		
-		int getp_cost(int f_boardnum);
+		String getp_cost(String f_boardnum);
 		
-		String getReview_id(int f_boardnum);
+		String getReview_id(String f_boardnum);
 		
-		String getReview_date(int f_boardnum);
+		String getReview_date(String f_boardnum);
 		
-		int getReview_star(int f_boardnum);
+		String getReview_star(String f_boardnum);
 		
 		
 		int deleteFollow(String orgid);
-		int deleteD_Like(int d_boardnum); //connecid
-		int deleteF_Like(int f_boardnum); //connecid
-		int deleteD_Review(int d_boardnum); //connectid
-		int deleteF_Review(int f_boardnum); //connectid
+		int deleteD_Like(String d_boardnum); //connecid
+		int deleteF_Like(String f_boardnum); //connecid
+		int deleteD_Review(String d_boardnum); //connectid
+		int deleteF_Review(String f_boardnum); //connectid
 		int deleteD_payment(String orgid);
 		int deleteF_payment(String orgid);
+		
+		boolean deleteO_approve(String orgid);
+		
+		boolean deleteO_register(String orgid);
+		
+		boolean deleteD_board(String orgid);
+		
+		boolean deleteF_board(String orgid);
+		int checkuserPw(String orgpw);
+		
+		List<Map<String, Object>> getD_boardinfo(String orgid);
+		
+		List<Map<String, Object>> getF_boardinfo(String orgid);
+		
+		List<Map<String, Object>> getReviewinfo(String f_boardnum);
+		
+		List<Map<String, Object>> getFollowinfo(String orgid);
+		
+		List<Map<String, Object>> getLikeinfo(String d_boardnum);
+		
+		String getLike_cnt(String orgid);
+		
+		String getReview_cnt(String orgid);
+		
+		String getFollow_cnt(String orgid);
+		
+		
 }

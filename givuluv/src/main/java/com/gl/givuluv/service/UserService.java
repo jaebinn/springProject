@@ -77,6 +77,8 @@ public interface UserService {
 	UserDTO getUserInfo(UserDTO userid);
 	boolean addFollow(FollowDTO follow);
 	
+	List<Map<String,Object>> getD_LikeInfoByUserid(String loginUser);
+	
 	List<CBoardDTO> getLikeInfoByUserid(String loginUser);
 	
 	Boolean Delete_LikeByUserid(String loginUser);
@@ -87,28 +89,36 @@ public interface UserService {
 	
 	int getD_systemNameCntBynum(UserDTO userid);
 	
-	Boolean checkuserPw(String userpw);
+	boolean checkuserPw(String userpw);
 	
-	Boolean deleteUser(String loginUser);
+	boolean deleteUser(String loginUser);
 	
-	Boolean deleteF_detail(String loginUser);
+	boolean deleteF_detail(String loginUser);
 	
-	Boolean deleteD_detail(String loginUser);
+	boolean deleteD_detail(String loginUser);
 	
-	Boolean deleteFollow(String loginUser);
+	boolean deleteFollow(String loginUser);
 	
-	Boolean deleteLike(String loginUser);
+	boolean deleteLike(String loginUser);
 	
-	Boolean deleteReview(String loginUser);
+	boolean deleteReview(String loginUser);
 	
-	Boolean deleteD_payment(String loginUser);
+	boolean deleteD_payment(String loginUser);
 	
 	String getuserPwById(String loginUser);
 	
-	Boolean deleteF_payment(String loginUser);
+	boolean deleteF_payment(String loginUser);
 	
-	Boolean deleteS_payment(String loginUser);
+	boolean deleteS_payment(String loginUser);
 	List<Map<String, Object>> getFundNameByUserid(UserDTO userid);
 	String getNicknameById(UserDTO userid);
 	List<Map<String, Object>> getRDonaNameByUserid(UserDTO userid);
+	List<String> getF_SystemName(UserDTO userid);
+	
+	List<Map<String, Object>> getF_LikeInfoByUserid(String loginUser);
+	
+	List<String> getD_systemName(String loginUser);
+	
+	List<String> getF_systemName(String loginUser);
+	
 }

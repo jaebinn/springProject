@@ -36,7 +36,7 @@
 			</div>-->
 			<div class="contents_div">
 				<!--history에 최초로 들어 왔을떄 뜨는 List-->
-				<div class="myNews_div">
+				<div class="myNews_div" th:if="${not #lists.isEmpty(d_boardinfo)}" th:each="donationItem : ${d_boardinfo}">
 							<div>
 								<div>
 									<h3><a id="nickname">[[${orginfo.orgname}]]</a> 님의 최근 기부</h3>
@@ -49,21 +49,21 @@
 							<!--로그인한 유저가 참여한 기부, 펀딩 내역을 출력-->
 							<div>
 								<div class="Dona_List" >
-									<a id="Dona_Red"><!--[기부활동]--></a><span>[[${d_boardtitle}]]  </span>
+									<a id="Dona_Red"><!--[기부활동]--></a><span th:text="${donationItem.d_title}"></span>
 									<p id="Name_Time"></p>
 								</div>
 								<div class="Fund_List" >
-									<a id="Fund_Blue"><!--[펀딩활동]--></a><span >목표금액 :: [[${target_amount}]] </span>
+									<a id="Fund_Blue"><!--[펀딩활동]--></a>목표금액 :: <span th:text="${donationItem.target_amount}"></span>
 									<p><!--[[${FundUserName}]] &nbsp; [[${FundTime}]]--></p>
 								</div>
 								<div>
 									
-									<span>현재금액 :: [[${save_money}]]</span>
+									현재금액 ::<span th:text="${donationItem.save_money}"></span>
 									<p><!--차곡차곡 모은 보너스 포인트로 "<a href="#" id="Trip"><strong>해외여행</strong></a>"가자!--></p>
 								</div>
 							</div>
 						</div>
-				<div class="myNews_div">
+				<div class="myNews_div" th:if="${not #lists.isEmpty(f_boardinfo)}" th:each="fundingItem : ${f_boardinfo}">
 							<div>
 								<div>
 									<h3><a id="nickname">[[${orginfo.orgname}]]</a> 님의 최근 펀드</h3>
@@ -76,24 +76,24 @@
 							<!--로그인한 유저가 참여한 기부, 펀딩 내역을 출력-->
 							<div>
 								<div class="Dona_List" >
-									<a id="Dona_Red"><!--[기부활동]--></a><span>[[${f_boardtitle}]]  </span>
+									<a id="Dona_Red"><!--[기부활동]--></a>	<span th:text="${fundingItem.f_title}"></span>
 									<p id="Name_Time"></p>
 								</div>
 								<div class="Fund_List" >
-									<a id="Fund_Blue"><!--[펀딩활동]--></a><span >목표금액 :: [[${f_target_amount}]] </span>
+									<a id="Fund_Blue"><!--[펀딩활동]--></a>목표금액 ::<span th:text="${fundingItem.target_amount}"></span>
 									<p><!--[[${FundUserName}]] &nbsp; [[${FundTime}]]--></p>
 								</div>
 								<div>
 									
-									<span>현재금액 :: [[${f_save_money}]]</span>
+									현재금액 ::<span th:text="${fundingItem.save_money}"></span>
 									<p><!--차곡차곡 모은 보너스 포인트로 "<a href="#" id="Trip"><strong>해외여행</strong></a>"가자!--></p>
 								</div>
 							</div>
 						</div>
-				<div class="myNews_div">
+				<div class="myNews_div" th:if="${not #lists.isEmpty(followinfo)}" th:each="followItem : ${followinfo}">
 							<div>
 								<div>
-									<h3><a id="nickname">[[${orginfo.orgname}]]</a> 님의 최근 팔로우</h3>
+									<h3><a id="nickname">[[${orginfo.orgname}]]</a> 님의 팔로우 소식</h3>
 									<!--로그인한 유저가 참여한 기부 , 펀딩 내역의 수-->
 									<span></span>
 									
@@ -107,20 +107,20 @@
 									<p id="Name_Time"></p>
 								</div>
 								<div class="Fund_List" >
-									<a id="Fund_Blue"><!--[펀딩활동]--></a><span> 팔로워 :: [[${follow}]] </span>
+									<a id="Fund_Blue"><!--[펀딩활동]--></a>팔로워 ::<span th:text="${followItem.userid}"></span>
 									<p><!--[[${FundUserName}]] &nbsp; [[${FundTime}]]--></p>
 								</div>
 								<div>
 									
-									<span>현재 팔로워 수 :: [[${follow_amount}]]</span>
+									현재 팔로워 수 ::<span 	th:text="${followItem.f_amount}"></span>
 									<p><!--차곡차곡 모은 보너스 포인트로 "<a href="#" id="Trip"><strong>해외여행</strong></a>"가자!--></p>
 								</div>
 							</div>
 						</div>
-				<div class="myNews_div">
+				<div class="myNews_div" th:if="${not #lists.isEmpty(reviewinfo)}" th:each="reviewItem : ${reviewinfo}">
 							<div>
 								<div>
-									<h3><a id="nickname">[[${orginfo.orgname}]]</a> 님의 최근 리뷰</h3>
+									<h3><a id="nickname">[[${orginfo.orgname}]]</a> 님의 리뷰 소식</h3>
 									<!--로그인한 유저가 참여한 기부 , 펀딩 내역의 수-->
 									<span></span>
 									
@@ -130,24 +130,24 @@
 							<!--로그인한 유저가 참여한 기부, 펀딩 내역을 출력-->
 							<div>
 								<div class="Dona_List" >
-									<a id="Dona_Red"><!--[기부활동]--></a><span>리뷰어 : [[${review_id}]]  </span>
+									<a id="Dona_Red"><!--[기부활동]--></a>리뷰어 :<span th:text="${reviewItem.userid}"></span>
 									<p id="Name_Time"></p>
 								</div>
 								<div class="Fund_List" >
-									<a id="Fund_Blue"><!--[펀딩활동]--></a><span >올린시간 :: [[${review_date}]] </span>
+									<a id="Fund_Blue"><!--[펀딩활동]--></a>올린시간 ::<span th:text="${reviewItem.reviewdate}"></span>
 									<p><!--[[${FundUserName}]] &nbsp; [[${FundTime}]]--></p>
 								</div>
 								<div>
 									
-									<span>별점 :: [[${review_star}]]</span>
+									별점 ::<span 	th:text="${reviewItem.star}"></span>
 									<p><!--차곡차곡 모은 보너스 포인트로 "<a href="#" id="Trip"><strong>해외여행</strong></a>"가자!--></p>
 								</div>
 							</div>
 						</div>
-				<div class="myNews_div">
+				<div class="myNews_div" th:if="${not #lists.isEmpty(likeinfo)}" th:each="likeItem : ${likeinfo}">
 							<div>
 								<div>
-									<h3><a id="nickname">[[${orginfo.orgname}]]</a> 님의 최근 좋아요</h3>
+									<h3><a id="nickname">[[${orginfo.orgname}]]</a> 님의 좋아요 소식</h3>
 									<!--로그인한 유저가 참여한 기부 , 펀딩 내역의 수-->
 									<span></span>
 									
@@ -157,47 +157,21 @@
 							<!--로그인한 유저가 참여한 기부, 펀딩 내역을 출력-->
 							<div>
 								<div class="Dona_List" >
-									<a id="Dona_Red"><!--[기부활동]--></a><span>최근 좋아요 입니다</span>
+									<a id="Dona_Red"><!--[기부활동]--></a><span>좋아요 소식입니다</span>
 									<p id="Name_Time"></p>
 								</div>
 								<div class="Fund_List" >
-									<a id="Fund_Blue"><!--[펀딩활동]--></a><span >최근 좋아요 유저 :: [[${Like}]] </span>
+									<a id="Fund_Blue"><!--[펀딩활동]--></a>최근 좋아요 유저 ::<span th:text="${likeItem.userid}"></span>
 									<p><!--[[${FundUserName}]] &nbsp; [[${FundTime}]]--></p>
 								</div>
 								<div>
 									
-									<span>현재누적 좋아요 :: [[${Like_amount}]]</span>
+									현재누적 좋아요 ::<span th:text="${likeItem.like_amount}"></span>
 									<p><!--차곡차곡 모은 보너스 포인트로 "<a href="#" id="Trip"><strong>해외여행</strong></a>"가자!--></p>
 								</div>
 							</div>
 						</div>
-				<div class="myNews_div">
-							<div>
-								<div>
-									<h3><a id="nickname">[[${orginfo.orgname}]]</a> 님의 제품</h3>
-									<!--로그인한 유저가 참여한 기부 , 펀딩 내역의 수-->
-									<span></span>
-									
-								</div>
-								<!--<a href="#">내 Q&A 정보 보러가기>></a>-->
-							</div>
-							<!--로그인한 유저가 참여한 기부, 펀딩 내역을 출력-->
-							<div>
-								<div class="Dona_List" >
-									<a id="Dona_Red"><!--[기부활동]--></a><span>[[${product_name}]]  </span>
-									<p id="Name_Time"></p>
-								</div>
-								<div class="Fund_List" >
-									<a id="Fund_Blue"><!--[펀딩활동]--></a><span >상품금액 :: [[${p_amount}]] </span>
-									<p><!--[[${FundUserName}]] &nbsp; [[${FundTime}]]--></p>
-								</div>
-								<div>
-									
-									<span>현재재고 :: [[${p_cost}]]</span>
-									<p><!--차곡차곡 모은 보너스 포인트로 "<a href="#" id="Trip"><strong>해외여행</strong></a>"가자!--></p>
-								</div>
-							</div>
-						</div>
+				
 				
 				
 				<!--=================================-->
@@ -227,10 +201,12 @@
 				<!--========================-->
 				<!--========================================-->
 				
-				<div th:if="${#lists.isEmpty(d_boardList) == true and #lists.isEmpty(f_boardList) == true}"  id="empty_msg">
+				<!--<div th:if="${#lists.isEmpty(d_boardList) == true and #lists.isEmpty(f_boardList) == true}"  id="empty_msg">
 					<p class="empty_msg">내역이 존재하지 않습니다.</p>
+				</div>-->
+				<div class="nextDiv">
+					<i class="fa-solid fa-circle-plus" id="load-more-btn"></i>
 				</div>
-				
 				<!--1page => 총 n개 -->
 				
 			</div>
@@ -243,27 +219,32 @@
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
 <script>
-	function search(){
-		const keyword = document.getElementById("keyword")
+	$(document).ready(function () {
+		    // 한 번에 표시할 아이템의 개수 설정
+		    var itemsPerPage = 6;
 		
-		if(keyword.value == ""){
-			alert("검색어를 입력해주세요")
-			focus.keyword
-		}
-		else{
-		$(".empty_msg").attr("style", "display : none");
-		$(".Dona_List").attr("style", "display : none");
-		$(".Fund_List").attr("style", "display : none");
-			
-			
-		searchForm.submit();
-		$(".empty_msg").attr("style", "display : none");
-		$(".Dona_List").attr("style", "display : none");
-		$(".Fund_List").attr("style", "display : none");
+		    // 아이템의 총 개수
+		    var totalItems = $('.myNews_div').length;
 		
-		}
+		    // 초기에는 itemsPerPage 개수까지만 표시되도록 설정
+		    $('.myNews_div:gt(' + (itemsPerPage - 1) + ')').hide();
 		
-	}
+		    // 아이템이 itemsPerPage 개수 이하이면 더보기 버튼 숨기기
+		    if (totalItems <= itemsPerPage) {
+		        $('#load-more-btn').hide();
+		    }
+		    // 더보기 버튼 클릭 시
+		    $('#load-more-btn').on('click', function () {
+		        // itemsPerPage 개수 만큼 추가로 표시
+		        $('.myNews_div:hidden').slice(0, itemsPerPage).slideDown();
+		        // 아직 표시하지 않은 아이템의 개수 갱신
+		        totalItems -= itemsPerPage;
+		        // 남은 아이템이 itemsPerPage 개수 이하이면 더보기 버튼 숨기기
+		        if (totalItems <= itemsPerPage) {
+		            $('#load-more-btn').hide();
+		        }
+		    });
+		});
 	
 	
 </script>

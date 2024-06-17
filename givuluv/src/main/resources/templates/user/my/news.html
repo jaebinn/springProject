@@ -52,7 +52,7 @@
 					<div class="Fund_List" th:if="${not #lists.isEmpty(Funding_List)}" th:each="fundingItem : ${Funding_List}">
 						<a th:href="@{/funding/fReceipt(paymentnum=${fundingItem.paymentnum})}">
 							<span id="Fund_Blue">[펀딩활동]</span><span th:text="${fundingItem.f_title}">Funding List Name</span>
-							<p id="Name_Time">[[${fundingItem.orgid}]] &nbsp; [[${fundingItem.f_cost}]]원</p>
+							<p id="FName_Time">[[${fundingItem.orgid}]] &nbsp; [[${fundingItem.f_cost}]]원</p>
 						</a>
 					</div>
 				<!--최초 첫div 만 script가 적용되는 이수가 있었지만 div의 id를 class로 바꿔주어 해결함 / id값이 겹치면 안되는 부분을 까먹음-->	

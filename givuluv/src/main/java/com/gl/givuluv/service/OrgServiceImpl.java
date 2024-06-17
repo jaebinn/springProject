@@ -297,7 +297,6 @@ public class OrgServiceImpl implements OrgService {
 
 	@Override
 	public String getDboardtitle(String orgid) {
-		
 		return omapper.getDboardtitle(orgid);
 	}
 
@@ -347,104 +346,104 @@ public class OrgServiceImpl implements OrgService {
 	}
 
 	@Override
-	public int getFollow_amount(String orgid) {
+	public String getFollow_amount(String orgid) {
 		return omapper.getFollow_amount(orgid);
 	}
 
 	@Override
-	public int getD_boardnum(String orgid) {
+	public String getD_boardnum(String orgid) {
 		return omapper.getD_boardnum(orgid);
 	}
 
 	@Override
-	public String getLike_id(int d_boardnum) {
+	public String getLike_id(String d_boardnum) {
 		return omapper.getLike_id(d_boardnum);
 	}
 
 	@Override
-	public int getLike_amount(int d_boardnum) {
+	public String getLike_amount(String d_boardnum) {
 		return omapper.getLike_amount(d_boardnum);
 	}
 
 	@Override
-	public int getF_boardnum(String orgid) {
+	public String getF_boardnum(String orgid) {
 		return omapper.getF_boardnum(orgid);
 	}
 
 	@Override
-	public String getProduct_name(int f_boardnum) {
+	public String getProduct_name(String f_boardnum) {
 		return omapper.getProduct_name(f_boardnum);
 	}
 
 	@Override
-	public int getp_amount(int f_boardnum) {
+	public String getp_amount(String f_boardnum) {
 		return omapper.getp_amount(f_boardnum);
 	}
 
 	@Override
-	public int getp_cost(int f_boardnum) {
+	public String getp_cost(String f_boardnum) {
 		return omapper.getp_cost(f_boardnum);
 	}
 
 	@Override
-	public String getReview_id(int f_boardnum) {
+	public String getReview_id(String f_boardnum) {
 		return omapper.getReview_id(f_boardnum);
 	}
 
 	@Override
-	public String getReview_date(int f_boardnum) {
+	public String getReview_date(String f_boardnum) {
 		return omapper.getReview_date(f_boardnum);
 	}
 
 	@Override
-	public int getReview_star(int f_boardnum) {
+	public String getReview_star(String f_boardnum) {
 		return omapper.getReview_star(f_boardnum);
 	}
+ 
+	 @Override
+	   public boolean checkuserPw(String orgpw) {
+	      return omapper.checkuserPw(orgpw)==1;
+	   }
+
 
 	@Override
-	public Boolean checkuserPw(String userpw) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Boolean deleteOrg(String orgid) {
+	public boolean deleteOrg(String orgid) {
 		return omapper.deleteOrg(orgid)==1;
 	}
 
 	
 
 	@Override
-	public Boolean deleteFollow(String orgid) {
+	public boolean deleteFollow(String orgid) {
 		return omapper.deleteFollow(orgid)==1;
 	}
 
 	@Override
-	public Boolean deleteD_Like(int d_boardnum) {
+	public boolean deleteD_Like(String d_boardnum) {
 		return omapper.deleteD_Like(d_boardnum)==1;
 	}
 	@Override
-	public Boolean deleteF_Like(int f_boardnum) {
+	public boolean deleteF_Like(String f_boardnum) {
 		return omapper.deleteF_Like(f_boardnum)==1;
 	}
 
 	@Override
-	public Boolean deleteD_Review(int d_boardnum) {
+	public boolean deleteD_Review(String d_boardnum) {
 		return omapper.deleteD_Review(d_boardnum)==1;
 	}
 	@Override
-	public Boolean deleteF_Review(int f_boardnum) {
+	public boolean deleteF_Review(String f_boardnum) {
 		return omapper.deleteF_Review(f_boardnum)==1;
 	}
 
 	@Override
-	public Boolean deleteD_payment(String orgid) {
+	public boolean deleteD_payment(String orgid) {
 		return omapper.deleteD_payment(orgid)==1;
 	}
 
 
 	@Override
-	public Boolean deleteF_payment(String orgid) {
+	public boolean deleteF_payment(String orgid) {
 		return omapper.deleteF_payment(orgid)==1;
 	}
 
@@ -455,8 +454,65 @@ public class OrgServiceImpl implements OrgService {
 	}
 
 	@Override
-	public Boolean deleteS_payment(String orgid) {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean deleteO_approve(String orgid) {
+		return omapper.deleteO_approve(orgid);
 	}
+
+	@Override
+	public boolean deleteO_register(String orgid) {
+		return omapper.deleteO_register(orgid);
+	}
+
+	@Override
+	public boolean deleteD_board(String orgid) {
+		return omapper.deleteD_board(orgid);
+	}
+
+	@Override
+	public boolean deleteF_board(String orgid) {
+		return omapper.deleteF_board(orgid);
+	}
+
+	@Override
+	public List<Map<String, Object>> getD_boardinfo(String orgid) {
+		return omapper.getD_boardinfo(orgid);
+	}
+
+	@Override
+	public List<Map<String, Object>> getF_boardinfo(String orgid) {
+		return omapper.getF_boardinfo(orgid);
+	}
+
+	@Override
+	public List<Map<String, Object>> getReviewinfo(String f_boardnum) {
+		return omapper.getReviewinfo(f_boardnum);
+	}
+
+	@Override
+	public List<Map<String, Object>> getFollowinfo(String orgid) {
+		return omapper.getFollowinfo(orgid);
+	}
+
+	@Override
+	public List<Map<String, Object>> getLikeinfo(String d_boardnum) {
+		return omapper.getLikeinfo(d_boardnum);
+	}
+
+	@Override
+	public String getLike_cnt(String orgid) {
+		return omapper.getLike_cnt(orgid);
+	}
+
+	@Override
+	public String getReview_cnt(String orgid) {
+		return omapper.getReview_cnt(orgid);
+	}
+
+	@Override
+	public String getFollow_cnt(String orgid) {
+		return omapper.getFollow_cnt(orgid);
+	}
+
+	
+
 }

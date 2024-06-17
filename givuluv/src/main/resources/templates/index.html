@@ -359,124 +359,125 @@
 				}
 			})
 			let isFaqLoaded = false;
-			let loginUser = /*[[${session.loginUser}]]*/"";
-			$(document).ready(function () {
-			    $("#chat-circle").click(function () {
-			        $(".chat-box").toggle('scale', function () {
-			            if ($(".chat-box").is(":visible") && !isFaqLoaded) {
-			                loadQuestions();
-			            }
-			        });
-			    });
-			
-			    $(".chat-box-toggle").click(function () {
-			        $(".chat-box").toggle('scale');
-					
-			    });
-			
-				$("#chat-form").submit(function (e) {
-				    e.preventDefault();
-				    const messageInput = $("#chat-input");
-				    const message = messageInput.val().trim(); // 입력된 메시지의 앞뒤 공백을 제거합니다.
-				    if (message === '') {
-				        alert("메시지를 입력하세요.");
-				        return; // 빈 문자열이면 함수를 여기서 종료합니다.
-				    }
-				    if (!isNaN(message) && message.trim() !== '') {
-				        // 만약 입력된 메시지가 숫자이고 비어있지 않다면, 질문 번호로 간주하여 답변을 가져옵니다.
-				        getAnswer(parseInt(message));
-				    } else {
-				        // 숫자가 아니거나 비어있다면, 일반 메시지로 간주하여 전송합니다.
-				        myMessage(message);
-				        const chatLogs = $(".chat-logs");
-				        const newMessage = `<div class="chat-msg"><span class="cm-msg-text errormsg">보기에 있는 질문의 번호를 입력하세요.</span></div>`;
-				        chatLogs.append(newMessage);
-				        chatLogs.scrollTop(chatLogs.prop("scrollHeight"));
+			    let loginUser = /*[[${session.loginUser}]]*/ "";
+				$(document).ready(function () {
+				    $("#chat-circle").click(function () {
+				        $(".chat-box").toggle('scale', function () {
+				            if ($(".chat-box").is(":visible") && !isFaqLoaded) {
+				                loadQuestions();
+				            }
+				        });
+				    });
 				
-				        messageInput.val("");
-				        messageInput.focus();
-				        loadQuestions();
-				        return;
-				    }
-				    messageInput.val('');
-				});
-			});
-			
-			function loadQuestions() {
-			    $.ajax({
-			        url: "/chatbot/questions",
-			        type: "POST",
-			        success: function (data) {
-			            let messages = data.map((faq, index) => `${index + 1}. ${faq.question}`).join('\n');
-			            addMessage(messages, 'bot');
-			            isFaqLoaded = true;
-			        }
-			    });
-			}
-			
-			function sendMessage(message) {
-			    addMessage(message, 'user');
-			
-			    $.ajax({
-			        url: "/chatbot",
-			        type: "POST",
-			        contentType: "application/json",
-			        data: JSON.stringify({message: message}),
-			        success: function (response) {
-			            console.log(response);
-			            addMessage(response, 'bot');
-			        }
-			    });
-			}
-			
-			function getAnswer(questionNumber) {
-			    $.ajax({
-			        url: "/chatbot/answer",
-			        type: "POST",
-			        contentType: "application/json",
-			        data: JSON.stringify({questionNumber: questionNumber}),
-			        success: function (response) {
-			            console.log(response);
-						myMessage(questionNumber);
-			            addMessage(response, 'bot');
-						loadQuestions();
-			        },
-					error: function (xhr, status, error) {
-						myMessage(questionNumber);
-						if (xhr.status === 404) {
-							const chatLogs = $(".chat-logs");
-							const newMessage = `<div class="chat-msg"><span class="cm-msg-text errormsg">질문 번호를 찾을 수 없습니다.</span></div>`;
-							chatLogs.append(newMessage);
-							chatLogs.scrollTop(chatLogs.prop("scrollHeight"));
-							loadQuestions()
-						}
-					}
-			    });
-			}
-			
-			function addMessage(message, sender) {
-				const regex = /\d+\./g;
+				    $(".chat-box-toggle").click(function () {
+				        $(".chat-box").toggle('scale');
+				    });
 				
-				message = message.replace(regex, (match, index) => {
-				    if (index !== 0) {
-				        return '<br>' + match;
-				    } else {
-				        return match;
-				    }
+				    $("#chat-form").submit(function (e) {
+				        e.preventDefault();
+				        const messageInput = $("#chat-input");
+				        const message = messageInput.val().trim();
+				        if (message === '') {
+				            alert("메시지를 입력하세요.");
+				            return;
+				        }
+				        addLoadingAnimation();
+				        if (!isNaN(message) && message.trim() !== '') {
+				            getAnswer(parseInt(message));
+				        } else {
+				            setTimeout(function () {
+				                myMessage(message);
+				                const chatLogs = $(".chat-logs");
+				                const newMessage = `<div class="chat-msg"><span class="cm-msg-text errormsg">보기에 있는 질문의 번호를 입력하세요.</span></div>`;
+				                chatLogs.append(newMessage);
+				                chatLogs.scrollTop(chatLogs.prop("scrollHeight"));
+				
+				                messageInput.val("");
+				                messageInput.focus();
+				                loadQuestions();
+				                removeLoadingAnimation();
+				            }, 1500); // 1.5초 딜레이
+				        }
+				        messageInput.val('');
+				    });
 				});
-			   const chatLogs = $(".chat-logs");
-			   const newMessage = `<div class="chat-msg ${sender}"><span class="cm-msg-text">${message}</span></div>`;
-			   chatLogs.append(newMessage);
-			   chatLogs.scrollTop(chatLogs.prop("scrollHeight"));
-			   
-			   
-			}
-			function myMessage(questionNumber) {
-			    const chatLogs = $(".chat-logs");
-			    const newMessage = `<div class="chat-msg user right"><span class="cm-msg-text">${questionNumber}</span></div>`;
-			    chatLogs.append(newMessage);
-			    chatLogs.scrollTop(chatLogs.prop("scrollHeight"));
-			}
+				
+				function loadQuestions() {
+				    $.ajax({
+				        url: "/chatbot/questions",
+				        type: "POST",
+				        success: function (data) {
+				            let messages = data.map((faq, index) => `${index + 1}. ${faq.question}`).join('\n');
+				            addMessage(messages, 'bot');
+				            isFaqLoaded = true;
+				        }
+				    });
+				}
+				
+				function getAnswer(questionNumber) {
+				    $.ajax({
+				        url: "/chatbot/answer",
+				        type: "POST",
+				        contentType: "application/json",
+				        data: JSON.stringify({ questionNumber: questionNumber }),
+				        success: function (response) {
+				            console.log(response);
+				            setTimeout(function () {
+				                myMessage(questionNumber);
+				                addMessage(response, 'bot');
+				                loadQuestions();
+				                removeLoadingAnimation();
+				            }, 1500); // 1.5초 딜레이
+				        },
+				        error: function (xhr, status, error) {
+				            setTimeout(function () {
+				                myMessage(questionNumber);
+				                if (xhr.status === 404) {
+				                    const chatLogs = $(".chat-logs");
+				                    const newMessage = `<div class="chat-msg"><span class="cm-msg-text errormsg">질문 번호를 찾을 수 없습니다.</span></div>`;
+				                    chatLogs.append(newMessage);
+				                    chatLogs.scrollTop(chatLogs.prop("scrollHeight"));
+				                    loadQuestions();
+				                }
+				                removeLoadingAnimation();
+				            }, 1500); // 1.5초 딜레이
+				        }
+				    });
+				}
+				
+				function addMessage(message, sender) {
+				    const regex = /\d+\./g;
+				
+				    message = message.replace(regex, (match, index) => {
+				        if (index !== 0) {
+				            return '<br>' + match;
+				        } else {
+				            return match;
+				        }
+				    });
+				    const chatLogs = $(".chat-logs");
+				    const newMessage = `<div class="chat-msg ${sender}"><span class="cm-msg-text">${message}</span></div>`;
+				    chatLogs.append(newMessage);
+				    chatLogs.scrollTop(chatLogs.prop("scrollHeight"));
+				}
+				
+				function myMessage(questionNumber) {
+				    const chatLogs = $(".chat-logs");
+				    const newMessage = `<div class="chat-msg user right"><span class="cm-msg-text">${questionNumber}</span></div>`;
+				    chatLogs.append(newMessage);
+				    chatLogs.scrollTop(chatLogs.prop("scrollHeight"));
+				}
+				
+				function addLoadingAnimation() {
+				    const chatLogs = $(".chat-logs");
+				    const loadingMessage = `<div class="chat-msg loading"><span class="cm-msg-text"><div class="loading-dots"><span></span><span></span><span></span></div></span></div>`;
+				    chatLogs.append(loadingMessage);
+				    chatLogs.scrollTop(chatLogs.prop("scrollHeight"));
+				}
+				
+				function removeLoadingAnimation() {
+				    $(".chat-msg.loading").remove();
+				}
 			
 			
 	});

@@ -189,33 +189,22 @@ public class OrgController {
 //		orgid로 org정보 전체를 불러옵니다.
 		OrgDTO orginfo = service.getOrgInfo(orgid);
 		System.out.println("orginfo :: "+orginfo);
-		
+		//String d_boardnum = service.getD_boardnum(orgid);
+	   // String f_boardnum = service.getF_boardnum(orgid);
 		String orgSystenmane = service.getOrgSystemname(orgid);
 		System.out.println("orgSystenmane :: "+orgSystenmane);
-////		orgid로 [orgname]을 불러옵니다.
-//		String orgname = service.getOrgnameByOrgid(orgid);
-//		System.out.println("orgname :: "+orgname);
-//		
-////		orgid로 [category]를 불러옵니다.
-//		String orgcategory = service.getCategoryByOrgid(orgid);
-//		System.out.println("orgcategory :: "+orgcategory);
-//		
-////		orgid로 [orgPhone]을 불러옵니다.
-//		String orgphone = service.getOrgPhoneByOrgid(orgid);
-//		System.out.println("orgphone :: "+orgphone);
-//		
-////		orgid로 [ceoName]을 불러옵니다.
-//		String ceoname = service.getCeoNameByOrgid(orgid);
-//		System.out.println("ceoname :: "+ceoname);
-//		
-////		orgid로 [logo]를 불러옵니다.
-//		String orglogo = service.getLogoByOrgid(orgid);
-//		System.out.println("orglogo :: "+orglogo);
+		
+		String like_cnt = service.getLike_cnt(orgid);
+		String review_cnt = service.getReview_cnt(orgid);
+		String follow_cnt = service.getFollow_cnt(orgid);
 		
 //		모델 
 		model.addAttribute("orgid", orgid);
 		model.addAttribute("orginfo", orginfo);
 		model.addAttribute("orgsystemname", src+orgSystenmane);
+		model.addAttribute("like_cnt", like_cnt);
+		model.addAttribute("review_cnt", review_cnt);
+		model.addAttribute("follow_cnt", follow_cnt);
 		
 		System.out.println("model정상작동 home으로 넘어갑니다.");
 		return "/org/my/home";
@@ -271,26 +260,72 @@ public class OrgController {
 	}
 	
 	@GetMapping("my/org_activity_history")
-	public String org_activity_history(HttpServletRequest req, Model model) {
-		HttpSession session = req.getSession();
-
-//		세션에 세팅된 [orgid]를 불러옵니다.
-		String orgid = (String) session.getAttribute("loginOrg");
-		
-		List <String> d_boardList = service.getD_board(orgid);
-		List <String> f_boardList = service.getF_board(orgid);
-		OrgDTO orginfo = service.getOrgInfo(orgid);
-		
-		System.out.println("d_boardList :: "+d_boardList);
-		System.out.println("f_boardList :: "+f_boardList);
-		
-		model.addAttribute("orgid", orgid);
-		model.addAttribute("d_boardList", d_boardList);
-		model.addAttribute("f_boardList", f_boardList);
-		model.addAttribute("orginfo", orginfo);
-		System.out.println("컨트롤러 도착함 히스토리로 넘어감");
-		return "org/my/org_activity_history";
-	}
+	   public String org_activity_history(HttpServletRequest req, Model model) {
+	      HttpSession session = req.getSession();
+	      
+	      String src = "/summernoteImage/";
+//	      세션에 세팅된 [orgid]를 불러옵니다.
+	      String orgid = (String) session.getAttribute("loginOrg");
+	      String orgSystenmane = service.getOrgSystemname(orgid);
+	      
+	      List <String> d_boardList = service.getD_board(orgid);
+	      List <String> f_boardList = service.getF_board(orgid);
+	      OrgDTO orginfo = service.getOrgInfo(orgid);
+	      
+	      List<Map<String, Object>> d_boardinfo = service.getD_boardinfo(orgid);
+	      
+			
+	      
+	      List<Map<String, Object>> f_boardinfo = service.getF_boardinfo(orgid);
+	      
+			
+	      List<Map<String, Object>> followinfo = service.getFollowinfo(orgid);
+	      
+	      
+	      String d_boardnum = service.getD_boardnum(orgid);
+	      String f_boardnum = service.getF_boardnum(orgid);
+	      
+	      List<Map<String, Object>> likeinfo = service.getLikeinfo(d_boardnum);
+	      
+	      
+	      
+	      List<Map<String, Object>> reviewinfo = service.getReviewinfo(f_boardnum);
+	      
+	      
+	      System.out.println("d_boardList :: "+d_boardList);
+	      System.out.println("f_boardList :: "+f_boardList);
+	      
+	      model.addAttribute("orgsystemname", src+orgSystenmane);
+	      model.addAttribute("orgid", orgid);
+	      model.addAttribute("d_boardList", d_boardList);
+	      model.addAttribute("f_boardList", f_boardList);
+	      model.addAttribute("orginfo", orginfo);
+			/*
+			 * model.addAttribute("d_boardtitle", d_boardtitle);
+			 * model.addAttribute("target_amount", target_amount);
+			 * model.addAttribute("save_money", save_money);
+			 * model.addAttribute("f_boardtitle", f_boardtitle);
+			 * model.addAttribute("f_target_amount", f_target_amount);
+			 * model.addAttribute("f_save_money", f_save_money);
+			 */
+	     
+	     
+	    
+	      
+	      model.addAttribute("d_boardinfo", d_boardinfo);
+	      model.addAttribute("f_boardinfo", f_boardinfo);
+	      model.addAttribute("reviewinfo", reviewinfo);
+	      model.addAttribute("followinfo", followinfo);
+	      model.addAttribute("likeinfo", likeinfo);
+	      
+	      System.out.println("followinfo :: "+followinfo);
+	      System.out.println("likeinfo :: "+likeinfo);
+	      System.out.println("f_boardinfo :: "+f_boardinfo);
+	      System.out.println("d_boardinfo :: "+d_boardinfo);
+	      //\model.addAttribute("review_star", review_star);
+	      System.out.println("컨트롤러 도착함 히스토리로 넘어감");
+	      return "org/my/org_activity_history";
+	   }
 	
 	@GetMapping("my/org_news")
 	public String org_news(HttpServletRequest req, Model model) {
@@ -305,26 +340,31 @@ public class OrgController {
 		return"org/my/org_news";
 	}
 	@GetMapping("my/delete_orginfo")
-	public String deleteUser(HttpServletRequest req, Model model) {
-		HttpSession session = req.getSession();
-		session.getAttribute("loginOrg");
-		String orgid = (String) session.getAttribute("loginOrg");
-		
-		
-		
-		model.addAttribute("loginOrg", orgid);
-		
-		
-		return"user/my/delete_userinfo";
-	}
+	   public String deleteUser(HttpServletRequest req, Model model) {
+	      HttpSession session = req.getSession();
+	      String src = "/summernoteImage/";
+	      session.getAttribute("loginOrg");
+	      String orgid = (String) session.getAttribute("loginOrg");
+	      OrgDTO orginfo = service.getOrgInfo(orgid);
+	      String orgSystenmane = service.getOrgSystemname(orgid);
+	      
+	      model.addAttribute("loginOrg", orgid);
+	      model.addAttribute("orginfo", orginfo);
+	      model.addAttribute("orgsystemname", src+orgSystenmane);
+	      System.out.println("컨트롤러로 요청 들어옴 페이지로 이동함");
+	      return"org/my/delete_orginfo";
+	   }
 	
 	@PostMapping("delete")
 	public String delete(HttpServletRequest req, Model model) {
 		HttpSession session = req.getSession();
 		session.getAttribute("loginOrg");
+		System.out.println("delete controller로 넘어옴");
 		String orgid = (String) session.getAttribute("loginOrg");
-		int d_boardnum = service.getD_boardnum(orgid);
-		int f_boardnum = service.getF_boardnum(orgid);
+		System.out.println("orgid :: "+orgid);
+		String d_boardnum = service.getD_boardnum(orgid);
+		System.out.println("d_boardnum:: "+d_boardnum);
+		String f_boardnum = service.getF_boardnum(orgid);
 		/*
 		 * if(service.deleteF_detail(loginUser)) { System.out.println("F_detail 삭제완료");
 		 * } else { System.out.println("F_detail 정보가 없는 회원입니다"); }
@@ -373,12 +413,31 @@ public class OrgController {
 		else {
 			System.out.println("F_payment 정보가 없는 회원입니다");
 		}
-		if(service.deleteS_payment(orgid)) {
-			System.out.println("S_payment 삭제완료");
+		if(service.deleteO_approve(orgid)) {
+			System.out.println("O_approve 삭제완료");
 		}
 		else {
-			System.out.println("S_payment 정보가 없는 회원입니다");
+			System.out.println("O_approve 정보가 없는 회원입니다");
 		}
+		if(service.deleteO_register(orgid)) {
+			System.out.println("O_register 삭제완료");
+		}
+		else {
+			System.out.println("O_register 정보가 없는 회원입니다");
+		}
+		if(service.deleteD_board(orgid)) {
+			System.out.println("deleteD_board 삭제완료");
+		}
+		else {
+			System.out.println("deleteD_board 정보가 없는 회원입니다");
+		}
+		if(service.deleteF_board(orgid)) {
+			System.out.println("deleteF_board 삭제완료");
+		}
+		else {
+			System.out.println("deleteF_board 정보가 없는 회원입니다");
+		}
+		
 		if(service.deleteOrg(orgid)) {
 			System.out.println("모든정보 삭제완료");
 			req.getSession().invalidate();
@@ -386,5 +445,24 @@ public class OrgController {
 		}
 		return "redirect:/";
 	}
+	
+	 @GetMapping("checkuserPw")
+	    @ResponseBody
+	    public String checkuwerPw(String orgpw,HttpServletRequest req, Model model) {
+		 HttpSession session = req.getSession();
+			session.getAttribute("loginOrg");
+			System.out.println("delete controller로 넘어옴");
+			String orgid = (String) session.getAttribute("loginOrg");
+		 OrgDTO orginfo = service.getOrgInfo(orgid);
+		 
+	        if(orgpw.equals(orginfo.getOrgpw())) {
+	        	System.out.println("O");
+	            return "O";
+	        }
+	        else {
+	        	System.out.println("X");
+	            return "X";
+	        }
+	    }   
 
 }

@@ -144,6 +144,37 @@
 	<select id="getReview_star" >
 		select star from review where connectid = #{f_boardnum}
 	</select>
+	
+	<select id="getD_boardinfo">
+		select d_title, target_amount, save_money from d_board where orgid = #{orgid}
+	</select>
+	
+	<select id="getF_boardinfo">
+		select f_title, target_amount, save_money from f_board where orgid = #{orgid}
+	</select>
+	
+	<select id="getReviewinfo">
+		select userid, reviewdate, star from review where connectid = #{f_boardnum}
+	</select>
+	
+	<select id="getFollowinfo">
+		select userid , count(follownum) as f_amount from follow where orgid = #{orgid} group by userid
+	</select>
+	
+	<select id="getLikeinfo">
+		select userid, count(likenum) as like_amount from `like` where connectid = #{d_boardnum} group by userid
+	</select>
+	
+	<select id="getLike_cnt">
+		select count( DISTINCT likenum) as like_cnt from `like` join d_payment on d_payment.orgid = #{orgid}
+	</select>
+	<select id="getReview_cnt">
+		select count( DISTINCT reviewnum) as review_cnt from review join d_payment on d_payment.orgid = #{orgid}
+	</select>
+	<select id="getFollow_cnt">
+		select count( DISTINCT follownum) as follow_cnt from follow where orgid = #{orgid}
+	</select>
+	
 	<update id="updateOrg">
 		update org set orgpw=#{org.orgpw}, orgphone=#{org.orgphone}, ceoname=#{org.ceoname}
 			where orgid = #{org.orgid}
@@ -189,6 +220,22 @@
 	<delete id="deleteF_Review">
 		delete from Review where connectid = #{d_boardnum}
 	</delete>
+	<delete id="deleteO_approve">
+		delete from o_approve where orgid = #{orgid}
+	</delete>
 	
+	<delete id="deleteO_register">
+		delete from o_register where orgid = #{orgid}
+	</delete>
 	
+	<delete id="deleteD_board">
+		delete from d_board where orgid = #{orgid}
+	</delete>
+	
+	<delete id="deleteF_board">
+		delete from f_board where orgid = #{orgid}
+	</delete>
+	<select id="checkuserPw">
+      select orgpw from org where orgpw=#{orgpw}
+   </select>
 </mapper>

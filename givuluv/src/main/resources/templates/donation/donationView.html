@@ -73,7 +73,7 @@
 		<div class="donationReview">
 			<h2 id="d_review">응원 메시지</h2>
 			<div id="totalReview">
-				<p>총 <strong>[[${reviewCnt}]]</strong>개의 댓글</p>
+				<p>총 <strong id="reviewCnt">[[${reviewCnt}]]</strong>개의 댓글</p>
 			</div>
 			<ul class="rbox_list">
 				 <th:block th:if="${#lists.isEmpty(review)}">
@@ -218,6 +218,8 @@
 		reviewService.insert(
 			{"reviewdetail":reviewdetail.val(),"connectid":boardnum,"userid":loginUser},
 			function(result){
+				console.log(reviewCnt);
+				$('#reviewCnt').text(reviewCnt+1);
 				const newComment = `
 				                       <li class="rbox_comment">
 				                               <div class="rbox_comment_box">

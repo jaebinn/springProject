@@ -1,27 +1,26 @@
 <th:block th:fragment="faqChatbot()">
 	<div id="chat-circle" class="btn btn-raised">
-	        <div id="chat-overlay"></div>
-	        <span class="material-symbols-outlined"><i class="fa-regular fa-circle-question"></i></span>
+	    <div id="chat-overlay"></div>
+	    <span class="material-symbols-outlined"><i class="fa-regular fa-circle-question"></i></span>
+	</div>
+	<div class="chat-box">
+	    <div class="chat-box-header">
+	        기부러브 FAQ 챗봇 <span class="chat-box-toggle"><span class="material-symbols-outlined"><i class="fa-solid fa-xmark"></i></span></span>
 	    </div>
-	    <div class="chat-box">
-	        <div class="chat-box-header">
-	            기부러브 FAQ 챗봇 <span class="chat-box-toggle"><span
-	                class="material-symbols-outlined"><i class="fa-solid fa-xmark"></i></span></span>
-	        </div>
-	        <div class="chat-box-body">
-	            <div class="chat-box-overlay"></div>
-	            <div class="chat-logs"></div>
-	            <!--chat-log -->
-	        </div>
-	        <div class="chat-input">
-	            <form id="chat-form">
-	                <input type="hidden" id="userid" name="userid" value="">
-	                <span class="echo-receiver"></span>
-	                <input type="text" id="chat-input" placeholder="Send a message..." />
-	                <button type="submit" class="chat-submit" id="chat-submit">
-	                    <span class="material-symbols-outlined"><i class="fa-regular fa-paper-plane"></i></span>
-	                </button>
-	            </form>
-	        </div>
+	    <div class="chat-box-body">
+	        <div class="chat-box-overlay"></div>
+	        <div class="chat-logs"></div>
+	        <!--chat-log -->
 	    </div>
+	    <div class="chat-input">
+	        <form id="chat-form">
+	            <input type="hidden" id="userid" name="userid" value="">
+	            <span class="echo-receiver"></span>
+	            <input type="text" id="chat-input" placeholder="Send a message..." />
+	            <button type="submit" class="chat-submit" id="chat-submit">
+	                <span class="material-symbols-outlined"><i class="fa-regular fa-paper-plane"></i></span>
+	            </button>
+	        </form>
+	    </div>
+	</div>
 </th:block>

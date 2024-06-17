@@ -32,7 +32,7 @@
 			</div>
 			<div class="contents_div">
 				
-				<div class="contents like_list" id="like_list" th:if="${not #lists.isEmpty(like_info)}" th:each="Board : ${like_info}">
+				<div class="contents like_list" id="like_list" th:if="${not #lists.isEmpty(d_likeinfo)}" th:each="donationItem : ${d_likeinfo}">
 					<!--이미지 경로를 모르겠음-->
 					
 						<img id="content_img">
@@ -40,9 +40,9 @@
 					<!--=========================================-->
 					
 					<div>
-						<p id="gid">이미지란에 로고는 대체이미지입니다.</p>
-						<a href="#"><p th:text = "${Board.cContent}" > </p></a>
-						<p th:text = "${Board.cBoardnum}" class="boardnum"></p>
+						
+						[기부]<a href="#"><p th:text = "${donationItem.d_title}" > </p></a>
+						<p th:text = "${donationItem.orgid}" class="boardnum"></p>
 						<!--<p th:text="${Board.cTitle}"></p>-->
 						
 						
@@ -55,14 +55,35 @@
 					</div>
 				</div>
 				
-			
 				
-				<div th:if="${#lists.isEmpty(like_info)}">
-					<p id="empty">내역이 존재하지 않습니다.</p>
-				</div>
+				<div class="contents like_list" id="like_list" th:if="${not #lists.isEmpty(f_likeinfo)}" th:each="fundingItem : ${f_likeinfo}">
+									<!--이미지 경로를 모르겠음-->
+									
+										<img id="content_img">
+									
+									<!--=========================================-->
+									
+									<div>
+										
+										[펀딩]<a href="#"><p th:text = "${fundingItem.f_title}" > </p></a>
+										<p th:text = "${fundingItem.orgid}" class="boardnum"></p>
+										<!--<p th:text="${Board.cTitle}"></p>-->
+										
+										
+										<!--<Form th:action="@{/user/delete_like(c_board=${Board.cBoardnum})}" method="Get" name="deleteLikeForm">-->
+										<!--<input type="button" value="관심삭제" id="del_like" onclick= "deleteLike()">
+										<input type="hidden" value="${Board.cBoardnum}" id="hidden">-->
+										
+										<!--<p th:text = "${Board.cBoardnum}"></p>-->
+										<!--<input type="button" value="관심해제" id="del_like" onclick="">-->
+									</div>
+								</div>
+			</div>
 				
 				
-				
+			</div>
+			<div th:if="${#lists.isEmpty(d_likeinfo) == true and #lists.isEmpty(f_likeinfo) == true}"  id="empty_msg">
+				<p id="empty">내역이 존재하지 않습니다.</p>
 			</div>
 		</div>
 	</div>
@@ -71,34 +92,37 @@
 	<th:block th:replace="~{layout/footer::footer()}"></th:block>
 </body>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<!--=====================================================-->
-<!--<script>
-	function deleteLike() {
-	           alert("좋아요를 취소하시겠습니까??");
-	           
-	           
-	           var boardnum = $(".boardnum").text();
-	           
-	           $.ajax({
-	               url: "/user/deleteLike",
-	               method: "post",
-	            dataType: 'json',
-	            contentType: 'application/json; charset=utf-8',
-	               data: JSON.stringify({ c_board: boardnum }),
-	               success: function(response) {
-	                   // 성공 시 처리할 로직
-	                   // 예: 응답으로 받은 값을 페이지에 다시 표시
-	                   $("#result").text(response.cBoardnum);
-					   alert("값이 성공적으로 전달되었습니다.")
-	               },
-	               error: function() {
-	                   alert("취소에 실패했습니다");
-	               }
-	           });
-	       }
-	    </script>-->
 
-<!--작동안함-->
+<script>
+	$(document).ready(function () {
+		    // 한 번에 표시할 아이템의 개수 설정
+		    var itemsPerPage = 6;
+		
+		    // 아이템의 총 개수
+		    var totalItems = $('.contents like_list').length;
+		
+		    // 초기에는 itemsPerPage 개수까지만 표시되도록 설정
+		    $('.contents like_list:gt(' + (itemsPerPage - 1) + ')').hide();
+		
+		    // 아이템이 itemsPerPage 개수 이하이면 더보기 버튼 숨기기
+		    if (totalItems <= itemsPerPage) {
+		        $('#load-more-btn').hide();
+		    }
+		    // 더보기 버튼 클릭 시
+		    $('#load-more-btn').on('click', function () {
+		        // itemsPerPage 개수 만큼 추가로 표시
+		        $('.contents like_list:hidden').slice(0, itemsPerPage).slideDown();
+		        // 아직 표시하지 않은 아이템의 개수 갱신
+		        totalItems -= itemsPerPage;
+		        // 남은 아이템이 itemsPerPage 개수 이하이면 더보기 버튼 숨기기
+		        if (totalItems <= itemsPerPage) {
+		            $('#load-more-btn').hide();
+		        }
+		    });
+		});
+	
+	
+</script>
 	
 	
 

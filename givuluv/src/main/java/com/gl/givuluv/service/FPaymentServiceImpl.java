@@ -80,10 +80,11 @@ public class FPaymentServiceImpl implements FPaymentService{
 	@Override
 	public boolean fundCancelByNum(int paymentnum) {
 		FPaymentDTO payment = pmapper.getFPaymentByPaymentnum(paymentnum);
+		prmapper.updateAmount(payment);
+		umapper.decreaseBonus(payment.getUserid(), (int)(payment.getFCost()*0.1));
 		if(pmapper.fundCancelByNum(paymentnum)) {
-			prmapper.updateAmount(payment);
 			fbmapper.updateFSaveMoney(payment.getFBoardnum());
-			umapper.updateBonus(payment.getUserid(), (int)(payment.getFCost()*0.1));
+			System.out.println("펀딩취소");
 			return true;
 		}
 		return false;

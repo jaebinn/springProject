@@ -271,6 +271,11 @@ public class UserServiceImpl implements UserService{
 	      return false;
 	   }
 	@Override
+	public List<Map<String,Object>> getD_LikeInfoByUserid(String loginUser) {
+		
+		return umapper.getD_LikeInfoByUserid(loginUser);
+	}
+	@Override
 	public List<CBoardDTO> getLikeInfoByUserid(String loginUser) {
 		
 		return umapper.getLikeInfoByUserid(loginUser);
@@ -301,48 +306,48 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public Boolean checkuserPw(String userpw) {
+	public boolean checkuserPw(String userpw) {
 		
 		return umapper.checkuserPw(userpw) == 1 ;
 	}
 
 	@Override
-	public Boolean deleteUser(String loginUser) {
+	public boolean deleteUser(String loginUser) {
 		
 		return umapper.deleteUser(loginUser) == 1;
 	}
 
 	@Override
-	public Boolean deleteF_detail(String loginUser) {
+	public boolean deleteF_detail(String loginUser) {
 		return umapper.deleteF_detail(loginUser) == 1;
 	}
 
 	@Override
-	public Boolean deleteD_detail(String loginUser) {
+	public boolean deleteD_detail(String loginUser) {
 		
 		return umapper.deleteD_detail(loginUser) == 1;
 	}
 
 	@Override
-	public Boolean deleteFollow(String loginUser) {
+	public boolean deleteFollow(String loginUser) {
 		
 		return umapper.deleteFollow(loginUser) == 1;
 	}
 
 	@Override
-	public Boolean deleteLike(String loginUser) {
+	public boolean deleteLike(String loginUser) {
 		
 		return umapper.deleteLike(loginUser) == 1;
 	}
 
 	@Override
-	public Boolean deleteReview(String loginUser) {
+	public boolean deleteReview(String loginUser) {
 		
 		return umapper.deleteReview(loginUser) == 1;
 	}
 
 	@Override
-	public Boolean deleteD_payment(String loginUser) {
+	public boolean deleteD_payment(String loginUser) {
 		
 		return umapper.deleteD_payment(loginUser) == 1;
 	}
@@ -354,13 +359,13 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public Boolean deleteF_payment(String loginUser) {
+	public boolean deleteF_payment(String loginUser) {
 		
 		return umapper.deleteF_payment(loginUser) == 1;
 	}
 
 	@Override
-	public Boolean deleteS_payment(String loginUser) {
+	public boolean deleteS_payment(String loginUser) {
 		
 		return umapper.deleteS_payment(loginUser) == 1;
 	}
@@ -373,6 +378,25 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public String getNicknameById(UserDTO userid) {
 		return umapper.getNicknameByUserId(userid);
+	}
+	@Override
+	public List<String> getF_SystemName(UserDTO userid) {
+		return umapper.getF_SystemName(userid);
+	}
+
+	@Override
+	public List<Map<String, Object>> getF_LikeInfoByUserid(String loginUser) {
+		return umapper.getF_LikeInfoByUserid(loginUser);
+	}
+
+	@Override
+	public List<String> getD_systemName(String loginUser) {
+		return umapper.getD_systemName(loginUser);
+	}
+
+	@Override
+	public List<String> getF_systemName(String loginUser) {
+		return umapper.getF_systemName(loginUser);
 	}
 
 }
