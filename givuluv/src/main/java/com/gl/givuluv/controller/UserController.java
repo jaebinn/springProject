@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gl.givuluv.domain.dto.CBoardDTO;
 import com.gl.givuluv.domain.dto.Criteria;
+import com.gl.givuluv.domain.dto.DBoardDTO;
+import com.gl.givuluv.domain.dto.FBoardDTO;
 import com.gl.givuluv.domain.dto.FollowDTO;
 import com.gl.givuluv.domain.dto.UserDTO;
 import com.gl.givuluv.service.DBoardService;
@@ -219,18 +221,26 @@ public class UserController {
 		String d_cost = service.getUserD_costById(userid);
 		int donation = service.getUserDonationById(userid);
 		int funding = service.getUserFundingBiId(userid);
-		String D_name = service.getDonationNameById(userid);
-		String DU_name = service.getDonaUserNameById(userid);
-		String Done_time = service.getDoneTimeById(userid);
+		
+		DBoardDTO D_name = service.getDonationNameById(userid);
+		
+		FBoardDTO F_name = service.getFundingNameById(userid);
+		
 		String NickName = service.getNicknameById(userid);
+		if(D_name != null) {
+			model.addAttribute("DonationName", D_name);
+		}
+		if(F_name != null) {
+			model.addAttribute("fundingName", F_name);
+		}
 
 		model.addAttribute("UserBonus", bonus);
 		model.addAttribute("UserD_cost", d_cost);
 		model.addAttribute("UserDonate", donation);
 		model.addAttribute("UserFunding", funding);
-		model.addAttribute("DonationName", D_name);
-		model.addAttribute("DoneUserName", DU_name);
-		model.addAttribute("DoneTime", Done_time);
+		
+		
+		
 		model.addAttribute("NickName", NickName);
 		/* model.addAttribute("DonationNameList", Donation_List); */
 
@@ -294,29 +304,6 @@ public class UserController {
 	 * return "/user/my/activity_history"; }
 	 */
 
-	@GetMapping("my/electronic_receipt")
-	public String my_electronic_receipt(HttpServletRequest req, Model model) {
-		HttpSession session = req.getSession();
-		String loginUser = (String) session.getAttribute("loginUser");
-		UserDTO userid = service.getUserById(loginUser);
-		String bonus = (String) service.getUserBonusById(userid);
-		String d_cost = (String) service.getUserD_costById(userid);
-		int donation = (int) service.getUserDonationById(userid);
-		int funding = (int) service.getUserFundingBiId(userid);
-		String D_name = (String) service.getDonationNameById(userid);
-		String DU_name = (String) service.getDonaUserNameById(userid);
-		String Done_time = (String) service.getDoneTimeById(userid);
-
-		model.addAttribute("UserBonus", bonus);
-		model.addAttribute("UserD_cost", d_cost);
-		model.addAttribute("UserDonate", donation);
-		model.addAttribute("UserFunding", funding);
-		model.addAttribute("DonationName", D_name);
-		model.addAttribute("DoneUserName", DU_name);
-		model.addAttribute("DoneTime", Done_time);
-		// 영수증을 다운로드 할 수 있는 페이지
-		return "/user/my/electronic_receipt";
-	}
 
 //  유저 정보를 수정하는 수정페이지 
 //  유저 정보를 수정하는 수정페이지 
@@ -447,74 +434,37 @@ public class UserController {
 		String src = "/summernoteImage/";
 		HttpSession session = req.getSession();
 		String loginUser = (String) session.getAttribute("loginUser");
-		System.out.println("loginUser :: " + loginUser);
-		List<Map<String,Object>> d_likeinfo = service.getD_LikeInfoByUserid(loginUser);
-		List<Map<String,Object>> f_likeinfo = service.getF_LikeInfoByUserid(loginUser);
-		List<String> d_systemname = service.getD_systemName(loginUser);
-		List<String> f_systemname = service.getF_systemName(loginUser);
-		
-		if(d_systemname == null || f_systemname == null) {
-			model.addAttribute("loginUser", loginUser);
-			model.addAttribute("d_likeinfo", d_likeinfo);
-			model.addAttribute("f_likeinfo", f_likeinfo);
+		List<Map<String,Object>> s_likeinfo = service.getS_LikeInfoByUserid(loginUser);
+			model.addAttribute("sboard", s_likeinfo);
 			return "user/my/User_Like";
-		}
-		else if(d_systemname.equals(null)) {
-			model.addAttribute("loginUser", loginUser);
-			model.addAttribute("d_likeinfo", d_likeinfo);
-			model.addAttribute("f_likeinfo", f_likeinfo);
-			model.addAttribute("f_systemname", src+f_systemname);
-			return "user/my/User_Like";
-		}
-		else if(d_systemname.equals(null)) {
-			model.addAttribute("loginUser", loginUser);
-			model.addAttribute("d_likeinfo", d_likeinfo);
-			model.addAttribute("f_likeinfo", f_likeinfo);
-			model.addAttribute("d_systemname", src+d_systemname);
-			return "user/my/User_Like";
-		}
-		else {
-			model.addAttribute("loginUser", loginUser);
-			model.addAttribute("d_likeinfo", d_likeinfo);
-			model.addAttribute("f_likeinfo", f_likeinfo);
-			model.addAttribute("f_systemname", src+f_systemname);
-			model.addAttribute("d_systemname", src+d_systemname);
-			return "user/my/User_Like";
-		}
+	}
 		/*
 		 * model.addAttribute("loginUser", loginUser); model.addAttribute("d_likeinfo",
 		 * d_likeinfo); model.addAttribute("f_likeinfo", f_likeinfo); return
 		 * "user/my/User_Like";
 		 */
-	}
 
-	@PostMapping("deleteLike")
-	@ResponseBody // 반환된 객체가 JSON 형식으로 변환되어 클라이언트에게 응답하도록 한다.
-	public Map<String, Object> delete_like(@RequestBody String c_board, HttpServletRequest req) {
-		HttpSession session = req.getSession();
-		String loginUser = (String) session.getAttribute("loginUser"); // 세션에서 "loginUser"라는 속성을 문자열로 가져온다.
-
-		// 로그인 사용자가 없을 경우 처리
-		if (loginUser == null) {
-			// 예: 적절한 에러 메시지를 반환
-			Map<String, Object> response = new HashMap<>();
-			response.put("success", false);
-			response.put("message", "User not logged in.");
-			return response;
-		}
-
-		System.out.println("c_board :: " + c_board);
-
-		// 실제 좋아요 취소 로직을 여기에 추가
-		// 예: 좋아요 데이터를 삭제하는 서비스 호출
-
-		// 성공 응답
-		Map<String, Object> response = new HashMap<>();
-		response.put("success", true);
-		response.put("someValue", "좋아요가 취소되었습니다.");
-
-		return response;
-	}
+		/*
+		 * @PostMapping("deleteLike")
+		 * 
+		 * @ResponseBody // 반환된 객체가 JSON 형식으로 변환되어 클라이언트에게 응답하도록 한다. public Map<String,
+		 * Object> delete_like(@RequestBody String c_board, HttpServletRequest req) {
+		 * HttpSession session = req.getSession(); String loginUser = (String)
+		 * session.getAttribute("loginUser"); // 세션에서 "loginUser"라는 속성을 문자열로 가져온다.
+		 * 
+		 * // 로그인 사용자가 없을 경우 처리 if (loginUser == null) { // 예: 적절한 에러 메시지를 반환
+		 * Map<String, Object> response = new HashMap<>(); response.put("success",
+		 * false); response.put("message", "User not logged in."); return response; }
+		 * 
+		 * System.out.println("c_board :: " + c_board);
+		 * 
+		 * // 실제 좋아요 취소 로직을 여기에 추가 // 예: 좋아요 데이터를 삭제하는 서비스 호출
+		 * 
+		 * // 성공 응답 Map<String, Object> response = new HashMap<>();
+		 * response.put("success", true); response.put("someValue", "좋아요가 취소되었습니다.");
+		 * 
+		 * return response; }
+		 */
 
 	@GetMapping("my/delete_userinfo")
 	public String deleteUser(HttpServletRequest req, Model model) {

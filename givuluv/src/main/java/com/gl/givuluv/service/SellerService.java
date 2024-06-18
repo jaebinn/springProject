@@ -95,6 +95,7 @@ public interface SellerService {
    boolean updateSellerProfile(MultipartFile[] files, String loginSeller) throws Exception;
 
    boolean deleteSeller(String sellerid);
+boolean updateQna(QnaDTO qna);
 
 
 }

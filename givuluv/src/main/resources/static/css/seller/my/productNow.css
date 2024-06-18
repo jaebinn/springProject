@@ -68,7 +68,7 @@ a, input {
 		transition: all 0.3s;
 	}
 	.menu_area > div > a:hover,
-	.menu_area > :nth-child(1) > :nth-child(2),
+	.menu_area > :nth-child(2) > :nth-child(2),
 	.file_btn > a:hover,
 	#checkid:hover,
 	#findzipcode:hover {

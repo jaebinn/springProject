@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.gl.givuluv.domain.dto.CBoardDTO;
+import com.gl.givuluv.domain.dto.DBoardDTO;
+import com.gl.givuluv.domain.dto.FBoardDTO;
 import com.gl.givuluv.domain.dto.FollowDTO;
 import com.gl.givuluv.domain.dto.UserDTO;
 
@@ -28,7 +30,7 @@ public interface UserService {
 //	유저가 펀딩한 내역의 수를 불러오기 위함
 	int getUserFundingBiId(UserDTO userid);
 //	유저가 기부했던 기부 프로젝트의 기부명을 가져옴 
-	String getDonationNameById(UserDTO userid);
+	DBoardDTO getDonationNameById(UserDTO userid);
 //	기부를 행한 일반유저와 매칭되는 댄체/판매자의 이름을 불러오기
 	String getDonaUserNameById(UserDTO userid);
 //	유저가 기부한 기부 프로젝트의 설립일 불러오기
@@ -38,11 +40,11 @@ public interface UserService {
 //	우저가 펀딩한 펀딩명을 전부 뽐아옴
 	List<String> getFundNameByUserId(UserDTO userid);
 //	유저가 펀딩한 프로젝트의 작성자를 불러옴
-	List<String> getFundUserNameById(UserDTO userid);
+	String getFundUserNameById(UserDTO userid);
 //	유저가 펀딩한 프로젝트의 설립일 불러옴
-	List<String> getFundTimeById(UserDTO userid);
+	String getFundTimeById(UserDTO userid);
 //	펀딩제목 가져오기
-	List<String> getFundingNameById(UserDTO userid);
+	FBoardDTO getFundingNameById(UserDTO userid);
 	
 	String getUserNickNameById(UserDTO userid);
 	
@@ -76,8 +78,6 @@ public interface UserService {
 	
 	UserDTO getUserInfo(UserDTO userid);
 	boolean addFollow(FollowDTO follow);
-	
-	List<Map<String,Object>> getD_LikeInfoByUserid(String loginUser);
 	
 	List<CBoardDTO> getLikeInfoByUserid(String loginUser);
 	
@@ -113,12 +113,7 @@ public interface UserService {
 	List<Map<String, Object>> getFundNameByUserid(UserDTO userid);
 	String getNicknameById(UserDTO userid);
 	List<Map<String, Object>> getRDonaNameByUserid(UserDTO userid);
-	List<String> getF_SystemName(UserDTO userid);
+	List<Map<String, Object>> getS_LikeInfoByUserid(String loginUser);
 	
-	List<Map<String, Object>> getF_LikeInfoByUserid(String loginUser);
-	
-	List<String> getD_systemName(String loginUser);
-	
-	List<String> getF_systemName(String loginUser);
 	
 }

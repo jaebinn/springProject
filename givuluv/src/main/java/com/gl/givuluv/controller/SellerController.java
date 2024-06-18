@@ -137,12 +137,14 @@ public class SellerController {
       @PostMapping("login")
       public String login(String sellerid, String sellerpw, String type, HttpServletRequest req, Model model) {
           HttpSession session = req.getSession();
+          
           if(service.login(sellerid, sellerpw)) {
               System.out.println(sellerid + " 로그인됨");
               session.setAttribute("loginSeller", sellerid);
               //스토어 승인 또는 등록 확인
               char signupcheck = service.checkStoreSignup(sellerid);
               String url;
+              
               if(signupcheck == '-') {
             	url = "/";
       			model.addAttribute("alertMessage", "스토어 승인 대기 중입니다.");
@@ -261,23 +263,30 @@ public class SellerController {
       public String SellerMyStoreList(HttpServletRequest req, Model model) {
          HttpSession session = req.getSession();
          String sellerid = (String)session.getAttribute("loginSeller");
+         String systemname = service.getSellerProfile(sellerid);
          
          List<Map<String, Object>> storeData = new ArrayList<>();
          
          SinfoDTO sInfo = service.getSinfoBySellerid(sellerid);
-         System.out.println("컨트롤러 sInfo.getSNum() : "+sInfo.getSNum());
-         String storeMainImgSystemname = service.getStoreMainImgBySNum(sInfo.getSNum());
-         String url = "/summernoteImage/"+storeMainImgSystemname;
-            
-         Map<String, Object> map = new HashMap<>();
-         map.put("sInfo", sInfo);
-         map.put("url", url);
-         storeData.add(map);
-         String systemname = service.getSellerProfile(sellerid);
- 		 model.addAttribute("systemname", systemname);
-         model.addAttribute("storeData", storeData);
-         System.out.println("컨트롤러 storeData : "+storeData);
          
+         if(sInfo == null) {
+        	 model.addAttribute("storeData", null);
+        	 model.addAttribute("systemname", systemname);
+        	 return "seller/my/storeList";
+         }
+         else {
+        	 System.out.println("컨트롤러 sInfo.getSNum() : "+sInfo.getSNum());
+        	 String storeMainImgSystemname = service.getStoreMainImgBySNum(sInfo.getSNum());
+        	 String url = "/summernoteImage/"+storeMainImgSystemname;
+        	 
+        	 Map<String, Object> map = new HashMap<>();
+        	 map.put("sInfo", sInfo);
+        	 map.put("url", url);
+        	 storeData.add(map);
+        	 model.addAttribute("systemname", systemname);
+        	 model.addAttribute("storeData", storeData);
+        	 System.out.println("컨트롤러 storeData : "+storeData);
+         }
          return "seller/my/storeList";
       }
 
@@ -350,15 +359,29 @@ public class SellerController {
             String systemname = service.getSellerProfile(sellerid);
             List<QnaDTO> qnaList = new ArrayList<>();
             qnaList = service.getQnaListBySelleridWithCri(cri, sellerid);
-            // qnaList = service.getNoAnswerList((String)
-            // session.getAttribute("loginSeller"));
-            System.out.println(qnaList);
-            
-            model.addAttribute("systemname", systemname);
-            model.addAttribute("pageMaker", new PageDTO(service.getQnaTotalBySellerid(sellerid), cri));
-            model.addAttribute("qnaList", qnaList);
-            model.addAttribute("cri", cri);
-            return "seller/my/qna";
+            if (qnaList == null) {
+            	model.addAttribute("qnaList", null);
+            	model.addAttribute("systemname", systemname);
+            	return "seller/my/qna";
+            }
+            else {
+            	// qnaList = service.getNoAnswerList((String)
+            	// session.getAttribute("loginSeller"));
+            	System.out.println("@@@@@@@@@@@@@@@@@@@@@@@"+qnaList);
+            	
+            	model.addAttribute("systemname", systemname);
+            	model.addAttribute("pageMaker", new PageDTO(service.getQnaTotalBySellerid(sellerid), cri));
+            	model.addAttribute("qnaList", qnaList);
+            	model.addAttribute("cri", cri);
+            	return "seller/my/qna";
+            }
+         }
+         
+         @PostMapping("answerWrite")
+         public String answerWrite(@RequestBody QnaDTO qna) {
+        	 System.out.println("======================="+qna);
+        	 service.updateQna(qna);
+        	 return "redirect:/seller/my/qna";
          }
 
          @GetMapping("my/qnaNoAnswer")
@@ -370,10 +393,18 @@ public class SellerController {
             List<QnaDTO> qnaList = new ArrayList<>();
             System.out.println(qnaList);
             qnaList = service.getNoAnswerQnaListBySelleridWithCri(cri, sellerid);
+            String systemname = service.getSellerProfile(sellerid);
+            
+            if(qnaList == null) {
+            	 model.addAttribute("qnaList", null);
+            	 model.addAttribute("systemname", systemname);
+                 return "seller/my/noAnswerQnA";
+            }
             // qnaList =
             // service.getQnaListBySellerid((String)session.getAttribute("loginSeller"));
 
             System.out.println(qnaList);
+            model.addAttribute("systemname", systemname);
             model.addAttribute("pageMaker", new PageDTO(service.getNoAnswerQnaTotalBySellerid(sellerid), cri));
             model.addAttribute("qnaList", qnaList);
             model.addAttribute("cri", cri);
@@ -386,11 +417,22 @@ public class SellerController {
                   cri.setAmount(5);
                   HttpSession session = req.getSession();
                   String sellerid = (String) session.getAttribute("loginSeller");
+                  String systemname = service.getSellerProfile(sellerid);
                   char type = 'M';
 
                   List<SBoardDTO> sBoardList = service.getSBoardListBySellerid(sellerid);
                   List<ProductDTO> productList = service.getProductListBySelleridType(sellerid, type);
                   List<ReviewDTO> reviewList = service.getReviewListBySelleridWithCri(cri, sellerid);
+                  
+                  if(sBoardList == null && productList == null && reviewList == null) {
+                	  model.addAttribute("sBoardList", null);
+                      model.addAttribute("productList", null);
+                      model.addAttribute("reviewList", null);
+                      model.addAttribute("systemname", systemname);
+                      
+                      return "seller/my/reviewList";
+                  }
+                  
                   List<FileDTO> sBoardThumbnailList = new ArrayList<>();
                   
                   for(SBoardDTO sBoard : sBoardList) {
@@ -404,7 +446,6 @@ public class SellerController {
                      sBoardThumbnailList.add(Thumbnail);
                   }
                   System.out.println(reviewList);
-                  String systemname = service.getSellerProfile(sellerid);
                   System.out.println("컨트롤러 sBoardList : " + sBoardList);
                   System.out.println("컨트롤러 sBoard썸네일 : " + sBoardThumbnailList);
                   model.addAttribute("systemname", systemname);

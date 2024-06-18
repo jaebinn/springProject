@@ -205,6 +205,14 @@ a, input {
 		border-radius: 50%;
 		src: url("/images/default_profile.png");
 	}
+	
+	.reviewNull, .qnaNull {
+		display: flex;
+		margin: 10px;
+		color: rgb(184, 184, 184);
+		justify-content: center;
+		align-items: center;
+	}
 
 	
 	

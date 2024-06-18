@@ -32,4 +32,6 @@ public interface QnaMapper {
 
 	long getNoAnswerTotalByProductnum(String productnum);
 
+	boolean updateQnaAnswer(QnaDTO qna);
+
 }

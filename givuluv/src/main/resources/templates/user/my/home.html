@@ -51,34 +51,42 @@
 				</a>
 			</div>
 			<div class="myNews_div">
-				<div>
-					<div>
-						<h3><a id="nickname">[[${NickName}]]</a>님의 소식</h3>
-						<!--로그인한 유저가 참여한 기부 , 펀딩 내역의 수-->
-						<span>총 기부[[${UserDonate}]] / 펀딩[[${UserFunding}]] 건</span>
-						<p>※기부/펀딩내역 중 최근 [3]건이 출력됩니다</p>
-					</div>
-					<a href="/user/my/news">전체보기>></a>
-				</div>
-				<!--로그인한 유저가 참여한 기부, 펀딩 내역을 출력-->
-				<div>
-					<div class="Dona_List" th:if="${not #lists.isEmpty(Home_Donation_List)}"
-						th:each="donationItem : ${Home_Donation_List}">
-						<a id="Dona_Red">[기부활동]</a><span th:text="${donationItem}">Donation List Name</span>
-						<p id="Name_Time">[[${DoneUserName}]] &nbsp; [[${DoneTime}]]</p>
-					</div>
-					<div class="Fund_List" th:if="${not #lists.isEmpty(Home_Funding_List)}"
-						th:each="fundingItem : ${Home_Funding_List}">
-						<a id="Fund_Blue">[펀딩활동]</a><span th:text="${fundingItem}">Funding List Name</span>
-						<p>[[${FundUserName}]] &nbsp; [[${FundTime}]]</p>
-					</div>
-					<div>
-						<!--1개씩 말고 2개씩 띄우자는 의견-->
-						<span>[Advertise]</span>
-						<p>차곡차곡 모은 보너스 포인트로 "<a href="#" id="Trip"><strong>해외여행</strong></a>"가자!</p>
-					</div>
-				</div>
-			</div>
+							<div>
+								<div>
+									<h3><a id="nickname">[[${NickName}]]</a> 님의 소식</h3>
+									<!--로그인한 유저가 참여한 기부 , 펀딩 내역의 수-->
+									<span>총 기부[[${UserDonate}]] / 펀딩[[${UserFunding}]] 건</span>
+									<p>※기부/펀딩내역 미리보기</p>
+								</div>
+								<a href="/user/my/news">전체보기>></a>
+							</div>
+							<!--로그인한 유저가 참여한 기부, 펀딩 내역을 출력-->
+							<div>
+							    <div class="Dona_List">
+							        <a id="Dona_Red">[기부활동]</a>
+							        <span>
+							            [[${DonationName != null && DonationName.dTitle != null ? DonationName.dTitle : '기부활동이 없습니다.'}]]
+							        </span>
+							        <p id="Name_Time">
+							            [[${DonationName != null && DonationName.orgid != null ? DonationName.orgid : ''}]]
+							        </p>
+							    </div>
+							    <div class="Fund_List">
+							        <a id="Fund_Blue">[펀딩활동]</a>
+							        <span>
+							            [[${fundingName != null && fundingName.fTitle != null ? fundingName.fTitle : '펀딩활동이 없습니다.'}]]
+							        </span>
+							        <p>
+							            [[${fundingName != null && fundingName.orgid != null ? fundingName.orgid : ''}]]
+							        </p>
+							    </div>
+							    <div>
+							        <!-- 1개씩 말고 2개씩 띄우자는 의견 -->
+							        <span>[Advertise]</span>
+							        <p>차곡차곡 모은 보너스 포인트로 "<a href="#" id="Trip"><strong>해외여행</strong></a>"가자!</p>
+							    </div>
+							</div>
+						</div>
 		</div>
 	</div>
 

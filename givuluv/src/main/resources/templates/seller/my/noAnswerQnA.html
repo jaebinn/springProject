@@ -28,7 +28,7 @@
 				<div>
 					<h3>상품</h3>
 					<a href="/seller/my/productNow">현재 재고현황</a>
-					<a>새 물품 등록</a>
+					<a href="/store/write">새 물품 등록</a>
 				</div>
 				<div>
 					<h3>스토어</h3>
@@ -58,7 +58,7 @@
 						<img src="/images/seller/my/qna.png">
 						<span>Q&A</span>
 					</a>
-					<a>
+					<a href="/store/sBoard">
 						<img src="/images/seller/my/쇼핑.png">
 						<span>다른스토어 보기</span>
 					</a>
@@ -74,19 +74,24 @@
 					<input type="button" value="답변 대기">
 				</div>
 				<!-- qna 내용 div -->
-				<div th:if="${qnaList != null and qnaList.size() > 0}" th:each="qna:${qnaList}" class="qna_contents_div">
-					<div class="content">
-						<span>[[${qna.question}]]</span>
-						<div>
-							<div class="cm_check" th:style="${qna.answer} != null ? 'background-color: #2f956b; color: white' : ''">A</div>
-							<span th:text="${qna.answer} != null ? '답변 완료' : '답변 대기' "></span>
-							<div class="profile_info">
-								<img src="/images/default_profile.png">
-								<span>[[${qna.userid}]]</span>
-								<span>[[${qna.qnaregdate}]]</span>
-							</div>
-						</div>
-					</div>
+				<div th:if="${qnaList != null and qnaList.size() > 0}" th:each="qna : ${qnaList}" class="qna_contents_div">
+			        <div class="content">
+			            <span class="qna-question">[[${qna.question}]]</span>
+			            <div>
+			                <div class="cm_check" th:style="${qna.answer} != null ? 'background-color: #2f956b; color: white' : ''">A</div>
+			                <span th:text="${qna.answer} != null ? '답변 완료' : '답변 대기'"></span>
+			                <input th:if="${qna.answer == null}" class="answerWriteBtn" type="button" value="답변 작성" onclick="answer(this);">
+			                <div class="profile_info">
+			                    <img src="/images/default_profile.png">
+			                    <span class="qna-userid">[[${qna.userid}]]</span>
+			                    <span class="qna-qnaregdate">[[${qna.qnaregdate}]]</span>
+								<input type="hidden" class="qna-qnanum" th:value="${qna.qnanum}">
+			                </div>
+			            </div>
+			        </div>
+			    </div>
+				<div th:if="${qnaList == null or qnaList.size() == 0 or qnaList.?[answer == null].size() == 0}" class="qnaNull">
+				    <h2>답변을 못한 QnA가 없습니다.</h2>
 				</div>
 				<div class="nextDiv">
 					<i class="fa-solid fa-circle-plus" id="load-more-btn"></i>
@@ -144,6 +149,99 @@
 	        }
 	    });
 	}
+</script>
+<script>
+    function answer(button) {
+        // 클릭된 버튼의 가장 가까운 qna_contents_div 요소를 찾습니다.
+        var qnaContentsDiv = button.closest('.qna_contents_div');
+        
+        if (!qnaContentsDiv) {
+            console.error('qna_contents_div not found');
+            return;
+        }
+        
+        // answerDiv를 생성합니다.
+        const answerDiv = document.createElement("div");
+        answerDiv.setAttribute("class", "answerWrite");
+        
+		const answerInnerDiv = document.createElement("div");
+		answerInnerDiv.setAttribute("class", "answerInnerDiv");
+		
+		const answerButtonDiv = document.createElement("div");
+		answerButtonDiv.setAttribute("class", "answerButtonDiv");
+				
+        const answerSpan = document.createElement("span");
+        answerSpan.setAttribute("class", "answerSpan");
+        answerSpan.innerHTML = "답변 작성";
+        
+        const answerTextarea = document.createElement("textarea");
+        answerTextarea.setAttribute("class", "answerTextarea");
+        answerTextarea.setAttribute("placeholder", "답변을 입력하세요.");
+        
+        const completeButton = document.createElement("button");
+        completeButton.innerHTML = "작성완료";
+        completeButton.onclick = function() {
+            const answerText = answerTextarea.value;
+            const questionElement = qnaContentsDiv.querySelector('.qna-question');
+            const useridElement = qnaContentsDiv.querySelector('.qna-userid');
+            const qnaregdateElement = qnaContentsDiv.querySelector('.qna-qnaregdate');
+            const qnanumElement = qnaContentsDiv.querySelector('.qna-qnanum');
+
+            if (!questionElement || !useridElement || !qnaregdateElement) {
+                console.error('Required elements not found');
+                return;
+            }
+
+            const question = questionElement.innerText;
+            const userid = useridElement.innerText;
+            const qnaregdate = qnaregdateElement.innerText;
+			const qnanum = qnanumElement.value;
+			
+            // AJAX 요청 보내기
+            $.ajax({
+                type: 'POST',
+                url: '/seller/answerWrite',
+                data: JSON.stringify({
+                    answer: answerText,
+                    question: question,
+                    userid: userid,
+                    qnaregdate: qnaregdate,
+					qnanum: qnanum
+                }),
+                contentType: 'application/json',
+                success: function(response) {
+                    alert('답변이 성공적으로 등록되었습니다.');
+					location.href='/seller/my/qna';
+                },
+                error: function(error) {
+                    alert('답변 등록에 실패했습니다.');
+                }
+            });
+        };
+        
+        const cancelButton = document.createElement("button");
+        cancelButton.innerHTML = "작성취소";
+        cancelButton.onclick = function() {
+            qnaContentsDiv.removeChild(answerDiv);
+            button.style.display = 'inline';
+        };
+        
+		answerInnerDiv.append(answerSpan);
+		answerInnerDiv.append(answerTextarea);
+		answerButtonDiv.append(completeButton);
+		answerButtonDiv.append(cancelButton);
+		
+		answerDiv.append(answerInnerDiv);
+		answerDiv.append(answerButtonDiv);
+		
+		qnaContentsDiv.append(answerDiv);
+        
+        // qnaContentsDiv에 answerDiv를 추가합니다.
+        qnaContentsDiv.append(answerDiv);
+        
+        // "답변 작성" 버튼 숨기기
+        button.style.display = 'none';
+    }
 </script>
 <script>
 	$(document).ready(function () {

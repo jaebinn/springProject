@@ -68,7 +68,7 @@ a, input {
 		transition: all 0.3s;
 	}
 	.menu_area > div > a:hover,
-	.menu_area > :nth-child(4) > :nth-child(2){
+	.menu_area > :nth-child(5) > :nth-child(2){
 		color: #e77097;
 	}
 	#joinBtn:hover {
@@ -186,4 +186,12 @@ a, input {
 		.nextDiv > #load-more-btn {
 			font-size: 30px;
 			color: #e77097;
+		}
+		
+		.reviewNull {
+			display: flex;
+			margin: 30px;
+			color: rgb(184, 184, 184);
+			justify-content: center;
+			align-items: center;
 		}

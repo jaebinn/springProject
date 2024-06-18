@@ -141,13 +141,16 @@
 #img_area{
 	width: 365px;
 	height: 300px;
-	border: 1px solid black;
+	border-radius: 50%;
 	float: left;
 }
 
 #img_area > img{
 	width:365px; 
 	height:300px;
+	border-radius: 50%;
+	border: 1px solid black;
+	margin-left: 30px;
 }
 
 .new_file{

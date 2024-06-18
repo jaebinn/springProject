@@ -36,7 +36,7 @@
 	</select>
 		
 	<select id="getDonationNameById">
-		select d_title from d_board inner join d_payment on d_payment.userid = #{userid} order by d_payment.userid asc LIMIT 1
+		select b.* from d_board b inner join d_payment p on p.d_boardnum=b.d_boardnum where p.userid = #{userid} order by p.paymentnum desc LIMIT 1;
 	</select>
 	
 	<select id="getDonaUserNameById">
@@ -72,9 +72,8 @@
 	</select>
 	
 	<select id="getFundingNameById">
-		select f_title from f_board join d_payment on d_payment.userid=#{userid} LIMIT 3
+		select b.* from f_board b join f_payment f on f.f_boardnum=b.f_boardnum where f.userid=#{userid} order by f.paymentnum desc LIMIT 1;
 	</select>
-	
 	
 	<select id="getUserNameById">
 		select username from user where userid = #{userid}
@@ -179,8 +178,8 @@
 		select DISTINCT systemname from file join d_payment on d_payment.userid = #{userid};
 	</select>
 	
-	<select id="getD_LikeInfoByUserid">
-		select DISTINCT d_title, orgid from d_board join `like` on `like`.userid = #{userid}
+	<select id="getS_LikeInfoByUserid">
+		select * from s_board s join `like` l on s.s_boardnum = l.connectid where l.userid="apple" and l.type='s';
 	</select>
 	<select id="getF_LikeInfoByUserid">
 		select DISTINCT f_title, orgid from f_board join `like` on `like`.userid = #{userid}

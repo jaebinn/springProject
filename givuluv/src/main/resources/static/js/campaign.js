@@ -146,9 +146,10 @@ function replyList(cBoardnum) {
 					if (item.comment.type === 'O') {
 						str += `
 			<a href="#" class="commentprofile">
-				<img src="/summernoteImage/202405221023256949ed58d39-11cf-4eb5-bab3-0a9a7b59ab73.png">
+				<img src="${item.commentFileLink}">
 				<p>${item.commentWriterName}</p>
 			</a>`
+			
 					}
 					else {
 						str += `

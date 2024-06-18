@@ -1,21 +1,30 @@
 package com.gl.givuluv.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gl.givuluv.domain.dto.CBoardDTO;
+import com.gl.givuluv.domain.dto.DBoardDTO;
+import com.gl.givuluv.domain.dto.FBoardDTO;
 import com.gl.givuluv.domain.dto.FollowDTO;
+import com.gl.givuluv.domain.dto.SBoardDTO;
 import com.gl.givuluv.domain.dto.UserDTO;
+import com.gl.givuluv.mapper.FileMapper;
 import com.gl.givuluv.mapper.UserMapper;
 
 @Service
 public class UserServiceImpl implements UserService{
-	
+	 
 	@Autowired
 	private UserMapper umapper;
+	@Autowired
+	private FileMapper fmapper;
 	
 	@Override
 	public boolean join(UserDTO user) {
@@ -105,8 +114,7 @@ public class UserServiceImpl implements UserService{
 
 //	유저가 기부한 기부프로젝트의 기부명을 불러옴
 	@Override
-	public String getDonationNameById(UserDTO userid) {
-		
+	public DBoardDTO getDonationNameById(UserDTO userid) {
 		return umapper.getDonationNameById(userid);
 	}
 //	유저가 참여한 기부 프로젝트의 담당자 이름을 불러옴
@@ -145,20 +153,19 @@ public class UserServiceImpl implements UserService{
 	}
 //	펀드 게시판의 글쓴ㅇ이를 불러옴
 	@Override
-	public List<String> getFundUserNameById(UserDTO userid) {
+	public String getFundUserNameById(UserDTO userid) {
 		
 		return umapper.getFundUserNameById(userid);
 	}
 //	펀드 게시글이 올라온 시간을 불러옴
 	@Override
-	public List<String> getFundTimeById(UserDTO userid) {
+	public String getFundTimeById(UserDTO userid) {
 		
 		return umapper.getFundTimeById(userid);
 	}
 
 	@Override
-	public List<String> getFundingNameById(UserDTO userid) {
-		
+	public FBoardDTO getFundingNameById(UserDTO userid) {
 		return umapper.getFundingNameById(userid);
 	}
 
@@ -271,9 +278,26 @@ public class UserServiceImpl implements UserService{
 	      return false;
 	   }
 	@Override
-	public List<Map<String,Object>> getD_LikeInfoByUserid(String loginUser) {
-		
-		return umapper.getD_LikeInfoByUserid(loginUser);
+	public List<Map<String, Object>> getS_LikeInfoByUserid(String loginUser) {
+	    String src = "/summernoteImage/";
+	    List<SBoardDTO> sboardList = umapper.getS_LikeInfoByUserid(loginUser); // 유저가 좋아요 누른 SBoard 리스트
+	    List<Map<String, Object>> result = new ArrayList<>();
+
+	    for (SBoardDTO sboard : sboardList) {
+	        Map<String, Object> sboardMap = new HashMap<>();
+	        sboardMap.put("sboard", sboard);
+
+	        List<String> d_systemname = fmapper.getSBoardSystemnameByNum(sboard.getSBoardnum());
+	        List<String> fullPaths = d_systemname.stream()
+	                                             .map(systemname -> src + systemname)
+	                                             .collect(Collectors.toList());
+	        sboardMap.put("s_systemname", fullPaths.get(0));
+	        
+	        result.add(sboardMap);
+	    }
+	    System.out.println(result);
+
+	    return result;
 	}
 	@Override
 	public List<CBoardDTO> getLikeInfoByUserid(String loginUser) {
@@ -379,24 +403,8 @@ public class UserServiceImpl implements UserService{
 	public String getNicknameById(UserDTO userid) {
 		return umapper.getNicknameByUserId(userid);
 	}
-	@Override
-	public List<String> getF_SystemName(UserDTO userid) {
-		return umapper.getF_SystemName(userid);
-	}
 
-	@Override
-	public List<Map<String, Object>> getF_LikeInfoByUserid(String loginUser) {
-		return umapper.getF_LikeInfoByUserid(loginUser);
-	}
 
-	@Override
-	public List<String> getD_systemName(String loginUser) {
-		return umapper.getD_systemName(loginUser);
-	}
 
-	@Override
-	public List<String> getF_systemName(String loginUser) {
-		return umapper.getF_systemName(loginUser);
-	}
 
 }

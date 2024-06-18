@@ -6,7 +6,10 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.gl.givuluv.domain.dto.CBoardDTO;
+import com.gl.givuluv.domain.dto.DBoardDTO;
+import com.gl.givuluv.domain.dto.FBoardDTO;
 import com.gl.givuluv.domain.dto.FollowDTO;
+import com.gl.givuluv.domain.dto.SBoardDTO;
 import com.gl.givuluv.domain.dto.SPaymentDTO;
 import com.gl.givuluv.domain.dto.UserDTO;
 
@@ -41,7 +44,7 @@ public interface UserMapper {
 	int getUserFundingById(UserDTO userid);
 	
 //	유저가 기부한 기부 프로젝트의 이름을 불러오기
-	String getDonationNameById(UserDTO userid);
+	DBoardDTO getDonationNameById(UserDTO userid);
 	
 //	기부/펀딩 글을 올린 사용자의 이름을 불러옴
 	String getDonaUserNameById(UserDTO userid);
@@ -61,11 +64,11 @@ public interface UserMapper {
 //	유저가 펀딩한 펀딩명을 전부 뽑아옴
 	List<String> getFundNameByUserId(UserDTO userid);
 	
-	List<String> getFundUserNameById(UserDTO userid);
+	String getFundUserNameById(UserDTO userid);
 	
-	List<String> getFundTimeById(UserDTO userid);
+	String getFundTimeById(UserDTO userid);
 	
-	List<String> getFundingNameById(UserDTO userid);
+	FBoardDTO getFundingNameById(UserDTO userid);
 	
 	String getUserNickNameById(UserDTO userid);
 	
@@ -113,8 +116,6 @@ public interface UserMapper {
 	//  유저의 카테고리
 	String getUserCategoryById(String userid);
 	
-	List<Map<String,Object>> getD_LikeInfoByUserid(String loginUser);
-	
 	List<CBoardDTO> getLikeInfoByUserid(String loginUser);
 	
 	int Delete_LikeByUserid(String loginUser);
@@ -155,4 +156,5 @@ public interface UserMapper {
 	List<String> getD_systemName(String loginUser);
 	
 	List<String> getF_systemName(String loginUser);
+	List<SBoardDTO> getS_LikeInfoByUserid(String loginUser);
 }

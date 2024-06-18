@@ -83,11 +83,11 @@ a, input {
 	.contents_div {
 		width: 100%;
 		display: grid;
-		/*grid-template-columns: repeat(3, 1fr);*/
+		grid-template-columns: repeat(3, 1fr);
 		gap: 10px;
 	}
 	.contents_div > .contents {
-		width: 100%; height: 190px;
+		width: 100%; height: 220px;
 		background-color: white;
 		border: 1px solid #e0e0e0;
 		display: grid;
@@ -98,10 +98,7 @@ a, input {
 		object-fit: cover;
 	}
 	.contents_div > .contents > div {
-		padding: 5px;
-		display: flex;
-		flex-direction: column;
-		align-items: flex-end;
+		padding: 20px;
 		gap: 5px;
 	}
 	.contents_div > .contents > div > :nth-child(2) {

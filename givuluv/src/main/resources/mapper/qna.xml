@@ -26,6 +26,9 @@
    <update id="updateQna">
       update qna set question = #{question} where qnanum = #{qnanum}
    </update>
+   <update id="updateQnaAnswer">
+		update qna set answer = #{answer} where qnanum = #{qnanum}
+   </update>
    
    <select id="getModifyQna">
       select * 

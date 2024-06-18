@@ -20,71 +20,25 @@
 		<!-- 오른쪽 내용 -->
 		<div class="left_div">
 			<h2>좋아요 리스트</h2>
-			<!--<div class="button_div">
-				페이지 이동???
-				<a href="#"><input type="button" value="게시글 내역"></a>
-				<a href="#"><input type="button" value="기부 내역"></a>
-				<a href="#"><input type="button" value="펀딩 내역"></a>
-				<a href="#"><input type="button" value="가게 내역"></a>
-			</div>-->
+
 			<div class="user_div">
-			<div id="user_name"><a id="like_user">[//[[${loginUser}]]//]</a>님의 관심리스트 입니다</div>
+			<div id="user_name"><a id="like_user">[[${session.loginUser}]]</a>님의 관심리스트 입니다</div>
 			</div>
 			<div class="contents_div">
-				
-				<div class="contents like_list" id="like_list" th:if="${not #lists.isEmpty(d_likeinfo)}" th:each="donationItem : ${d_likeinfo}">
-					<!--이미지 경로를 모르겠음-->
-					
-						<img id="content_img">
-					
-					<!--=========================================-->
-					
-					<div>
-						
-						[기부]<a href="#"><p th:text = "${donationItem.d_title}" > </p></a>
-						<p th:text = "${donationItem.orgid}" class="boardnum"></p>
-						<!--<p th:text="${Board.cTitle}"></p>-->
-						
-						
-						<!--<Form th:action="@{/user/delete_like(c_board=${Board.cBoardnum})}" method="Get" name="deleteLikeForm">-->
-						<!--<input type="button" value="관심삭제" id="del_like" onclick= "deleteLike()">
-						<input type="hidden" value="${Board.cBoardnum}" id="hidden">-->
-						
-						<!--<p th:text = "${Board.cBoardnum}"></p>-->
-						<!--<input type="button" value="관심해제" id="del_like" onclick="">-->
-					</div>
+				<div class="contents like_list" id="like_list" th:if="${not #lists.isEmpty(sboard)}" th:each="board : ${sboard}">
+					<img id="content_img" th:src="${board.s_systemname}">
+						<div>
+							<p id="attractList" th:text = "${board.sboard.sTitle}" > </p>
+						</div>
 				</div>
 				
-				
-				<div class="contents like_list" id="like_list" th:if="${not #lists.isEmpty(f_likeinfo)}" th:each="fundingItem : ${f_likeinfo}">
-									<!--이미지 경로를 모르겠음-->
-									
-										<img id="content_img">
-									
-									<!--=========================================-->
-									
-									<div>
-										
-										[펀딩]<a href="#"><p th:text = "${fundingItem.f_title}" > </p></a>
-										<p th:text = "${fundingItem.orgid}" class="boardnum"></p>
-										<!--<p th:text="${Board.cTitle}"></p>-->
-										
-										
-										<!--<Form th:action="@{/user/delete_like(c_board=${Board.cBoardnum})}" method="Get" name="deleteLikeForm">-->
-										<!--<input type="button" value="관심삭제" id="del_like" onclick= "deleteLike()">
-										<input type="hidden" value="${Board.cBoardnum}" id="hidden">-->
-										
-										<!--<p th:text = "${Board.cBoardnum}"></p>-->
-										<!--<input type="button" value="관심해제" id="del_like" onclick="">-->
-									</div>
-								</div>
 			</div>
-				
-				
-			</div>
-			<div th:if="${#lists.isEmpty(d_likeinfo) == true and #lists.isEmpty(f_likeinfo) == true}"  id="empty_msg">
+			<div th:if="${#lists.isEmpty(sboard) == true and #lists.isEmpty(sboard) == true}"  id="empty_msg">
 				<p id="empty">내역이 존재하지 않습니다.</p>
 			</div>
+				
+			</div>
+			
 		</div>
 	</div>
 	

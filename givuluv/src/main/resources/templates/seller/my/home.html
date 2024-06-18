@@ -27,7 +27,7 @@
 				<div>
 					<h3>상품</h3>
 					<a href="/seller/my/productNow">현재 재고현황</a>
-					<a>새 물품 등록</a>
+					<a href="/store/write">새 물품 등록</a>
 				</div>
 				<div>
 					<h3>스토어</h3>
@@ -57,7 +57,7 @@
 						<img src="/images/seller/my/qna.png">
 						<span>Q&A</span>
 					</a>
-					<a>
+					<a href="/store/sBoard">
 						<img src="/images/seller/my/쇼핑.png">
 						<span>다른스토어 보기</span>
 					</a>
@@ -166,8 +166,12 @@
 					$(".homeReview").append(str);
 				}
 			},
-			error: function (e) {
-				console.log(e);
+			error: function () {
+				let str = '<div class="reviewNull">';
+				str += `<h3>등록된 리뷰가 없습니다.</h3>`;
+				str += `</div>`;
+				
+				$(".homeReview").append(str);
 			}
 		});
 	
@@ -190,8 +194,12 @@
 					$(".homeQna").append(str); // 이전에 생성된 HTML에 새로운 요소 추가
 				}
 			},
-			error: function (e) {
-				console.log(e);
+			error: function () {
+				let str = '<div class="qnaNull">';
+				str += `<h3>등록된 QnA가 없습니다.</h3>`;
+				str += `</div>`;
+				
+				$(".homeQna").append(str);
 			}
 		});
 	});

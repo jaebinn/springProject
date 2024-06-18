@@ -42,5 +42,6 @@ public interface FileMapper {
 	int updateFiles(FileDTO fdto, String connectionid);
 
 	boolean deleteSellerProfile(String connectionid);
+	List<String> getSBoardSystemnameByNum(int sBoardnum);
 
 }

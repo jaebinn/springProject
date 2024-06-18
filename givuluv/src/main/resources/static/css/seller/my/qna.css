@@ -68,7 +68,7 @@ a, input {
 		transition: all 0.3s;
 	}
 	.menu_area > div > a:hover,
-	.menu_area > :nth-child(3) > :nth-child(2),
+	.menu_area > :nth-child(4) > :nth-child(2),
 	.file_btn > a:hover,
 	#checkid:hover,
 	#findzipcode:hover {
@@ -201,7 +201,6 @@ a, input {
 			width: 100%; height:100%;
 			display: flex;
 			flex-direction: column;
-			gap: 20px;
 		}
 		.qna_contents_div > .content {
 			border: 1px solid #e0e0e0;
@@ -261,5 +260,80 @@ a, input {
 			color: #e77097;
 		}
 		
-	
+		.qnaNull {
+			display: flex;
+			margin: 30px;
+			color: rgb(184, 184, 184);
+			justify-content: center;
+			align-items: center;
+		}
+		.answerWrite {
+			height: 120px;
+			padding: 10px;
+			border: 1px solid #e0e0e0;
+			box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+			background-color: rgb(235, 235, 235);
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+		}
+		.answerInnerDiv {
+			width: 100%; height: 100%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			gap: 25px;
+		}
+		.answerSpan{
+			font-size: 15px;
+		}
+		.answerTextarea {
+			height: 100%; width: 600px;
+			resize: none;
+			border: none;
+			outline: none;
+		}
+		.answerButtonDiv {
+			margin-top: 10px;
+			display: flex;
+			align-items: center;
+			gap: 30px;
+		}
+		.answerButtonDiv > button{
+			height: 25px; width: 70px;
+			font-size: 15px;
+			color: white;
+			border: 1px solid #e0e0e0;
+			cursor: pointer;
+			transition: all 0.3s;
+		}
+		.answerButtonDiv > :nth-child(1) {
+			background-color: #2f956b;
+		}
+		.answerButtonDiv > :nth-child(1):hover {
+			background-color: rgb(72, 198, 148);
+		}
+		.answerButtonDiv > :nth-child(2) {
+			background-color: #e77097;
+		}
+		.answerButtonDiv > :nth-child(2):hover {
+			background-color: rgb(238, 153, 181);
+		}
+		.answerWriteBtn {
+			margin-right: 10px;
+		    background-color: #ffcf4d;
+		    border: 1px solid #e0e0e0;
+		    width: 65px;
+		    height: 20px;
+		    transition: all 0.3s;
+		}
+		.answerWriteBtn:hover {
+			background-color: rgb(255, 227, 155);
+		}
+		
+		
+		
+		
+		
 	

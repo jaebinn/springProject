@@ -102,26 +102,33 @@ public class CampaignController {
 	
 
 	@GetMapping("write")
-	public String write(HttpServletRequest req, Model model) {
-		String url = "/";
-		HttpSession session = req.getSession();
-		String loginOrg = session.getAttribute("loginOrg").toString();
-		if(service.isApproveOrg(loginOrg) == 1) {
-			return "campaign/write";
-		}
-		else if(service.isApproveOrgX(loginOrg) == 1){
-			System.out.println("승인이 필요한 사회단체입니다.");
-			model.addAttribute("alertMessage", "단체 승인 대기 중입니다.\n승인 후 게시판 등록이 가능합니다.");
-			model.addAttribute("redirectUri", url);
-			return "store/storeMassege";
-		}else {
-			url ="/org/register";
-			model.addAttribute("alertMessage", "단체 가입 후 게시판 등록이 가능합니다.");
-			model.addAttribute("redirectUri", url);
-			return "store/storeMassege";
-		}
-	}
-
+	   public String write(HttpServletRequest req, Model model) {
+	      String url = "/";
+	      HttpSession session = req.getSession();
+	      Object loginOrg_temp = session.getAttribute("loginOrg");
+	      Object loginManager_temp = session.getAttribute("loginManager");
+	      if(loginOrg_temp != null) {
+	         String loginOrg = loginOrg_temp.toString();
+	         if(service.isApproveOrg(loginOrg) == 1) {
+	            return "campaign/write";
+	         }
+	         else if(service.isApproveOrgX(loginOrg) == 1){
+	            System.out.println("승인이 필요한 사회단체입니다.");
+	            model.addAttribute("alertMessage", "단체 승인 대기 중입니다.\n승인 후 게시판 등록이 가능합니다.");
+	            model.addAttribute("redirectUri", url);
+	            return "store/storeMassege";
+	         }else {
+	            url ="/org/register";
+	            model.addAttribute("alertMessage", "단체 가입 후 게시판 등록이 가능합니다.");
+	            model.addAttribute("redirectUri", url);
+	            return "store/storeMassege";
+	         }
+	      }
+	      if(loginManager_temp != null) {
+	         return "campaign/write";
+	      }
+	      return "/";
+	   }
 	@PostMapping("write")
 	public String regist(CBoardDTO cboard, String filenames, HttpServletRequest req) {
 		System.out.println("post : campaign/write");
@@ -141,7 +148,7 @@ public class CampaignController {
 			cboard.setConnectid(loginOrg);
 		} else if (loginManager != null) {
 			System.out.println("Manager 접속");
-			cboard.setType('M');
+			cboard.setType('A');
 			cboard.setConnectid(loginManager);
 		} else {
 			return "campaign/cBoard";

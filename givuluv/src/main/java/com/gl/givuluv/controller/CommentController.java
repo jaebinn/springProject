@@ -29,7 +29,7 @@ import jakarta.servlet.http.HttpSession;
 public class CommentController {
 	@Autowired
 	private CommentService service;
-
+	
 	@GetMapping("commentList")
 	public ResponseEntity<List<CommentPageDTO>> commentList(int cBoardnum, int commentlastnum, HttpServletRequest req) {
 		System.out.println("Get : /comment/commentList");
