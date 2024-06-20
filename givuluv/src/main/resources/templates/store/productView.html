@@ -6,7 +6,9 @@
     <title>productView</title>
 	<script src="https://kit.fontawesome.com/516da99189.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/css/productView.css">
+	<link rel="stylesheet" href="/css/managerModal.css"> 
 	<link rel="stylesheet" href="/css/header_footer.css">
+	<link rel="icon" href="/images/기부러브.ico" type="image/x-icon">
 </head>
 <body>
 	<!-- header -->
@@ -419,6 +421,8 @@
     </div>
 	<!-- footer -->
 	<th:block th:replace="~{layout/footer::footer()}"></th:block>
+	<!-- 관리자 승인여부 모달창 -->
+	<th:block th:replace="~{layout/managerModal::managerModal()}"></th:block>
 </body>
 <footer>
     <a href="#" class="btn_gotop" id="click">
@@ -426,6 +430,7 @@
     </a>
 </footer>
 <script src="/js/jquery-3.7.1.min.js"></script>
+<script src="/js/managerModal.js"></script>
 <script th:inline="javascript">
 	$('.h_logout').on('click', function(){
 		alert("로그아웃되었습니다.")

@@ -1,6 +1,7 @@
 $(document).ready(function () {
     // 모달 디스플레이 제어
     $('.manager').on('click', function() {
+		console.log("클릭됨 ")
         $('#managerApprove').css('display', 'block');
         showTabContent("sellerApprove");
         $.ajax({

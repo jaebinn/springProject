@@ -210,6 +210,26 @@ ul{
 .dropdown-menu li a:hover {
     background-color: #f0f0f0;
 }
+.bell{
+	position: absolute;
+	z-index: 99;
+	top: 3px;
+	left: 70px;
+	font-size: 36px;
+}
+#approveCnt{
+	z-index: 999;
+	position: absolute;
+	top: -3px;
+	left: 80px;
+	max-width: 50px;
+	box-sizing: border-box;
+	background-color: #f4361e;
+	padding: 3px 8px;
+	border-radius: 10px;
+	border: 1px solid rgba(0, 0, 0, .04);
+	color: white;
+}
 /* header css 마무리 */
 
 @font-face {

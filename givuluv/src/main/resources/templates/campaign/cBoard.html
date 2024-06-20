@@ -5,6 +5,9 @@
 	<script src="https://kit.fontawesome.com/516da99189.js" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="/css/campaignList.css">
 	<link rel="stylesheet" href="/css/header_footer.css">
+	<!--<link rel="stylesheet" href="/css/managerModal.css">-->
+	<link rel="icon" href="/images/기부러브.ico" type="image/x-icon">
+	<title>캠페인 게시글</title>
 </head>
 
 <body>
@@ -14,10 +17,13 @@
 	<div class="wrap campaignList mt">
 
 	</div>
+	<!-- 관리자 승인여부 모달창 -->
+	<!--<th:block th:replace="~{layout/managerModal::managerModal()}"></th:block>-->
 	<!-- footer -->
 	<th:block th:replace="~{layout/footer::footer()}"></th:block>
 </body>
 <script src="/js/jquery-3.7.1.min.js"></script>
+<!--<script src="/js/managerModal.js"></script>-->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script src="/js/campaign.js"></script>
 <script th:inline="javascript">
