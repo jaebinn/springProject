@@ -21,4 +21,4 @@ env.properties
 /bin/
 
 #src/main/resources/properties/env.properties 파일 무시
-src/main/resources/properties/env.properties
+src/main/resources/properties/*
