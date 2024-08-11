@@ -13,9 +13,6 @@ bin/
 !**/src/main/**/bin/
 !**/src/test/**/bin/
 
-# ignore properties file
-config.properties
-
 # External tool builders
 .externalToolBuilders/
 
