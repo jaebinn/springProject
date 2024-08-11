@@ -149,4 +149,4 @@ $RECYCLE.BIN/
 *.lnk
 
 # ignore properties file
-config.properties
+env.properties
