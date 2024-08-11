@@ -1,19 +1,17 @@
 # Created by https://www.gitignore.io/api/git,java,maven,windows,eclipse
 # Edit at https://www.gitignore.io/?templates=git,java,maven,windows,eclipse
 
-### Eclipse ###
-.metadata
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
 bin/
-tmp/
-*.tmp
-*.bak
-*.swp
-*~.nib
-local.properties
-.settings/
-.loadpath
-.recommenders
-.target/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
 
 # ignore properties file
 config.properties
@@ -149,4 +147,4 @@ $RECYCLE.BIN/
 *.lnk
 
 # ignore properties file
-env.properties
+properties/env.properties
