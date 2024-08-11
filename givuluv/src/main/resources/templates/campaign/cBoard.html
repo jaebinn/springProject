@@ -62,7 +62,7 @@
 			let boxHeight = $(this).height();
 			// 스크롤바의 높이
 			let scrollbarHeight = scrollHeight - boxHeight;
-
+			console.log((scrollTop + boxHeight >= scrollbarHeight - 5))
 			// 만약 스크롤바의 높이와 스크롤된 위치의 합이 요소의 전체 높이와 거의 같아진다면
 			if (scrollTop + boxHeight >= scrollbarHeight - 5) { // 5는 여유를 두는 값입니다.
 				let cBoardnum = $(this).next().find("#cBoardnum").val();

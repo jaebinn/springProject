@@ -53,7 +53,7 @@ public class PaymentController {
 		dpayment.setOrgid(oservice.getOrgidByOrgname(orgname));
 		dpayment.setUserid(userid);
 		dpayment.setDBoardnum(dBoardnum);
-		dpayment.setType('p');
+		dpayment.setType('p'); //일반결제
 		System.out.println(dpayment);
 		System.out.println(pservice.getTotalCostByBoardnum(dBoardnum));
 		
@@ -64,7 +64,6 @@ public class PaymentController {
 			return payment;
 		}
 		return null;
-	
 	}
 	@PostMapping("RconfirmPay")
 	@ResponseBody

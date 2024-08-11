@@ -2,6 +2,8 @@ package com.gl.givuluv.config;
 
 import java.util.Properties;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -9,13 +11,17 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 @Configuration
 public class MailConfig {
+	
+	@Value("${GOOGLE_PASSWORD}")
+    private String googlePassword;
+
     @Bean
     public JavaMailSender javaMailService() {
         JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
 
         javaMailSender.setHost("smtp.gmail.com");
         javaMailSender.setUsername("whiteclover129@gmail.com");
-        javaMailSender.setPassword("vzquqcjszzjrgutq"); // gitignore해야함
+        javaMailSender.setPassword(googlePassword); // gitignore해야함
 
         javaMailSender.setPort(587); 
 

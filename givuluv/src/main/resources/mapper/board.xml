@@ -210,7 +210,7 @@
            <foreach item="category" index="index" collection="categoryList" open="(" separator="," close=")">
                (select orgid from org where orgcategory=#{category})
            </foreach>
-          or type = 'M')
+          or type = 'A')
           <![CDATA[ 
           and c_boardnum <= #{cBoardnum}
           ]]>

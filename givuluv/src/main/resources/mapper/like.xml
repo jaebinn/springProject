@@ -36,4 +36,7 @@
 		from `like`
 		where connectid=#{connectid} and type='s' and userid=#{loginUser}
 	</select>
+	<delete id="deleteByLikeDTO"> 
+		delete from `like` where connectid=#{connectid} and type=#{type} and userid=#{userid}
+	</delete>
 </mapper>

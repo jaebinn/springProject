@@ -19,6 +19,26 @@ CREATE TABLE `user` (
   `usercategory` varchar(100) NOT NULL
 );
 select * from org;
+select * from file;
+          select * from c_board
+          where ((type = 'O'
+           and connectid in
+           
+               (select orgid from org where orgcategory='어르신'))
+   
+          or type = 'M')
+
+          and c_boardnum <= 5
+   
+          order by c_boardnum desc
+          limit 5;
+delete from file where connectionid='animal' and type='O';
+SET SQL_SAFE_UPDATES = 0;
+
+DELETE FROM file WHERE connectionid='animal' AND type='O';
+
+SET SQL_SAFE_UPDATES = 1;
+select * from c_board;
 select * from seller;
 select * from user;
 CREATE TABLE `seller` (

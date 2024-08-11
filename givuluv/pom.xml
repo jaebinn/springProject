@@ -99,6 +99,11 @@
           <version>2.6</version>
       </dependency>
 	<!-- out-->
+	<dependency>
+		<groupId>com.example</groupId>
+		<artifactId>DeployExam</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</dependency>
 	</dependencies>
 
 	<build>
